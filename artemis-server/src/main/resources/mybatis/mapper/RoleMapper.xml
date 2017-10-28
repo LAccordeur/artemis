@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.entity.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.Role">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="authority_id" jdbcType="INTEGER" property="authorityId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_parent" jdbcType="INTEGER" property="roleParent" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, authority_id, project_id, role_name, role_parent, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.Role">
+    insert into role (id, authority_id, project_id, 
+      role_name, role_parent, create_time, 
+      modified_time)
+    values (#{id,jdbcType=INTEGER}, #{authorityId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{roleName,jdbcType=VARCHAR}, #{roleParent,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="authorityId != null">
+        authority_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="roleParent != null">
+        role_parent,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleParent != null">
+        #{roleParent,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.Role">
+    update role
+    <set>
+      <if test="authorityId != null">
+        authority_id = #{authorityId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleParent != null">
+        role_parent = #{roleParent,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.Role">
+    update role
+    set authority_id = #{authorityId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      role_parent = #{roleParent,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

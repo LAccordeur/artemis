@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="artemis-server:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/artemis_server_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="artemis-server/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="artemis-server" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
