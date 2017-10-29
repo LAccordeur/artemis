@@ -1,5 +1,7 @@
 package com.kuo.artemis.server.controller;
 
+import com.kuo.artemis.server.core.common.Authority;
+import com.kuo.artemis.server.core.common.AuthorityType;
 import com.kuo.artemis.server.core.dto.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.entity.User;
@@ -51,6 +53,7 @@ public class UserController {
     }
 
 
+    @Authority(value = AuthorityType.Authority)
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody()
     public Response test() {
