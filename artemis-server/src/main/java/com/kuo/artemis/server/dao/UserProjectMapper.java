@@ -1,13 +1,23 @@
 package com.kuo.artemis.server.dao;
 
+import com.kuo.artemis.server.entity.UserProject;
 import com.kuo.artemis.server.entity.UserProjectKey;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Param;
 
-@Component
+import java.util.List;
+
 public interface UserProjectMapper {
-    int deleteByPrimaryKey(UserProjectKey key);
+    int insert(UserProject record);
 
-    int insert(UserProjectKey record);
+    int insertSelective(UserProject record);
 
-    int insertSelective(UserProjectKey record);
+    int insertUserProjectByCreate(UserProjectKey userProjectKey);
+
+    List<UserProject> selectProjectsByUserId(@Param("userId") Integer userId);
+
+    List<UserProject> selectMembersByProjectId(@Param("projectId") Integer projectId);
+
+    int selectRoleId(UserProjectKey userProjectKey);
+
+    int deleteUserProject(UserProjectKey userProjectKey);
 }

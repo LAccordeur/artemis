@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.service.impl;
 
+import com.kuo.artemis.server.core.dto.UpdateUserInfoCommand;
 import com.kuo.artemis.server.dao.UserMapper;
 import com.kuo.artemis.server.core.dto.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
@@ -114,6 +115,12 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+
+    /**
+     * 查看手机号是否被注册
+     * @param phone
+     * @return
+     */
     public Response checkUser(String phone) {
         Response response = new Response(HttpStatus.UNAUTHORIZED.value(), "查询用户失败");
         User user = userMapper.selectByPhone(phone);
@@ -132,10 +139,52 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+
+    /**
+     * 通过用户id查询用户信息
+     * @param id
+     * @return
+     */
+    public Response getUserById(String id) {
+        Response response = new Response(HttpStatus.UNAUTHORIZED.value(), "查询用户失败");
+
+        User user = null;
+        if (id != null) {
+            user = userMapper.selectById(Integer.valueOf(id));
+        }
+        if (user != null) {
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("用户存在");
+            response.setData(user);
+        } else {
+            response.setCode(HttpStatus.NO_CONTENT.value());
+            response.setMsg("用户不存在");
+            response.setData(null);
+        }
+
+
+        return response;
+    }
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    public Response updateUserInfo(UpdateUserInfoCommand user) {
+        int result = userMapper.updateByPrimaryKeySelective(UserAssembler.updateUserCommandToUser(user));
+
+        if (result > 0) {
+            return new Response(HttpStatus.OK.value(), "更新成功");
+        } else {
+            return new Response(HttpStatus.NO_CONTENT.value(), "更新失败");
+        }
+    }
+
     private String getToken(User user) {
         Map<String, Object> payload = new HashMap<String, Object>();
         Date date = new Date();
-        payload.put("uid", user.getUserPhone()); //用户ID即电话
+        payload.put("uid", user.getId()); //用户ID
         payload.put("iat", date.getTime()); //生成时间
         payload.put("ext", date.getTime() + 1000 * 60 * 60); //过期时间1小时
         String token = JwtHelper.createToken(payload);

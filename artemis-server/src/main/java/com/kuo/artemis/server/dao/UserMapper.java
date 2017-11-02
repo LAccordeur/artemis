@@ -2,23 +2,21 @@ package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.User;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface UserMapper {
-
-
-    User selectByEntity(User record);
-
-    User selectByPhone(@Param("userPhone") String userPhone);
-
-    int deleteByPrimaryKey(@Param("id") Integer id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(@Param("id") Integer id);
+    User selectByPrimaryKey(Integer id);
+
+    User selectByEntity(User user);
+
+    User selectByPhone(@Param("userPhone") String userPhone);
+
+    User selectById(@Param("userId") Integer userId);
 
     int updateByPrimaryKeySelective(User record);
 

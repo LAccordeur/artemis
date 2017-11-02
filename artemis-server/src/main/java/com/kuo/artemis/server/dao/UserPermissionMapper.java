@@ -10,5 +10,7 @@ public interface UserPermissionMapper {
 
     int insertSelective(UserPermission record);
 
-    List<UserPermission> selectByUserIdAndProjectId(@Param("userId") String userId, @Param("projectId") String projectId);
+    List<UserPermission> selectByUserIdAndProjectId(@Param("userId") Integer userId, @Param("projectId") Integer projectId);
+
+    List<UserPermission> selectByProjectId(@Param("projectId") Integer projectId);
 }

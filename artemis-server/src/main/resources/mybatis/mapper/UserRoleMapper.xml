@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kuo.artemis.server.entity.UserRoleMapper">
-  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.UserRoleKey">
+<mapper namespace="com.kuo.artemis.server.dao.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.UserRole">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
+  <sql id="Base_Column_List">
+    user_id, role_id, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.kuo.artemis.server.entity.UserRoleKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where user_id = #{userId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.kuo.artemis.server.entity.UserRoleKey">
     delete from user_role
     where user_id = #{userId,jdbcType=INTEGER}
       and role_id = #{roleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.kuo.artemis.server.entity.UserRoleKey">
-    insert into user_role (user_id, role_id)
-    values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.UserRole">
+    insert into user_role (user_id, role_id, create_time, 
+      modified_time)
+    values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.UserRoleKey">
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.UserRole">
     insert into user_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -22,6 +36,12 @@
       </if>
       <if test="roleId != null">
         role_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -31,6 +51,32 @@
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.UserRole">
+    update user_role
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.UserRole">
+    update user_role
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </update>
 </mapper>

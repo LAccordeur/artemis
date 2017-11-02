@@ -39,7 +39,7 @@ public class PermissionFilter implements Filter {
 
         if (requestUrl.endsWith("/data")) {
             if (userId != null && projectId != null) {
-                List<UserPermission> userPermissions = userPermissionMapper.selectByUserIdAndProjectId(userId, projectId);
+                List<UserPermission> userPermissions = userPermissionMapper.selectByUserIdAndProjectId(Integer.valueOf(userId), Integer.valueOf(projectId));
 
                 if (userPermissions != null) {
                     for (UserPermission permission : userPermissions) {

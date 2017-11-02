@@ -2,15 +2,15 @@ package com.kuo.artemis.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.Arrays;
 import java.util.Date;
-
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     private Integer id;
 
     private String userName;
+
+    private Byte userGender;
 
     private String userPhone;
 
@@ -25,6 +25,31 @@ public class User {
     private Date createTime;
 
     private Date modifiedTime;
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userGender='" + userGender + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", university='" + university + '\'' +
+                ", userIdentity=" + userIdentity +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
+    }
+
+    public Byte getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(Byte userGender) {
+        this.userGender = userGender;
+    }
 
     public Integer getId() {
         return id;
@@ -96,21 +121,5 @@ public class User {
 
     public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
-    }
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", university='" + university + '\'' +
-                ", userIdentity=" + userIdentity +
-                ", createTime=" + createTime +
-                ", modifiedTime=" + modifiedTime +
-                '}';
     }
 }

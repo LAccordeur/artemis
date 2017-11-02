@@ -16,6 +16,14 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class UserMapperTest {
     @Test
+    public void updateByPrimaryKeySelective() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setUserEmail("hahaha@gmail.com");
+        System.out.println(userMapper.updateByPrimaryKeySelective(user));
+    }
+
+    @Test
     public void selectByPhone() throws Exception {
         System.out.println(userMapper.selectByPhone("18936752870"));
     }

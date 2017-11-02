@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kuo.artemis.server.entity.ProjectMapper">
+<mapper namespace="com.kuo.artemis.server.dao.ProjectMapper">
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.Project">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
-    <result column="project_admin" jdbcType="INTEGER" property="projectAdmin" />
+    <result column="project_admin_id" jdbcType="INTEGER" property="projectAdminId" />
+    <result column="project_admin_name" jdbcType="VARCHAR" property="projectAdminName" />
     <result column="project_intro" jdbcType="VARCHAR" property="projectIntro" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, project_name, project_admin, project_intro, create_time, modified_time
+    id, project_name, project_admin_id, project_admin_name, project_intro, create_time, 
+    modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,14 +25,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.Project">
-    insert into project (id, project_name, project_admin, 
-      project_intro, create_time, modified_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectAdmin,jdbcType=INTEGER}, 
-      #{projectIntro,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
-      )
+    insert into project (id, project_name, project_admin_id, 
+      project_admin_name, project_intro, create_time, 
+      modified_time)
+    values (#{id,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectAdminId,jdbcType=INTEGER}, 
+      #{projectAdminName,jdbcType=VARCHAR}, #{projectIntro,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Project">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.kuo.artemis.server.entity.Project">
     insert into project
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -39,8 +41,11 @@
       <if test="projectName != null">
         project_name,
       </if>
-      <if test="projectAdmin != null">
-        project_admin,
+      <if test="projectAdminId != null">
+        project_admin_id,
+      </if>
+      <if test="projectAdminName != null">
+        project_admin_name,
       </if>
       <if test="projectIntro != null">
         project_intro,
@@ -59,8 +64,11 @@
       <if test="projectName != null">
         #{projectName,jdbcType=VARCHAR},
       </if>
-      <if test="projectAdmin != null">
-        #{projectAdmin,jdbcType=INTEGER},
+      <if test="projectAdminId != null">
+        #{projectAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="projectAdminName != null">
+        #{projectAdminName,jdbcType=VARCHAR},
       </if>
       <if test="projectIntro != null">
         #{projectIntro,jdbcType=VARCHAR},
@@ -79,8 +87,11 @@
       <if test="projectName != null">
         project_name = #{projectName,jdbcType=VARCHAR},
       </if>
-      <if test="projectAdmin != null">
-        project_admin = #{projectAdmin,jdbcType=INTEGER},
+      <if test="projectAdminId != null">
+        project_admin_id = #{projectAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="projectAdminName != null">
+        project_admin_name = #{projectAdminName,jdbcType=VARCHAR},
       </if>
       <if test="projectIntro != null">
         project_intro = #{projectIntro,jdbcType=VARCHAR},
@@ -97,7 +108,8 @@
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.Project">
     update project
     set project_name = #{projectName,jdbcType=VARCHAR},
-      project_admin = #{projectAdmin,jdbcType=INTEGER},
+      project_admin_id = #{projectAdminId,jdbcType=INTEGER},
+      project_admin_name = #{projectAdminName,jdbcType=VARCHAR},
       project_intro = #{projectIntro,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}

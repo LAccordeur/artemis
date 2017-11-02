@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.util.assembler;
 
 import com.kuo.artemis.server.core.dto.LoginCommend;
+import com.kuo.artemis.server.core.dto.UpdateUserInfoCommand;
 import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.util.common.StringUtil;
 
@@ -23,6 +24,27 @@ public final class UserAssembler {
             user.setUserPhone(loginCommend.getPhone());
             user.setUserPassword(loginCommend.getPassword());
         }
+        return user;
+    }
+
+    public static User updateUserCommandToUser(UpdateUserInfoCommand updateUserInfoCommand) {
+        User user = new User();
+
+        if (updateUserInfoCommand != null ) {
+            if (updateUserInfoCommand.getId() != null) {
+                user.setId(Integer.parseInt(updateUserInfoCommand.getId()));
+            }
+            user.setUserName(updateUserInfoCommand.getUserName());
+            user.setUniversity(updateUserInfoCommand.getUniversity());
+            if (updateUserInfoCommand.getGender() != null) {
+                user.setUserGender(Byte.valueOf(updateUserInfoCommand.getGender()));
+            }
+            user.setUserEmail(updateUserInfoCommand.getEmail());
+            if (updateUserInfoCommand.getIdentity() != null) {
+                user.setUserIdentity(Byte.valueOf(updateUserInfoCommand.getIdentity()));
+            }
+        }
+
         return user;
     }
 }

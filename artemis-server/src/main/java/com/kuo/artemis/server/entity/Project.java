@@ -7,13 +7,28 @@ public class Project {
 
     private String projectName;
 
-    private Integer projectAdmin;
+    private Integer projectAdminId;
+
+    private String projectAdminName;
 
     private String projectIntro;
 
     private Date createTime;
 
     private Date modifiedTime;
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", projectName='" + projectName + '\'' +
+                ", projectAdminId=" + projectAdminId +
+                ", projectAdminName='" + projectAdminName + '\'' +
+                ", projectIntro='" + projectIntro + '\'' +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
+    }
 
     public Integer getId() {
         return id;
@@ -31,12 +46,20 @@ public class Project {
         this.projectName = projectName == null ? null : projectName.trim();
     }
 
-    public Integer getProjectAdmin() {
-        return projectAdmin;
+    public Integer getProjectAdminId() {
+        return projectAdminId;
     }
 
-    public void setProjectAdmin(Integer projectAdmin) {
-        this.projectAdmin = projectAdmin;
+    public void setProjectAdminId(Integer projectAdminId) {
+        this.projectAdminId = projectAdminId;
+    }
+
+    public String getProjectAdminName() {
+        return projectAdminName;
+    }
+
+    public void setProjectAdminName(String projectAdminName) {
+        this.projectAdminName = projectAdminName == null ? null : projectAdminName.trim();
     }
 
     public String getProjectIntro() {
@@ -61,17 +84,5 @@ public class Project {
 
     public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", projectName='" + projectName + '\'' +
-                ", projectAdmin=" + projectAdmin +
-                ", projectIntro='" + projectIntro + '\'' +
-                ", createTime=" + createTime +
-                ", modifiedTime=" + modifiedTime +
-                '}';
     }
 }

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.UserInvitationApplicationMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.UserInvitationApplication">
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="join_type" jdbcType="TINYINT" property="joinType" />
+    <result column="university" jdbcType="VARCHAR" property="university" />
+    <result column="user_identity" jdbcType="TINYINT" property="userIdentity" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="project_intro" jdbcType="VARCHAR" property="projectIntro" />
+    <result column="project_admin_name" jdbcType="VARCHAR" property="projectAdminName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <insert id="insertUserProjectByApplication" parameterType="UserInvitationApplication">
+    insert into user_project(user_id, project_id, status, join_type)
+    values (#{userId}, #{projectId}, 1, 1)
+  </insert>
+
+  <select id="selectApplicationList" resultType="UserInvitationApplication">
+    select user_name, user_id, project_name, project_id, university, user_email, create_time
+    from user_invitation_application_view
+    where project_id = #{projectId} and status = 1 and join_type = 1
+  </select>
+
+  <update id="updateUserProjectStatus" parameterType="UserInvitationApplication">
+    update user_project set status = #{status} where user_id = #{userId} and project_id = #{projectId}
+  </update>
+
+  <insert id="insertUserProjectByInvitation" parameterType="UserInvitationApplication">
+    insert into user_project(user_id, project_id, status, join_type)
+    values (#{userId}, #{projectId}, 1, 2)
+  </insert>
+
+  <select id="selectInvitationList" resultType="UserInvitationApplication">
+    select user_name, user_id, project_name, project_id, project_admin_name, university, create_time
+    from user_invitation_application_view
+    where user_id = #{userId} and status = 1 and join_type = 2
+  </select>
+
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.UserInvitationApplication">
+    insert into user_invitation_application_view (user_id, user_name, project_id, 
+      project_name, status, join_type, 
+      university, user_identity, user_email, 
+      project_intro, project_admin_name, create_time
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
+      #{projectName,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{joinType,jdbcType=TINYINT}, 
+      #{university,jdbcType=VARCHAR}, #{userIdentity,jdbcType=TINYINT}, #{userEmail,jdbcType=VARCHAR}, 
+      #{projectIntro,jdbcType=VARCHAR}, #{projectAdminName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.UserInvitationApplication">
+    insert into user_invitation_application_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="joinType != null">
+        join_type,
+      </if>
+      <if test="university != null">
+        university,
+      </if>
+      <if test="userIdentity != null">
+        user_identity,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="projectIntro != null">
+        project_intro,
+      </if>
+      <if test="projectAdminName != null">
+        project_admin_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="joinType != null">
+        #{joinType,jdbcType=TINYINT},
+      </if>
+      <if test="university != null">
+        #{university,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentity != null">
+        #{userIdentity,jdbcType=TINYINT},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="projectIntro != null">
+        #{projectIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAdminName != null">
+        #{projectAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,16 +1,26 @@
 package com.kuo.artemis.server.entity;
 
+/**
+ * @Author : guoyang
+ * @Description :
+ * @Date : Created on 2017/11/2
+ */
 public class UserProjectKey {
-    private Integer projectId;
-
     private Integer userId;
 
-    public Integer getProjectId() {
-        return projectId;
+    private Integer projectId;
+
+    public UserProjectKey(Integer userId, Integer projectId) {
+        this.userId = userId;
+        this.projectId = projectId;
     }
 
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
+    @Override
+    public String toString() {
+        return "UserProjectKey{" +
+                "userId=" + userId +
+                ", projectId=" + projectId +
+                '}';
     }
 
     public Integer getUserId() {
@@ -21,11 +31,11 @@ public class UserProjectKey {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "UserProjectKey{" +
-                "projectId=" + projectId +
-                ", userId=" + userId +
-                '}';
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 }

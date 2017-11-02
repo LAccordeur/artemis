@@ -25,7 +25,11 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     public Response getUserPermissionByUserIdAndProjectId(String userId, String projectId) {
 
         Response<List<UserPermission>> response = new Response<List<UserPermission>>();
-        List<UserPermission> permissions = userPermissionMapper.selectByUserIdAndProjectId(userId, projectId);
+
+        List<UserPermission> permissions = null;
+        if (userId != null && projectId != null) {
+            permissions = userPermissionMapper.selectByUserIdAndProjectId(Integer.valueOf(userId), Integer.valueOf(projectId));
+        }
 
         if (permissions != null) {
             response.setData(permissions);
@@ -38,5 +42,9 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         }
 
         return response;
+    }
+
+    public Response listUserPermissionsByProjectId(String projectId) {
+        return null;
     }
 }

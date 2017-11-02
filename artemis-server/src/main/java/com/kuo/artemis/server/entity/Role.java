@@ -5,8 +5,6 @@ import java.util.Date;
 public class Role {
     private Integer id;
 
-    private Integer authorityId;
-
     private Integer projectId;
 
     private String roleName;
@@ -17,20 +15,30 @@ public class Role {
 
     private Date modifiedTime;
 
+    public Role(Integer projectId, String roleName, Integer roleParent) {
+        this.projectId = projectId;
+        this.roleName = roleName;
+        this.roleParent = roleParent;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", projectId=" + projectId +
+                ", roleName='" + roleName + '\'' +
+                ", roleParent=" + roleParent +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getAuthorityId() {
-        return authorityId;
-    }
-
-    public void setAuthorityId(Integer authorityId) {
-        this.authorityId = authorityId;
     }
 
     public Integer getProjectId() {
@@ -71,18 +79,5 @@ public class Role {
 
     public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", authorityId=" + authorityId +
-                ", projectId=" + projectId +
-                ", roleName='" + roleName + '\'' +
-                ", roleParent=" + roleParent +
-                ", createTime=" + createTime +
-                ", modifiedTime=" + modifiedTime +
-                '}';
     }
 }

@@ -4,6 +4,7 @@ import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.common.AuthorityType;
 import com.kuo.artemis.server.core.dto.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.UpdateUserInfoCommand;
 import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -40,11 +41,19 @@ public class UserController {
         return userService.register(user);
     }
 
+
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
-    public Response getUserByPhone(String phone) {
-        return userService.getUserByPhone(phone);
+    public Response getUserById(String id) {
+        return userService.getUserById(id);
     }
+
+    @RequestMapping(value = "/info", method = RequestMethod.PUT)
+    @ResponseBody
+    public Response updateUserInfo(@RequestBody UpdateUserInfoCommand user) {
+        return userService.updateUserInfo(user);
+    }
+
 
     @RequestMapping(value = "/unique", method = RequestMethod.GET)
     @ResponseBody

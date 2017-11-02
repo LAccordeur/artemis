@@ -2,34 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuo.artemis.server.dao.UserPermissionMapper">
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.UserPermission">
-    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="permission_id" jdbcType="INTEGER" property="permissionId" />
     <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
     <result column="permission_type" jdbcType="VARCHAR" property="permissionType" />
     <result column="permission_url" jdbcType="VARCHAR" property="permissionUrl" />
   </resultMap>
 
   <select id="selectByUserIdAndProjectId" resultType="UserPermission">
-    select id, user_name, project_id, role_name, permission_name, permission_type, permission_url
-    from user_permission_view where id = #{userId} and project_id = #{projectId}
+    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_type, permission_url
+    from user_permission_view where user_id = #{userId} and project_id = #{projectId}
   </select>
 
+  <select id="selectByProjectId" resultType="UserPermission">
+    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_type, permission_url
+    from user_permission_view
+     where project_id = #{projectId} order by user_id, permission_id
+  </select>
 
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.UserPermission">
-    insert into user_permission_view (id, user_name, project_id, 
-      role_name, permission_name, permission_type, 
-      permission_url)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
-      #{roleName,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, #{permissionType,jdbcType=VARCHAR}, 
-      #{permissionUrl,jdbcType=VARCHAR})
+    insert into user_permission_view (user_id, user_name, project_id, 
+      role_name, role_id, permission_id, 
+      permission_name, permission_type, permission_url
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
+      #{roleName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, 
+      #{permissionName,jdbcType=VARCHAR}, #{permissionType,jdbcType=VARCHAR}, #{permissionUrl,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.UserPermission">
     insert into user_permission_view
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="userName != null">
         user_name,
@@ -39,6 +48,12 @@
       </if>
       <if test="roleName != null">
         role_name,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="permissionId != null">
+        permission_id,
       </if>
       <if test="permissionName != null">
         permission_name,
@@ -51,8 +66,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -62,6 +77,12 @@
       </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=INTEGER},
       </if>
       <if test="permissionName != null">
         #{permissionName,jdbcType=VARCHAR},

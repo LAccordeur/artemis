@@ -1,13 +1,17 @@
 package com.kuo.artemis.server.entity;
 
 public class UserPermission {
-    private Integer id;
+    private Integer userId;
 
     private String userName;
 
     private Integer projectId;
 
     private String roleName;
+
+    private Integer roleId;
+
+    private Integer permissionId;
 
     private String permissionName;
 
@@ -18,22 +22,24 @@ public class UserPermission {
     @Override
     public String toString() {
         return "UserPermission{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", projectId=" + projectId +
                 ", roleName='" + roleName + '\'' +
+                ", roleId=" + roleId +
+                ", permissionId=" + permissionId +
                 ", permissionName='" + permissionName + '\'' +
                 ", permissionType='" + permissionType + '\'' +
                 ", permissionUrl='" + permissionUrl + '\'' +
                 '}';
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -58,6 +64,22 @@ public class UserPermission {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName == null ? null : roleName.trim();
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public Integer getPermissionId() {
+        return permissionId;
+    }
+
+    public void setPermissionId(Integer permissionId) {
+        this.permissionId = permissionId;
     }
 
     public String getPermissionName() {

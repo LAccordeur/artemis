@@ -4,16 +4,17 @@
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_gender" jdbcType="VARCHAR" property="userGender" />
     <result column="user_phone" jdbcType="CHAR" property="userPhone" />
     <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
-    <result column="user_password" jdbcType="CHAR" property="userPassword" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
     <result column="university" jdbcType="VARCHAR" property="university" />
     <result column="user_identity" jdbcType="TINYINT" property="userIdentity" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_name, user_phone, user_email, university, user_identity
+    id, user_name, user_gender, user_phone, user_email, university, user_identity
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -36,17 +37,24 @@
     where user_phone = #{userPhone}
   </select>
 
+  <select id="selectById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{userId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.User">
-    insert into user (id, user_name, user_phone, 
+    insert into user (id, user_name,user_gender user_phone,
       user_email, user_password, university, 
       user_identity, create_time, modified_time
       )
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=CHAR}, 
-      #{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=CHAR}, #{university,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userGender,jdbcType=TINYINT}, #{userPhone,jdbcType=CHAR},
+      #{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{university,jdbcType=VARCHAR}, 
       #{userIdentity,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -58,6 +66,9 @@
       </if>
       <if test="userName != null">
         user_name,
+      </if>
+      <if test="userGender != null">
+        user_gender,
       </if>
       <if test="userPhone != null">
         user_phone,
@@ -88,6 +99,9 @@
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
+      <if test="userGender != null">
+        #{userGender,jdbcType=TINYINT},
+      </if>
       <if test="userPhone != null">
         #{userPhone,jdbcType=CHAR},
       </if>
@@ -95,7 +109,7 @@
         #{userEmail,jdbcType=VARCHAR},
       </if>
       <if test="userPassword != null">
-        #{userPassword,jdbcType=CHAR},
+        #{userPassword,jdbcType=VARCHAR},
       </if>
       <if test="university != null">
         #{university,jdbcType=VARCHAR},
@@ -117,6 +131,9 @@
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
+      <if test="userGender != null">
+        user_gender = #{userGender,jdbcType=TINYINT},
+      </if>
       <if test="userPhone != null">
         user_phone = #{userPhone,jdbcType=CHAR},
       </if>
@@ -124,7 +141,7 @@
         user_email = #{userEmail,jdbcType=VARCHAR},
       </if>
       <if test="userPassword != null">
-        user_password = #{userPassword,jdbcType=CHAR},
+        user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
       <if test="university != null">
         university = #{university,jdbcType=VARCHAR},
@@ -144,9 +161,10 @@
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.User">
     update user
     set user_name = #{userName,jdbcType=VARCHAR},
+      user_gender = #{userGender,jdbcType=TINYINT},
       user_phone = #{userPhone,jdbcType=CHAR},
       user_email = #{userEmail,jdbcType=VARCHAR},
-      user_password = #{userPassword,jdbcType=CHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
       university = #{university,jdbcType=VARCHAR},
       user_identity = #{userIdentity,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},

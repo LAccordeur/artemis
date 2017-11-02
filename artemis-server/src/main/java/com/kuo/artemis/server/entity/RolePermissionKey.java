@@ -5,6 +5,14 @@ public class RolePermissionKey {
 
     private Integer permissionId;
 
+    @Override
+    public String toString() {
+        return "RolePermissionKey{" +
+                "roleId=" + roleId +
+                ", permissionId=" + permissionId +
+                '}';
+    }
+
     public Integer getRoleId() {
         return roleId;
     }

@@ -2,8 +2,6 @@ package com.kuo.artemis.server.core.Interceptor;
 
 import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.common.AuthorityType;
-import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.dao.PermissionMapper;
 import com.kuo.artemis.server.dao.UserPermissionMapper;
 import com.kuo.artemis.server.entity.UserPermission;
 import net.minidev.json.JSONObject;
@@ -16,7 +14,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -36,20 +33,21 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         String requestUrl = request.getRequestURI();
         String requestMethod = request.getMethod();
 
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        //拦截有权限注解的方法
-        Class<?> clazz = handlerMethod.getBeanType();
-        Method[] methods = clazz.getMethods();
-        for (Method method : methods) {
+        if (handler instanceof HandlerMethod) {
+
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            //拦截有权限注解的方法
+            Method method = handlerMethod.getMethod();
             Authority annotation = method.getAnnotation(Authority.class);
             if (annotation != null && (annotation.value()).equals(AuthorityType.Authority)) {
                 //该方法需要验证权限
                 //1.获取用户id和课题id来查询该用户的权限列表
                 String userId = request.getParameter("userId");
                 String projectId = request.getParameter("projectId");
-                List<UserPermission> userPermissions = userPermissionMapper.selectByUserIdAndProjectId(userId, projectId);
+                List<UserPermission> userPermissions = null;
 
                 if (userId != null && projectId != null) {
+                    userPermissions = userPermissionMapper.selectByUserIdAndProjectId(Integer.valueOf(userId), Integer.valueOf(projectId));
                     //2.验证该用户是否拥有权限
                     for (UserPermission userPermission : userPermissions) {
                         if (requestUrl.endsWith(userPermission.getPermissionUrl()) && (requestMethod.toUpperCase()).equals(userPermission.getPermissionType().toUpperCase())) {
@@ -78,7 +76,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         }
 
 
-        return false;
+        return true;
     }
 
 

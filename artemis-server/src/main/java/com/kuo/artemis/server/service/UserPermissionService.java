@@ -6,4 +6,6 @@ public interface UserPermissionService {
 
     Response getUserPermissionByUserIdAndProjectId(String userId, String projectId);
 
+    Response listUserPermissionsByProjectId(String projectId);
+
 }

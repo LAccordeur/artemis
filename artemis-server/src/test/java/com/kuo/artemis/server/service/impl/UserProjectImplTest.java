@@ -1,5 +1,6 @@
-package com.kuo.artemis.server.dao;
+package com.kuo.artemis.server.service.impl;
 
+import com.kuo.artemis.server.dao.UserProjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,16 +12,15 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //告诉junit spring的配置文件
-@ContextConfiguration({"classpath:spring/spring-dao.xml"})
-public class UserPermissionMapperTest {
+@ContextConfiguration({"classpath:spring/spring-*.xml"})
+public class UserProjectImplTest {
 
     @Resource
-    private UserPermissionMapper userPermissionMapper;
+    private UserProjectMapper userProjectMapper;
 
     @Test
-    public void selectByUserIdAndProjectId() throws Exception {
-
-        System.out.println(userPermissionMapper.selectByUserIdAndProjectId(1, 1));
+    public void listProjectsByUserId() throws Exception {
+        System.out.println(userProjectMapper.selectProjectsByUserId(1));
     }
 
 }
