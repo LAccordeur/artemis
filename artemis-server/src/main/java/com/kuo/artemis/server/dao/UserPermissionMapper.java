@@ -1,9 +1,11 @@
 package com.kuo.artemis.server.dao;
 
+import com.kuo.artemis.server.entity.Permission;
 import com.kuo.artemis.server.entity.UserPermission;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 
 public interface UserPermissionMapper {
     int insert(UserPermission record);
@@ -13,4 +15,6 @@ public interface UserPermissionMapper {
     List<UserPermission> selectByUserIdAndProjectId(@Param("userId") Integer userId, @Param("projectId") Integer projectId);
 
     List<UserPermission> selectByProjectId(@Param("projectId") Integer projectId);
+
+    UserPermission selectByUserIdAndProjectIdAndPermissionId(@Param("userId") Integer userId, @Param("projectId") Integer projectId, @Param("permissionId") Integer permissionId);
 }

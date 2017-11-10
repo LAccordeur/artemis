@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.UserProject;
+import com.kuo.artemis.server.entity.UserProjectKey;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +16,11 @@ import static org.junit.Assert.*;
 //告诉junit spring的配置文件
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class UserProjectMapperTest {
+    @Test
+    public void selectByPrimaryKey() throws Exception {
+        UserProjectKey userProjectKey = new UserProjectKey(2,18);
+        System.out.println(userProjectMapper.selectByPrimaryKey(userProjectKey));
+    }
 
     @Resource
     private UserProjectMapper userProjectMapper;

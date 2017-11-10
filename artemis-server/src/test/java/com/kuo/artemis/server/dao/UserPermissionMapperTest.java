@@ -13,6 +13,10 @@ import static org.junit.Assert.*;
 //告诉junit spring的配置文件
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class UserPermissionMapperTest {
+    @Test
+    public void selectByUserIdAndProjectIdAndPermissionId() throws Exception {
+        System.out.println(userPermissionMapper.selectByUserIdAndProjectIdAndPermissionId(1,1,7));
+    }
 
     @Resource
     private UserPermissionMapper userPermissionMapper;

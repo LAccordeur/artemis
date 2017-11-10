@@ -22,6 +22,8 @@ public class User {
 
     private Byte userIdentity;
 
+    private Byte status;
+
     private Date createTime;
 
     private Date modifiedTime;
@@ -32,15 +34,24 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", userGender='" + userGender + '\'' +
+                ", userGender=" + userGender +
                 ", userPhone='" + userPhone + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", university='" + university + '\'' +
                 ", userIdentity=" + userIdentity +
+                ", status=" + status +
                 ", createTime=" + createTime +
                 ", modifiedTime=" + modifiedTime +
                 '}';
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     public Byte getUserGender() {

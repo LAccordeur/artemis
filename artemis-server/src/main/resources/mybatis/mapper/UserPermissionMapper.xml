@@ -9,29 +9,45 @@
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="permission_id" jdbcType="INTEGER" property="permissionId" />
     <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
-    <result column="permission_type" jdbcType="VARCHAR" property="permissionType" />
-    <result column="permission_url" jdbcType="VARCHAR" property="permissionUrl" />
+    <result column="permission_name_english" jdbcType="VARCHAR" property="permissionNameEnglish" />
+    <result column="permission_description" jdbcType="VARCHAR" property="permissionDescription" />
+    <result column="permission_description_english" jdbcType="VARCHAR" property="permissionDescriptionEnglish" />
+    <result column="permission_action" jdbcType="BIT" property="permissionAction" />
+    <result column="permission_type" jdbcType="BIT" property="permissionType" />
+    <result column="permission_parent_id" jdbcType="INTEGER" property="permissionParentId" />
   </resultMap>
 
   <select id="selectByUserIdAndProjectId" resultType="UserPermission">
-    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_type, permission_url
+    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_name_english, permission_description,
+    permission_description_english, permission_action, permission_type
     from user_permission_view where user_id = #{userId} and project_id = #{projectId}
   </select>
 
-  <select id="selectByProjectId" resultType="UserPermission">
-    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_type, permission_url
+  <select id="selectByUserIdAndProjectIdAndPermissionId" resultType="UserPermission">
+    select user_id
     from user_permission_view
-     where project_id = #{projectId} order by user_id, permission_id
+    where user_id = #{userId} and project_id = #{projectId} and permission_id = #{permissionId}
+  </select>
+
+  <select id="selectByProjectId" resultType="UserPermission">
+    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_name_english, permission_description,
+    permission_description_english, permission_action, permission_type
+    from user_permission_view
+    where project_id = #{projectId} order by user_id, permission_id
   </select>
 
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.UserPermission">
     insert into user_permission_view (user_id, user_name, project_id, 
       role_name, role_id, permission_id, 
-      permission_name, permission_type, permission_url
+      permission_name, permission_name_english, 
+      permission_description, permission_description_english, 
+      permission_action, permission_type, permission_parent_id
       )
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
       #{roleName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, 
-      #{permissionName,jdbcType=VARCHAR}, #{permissionType,jdbcType=VARCHAR}, #{permissionUrl,jdbcType=VARCHAR}
+      #{permissionName,jdbcType=VARCHAR}, #{permissionNameEnglish,jdbcType=VARCHAR}, 
+      #{permissionDescription,jdbcType=VARCHAR}, #{permissionDescriptionEnglish,jdbcType=VARCHAR}, 
+      #{permissionAction,jdbcType=BIT}, #{permissionType,jdbcType=BIT}, #{permissionParentId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.UserPermission">
@@ -58,11 +74,23 @@
       <if test="permissionName != null">
         permission_name,
       </if>
+      <if test="permissionNameEnglish != null">
+        permission_name_english,
+      </if>
+      <if test="permissionDescription != null">
+        permission_description,
+      </if>
+      <if test="permissionDescriptionEnglish != null">
+        permission_description_english,
+      </if>
+      <if test="permissionAction != null">
+        permission_action,
+      </if>
       <if test="permissionType != null">
         permission_type,
       </if>
-      <if test="permissionUrl != null">
-        permission_url,
+      <if test="permissionParentId != null">
+        permission_parent_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -87,11 +115,23 @@
       <if test="permissionName != null">
         #{permissionName,jdbcType=VARCHAR},
       </if>
-      <if test="permissionType != null">
-        #{permissionType,jdbcType=VARCHAR},
+      <if test="permissionNameEnglish != null">
+        #{permissionNameEnglish,jdbcType=VARCHAR},
       </if>
-      <if test="permissionUrl != null">
-        #{permissionUrl,jdbcType=VARCHAR},
+      <if test="permissionDescription != null">
+        #{permissionDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDescriptionEnglish != null">
+        #{permissionDescriptionEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionAction != null">
+        #{permissionAction,jdbcType=BIT},
+      </if>
+      <if test="permissionType != null">
+        #{permissionType,jdbcType=BIT},
+      </if>
+      <if test="permissionParentId != null">
+        #{permissionParentId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>

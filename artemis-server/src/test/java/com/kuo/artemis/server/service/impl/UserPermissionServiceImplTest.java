@@ -14,6 +14,22 @@ import static org.junit.Assert.*;
 //告诉junit spring的配置文件
 @ContextConfiguration({"classpath:spring/spring-*.xml"})
 public class UserPermissionServiceImplTest {
+    @Test
+    public void addPermission() throws Exception {
+        userPermissionService.removePermission("1", "1", "19", "2");
+    }
+
+    @Test
+    public void removePermission() throws Exception {
+        userPermissionService.addPermission("1", "1", "19", "2");
+
+    }
+
+    @Test
+    public void listUserPermissionsByProjectId() throws Exception {
+
+        System.out.println(userPermissionService.listUserPermissionsByProjectId("1"));
+    }
 
     @Resource
     private UserPermissionService userPermissionService;

@@ -7,6 +7,10 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Documented
 public @interface Authority {
-    //默认不验证
-    AuthorityType value() default AuthorityType.NoAuthority;
+    //默认验证
+    AuthorityType value() default AuthorityType.Authority;
+
+    String name() default "0";
+
+
 }

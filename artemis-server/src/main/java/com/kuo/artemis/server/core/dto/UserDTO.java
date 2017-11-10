@@ -5,19 +5,20 @@ package com.kuo.artemis.server.core.dto;
  * @Description :
  * @Date : Created on 2017/11/2
  */
-public class UpdateUserInfoCommand {
+public class UserDTO {
+
 
     private String id;
 
     private String userName;
 
-    private String gender;
+    private String userGender;
 
-    private String identity;
+    private String userIdentity;
 
     private String university;
 
-    private String email;
+    private String userEmail;
 
     public String getId() {
         return id;
@@ -35,20 +36,20 @@ public class UpdateUserInfoCommand {
         this.userName = userName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getUserGender() {
+        return userGender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
     }
 
-    public String getIdentity() {
-        return identity;
+    public String getUserIdentity() {
+        return userIdentity;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
+    public void setUserIdentity(String userIdentity) {
+        this.userIdentity = userIdentity;
     }
 
     public String getUniversity() {
@@ -59,11 +60,11 @@ public class UpdateUserInfoCommand {
         this.university = university;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

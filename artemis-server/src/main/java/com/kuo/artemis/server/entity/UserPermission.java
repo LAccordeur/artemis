@@ -15,9 +15,17 @@ public class UserPermission {
 
     private String permissionName;
 
-    private String permissionType;
+    private String permissionNameEnglish;
 
-    private String permissionUrl;
+    private String permissionDescription;
+
+    private String permissionDescriptionEnglish;
+
+    private Boolean permissionAction;
+
+    private Boolean permissionType;
+
+    private Integer permissionParentId;
 
     @Override
     public String toString() {
@@ -29,8 +37,12 @@ public class UserPermission {
                 ", roleId=" + roleId +
                 ", permissionId=" + permissionId +
                 ", permissionName='" + permissionName + '\'' +
-                ", permissionType='" + permissionType + '\'' +
-                ", permissionUrl='" + permissionUrl + '\'' +
+                ", permissionNameEnglish='" + permissionNameEnglish + '\'' +
+                ", permissionDescription='" + permissionDescription + '\'' +
+                ", permissionDescriptionEnglish='" + permissionDescriptionEnglish + '\'' +
+                ", permissionAction=" + permissionAction +
+                ", permissionType=" + permissionType +
+                ", permissionParentId=" + permissionParentId +
                 '}';
     }
 
@@ -90,19 +102,51 @@ public class UserPermission {
         this.permissionName = permissionName == null ? null : permissionName.trim();
     }
 
-    public String getPermissionType() {
+    public String getPermissionNameEnglish() {
+        return permissionNameEnglish;
+    }
+
+    public void setPermissionNameEnglish(String permissionNameEnglish) {
+        this.permissionNameEnglish = permissionNameEnglish == null ? null : permissionNameEnglish.trim();
+    }
+
+    public String getPermissionDescription() {
+        return permissionDescription;
+    }
+
+    public void setPermissionDescription(String permissionDescription) {
+        this.permissionDescription = permissionDescription == null ? null : permissionDescription.trim();
+    }
+
+    public String getPermissionDescriptionEnglish() {
+        return permissionDescriptionEnglish;
+    }
+
+    public void setPermissionDescriptionEnglish(String permissionDescriptionEnglish) {
+        this.permissionDescriptionEnglish = permissionDescriptionEnglish == null ? null : permissionDescriptionEnglish.trim();
+    }
+
+    public Boolean getPermissionAction() {
+        return permissionAction;
+    }
+
+    public void setPermissionAction(Boolean permissionAction) {
+        this.permissionAction = permissionAction;
+    }
+
+    public Boolean getPermissionType() {
         return permissionType;
     }
 
-    public void setPermissionType(String permissionType) {
-        this.permissionType = permissionType == null ? null : permissionType.trim();
+    public void setPermissionType(Boolean permissionType) {
+        this.permissionType = permissionType;
     }
 
-    public String getPermissionUrl() {
-        return permissionUrl;
+    public Integer getPermissionParentId() {
+        return permissionParentId;
     }
 
-    public void setPermissionUrl(String permissionUrl) {
-        this.permissionUrl = permissionUrl == null ? null : permissionUrl.trim();
+    public void setPermissionParentId(Integer permissionParentId) {
+        this.permissionParentId = permissionParentId;
     }
 }

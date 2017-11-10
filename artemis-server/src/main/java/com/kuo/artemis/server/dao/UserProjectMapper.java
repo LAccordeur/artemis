@@ -20,4 +20,6 @@ public interface UserProjectMapper {
     int selectRoleId(UserProjectKey userProjectKey);
 
     int deleteUserProject(UserProjectKey userProjectKey);
+
+    UserProject selectByPrimaryKey(UserProjectKey userProjectKey);
 }

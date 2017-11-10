@@ -1,8 +1,8 @@
 package com.kuo.artemis.server.service;
 
-import com.kuo.artemis.server.core.dto.LoginCommend;
+import com.kuo.artemis.server.core.dto.command.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.core.dto.UpdateUserInfoCommand;
+import com.kuo.artemis.server.core.dto.UserDTO;
 import com.kuo.artemis.server.entity.User;
 
 public interface UserService {
@@ -17,5 +17,5 @@ public interface UserService {
 
     Response getUserById(String id);
 
-    Response updateUserInfo(UpdateUserInfoCommand user);
+    Response updateUserInfo(UserDTO user);
 }

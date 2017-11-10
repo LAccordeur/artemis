@@ -40,7 +40,7 @@ public class UserInvitationApplicationServiceImplTest {
 
     @Test
     public void acceptApplication() throws Exception {
-        UserProjectKey userProjectKey = new UserProjectKey(4, 1);
+        UserProjectKey userProjectKey = new UserProjectKey(3, 18);
         userInvitationApplicationService.acceptApplication(userProjectKey);
     }
 

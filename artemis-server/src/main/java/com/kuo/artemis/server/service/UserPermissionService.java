@@ -8,4 +8,12 @@ public interface UserPermissionService {
 
     Response listUserPermissionsByProjectId(String projectId);
 
+    Response addPermission(String userId, String project, String roleId, String permissionId);
+
+    Response removePermission(String userId, String project, String roleId, String permissionId);
+
+    Response addPermissionList();
+
+    Response removePermissionList();
+
 }

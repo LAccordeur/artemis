@@ -23,6 +23,10 @@ public class UserProjectKey {
                 '}';
     }
 
+    public UserProjectKey() {
+
+    }
+
     public Integer getUserId() {
         return userId;
     }

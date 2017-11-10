@@ -4,13 +4,18 @@
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.Permission">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
-    <result column="permission_url" jdbcType="VARCHAR" property="permissionUrl" />
-    <result column="permission_type" jdbcType="VARCHAR" property="permissionType" />
+    <result column="permission_name_english" jdbcType="VARCHAR" property="permissionNameEnglish" />
+    <result column="permission_description" jdbcType="VARCHAR" property="permissionDescription" />
+    <result column="permission_description_english" jdbcType="VARCHAR" property="permissionDescriptionEnglish" />
+    <result column="permission_type" jdbcType="BIT" property="permissionType" />
+    <result column="permission_action" jdbcType="BIT" property="permissionAction" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, permission_name, permission_url, permission_type, create_time, modified_time
+    id, permission_name, permission_name_english, permission_description, permission_description_english, 
+    permission_type, permission_action, parent_id, create_time, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -28,12 +33,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.Permission">
-    insert into permission (id, permission_name, permission_url, 
-      permission_type, create_time, modified_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{permissionUrl,jdbcType=VARCHAR}, 
-      #{permissionType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
-      )
+    insert into permission (id, permission_name, permission_name_english, 
+      permission_description, permission_description_english, 
+      permission_type, permission_action, parent_id, 
+      create_time, modified_time)
+    values (#{id,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{permissionNameEnglish,jdbcType=VARCHAR}, 
+      #{permissionDescription,jdbcType=VARCHAR}, #{permissionDescriptionEnglish,jdbcType=VARCHAR}, 
+      #{permissionType,jdbcType=BIT}, #{permissionAction,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Permission">
     insert into permission
@@ -44,11 +51,23 @@
       <if test="permissionName != null">
         permission_name,
       </if>
-      <if test="permissionUrl != null">
-        permission_url,
+      <if test="permissionNameEnglish != null">
+        permission_name_english,
+      </if>
+      <if test="permissionDescription != null">
+        permission_description,
+      </if>
+      <if test="permissionDescriptionEnglish != null">
+        permission_description_english,
       </if>
       <if test="permissionType != null">
         permission_type,
+      </if>
+      <if test="permissionAction != null">
+        permission_action,
+      </if>
+      <if test="parentId != null">
+        parent_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -64,11 +83,23 @@
       <if test="permissionName != null">
         #{permissionName,jdbcType=VARCHAR},
       </if>
-      <if test="permissionUrl != null">
-        #{permissionUrl,jdbcType=VARCHAR},
+      <if test="permissionNameEnglish != null">
+        #{permissionNameEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDescription != null">
+        #{permissionDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDescriptionEnglish != null">
+        #{permissionDescriptionEnglish,jdbcType=VARCHAR},
       </if>
       <if test="permissionType != null">
-        #{permissionType,jdbcType=VARCHAR},
+        #{permissionType,jdbcType=BIT},
+      </if>
+      <if test="permissionAction != null">
+        #{permissionAction,jdbcType=BIT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -84,11 +115,23 @@
       <if test="permissionName != null">
         permission_name = #{permissionName,jdbcType=VARCHAR},
       </if>
-      <if test="permissionUrl != null">
-        permission_url = #{permissionUrl,jdbcType=VARCHAR},
+      <if test="permissionNameEnglish != null">
+        permission_name_english = #{permissionNameEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDescription != null">
+        permission_description = #{permissionDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDescriptionEnglish != null">
+        permission_description_english = #{permissionDescriptionEnglish,jdbcType=VARCHAR},
       </if>
       <if test="permissionType != null">
-        permission_type = #{permissionType,jdbcType=VARCHAR},
+        permission_type = #{permissionType,jdbcType=BIT},
+      </if>
+      <if test="permissionAction != null">
+        permission_action = #{permissionAction,jdbcType=BIT},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -102,8 +145,12 @@
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.Permission">
     update permission
     set permission_name = #{permissionName,jdbcType=VARCHAR},
-      permission_url = #{permissionUrl,jdbcType=VARCHAR},
-      permission_type = #{permissionType,jdbcType=VARCHAR},
+      permission_name_english = #{permissionNameEnglish,jdbcType=VARCHAR},
+      permission_description = #{permissionDescription,jdbcType=VARCHAR},
+      permission_description_english = #{permissionDescriptionEnglish,jdbcType=VARCHAR},
+      permission_type = #{permissionType,jdbcType=BIT},
+      permission_action = #{permissionAction,jdbcType=BIT},
+      parent_id = #{parentId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

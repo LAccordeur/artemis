@@ -1,7 +1,7 @@
 package com.kuo.artemis.server.util.assembler;
 
-import com.kuo.artemis.server.core.dto.LoginCommend;
-import com.kuo.artemis.server.core.dto.UpdateUserInfoCommand;
+import com.kuo.artemis.server.core.dto.command.LoginCommend;
+import com.kuo.artemis.server.core.dto.UserDTO;
 import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.util.common.StringUtil;
 
@@ -27,21 +27,21 @@ public final class UserAssembler {
         return user;
     }
 
-    public static User updateUserCommandToUser(UpdateUserInfoCommand updateUserInfoCommand) {
+    public static User UserDTOToUser(UserDTO userDTO) {
         User user = new User();
 
-        if (updateUserInfoCommand != null ) {
-            if (updateUserInfoCommand.getId() != null) {
-                user.setId(Integer.parseInt(updateUserInfoCommand.getId()));
+        if (userDTO != null ) {
+            if (userDTO.getId() != null) {
+                user.setId(Integer.parseInt(userDTO.getId()));
             }
-            user.setUserName(updateUserInfoCommand.getUserName());
-            user.setUniversity(updateUserInfoCommand.getUniversity());
-            if (updateUserInfoCommand.getGender() != null) {
-                user.setUserGender(Byte.valueOf(updateUserInfoCommand.getGender()));
+            user.setUserName(userDTO.getUserName());
+            user.setUniversity(userDTO.getUniversity());
+            if (userDTO.getUserGender() != null) {
+                user.setUserGender(Byte.valueOf(userDTO.getUserGender()));
             }
-            user.setUserEmail(updateUserInfoCommand.getEmail());
-            if (updateUserInfoCommand.getIdentity() != null) {
-                user.setUserIdentity(Byte.valueOf(updateUserInfoCommand.getIdentity()));
+            user.setUserEmail(userDTO.getUserEmail());
+            if (userDTO.getUserIdentity() != null) {
+                user.setUserIdentity(Byte.valueOf(userDTO.getUserIdentity()));
             }
         }
 

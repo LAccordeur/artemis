@@ -45,20 +45,25 @@ public class UserProjectServiceImpl implements UserProjectService {
     public Response listProjectsByUserId(String userId) {
 
         Response response = new Response();
-        List<UserProject> projects = null;
 
-        if (userId != null) {
-            projects = userProjectMapper.selectProjectsByUserId(Integer.valueOf(userId));
-        }
+        try {
+            List<UserProject> projects = null;
 
-        if (projects != null) {
-            response.setCode(HttpStatus.OK.value());
-            response.setMsg("获取课题列表成功");
-            response.setData(projects);
-        } else {
-            response.setCode(HttpStatus.NO_CONTENT.value());
-            response.setMsg("课题列表为空");
-            response.setData(null);
+            if (userId != null) {
+                projects = userProjectMapper.selectProjectsByUserId(Integer.valueOf(userId));
+            }
+
+            if (projects != null) {
+                response.setCode(HttpStatus.OK.value());
+                response.setMsg("获取课题列表成功");
+                response.setData(projects);
+            } else {
+                response.setCode(HttpStatus.NO_CONTENT.value());
+                response.setMsg("课题列表为空");
+                response.setData(null);
+            }
+        } catch (Exception e) {
+            return new Response(e);
         }
         return response;
     }
@@ -70,20 +75,25 @@ public class UserProjectServiceImpl implements UserProjectService {
      */
     public Response listProjectMembersById(String projectId) {
         Response response = new Response();
-        List<UserProject> members = null;
 
-        if (projectId != null) {
-            members = userProjectMapper.selectMembersByProjectId(Integer.valueOf(projectId));
-        }
+        try {
+            List<UserProject> members = null;
 
-        if (members != null) {
-            response.setCode(HttpStatus.OK.value());
-            response.setMsg("获取成员列表成功");
-            response.setData(members);
-        } else {
-            response.setCode(HttpStatus.NO_CONTENT.value());
-            response.setMsg("成员列表为空");
-            response.setData(null);
+            if (projectId != null) {
+                members = userProjectMapper.selectMembersByProjectId(Integer.valueOf(projectId));
+            }
+
+            if (members != null) {
+                response.setCode(HttpStatus.OK.value());
+                response.setMsg("获取成员列表成功");
+                response.setData(members);
+            } else {
+                response.setCode(HttpStatus.NO_CONTENT.value());
+                response.setMsg("成员列表为空");
+                response.setData(null);
+            }
+        } catch (Exception e) {
+            return new Response(e);
         }
         return response;
     }
@@ -94,33 +104,39 @@ public class UserProjectServiceImpl implements UserProjectService {
      * @param userProjectKey
      * @return
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Response exitProject(UserProjectKey userProjectKey) {
         Response response = new Response();
 
-        //退出课题会触发一系列的级联操作
-        //1.获取用户在课题中的角色id
-        int roleId = userProjectMapper.selectRoleId(userProjectKey);
+
+        try {
+            //退出课题会触发一系列的级联操作
+            //1.获取用户在课题中的角色id
+            int roleId = userProjectMapper.selectRoleId(userProjectKey);
 
 
-        //2.删除用户课题关系
-        userProjectMapper.deleteUserProject(userProjectKey);
-        //3.删除用户角色关系
-        UserRoleKey userRoleKey = new UserRoleKey(userProjectKey.getUserId(), roleId);
-        userRoleMapper.deleteByPrimaryKey(userRoleKey);
-        //4.删除角色权限关系
-        rolePermissionMapper.deleteByRoleId(roleId);
-        //5.删除角色
-        int result = roleMapper.deleteByPrimaryKey(roleId);
+            //2.删除用户课题关系
+            userProjectMapper.deleteUserProject(userProjectKey);
+            //3.删除用户角色关系
+            UserRoleKey userRoleKey = new UserRoleKey(userProjectKey.getUserId(), roleId);
+            userRoleMapper.deleteByPrimaryKey(userRoleKey);
+            //4.删除角色权限关系
+            rolePermissionMapper.deleteByRoleId(roleId);
+            //5.删除角色
+            int result = roleMapper.deleteByPrimaryKey(roleId);
 
-        if (result > 0) {
-            response.setCode(HttpStatus.OK.value());
-            response.setMsg("删除成员成功");
-            response.setData(null);
-        } else {
-            response.setCode(HttpStatus.NO_CONTENT.value());
-            response.setMsg("删除成员失败");
-            response.setData(null);
+            if (result > 0) {
+                response.setCode(HttpStatus.OK.value());
+                response.setMsg("删除成员成功");
+                response.setData(null);
+            } else {
+                response.setCode(HttpStatus.FORBIDDEN.value());
+                response.setMsg("删除成员失败");
+                response.setData(null);
+            }
+
+        } catch (Exception e) {
+            return new Response(e);
         }
 
         return response;
