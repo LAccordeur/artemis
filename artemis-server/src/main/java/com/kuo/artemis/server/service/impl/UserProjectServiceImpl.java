@@ -112,8 +112,14 @@ public class UserProjectServiceImpl implements UserProjectService {
         try {
             //退出课题会触发一系列的级联操作
             //1.获取用户在课题中的角色id
-            int roleId = userProjectMapper.selectRoleId(userProjectKey);
-
+            Integer roleId = userProjectMapper.selectRoleId(userProjectKey);
+            if (roleId == null) {
+                //该人员已不再课题之中
+                response.setCode(HttpStatus.FORBIDDEN.value());
+                response.setMsg("成员已不在课题之中");
+                response.setData(null);
+                return response;
+            }
 
             //2.删除用户课题关系
             userProjectMapper.deleteUserProject(userProjectKey);
@@ -141,4 +147,6 @@ public class UserProjectServiceImpl implements UserProjectService {
 
         return response;
     }
+
+
 }

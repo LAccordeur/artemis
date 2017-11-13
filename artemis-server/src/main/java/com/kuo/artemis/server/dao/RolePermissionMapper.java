@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.dao;
 
+import com.kuo.artemis.server.entity.Permission;
 import com.kuo.artemis.server.entity.RolePermission;
 import com.kuo.artemis.server.entity.RolePermissionKey;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,8 @@ public interface RolePermissionMapper {
     int updateByPrimaryKeySelective(RolePermission record);
 
     int updateByPrimaryKey(RolePermission record);
+
+    List<RolePermission> selectByRoleId(@Param("roleId") Integer roleId);
+
+    List<RolePermission> selectPermissionsByRoleId(@Param("roleId") Integer roleId);
 }

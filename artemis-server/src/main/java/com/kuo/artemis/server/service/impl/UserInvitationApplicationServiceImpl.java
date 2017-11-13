@@ -36,6 +36,9 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
     @Inject
     private UserProjectMapper userProjectMapper;
 
+    @Inject
+    private PermissionMapper permissionMapper;
+
 
     /**
      * 用户申请加入某个课题
@@ -146,6 +149,16 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         userInvitationApplication.setStatus(new Byte("2"));
 
         try {
+
+            //检测用户是否已在课题内
+            Integer status = userProjectMapper.selectStatusByPrimaryKey(userProjectKey);
+            if (status != null && status == 2 ) {
+                response.setData(null);
+                response.setCode(HttpStatus.FORBIDDEN.value());
+                response.setMsg("用户已在课题，请勿重复接受申请");
+                return response;
+            }
+
             //同意加入课题的申请则引发一系列级联操作
             //1.更新用户课题关系
             int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
@@ -156,10 +169,16 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
             //3.更新用户角色表
             userRoleMapper.insertSelective(new UserRole(userProjectKey.getUserId(), newRoleId));
             //4.更新角色权限表
-            RolePermission rolePermission = new RolePermission();
-            rolePermission.setRoleId(newRoleId);
-            rolePermission.setPermissionId(1);
-            rolePermissionMapper.insertSelective(rolePermission);
+            List<Integer> permissionIdList = permissionMapper.selectViewPermissionIdList();
+            List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
+            for (Integer id : permissionIdList) {
+                RolePermissionKey rolePermissionKey = new RolePermissionKey();
+                rolePermissionList.add(rolePermissionKey);
+                rolePermissionKey.setRoleId(newRoleId);
+                rolePermissionKey.setPermissionId(id);
+            }
+            rolePermissionMapper.insertBatch(rolePermissionList);
+
 
 
             if (result > 0) {
@@ -221,6 +240,15 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         userInvitationApplication.setStatus(new Byte("2"));
 
         try {
+
+            //检测用户是否已在课题内
+            Integer status = userProjectMapper.selectStatusByPrimaryKey(userProjectKey);
+            if (status != null && status == 2 ) {
+                response.setData(null);
+                response.setCode(HttpStatus.FORBIDDEN.value());
+                response.setMsg("您已在课题，请勿重复接受邀请");
+                return response;
+            }
             //同意加入课题的申请则引发一系列级联操作
             //1.更新用户课题关系
             int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
@@ -231,10 +259,15 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
             //3.更新用户角色表
             userRoleMapper.insertSelective(new UserRole(userProjectKey.getUserId(), newRoleId));
             //4.更新角色权限表
-            RolePermission rolePermission = new RolePermission();
-            rolePermission.setRoleId(newRoleId);
-            rolePermission.setPermissionId(1);
-            rolePermissionMapper.insertSelective(rolePermission);
+            List<Integer> permissionIdList = permissionMapper.selectViewPermissionIdList();
+            List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
+            for (Integer id : permissionIdList) {
+                RolePermissionKey rolePermissionKey = new RolePermissionKey();
+                rolePermissionList.add(rolePermissionKey);
+                rolePermissionKey.setRoleId(newRoleId);
+                rolePermissionKey.setPermissionId(id);
+            }
+            rolePermissionMapper.insertBatch(rolePermissionList);
 
 
             if (result > 0) {

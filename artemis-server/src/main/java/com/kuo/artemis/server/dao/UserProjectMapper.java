@@ -17,9 +17,13 @@ public interface UserProjectMapper {
 
     List<UserProject> selectMembersByProjectId(@Param("projectId") Integer projectId);
 
-    int selectRoleId(UserProjectKey userProjectKey);
+    Integer selectRoleId(UserProjectKey userProjectKey);
 
     int deleteUserProject(UserProjectKey userProjectKey);
 
     UserProject selectByPrimaryKey(UserProjectKey userProjectKey);
+
+    UserProject selectMemberByProjectIdAndUserId(UserProjectKey userProjectKey);
+
+    Integer selectStatusByPrimaryKey(UserProjectKey userProjectKey);
 }

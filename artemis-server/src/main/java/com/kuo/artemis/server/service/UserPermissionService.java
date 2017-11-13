@@ -1,19 +1,31 @@
 package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.command.UpdatePermissionCommend;
+import com.kuo.artemis.server.entity.RolePermission;
+import com.kuo.artemis.server.entity.RolePermissionKey;
+
+import java.util.List;
 
 public interface UserPermissionService {
 
-    Response getUserPermissionByUserIdAndProjectId(String userId, String projectId);
+    Response listUserPermissionsByUserIdAndProjectId(String userId, String projectId);
+
+    Response listUserPermissionsByUserIdAndProjectIdWithBoolean(String userId, String projectId);
 
     Response listUserPermissionsByProjectId(String projectId);
 
-    Response addPermission(String userId, String project, String roleId, String permissionId);
+    Response listUserPermissionsByProjectIdWithBoolean(String projectId);
 
-    Response removePermission(String userId, String project, String roleId, String permissionId);
+//    Response listUserPermissionsByUserId(String userId);
 
-    Response addPermissionList();
+    Response listPermissions();
 
-    Response removePermissionList();
+    Response addPermission(RolePermissionKey rolePermissionKey);
+
+    Response removePermission(RolePermissionKey rolePermissionKey);
+
+    Response updatePermissionBatch(UpdatePermissionCommend updatePermissionCommend);
+
 
 }

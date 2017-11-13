@@ -3,6 +3,7 @@ package com.kuo.artemis.server.controller;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.entity.Project;
 import com.kuo.artemis.server.service.ProjectService;
+import com.kuo.artemis.server.service.UserInvitationApplicationService;
 import com.kuo.artemis.server.service.UserProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,9 @@ public class ProjectController {
 
     @Inject
     private UserProjectService userProjectService;
+
+    @Inject
+    private UserInvitationApplicationService userInvitationApplicationService;
 
 
     /**
@@ -66,8 +70,20 @@ public class ProjectController {
      * @return
      */
     @RequestMapping(value = "/project/{projectId}/member", method = RequestMethod.GET)
+    @ResponseBody
     public Response listProjectMember(@PathVariable String projectId) {
         return userProjectService.listProjectMembersById(projectId);
+    }
+
+    /**
+     * 获取某个课题下的申请列表
+     * @param projectId
+     * @return
+     */
+    @RequestMapping(value = "/project/{projectId}/application", method = RequestMethod.GET)
+    @ResponseBody
+    public Response listProjectApplication(@PathVariable String projectId) {
+        return  userInvitationApplicationService.listApplication(projectId);
     }
 
     /**
@@ -75,7 +91,7 @@ public class ProjectController {
      * @param keyword
      * @return
      */
-    @RequestMapping(value = "/project/info")
+    @RequestMapping(value = "/project/list")
     public Response queryProjectByKeyword(String keyword) {
         return null;
     }

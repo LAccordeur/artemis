@@ -139,6 +139,18 @@ public class UserController {
 
 
     /**
+     * 获取某个用户创建的课题
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/{userId}/major-project/", method = RequestMethod.GET)
+    @ResponseBody
+    public Response listAdminProjects(@PathVariable("userId") String userId) {
+        return null;
+    }
+
+
+    /**
      * 获取用户的课题邀请列表
      * @param userId
      * @return
@@ -152,7 +164,7 @@ public class UserController {
 
 
     @Authority(name = PermissionConst.ADD_DATA)
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.PUT)
     @ResponseBody()
     public Response test() {
         User user = new User();

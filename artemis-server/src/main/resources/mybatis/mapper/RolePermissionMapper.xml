@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.RolePermission">
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <id column="permission_id" jdbcType="INTEGER" property="permissionId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
@@ -17,6 +18,20 @@
     where role_id = #{roleId,jdbcType=INTEGER}
       and permission_id = #{permissionId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByRoleId" resultType="RolePermission" >
+    select role_id, role_name, permission_id, permission_name, permission_name_english, status
+    from role_permission_view
+    where role_id = #{roleId}
+  </select>
+
+  <select id="selectPermissionsByRoleId" resultType="RolePermission" >
+    select permission_id, permission_name, permission_name_english, status
+    from role_permission_view
+    where role_id = #{roleId}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="com.kuo.artemis.server.entity.RolePermissionKey">
     delete from role_permission
     where role_id = #{roleId,jdbcType=INTEGER}

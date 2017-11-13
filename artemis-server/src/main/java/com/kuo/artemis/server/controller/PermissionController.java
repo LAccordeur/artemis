@@ -1,17 +1,21 @@
 package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.command.UpdatePermissionCommend;
+import com.kuo.artemis.server.entity.RolePermissionKey;
 import com.kuo.artemis.server.service.UserPermissionService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @Author : guoyang
- * @Description :
+ * @Description :处理权限相关的请求
  * @Date : Created on 2017/10/29
  */
 @Controller
@@ -24,26 +28,95 @@ public class PermissionController {
 
 
     /**
-     * 获取某人在某课题下的所有权限
+     * 获取某用户在某课题下的所有权限
      * @param userId
      * @param projectId
      * @return
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/project", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionListByUserIdAndProjectId(String userId, String projectId) {
-        return userPermissionService.getUserPermissionByUserIdAndProjectId(userId, projectId);
+        return userPermissionService.listUserPermissionsByUserIdAndProjectId(userId, projectId);
     }
 
-    public Response getPermissionListByUserId(String userId) {
-        return null;
+    /**
+     * 获取某用户在某课题下的所有权限(boolean)
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    @RequestMapping(value = "/user/project/boolean", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getPermissionListByUserIdAndProjectIdWithBoolean(String userId, String projectId) {
+        return userPermissionService.listUserPermissionsByUserIdAndProjectIdWithBoolean(userId, projectId);
     }
 
-    public Response grantPermission() {
-        return null;
+
+    /**
+     * 获取所有的权限列表
+     * @return
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getPermissionList() {
+        return userPermissionService.listPermissions();
     }
 
-    public Response removePermission() {
-        return null;
+
+
+    /**
+     * 获取某个课题下所有成员的权限情况
+     * @param projectId
+     * @return
+     */
+    @RequestMapping(value = "/project", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getPermissionListByProjectId(String projectId) {
+        return userPermissionService.listUserPermissionsByProjectId(projectId);
+    }
+
+    /**
+     * 获取某个课题下所有成员的权限情况
+     * @param projectId
+     * @return
+     */
+    @RequestMapping(value = "/project/boolean", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getPermissionListByProjectIdWithBoolean(String projectId) {
+        return userPermissionService.listUserPermissionsByProjectIdWithBoolean(projectId);
+    }
+
+    /**
+     * 授予某个用户某个权限
+     * @param rolePermissionKey
+     * @return
+     */
+    @RequestMapping(value = "/grant", method = RequestMethod.POST)
+    @ResponseBody
+    public Response grantPermission(@RequestBody RolePermissionKey rolePermissionKey) {
+        return userPermissionService.addPermission(rolePermissionKey);
+    }
+
+    /**
+     * 移除某个用户的某个权限
+     * @param rolePermissionKey
+     * @return
+     */
+    @RequestMapping(value = "/removal", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Response removePermission(@RequestBody RolePermissionKey rolePermissionKey) {
+        return userPermissionService.removePermission(rolePermissionKey);
+    }
+
+
+    /**
+     * 批量更新用户权限
+     * @param updatePermissionCommend
+     * @return
+     */
+    @RequestMapping(value = "/batch", method = RequestMethod.POST)
+    @ResponseBody
+    public Response updatePermissionBatch(@RequestBody UpdatePermissionCommend updatePermissionCommend) {
+        return userPermissionService.updatePermissionBatch(updatePermissionCommend);
     }
 }

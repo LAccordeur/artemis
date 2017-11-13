@@ -15,13 +15,18 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-*.xml"})
 public class UserPermissionServiceImplTest {
     @Test
+    public void listUserPermissionsByProjectIdWithBoolean() throws Exception {
+        System.out.println(userPermissionService.listUserPermissionsByProjectIdWithBoolean("20"));
+    }
+
+    @Test
     public void addPermission() throws Exception {
-        userPermissionService.removePermission("1", "1", "19", "2");
+        //userPermissionService.removePermission( "19", "2");
     }
 
     @Test
     public void removePermission() throws Exception {
-        userPermissionService.addPermission("1", "1", "19", "2");
+        //userPermissionService.addPermission( "19", "2");
 
     }
 
@@ -36,8 +41,8 @@ public class UserPermissionServiceImplTest {
 
     @Test
     public void getUserPermissionByUserIdAndProjectId() throws Exception {
-        System.out.println(userPermissionService.getUserPermissionByUserIdAndProjectId("1", "1"));
-        System.out.println(userPermissionService.getUserPermissionByUserIdAndProjectId("2", "2"));
+        System.out.println(userPermissionService.listUserPermissionsByUserIdAndProjectId("1", "1"));
+        System.out.println(userPermissionService.listUserPermissionsByUserIdAndProjectId("2", "2"));
     }
 
 }

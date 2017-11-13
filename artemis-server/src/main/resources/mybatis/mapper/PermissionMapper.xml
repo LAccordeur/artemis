@@ -24,8 +24,18 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectPermissionList" resultMap="BaseResultMap">
+    select
+    id, permission_name, permission_name_english, permission_description, permission_description_english
+    from permission
+  </select>
+
   <select id="selectPermissionIdList" resultType="Integer">
     select id from permission
+  </select>
+
+  <select id="selectViewPermissionIdList" resultType="Integer">
+    select id from permission where permission_description like '%数据查看%'
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

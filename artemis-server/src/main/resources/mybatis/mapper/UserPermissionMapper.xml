@@ -17,9 +17,13 @@
     <result column="permission_parent_id" jdbcType="INTEGER" property="permissionParentId" />
   </resultMap>
 
+  <sql id="Base_Column_List">
+    user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_name_english
+  </sql>
+
   <select id="selectByUserIdAndProjectId" resultType="UserPermission">
-    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_name_english, permission_description,
-    permission_description_english, permission_action, permission_type
+    select
+    <include refid="Base_Column_List" />
     from user_permission_view where user_id = #{userId} and project_id = #{projectId}
   </select>
 
@@ -30,11 +34,19 @@
   </select>
 
   <select id="selectByProjectId" resultType="UserPermission">
-    select user_id, user_name, project_id, role_name, role_id, permission_id, permission_name, permission_name_english, permission_description,
-    permission_description_english, permission_action, permission_type
+    select
+    <include refid="Base_Column_List" />
     from user_permission_view
     where project_id = #{projectId} order by user_id, permission_id
   </select>
+
+  <select id="selectByUserId" resultType="UserPermission">
+    select
+    <include refid="Base_Column_List" />
+    from user_permission_view
+    where user_id = #{userId} order by project_id, permission_id
+  </select>
+
 
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.UserPermission">
     insert into user_permission_view (user_id, user_name, project_id, 

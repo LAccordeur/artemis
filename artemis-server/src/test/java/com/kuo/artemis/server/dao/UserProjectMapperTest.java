@@ -17,6 +17,12 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class UserProjectMapperTest {
     @Test
+    public void selectStatusByPrimaryKey() throws Exception {
+        UserProjectKey userProjectKey = new UserProjectKey(6,22);
+        System.out.println(userProjectMapper.selectStatusByPrimaryKey(userProjectKey));
+    }
+
+    @Test
     public void selectByPrimaryKey() throws Exception {
         UserProjectKey userProjectKey = new UserProjectKey(2,18);
         System.out.println(userProjectMapper.selectByPrimaryKey(userProjectKey));

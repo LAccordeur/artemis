@@ -1,15 +1,20 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.UserPermissionDTO;
+import com.kuo.artemis.server.core.dto.command.UpdatePermissionCommend;
+import com.kuo.artemis.server.dao.PermissionMapper;
 import com.kuo.artemis.server.dao.RolePermissionMapper;
 import com.kuo.artemis.server.dao.UserPermissionMapper;
-import com.kuo.artemis.server.entity.RolePermission;
-import com.kuo.artemis.server.entity.UserPermission;
+import com.kuo.artemis.server.dao.UserProjectMapper;
+import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.UserPermissionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,15 +31,24 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     @Inject
     private RolePermissionMapper rolePermissionMapper;
 
+    @Inject
+    private PermissionMapper permissionMapper;
+
+    @Inject
+    private UserProjectMapper userProjectMapper;
+
     /**
-     * 获取某个用户在某个课题下的所有权限
+     * 获取某个用户在某个课题下的所有权限(只返回拥有的权限名)
      * @param userId
      * @param projectId
      * @return
      */
-    public Response getUserPermissionByUserIdAndProjectId(String userId, String projectId) {
+    public Response listUserPermissionsByUserIdAndProjectId(String userId, String projectId) {
 
-        Response<List<UserPermission>> response = new Response<List<UserPermission>>();
+        Response response = new Response<List<UserPermission>>();
+        UserPermissionDTO userPermissionDTO = new UserPermissionDTO();
+        List<Permission> resultPermissions = new ArrayList<Permission>();
+        userPermissionDTO.setPermissions(resultPermissions);
 
         try {
             List<UserPermission> permissions = null;
@@ -42,15 +56,27 @@ public class UserPermissionServiceImpl implements UserPermissionService {
                 permissions = userPermissionMapper.selectByUserIdAndProjectId(Integer.valueOf(userId), Integer.valueOf(projectId));
             }
 
-            if (permissions != null) {
-                response.setData(permissions);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("权限列表");
-            } else {
-                response.setCode(HttpStatus.NO_CONTENT.value());
-                response.setMsg("权限列表为空");
-                response.setData(null);
+            for (UserPermission userPermission : permissions) {
+                userPermissionDTO.setUserId(String.valueOf(userPermission.getUserId()));
+                userPermissionDTO.setUserName(userPermission.getUserName());
+                userPermissionDTO.setProjectId(String.valueOf(userPermission.getProjectId()));
+                userPermissionDTO.setRoleId(String.valueOf(userPermission.getRoleId()));
+                userPermissionDTO.setRoleName(userPermission.getRoleName());
+
+                Permission permission = new Permission();
+                resultPermissions.add(permission);
+                permission.setPermissionName(userPermission.getPermissionName());
+                permission.setPermissionNameEnglish(userPermission.getPermissionNameEnglish());
+                permission.setId(userPermission.getPermissionId());
+
             }
+
+
+
+            response.setData(userPermissionDTO);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("权限列表");
+
         } catch (Exception e) {
             return new Response(e);
         }
@@ -58,7 +84,49 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     }
 
     /**
-     * 获取某个课题下所有成员的所有权限
+     * 返回某个用户在某个课题下的权限列表以boolean类型
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    public Response listUserPermissionsByUserIdAndProjectIdWithBoolean(String userId, String projectId) {
+        Response response = new Response();
+
+        try {
+            //根据用户名和课题名查找roleID
+            UserProjectKey key = new UserProjectKey(Integer.valueOf(userId), Integer.valueOf(projectId));
+            UserProject userProject = userProjectMapper.selectMemberByProjectIdAndUserId(key);
+            UserPermissionDTO userPermissionDTO = getUserPermissionDTO(userProject);
+
+
+            response.setData(userPermissionDTO);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("成员权限信息");
+
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        return response;
+    }
+
+    private UserPermissionDTO getUserPermissionDTO(UserProject userProject) {
+        //根据id查找用户的权限
+        List<RolePermission> permissions = rolePermissionMapper.selectPermissionsByRoleId(userProject.getRoleId());
+        //组装
+        UserPermissionDTO userPermissionDTO = new UserPermissionDTO();
+        userPermissionDTO.setUserName(userProject.getUserName());
+        userPermissionDTO.setUserId(String.valueOf(userProject.getUserId()));
+        userPermissionDTO.setRoleId(String.valueOf(userProject.getRoleId()));
+        userPermissionDTO.setRoleName(userProject.getRoleName());
+        userPermissionDTO.setProjectId(String.valueOf(userProject.getProjectId()));
+        userPermissionDTO.setPermissions(permissions);
+        return userPermissionDTO;
+    }
+
+
+    /**
+     * 获取某个课题下所有成员的所有权限（只返回拥有的权限名）
      * @param projectId
      * @return
      */
@@ -66,10 +134,114 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 
         Response response = new Response();
         List<UserPermission> permissions = null;
+        List<UserPermissionDTO> results = new ArrayList<UserPermissionDTO>();
 
         try {
             if (projectId != null) {
                 permissions = userPermissionMapper.selectByProjectId(Integer.valueOf(projectId));
+            }
+
+            List<List<UserPermission>> userLists = new ArrayList<List<UserPermission>>();
+            List<Integer> indexList = new ArrayList<Integer>();
+
+            //对返回的权限集按用户id进行分类
+            //1.获取分界线处的索引
+            indexList.add(0);
+            for (int i = 0; i < permissions.size(); i++) {
+                UserPermission userPermission = permissions.get(i);
+                if (i < permissions.size() - 1) {
+                    if (userPermission.getUserId() != (permissions.get(i+1)).getUserId()) {
+                        indexList.add(i+1);
+                    }
+                }
+            }
+            indexList.add(permissions.size());
+
+            //2.分成n个子List
+            for (int i = 0; i < indexList.size()-1; i++) {
+                userLists.add(permissions.subList(indexList.get(i), indexList.get(i+1)));
+            }
+
+            //3.组装子List
+            for (List<UserPermission> userList : userLists) {
+                UserPermissionDTO result = new UserPermissionDTO();
+                List<Permission> permissionList = new ArrayList<Permission>();
+                result.setPermissions(permissionList);
+                result.setUserId(String.valueOf(userList.get(0).getUserId()));
+                result.setUserName(userList.get(0).getUserName());
+                result.setRoleId(String.valueOf(userList.get(0).getRoleId()));
+                result.setRoleName(userList.get(0).getRoleName());
+                result.setProjectId(String.valueOf(userList.get(0).getProjectId()));
+                results.add(result);
+                for (UserPermission userPermission : userList) {
+                    Permission permission = new Permission();
+                    permissionList.add(permission);
+                    permission.setId(userPermission.getPermissionId());
+                    permission.setPermissionName(userPermission.getPermissionName());
+                    permission.setPermissionNameEnglish(userPermission.getPermissionNameEnglish());
+
+                }
+            }
+
+
+            if (permissions != null) {
+                response.setData(results);
+                response.setCode(HttpStatus.OK.value());
+                response.setMsg("权限列表");
+            } else {
+                response.setData(null);
+                response.setCode(HttpStatus.NO_CONTENT.value());
+                response.setMsg("权限列表为空");
+            }
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        return response;
+    }
+
+
+    /**
+     * 获取某个课题下所有成员的所有权限(以boolean形式)
+     * @param projectId
+     * @return
+     */
+    public Response listUserPermissionsByProjectIdWithBoolean(String projectId) {
+        Response response = new Response();
+        List<UserPermissionDTO>  data = new ArrayList<UserPermissionDTO>();
+        response.setData(data);
+
+        try {
+            List<UserProject> userProjects = userProjectMapper.selectMembersByProjectId(Integer.valueOf(projectId));
+            for (UserProject userProject : userProjects) {
+                UserPermissionDTO userPermissionDTO = getUserPermissionDTO(userProject);
+                data.add(userPermissionDTO);
+            }
+
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("课题成员权限信息");
+
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+
+        return response;
+    }
+
+
+    /**
+     * 根据用户Id获取权限列表
+     * @param userId
+     * @return
+     */
+    /*public Response listUserPermissionsByUserId(String userId) {
+        Response response = new Response();
+        List<UserPermission> permissions = null;
+
+        try {
+            if (userId != null) {
+                permissions = userPermissionMapper.selectByUserId(Integer.valueOf(userId));
             }
 
             if (permissions != null) {
@@ -86,18 +258,18 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         }
 
         return response;
-    }
+    }*/
 
     /**
      * 授予权限
-     * @param userId
-     * @param projectId
-     * @param roleId
-     * @param permissionId
+     * @param rolePermissionKey
      * @return
      */
-    public Response addPermission(String userId, String projectId, String roleId, String permissionId) {
+    public Response addPermission(RolePermissionKey rolePermissionKey) {
         Response response = new Response();
+
+        String roleId = String.valueOf(rolePermissionKey.getRoleId());
+        String permissionId = String.valueOf(rolePermissionKey.getPermissionId());
 
         int result = 0;
         RolePermission rolePermission = new RolePermission();
@@ -125,9 +297,16 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         return response;
     }
 
-    public Response removePermission(String userId, String project, String roleId, String permissionId) {
+    /**
+     * 移除用户的某个权限
+     * @param rolePermissionKey
+     * @return
+     */
+    public Response removePermission(RolePermissionKey rolePermissionKey) {
         Response response = new Response();
         int result = 0;
+        String roleId = String.valueOf(rolePermissionKey.getRoleId());
+        String permissionId = String.valueOf(rolePermissionKey.getPermissionId());
 
         RolePermission rolePermission = new RolePermission();
 
@@ -154,11 +333,83 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         return response;
     }
 
-    public Response addPermissionList() {
-        return null;
+
+    /**
+     * 批量更新用户的权限
+     * @param updatePermissionCommend
+     * @return
+     */
+    public Response updatePermissionBatch(UpdatePermissionCommend updatePermissionCommend) {
+        Response response = new Response();
+        int result = 0;
+
+        String roleId = updatePermissionCommend.getRoleId();
+        List<Integer> permissionIds = updatePermissionCommend.getPermissionIds();
+
+        try {
+
+            Integer intRoleId;
+            //1.删除当前的角色权限关系
+            if (roleId != null) {
+                intRoleId = Integer.valueOf(roleId);
+                rolePermissionMapper.deleteByRoleId(intRoleId);
+            } else {
+                return new Response(null, HttpStatus.FORBIDDEN.value(), "缺少参数");
+            }
+
+            //2.插入新的权限关系
+            List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
+            for (Integer id : permissionIds) {
+                RolePermissionKey rolePermissionKey = new RolePermissionKey();
+                rolePermissionList.add(rolePermissionKey);
+                rolePermissionKey.setRoleId(intRoleId);
+                rolePermissionKey.setPermissionId(id);
+            }
+            result = rolePermissionMapper.insertBatch(rolePermissionList);
+
+            if (result > 0) {
+                response.setData(null);
+                response.setCode(HttpStatus.OK.value());
+                response.setMsg("权限更新成功");
+            } else {
+                response.setData(null);
+                response.setCode(HttpStatus.FORBIDDEN.value());
+                response.setMsg("权限更新失败");
+            }
+
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        return response;
     }
 
-    public Response removePermissionList() {
-        return null;
+
+    /**
+     * 获取所有的权限列表
+     * @return
+     */
+    public Response listPermissions() {
+        Response response = new Response();
+
+        try {
+
+            List<Permission> permissions = permissionMapper.selectPermissionList();
+
+            if (permissions != null) {
+                response.setData(permissions);
+                response.setCode(HttpStatus.OK.value());
+                response.setMsg("权限列表获取成功");
+            } else {
+                response.setData(null);
+                response.setCode(HttpStatus.NO_CONTENT.value());
+                response.setMsg("权限列表为空");
+            }
+
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        return response;
     }
 }

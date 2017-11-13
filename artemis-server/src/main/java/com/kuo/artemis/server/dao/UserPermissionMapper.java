@@ -16,5 +16,7 @@ public interface UserPermissionMapper {
 
     List<UserPermission> selectByProjectId(@Param("projectId") Integer projectId);
 
+    List<UserPermission> selectByUserId(@Param("userId") Integer userId);
+
     UserPermission selectByUserIdAndProjectIdAndPermissionId(@Param("userId") Integer userId, @Param("projectId") Integer projectId, @Param("permissionId") Integer permissionId);
 }

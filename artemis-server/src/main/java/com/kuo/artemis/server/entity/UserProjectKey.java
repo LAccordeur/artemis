@@ -1,10 +1,14 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * @Author : guoyang
  * @Description :
  * @Date : Created on 2017/11/2
  */
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserProjectKey {
     private Integer userId;
 

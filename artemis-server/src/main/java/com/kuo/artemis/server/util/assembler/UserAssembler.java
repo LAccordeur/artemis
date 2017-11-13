@@ -37,11 +37,23 @@ public final class UserAssembler {
             user.setUserName(userDTO.getUserName());
             user.setUniversity(userDTO.getUniversity());
             if (userDTO.getUserGender() != null) {
-                user.setUserGender(Byte.valueOf(userDTO.getUserGender()));
+                if ("男".equals(userDTO.getUserGender())) {
+                    user.setUserGender(Byte.valueOf("1"));
+                } else if ("女".equals(userDTO.getUserGender())) {
+                    user.setUserGender(Byte.valueOf("2"));
+                } else {
+                    user.setUserGender(Byte.valueOf("0"));
+                }
             }
             user.setUserEmail(userDTO.getUserEmail());
             if (userDTO.getUserIdentity() != null) {
-                user.setUserIdentity(Byte.valueOf(userDTO.getUserIdentity()));
+                if ("老师".equals(userDTO.getUserIdentity())) {
+                    user.setUserIdentity(Byte.valueOf("2"));
+                } else if ("学生".equals(userDTO.getUserIdentity())) {
+                    user.setUserIdentity(Byte.valueOf("1"));
+                } else {
+                    user.setUserIdentity(Byte.valueOf("0"));
+                }
             }
         }
 

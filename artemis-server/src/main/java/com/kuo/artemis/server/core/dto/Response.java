@@ -43,10 +43,10 @@ public class Response<T> {
     public Response(Throwable throwable) {
         logger.error(throwable.getMessage(), throwable);
         if (throwable instanceof ValidationException || throwable instanceof IllegalArgumentException) {
-            this.code = HttpStatus.UNAUTHORIZED.value();
+            this.code = HttpStatus.BAD_REQUEST.value();
             this.msg = throwable.getMessage();
         } else {
-            this.code = HttpStatus.UNAUTHORIZED.value();
+            this.code = HttpStatus.INTERNAL_SERVER_ERROR.value();
             this.msg = DEFAULT_ERROR_MESSAGE;
         }
     }
