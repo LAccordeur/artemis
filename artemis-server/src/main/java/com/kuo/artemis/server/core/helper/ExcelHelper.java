@@ -7,8 +7,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author : guoyang
@@ -23,10 +25,14 @@ public class ExcelHelper {
      * @return
      * @throws Exception
      */
-    public static List<Map<String, Object>> parseExcel(MultipartFile file) throws Exception {
+    public static ExcelDTO parseExcel(MultipartFile file) throws Exception {
+
+        ExcelDTO excelDTO = new ExcelDTO();
 
         String filename = file.getOriginalFilename();
         InputStream inputStream = file.getInputStream();
+        excelDTO.setFilename(filename);
+        excelDTO.setInputStream(inputStream);
 
 
         //解析开始
@@ -38,8 +44,24 @@ public class ExcelHelper {
 
         //2.解析表title
         List<String> fields =  ExcelUtil.parseExcelFields(workbook, 0);
-        //2.解析表正文
+        excelDTO.setFields(fields);
+        //3.获取指标来自的类
+        Set<Class> classSet = ExcelUtil.getClassSet(fields);
+        excelDTO.setClasses(classSet);
+        //4.解析表正文
         List<Map<String, Object>> rowList = ExcelUtil.parseExcelContent(workbook, 0, 2);
+
+        Map<Class, List<Map<String,Object>>> map;
+        if (classSet.size() == 1) {
+            //Excel文件中的指标来自同一个类
+            map = new HashMap<Class, List<Map<String, Object>>>();
+            map.put(ExcelUtil.getClassByField(fields.get(0)), rowList);
+            excelDTO.setItems(map);
+        } else if (classSet.size() > 1) {
+            //Excel文件中的指标来自多个类
+            map = ExcelUtil.groupExcel(rowList, fields);
+            excelDTO.setItems(map);
+        }
 
 
         try {
@@ -50,11 +72,11 @@ public class ExcelHelper {
             throw e;
         }
 
-        return rowList;
+        return excelDTO;
     }
 
     /**
-     * 将Excel每行中的数据键值对转化为其所在的对象(暂时无法解析日期格式)
+     * 将Excel每行中的数据键值对转化为其所在的对象(暂时无法解析日期格式)  ##BUG##
      * @param clazz
      * @param fieldValueMap
      * @param <T>

@@ -5,9 +5,9 @@ import java.util.Date;
 public class ExcelTest {
     private String name;
 
-    private Long score;
+    private long score;
 
-    private Integer age;
+    private int age;
 
     private Date birthday;
 
@@ -29,18 +29,18 @@ public class ExcelTest {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
-    public Long getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(Long score) {
+    public void setScore(long score) {
         this.score = score;
     }
 
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.ExcelTestTwoMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.ExcelTestTwo">
+    <result column="university" jdbcType="VARCHAR" property="university" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+  </resultMap>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.ExcelTestTwo">
+    insert into excel_test_two (university, school, grade
+      )
+    values (#{university,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <insert id="insertBatch" parameterType="List">
+    insert into excel_test_two (university, school, grade) values
+
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.university},#{item.school},#{item.grade})
+    </foreach>
+
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.ExcelTestTwo">
+    insert into excel_test_two
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="university != null">
+        university,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="university != null">
+        #{university,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -3,6 +3,7 @@ package com.kuo.artemis.server.core.dto;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author : guoyang
@@ -16,9 +17,11 @@ public class ExcelDTO {
 
     private String signature;
 
-    private List<String> fields;
+    private List<String> fields;  //Excel表的所有字段名列表
 
-    private List<Map<String, Object>> items;
+    private Set<Class> classes;    //Excel表中所有指标来自的类集合
+
+    private Map<Class, List<Map<String, Object>>> items;   //key为类名， List为Excel中的指标数据
 
     @Override
     public String toString() {
@@ -64,11 +67,19 @@ public class ExcelDTO {
         this.fields = fields;
     }
 
-    public List<Map<String, Object>> getItems() {
+    public Map<Class, List<Map<String, Object>>> getItems() {
         return items;
     }
 
-    public void setItems(List<Map<String, Object>> items) {
+    public void setItems(Map<Class, List<Map<String, Object>>> items) {
         this.items = items;
+    }
+
+    public Set<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Set<Class> classes) {
+        this.classes = classes;
     }
 }

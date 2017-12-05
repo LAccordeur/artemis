@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.util.file;
 
+import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.util.constant.ExcelConst;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
@@ -9,12 +10,78 @@ import java.beans.PropertyEditor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
 public class ExcelUtilTest {
+    @Test
+    public void parseStringToMapList() throws Exception {
+        Map<String, Object> map1 = new HashMap();
+        map1.put("name", "测试");
+        map1.put("score", "99");
+        map1.put("age", "4");
+        map1.put("userName", "用户测试");
+        map1.put("userPhone", "18289223");
+        map1.put("userEmail", "434@qq.com");
+
+        System.out.println(User.class);
+        System.out.println(User.class.getSimpleName());
+
+        Map<String, Object> map2 = new HashMap();
+        map2.put("name", "哈哈");
+        map2.put("score", "100");
+        map2.put("age", "16");
+        map2.put("userName", "用户测试");
+        map2.put("userPhone", "18289223");
+        map2.put("userEmail", "434@qq.com");
+
+        List list = new ArrayList();
+        list.add(map1);
+        list.add(map2);
+
+        List field = new ArrayList();
+        field.add("name");
+        field.add("score");
+        field.add("age");
+        field.add("userName");
+        field.add("userPhone");
+        field.add("userEmail");
+
+
+        System.out.println("old:" + ExcelUtil.parseStringToMapList(list, field));
+
+        List list1 = new ArrayList();
+
+        list1.add("99");
+        list1.add("4");
+        list1.add("用户测试");
+        list1.add("18289223");
+        list1.add("434@qq.com");
+        list1.add("测试");
+
+        List list2 = new ArrayList();
+
+        list2.add("99");
+        list2.add("4");
+        list2.add("用户测试");
+        list2.add("18289223");
+        list2.add("434@qq.com");
+        list2.add("测试");
+
+        List<List<Object>> lists = new ArrayList<List<Object>>();
+        lists.add(list1);
+        lists.add(list2);
+        System.out.println("new:" + ExcelUtil.groupExcel(list, field));
+
+
+
+
+    }
+
     @Test
     public void dataBind() throws Exception {
         Map<String, Object> map = new HashMap();

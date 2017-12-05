@@ -2,6 +2,7 @@ package com.kuo.artemis.server.util.file;
 
 import com.kuo.artemis.server.core.factory.TypeBindFactory;
 import com.kuo.artemis.server.util.constant.ExcelConst;
+import com.kuo.artemis.server.util.constant.FieldClassConst;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean2;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -145,11 +146,10 @@ public final class ExcelUtil {
         //依次解析正文
         for (int i = rowIndex; i <= rowCount; i++) {
             row = sheet.getRow(i);
-
             Map<String, Object> rowItem = new HashMap();
             for (int j = 0; j < columnCount; j++) {
                 Object item = getCellFormatValue(row.getCell(j));
-                System.out.println("Field:" + fields.get(j) + "--- Type:" + item.getClass());
+                //System.out.println("Field:" + fields.get(j) + "--- Type:" + item.getClass());
                 rowItem.put(fields.get(j), item);
             }
             rowList.add(rowItem);
@@ -157,6 +157,7 @@ public final class ExcelUtil {
 
         return rowList;
     }
+
 
 
     /**
@@ -322,6 +323,7 @@ public final class ExcelUtil {
      * @return
      * @throws Exception
      */
+    @Deprecated
     public static List<List<Map<String, Object>>> parseStringToMapList(List<Map<String, Object>> rows, List<String> fields) throws Exception {
 
         List<List<Map<String, Object>>> resultList = new ArrayList<List<Map<String, Object>>>();
@@ -337,6 +339,7 @@ public final class ExcelUtil {
 
         //解析出每个class对象包含Excel文件中的哪些列
         Map<Class, List<Integer>> classMap = new HashMap<Class, List<Integer>>();
+
         Iterator<Class> iterator = classSet.iterator();
         while (iterator.hasNext()) {
             Class clazz = iterator.next();
@@ -372,7 +375,73 @@ public final class ExcelUtil {
 
         }
 
+
+
         return resultList;
+    }
+
+
+    /**
+     * 对包含来自多个类的指标的Excel解析结果进行分组
+     * @param rows
+     * @param fields
+     * @return
+     */
+    public static Map<Class, List<Map<String, Object>>> groupExcel(List<Map<String, Object>> rows, List<String> fields) {
+        Map<Class, List<Map<String, Object>>> resultMap = new HashMap<Class, List<Map<String, Object>>>();
+
+        //解析出这个Excel中的指标所来自的类对象
+        Set<Class> classSet = getClassSet(fields);
+
+
+        //根据每个类拥有的列进行解析O(n^2)
+        Iterator<Class> setIterator = classSet.iterator();
+        while (setIterator.hasNext()){
+            Class clazz = setIterator.next();
+            //先初始化好数据结构
+            //1.来自同一表中的指标的多行记录用一个List表示
+            List<Map<String, Object>> beanList = new ArrayList<Map<String, Object>>();
+            resultMap.put(clazz, beanList);
+
+            //2.来自同一表中的一行记录用一个Map表示
+            for (int j = 0; j < rows.size(); j++) {
+                Map<String, Object> rowMap = new HashMap();
+                beanList.add(rowMap);
+            }
+
+        }
+
+
+
+        //解析赋值
+        //1.先从列开始
+        for (int i = 0; i < fields.size(); i++) {
+            String fieldName = fields.get(i);
+            Class clazz = getClassByField(fieldName);
+            //2.获取该列字段所在的类
+            List<Map<String, Object>> list = resultMap.get(clazz);
+
+            //3.从行开始,一次为每个map赋值
+            for (int j = 0; j < rows.size(); j++) {
+                Object value = rows.get(j).get(fieldName);
+                list.get(j).put(fieldName, value);
+            }
+        }
+
+        return resultMap;
+    }
+
+    public static Set<Class> getClassSet(List<String> fields) {
+        //解析出这个Excel中的指标所来自的类对象
+        Set<Class> classSet = new HashSet<Class>();
+        for (int i = 0; i < fields.size(); i++) {
+            classSet.add(getClassByField(fields.get(i)));
+        }
+        if (classSet.contains(null)) {
+            classSet.remove(null);
+        }
+
+        return classSet;
     }
 
     /**
@@ -433,7 +502,7 @@ public final class ExcelUtil {
     }
 
     //取字段名且让其首字母小写
-    private static String firstCharToLowerCase(String substring) {
+    public static String firstCharToLowerCase(String substring) {
         if (substring!=null&& substring.charAt(0)>='A' && substring.charAt(0)<='Z'){
             char[] arr = substring.toCharArray();
             arr[0] = (char)(arr[0] + 32);
@@ -444,7 +513,14 @@ public final class ExcelUtil {
     }
 
 
-    private static Class getClassByField(String field) {
-        return null;
+    /**
+     * 通过字段名(指标名)获取其所在的类名
+     * @param fieldName
+     * @return
+     */
+    public static Class getClassByField(String fieldName) {
+
+        return FieldClassConst.fieldClassMap.get(fieldName);
+
     }
 }
