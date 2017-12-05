@@ -15,5 +15,5 @@ public interface UserProjectService {
 
     Response exitProject(UserProjectKey userProjectKey);
 
-
+    Response listAdminProjectByUserId(String userId);
 }

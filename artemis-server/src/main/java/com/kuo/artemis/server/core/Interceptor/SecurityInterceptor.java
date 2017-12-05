@@ -53,14 +53,14 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
                 Method method = handlerMethod.getMethod();
                 Authority annotation = method.getAnnotation(Authority.class);
 
-                if (annotation != null && (annotation.value()).equals(AuthorityType.Authority)) {
+                if (annotation != null && (annotation.option()).equals(AuthorityType.Authority)) {
                     //该方法需要验证权限
                     //1.获取用户id和课题id来查询该用户的权限列表
                     String userId = request.getParameter(AUTH_PARAM_USER_ID);
                     String projectId = request.getParameter(AUTH_PARAM_PROJECT_ID);
 
                     //2.从注解中获取需要验证的权限名id
-                    String permissionId = annotation.name();
+                    String permissionId = annotation.value();
 
                     //3.验证
                     if (userId != null && projectId != null && permissionId != null) {

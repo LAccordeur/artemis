@@ -49,27 +49,24 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
 
         Response response = new Response();
 
-        try {
 
-            //用户已经发送过申请或者用户在加入课题之中
-            if (userProjectMapper.selectByPrimaryKey(userProjectKey) != null) {
-                return new Response(null, HttpStatus.CONFLICT.value(), "您已申请或已被邀请");
-            }
-
-            int result = userInvitationApplicationMapper.insertUserProjectByApplication(UserProjectAssembler.toUserInvitationApplication(userProjectKey));
-
-            if (result > 0) {
-                response.setData(null);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("成功发送申请");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("发送申请失败");
-            }
-        } catch (Exception e) {
-            return new Response(e);
+        //用户已经发送过申请或者用户在加入课题之中
+        if (userProjectMapper.selectByPrimaryKey(userProjectKey) != null) {
+            return new Response(null, HttpStatus.CONFLICT.value(), "您已申请或已被邀请");
         }
+
+        int result = userInvitationApplicationMapper.insertUserProjectByApplication(UserProjectAssembler.toUserInvitationApplication(userProjectKey));
+
+        if (result > 0) {
+            response.setData(null);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("成功发送申请");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("发送申请失败");
+        }
+
 
         return response;
     }
@@ -83,26 +80,24 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
 
         Response response = new Response();
 
-        try {
-            //用户已经发送过邀请或者用户在加入课题之中
-            if (userProjectMapper.selectByPrimaryKey(userProjectKey) != null) {
-                return new Response(null, HttpStatus.CONFLICT.value(), "您已邀请该用户或该用户已申请");
-            }
 
-            int result = userInvitationApplicationMapper.insertUserProjectByInvitation(UserProjectAssembler.toUserInvitationApplication(userProjectKey));
-
-            if (result > 0) {
-                response.setData(null);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("成功发送邀请");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("发送邀请失败");
-            }
-        } catch (Exception e) {
-            return new Response(e);
+        //用户已经发送过邀请或者用户在加入课题之中
+        if (userProjectMapper.selectByPrimaryKey(userProjectKey) != null) {
+            return new Response(null, HttpStatus.CONFLICT.value(), "您已邀请该用户或该用户已申请");
         }
+
+        int result = userInvitationApplicationMapper.insertUserProjectByInvitation(UserProjectAssembler.toUserInvitationApplication(userProjectKey));
+
+        if (result > 0) {
+            response.setData(null);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("成功发送邀请");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("发送邀请失败");
+        }
+
 
         return response;
     }
@@ -117,21 +112,19 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         UserInvitationApplication userInvitationApplication = UserProjectAssembler.toUserInvitationApplication(userProjectKey);
         userInvitationApplication.setStatus(new Byte("3"));
 
-        try {
-            int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
 
-            if (result > 0) {
-                response.setData(null);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("拒绝申请成功");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("拒绝申请失败");
-            }
-        } catch (Exception e) {
-            return new Response(e);
+        int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
+
+        if (result > 0) {
+            response.setData(null);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("拒绝申请成功");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("拒绝申请失败");
         }
+
 
 
         return response;
@@ -148,52 +141,48 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         UserInvitationApplication userInvitationApplication = UserProjectAssembler.toUserInvitationApplication(userProjectKey);
         userInvitationApplication.setStatus(new Byte("2"));
 
-        try {
 
-            //检测用户是否已在课题内
-            Integer status = userProjectMapper.selectStatusByPrimaryKey(userProjectKey);
-            if (status != null && status == 2 ) {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("用户已在课题，请勿重复接受申请");
-                return response;
-            }
-
-            //同意加入课题的申请则引发一系列级联操作
-            //1.更新用户课题关系
-            int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
-            //2.更新角色表
-            Role role = new Role(userProjectKey.getProjectId(), "课题成员", 0);
-            roleMapper.insertSelective(role);
-            Integer newRoleId = role.getId();
-            //3.更新用户角色表
-            userRoleMapper.insertSelective(new UserRole(userProjectKey.getUserId(), newRoleId));
-            //4.更新角色权限表
-            List<Integer> permissionIdList = permissionMapper.selectViewPermissionIdList();
-            List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
-            for (Integer id : permissionIdList) {
-                RolePermissionKey rolePermissionKey = new RolePermissionKey();
-                rolePermissionList.add(rolePermissionKey);
-                rolePermissionKey.setRoleId(newRoleId);
-                rolePermissionKey.setPermissionId(id);
-            }
-            rolePermissionMapper.insertBatch(rolePermissionList);
-
-
-
-            if (result > 0) {
-                response.setData(null);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("接受申请成功");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("接受申请失败");
-            }
-
-        } catch (Exception e) {
-            return new Response(e);
+        //检测用户是否已在课题内
+        Integer status = userProjectMapper.selectStatusByPrimaryKey(userProjectKey);
+        if (status != null && status == 2) {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("用户已在课题，请勿重复接受申请");
+            return response;
         }
+
+        //同意加入课题的申请则引发一系列级联操作
+        //1.更新用户课题关系
+        int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
+        //2.更新角色表
+        Role role = new Role(userProjectKey.getProjectId(), "课题成员", 0);
+        roleMapper.insertSelective(role);
+        Integer newRoleId = role.getId();
+        //3.更新用户角色表
+        userRoleMapper.insertSelective(new UserRole(userProjectKey.getUserId(), newRoleId));
+        //4.更新角色权限表
+        List<Integer> permissionIdList = permissionMapper.selectViewPermissionIdList();
+        List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
+        for (Integer id : permissionIdList) {
+            RolePermissionKey rolePermissionKey = new RolePermissionKey();
+            rolePermissionList.add(rolePermissionKey);
+            rolePermissionKey.setRoleId(newRoleId);
+            rolePermissionKey.setPermissionId(id);
+        }
+        rolePermissionMapper.insertBatch(rolePermissionList);
+
+
+        if (result > 0) {
+            response.setData(null);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("接受申请成功");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("接受申请失败");
+        }
+
+
 
         return response;
     }
@@ -208,21 +197,19 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         UserInvitationApplication userInvitationApplication = UserProjectAssembler.toUserInvitationApplication(userProjectKey);
         userInvitationApplication.setStatus(new Byte("3"));
 
-        try {
-            int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
 
-            if (result > 0) {
-                response.setData(null);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("拒绝邀请成功");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("拒绝邀请失败");
-            }
-        } catch (Exception e) {
-            return new Response(e);
+        int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
+
+        if (result > 0) {
+            response.setData(null);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("拒绝邀请成功");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("拒绝邀请失败");
         }
+
 
 
         return response;
@@ -239,49 +226,46 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         UserInvitationApplication userInvitationApplication = UserProjectAssembler.toUserInvitationApplication(userProjectKey);
         userInvitationApplication.setStatus(new Byte("2"));
 
-        try {
 
-            //检测用户是否已在课题内
-            Integer status = userProjectMapper.selectStatusByPrimaryKey(userProjectKey);
-            if (status != null && status == 2 ) {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("您已在课题，请勿重复接受邀请");
-                return response;
-            }
-            //同意加入课题的申请则引发一系列级联操作
-            //1.更新用户课题关系
-            int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
-            //2.更新角色表
-            Role role = new Role(userProjectKey.getProjectId(), "课题成员", 0);
-            roleMapper.insertSelective(role);
-            Integer newRoleId = role.getId();
-            //3.更新用户角色表
-            userRoleMapper.insertSelective(new UserRole(userProjectKey.getUserId(), newRoleId));
-            //4.更新角色权限表
-            List<Integer> permissionIdList = permissionMapper.selectViewPermissionIdList();
-            List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
-            for (Integer id : permissionIdList) {
-                RolePermissionKey rolePermissionKey = new RolePermissionKey();
-                rolePermissionList.add(rolePermissionKey);
-                rolePermissionKey.setRoleId(newRoleId);
-                rolePermissionKey.setPermissionId(id);
-            }
-            rolePermissionMapper.insertBatch(rolePermissionList);
-
-
-            if (result > 0) {
-                response.setData(null);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("接受邀请成功");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.FORBIDDEN.value());
-                response.setMsg("接受邀请失败");
-            }
-        } catch (Exception e) {
-            return new Response(e);
+        //检测用户是否已在课题内
+        Integer status = userProjectMapper.selectStatusByPrimaryKey(userProjectKey);
+        if (status != null && status == 2) {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("您已在课题，请勿重复接受邀请");
+            return response;
         }
+        //同意加入课题的申请则引发一系列级联操作
+        //1.更新用户课题关系
+        int result = userInvitationApplicationMapper.updateUserProjectStatus(userInvitationApplication);
+        //2.更新角色表
+        Role role = new Role(userProjectKey.getProjectId(), "课题成员", 0);
+        roleMapper.insertSelective(role);
+        Integer newRoleId = role.getId();
+        //3.更新用户角色表
+        userRoleMapper.insertSelective(new UserRole(userProjectKey.getUserId(), newRoleId));
+        //4.更新角色权限表
+        List<Integer> permissionIdList = permissionMapper.selectViewPermissionIdList();
+        List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
+        for (Integer id : permissionIdList) {
+            RolePermissionKey rolePermissionKey = new RolePermissionKey();
+            rolePermissionList.add(rolePermissionKey);
+            rolePermissionKey.setRoleId(newRoleId);
+            rolePermissionKey.setPermissionId(id);
+        }
+        rolePermissionMapper.insertBatch(rolePermissionList);
+
+
+        if (result > 0) {
+            response.setData(null);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("接受邀请成功");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.FORBIDDEN.value());
+            response.setMsg("接受邀请失败");
+        }
+
 
 
         return response;
@@ -296,23 +280,21 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         Response response = new Response();
         List<UserInvitationApplication> userInvitationApplications = null;
 
-        try {
-            if (projectId != null) {
-                userInvitationApplications = userInvitationApplicationMapper.selectApplicationList(Integer.valueOf(projectId));
-            }
 
-            if (userInvitationApplications != null) {
-                response.setData(userInvitationApplications);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("获取申请列表成功");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.NO_CONTENT.value());
-                response.setMsg("无申请");
-            }
-        } catch (Exception e) {
-            return new Response(e);
+        if (projectId != null) {
+            userInvitationApplications = userInvitationApplicationMapper.selectApplicationList(Integer.valueOf(projectId));
         }
+
+        if (userInvitationApplications != null) {
+            response.setData(userInvitationApplications);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("获取申请列表成功");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.NO_CONTENT.value());
+            response.setMsg("无申请");
+        }
+
 
         return response;
     }
@@ -327,23 +309,21 @@ public class UserInvitationApplicationServiceImpl implements UserInvitationAppli
         Response response = new Response();
         List<UserInvitationApplication> userInvitationApplications = null;
 
-        try {
-            if (userId != null) {
-                userInvitationApplications = userInvitationApplicationMapper.selectInvitationList(Integer.valueOf(userId));
-            }
 
-            if (userInvitationApplications != null) {
-                response.setData(userInvitationApplications);
-                response.setCode(HttpStatus.OK.value());
-                response.setMsg("获取邀请列表成功");
-            } else {
-                response.setData(null);
-                response.setCode(HttpStatus.NO_CONTENT.value());
-                response.setMsg("无邀请");
-            }
-        } catch (Exception e) {
-            return new Response(e);
+        if (userId != null) {
+            userInvitationApplications = userInvitationApplicationMapper.selectInvitationList(Integer.valueOf(userId));
         }
+
+        if (userInvitationApplications != null) {
+            response.setData(userInvitationApplications);
+            response.setCode(HttpStatus.OK.value());
+            response.setMsg("获取邀请列表成功");
+        } else {
+            response.setData(null);
+            response.setCode(HttpStatus.NO_CONTENT.value());
+            response.setMsg("无邀请");
+        }
+
 
         return response;
     }

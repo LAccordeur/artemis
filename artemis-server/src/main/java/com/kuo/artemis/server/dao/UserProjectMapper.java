@@ -26,4 +26,6 @@ public interface UserProjectMapper {
     UserProject selectMemberByProjectIdAndUserId(UserProjectKey userProjectKey);
 
     Integer selectStatusByPrimaryKey(UserProjectKey userProjectKey);
+
+    List<UserProject> selectAdminProject(@Param("userId") Integer userId);
 }

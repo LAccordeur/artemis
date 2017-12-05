@@ -1,9 +1,11 @@
 package com.kuo.artemis.server.controller;
 
+import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.command.UpdatePermissionCommend;
 import com.kuo.artemis.server.entity.RolePermissionKey;
 import com.kuo.artemis.server.service.UserPermissionService;
+import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,7 @@ public class PermissionController {
      * @param projectId
      * @return
      */
+
     @RequestMapping(value = "/user/project", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionListByUserIdAndProjectId(String userId, String projectId) {
@@ -45,6 +48,7 @@ public class PermissionController {
      * @param projectId
      * @return
      */
+
     @RequestMapping(value = "/user/project/boolean", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionListByUserIdAndProjectIdWithBoolean(String userId, String projectId) {
@@ -56,6 +60,7 @@ public class PermissionController {
      * 获取所有的权限列表
      * @return
      */
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionList() {
@@ -65,10 +70,11 @@ public class PermissionController {
 
 
     /**
-     * 获取某个课题下所有成员的权限情况
+     * 获取某个课题下所有成员的权限情况(只返回拥有的权限名)
      * @param projectId
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionListByProjectId(String projectId) {
@@ -76,10 +82,11 @@ public class PermissionController {
     }
 
     /**
-     * 获取某个课题下所有成员的权限情况
+     * 获取某个课题下所有成员的权限情况（Boolean形式返回所有权限）
      * @param projectId
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project/boolean", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionListByProjectIdWithBoolean(String projectId) {
@@ -91,6 +98,7 @@ public class PermissionController {
      * @param rolePermissionKey
      * @return
      */
+    @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/grant", method = RequestMethod.POST)
     @ResponseBody
     public Response grantPermission(@RequestBody RolePermissionKey rolePermissionKey) {
@@ -102,6 +110,7 @@ public class PermissionController {
      * @param rolePermissionKey
      * @return
      */
+    @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/removal", method = RequestMethod.DELETE)
     @ResponseBody
     public Response removePermission(@RequestBody RolePermissionKey rolePermissionKey) {
@@ -114,6 +123,7 @@ public class PermissionController {
      * @param updatePermissionCommend
      * @return
      */
+    @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/batch", method = RequestMethod.POST)
     @ResponseBody
     public Response updatePermissionBatch(@RequestBody UpdatePermissionCommend updatePermissionCommend) {

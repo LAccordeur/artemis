@@ -6,12 +6,15 @@ import com.kuo.artemis.server.core.dto.command.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.UserDTO;
 import com.kuo.artemis.server.entity.User;
+import com.kuo.artemis.server.entity.UserProject;
 import com.kuo.artemis.server.entity.UserProjectKey;
 import com.kuo.artemis.server.service.UserInvitationApplicationService;
 import com.kuo.artemis.server.service.UserProjectService;
 import com.kuo.artemis.server.service.UserService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -45,6 +48,7 @@ public class UserController {
     @ResponseBody()
     public Response login(@RequestBody LoginCommend loginCommend) {
         return userService.login(loginCommend);
+
     }
 
 
@@ -117,7 +121,7 @@ public class UserController {
 
 
     /**
-     * 根据姓名关键词查询用户
+     * 根据姓名关键词查询用户(未完成)
      * @return
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
@@ -143,10 +147,10 @@ public class UserController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/{userId}/major-project/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}/major_project", method = RequestMethod.GET)
     @ResponseBody
     public Response listAdminProjects(@PathVariable("userId") String userId) {
-        return null;
+        return userProjectService.listAdminProjectByUserId(userId);
     }
 
 
@@ -163,16 +167,16 @@ public class UserController {
 
 
 
-    @Authority(name = PermissionConst.ADD_DATA)
+    @Authority(value = PermissionConst.ADD_DATA)
     @RequestMapping(value = "/test", method = RequestMethod.PUT)
     @ResponseBody()
-    public Response test() {
-        User user = new User();
-        user.setUserPhone("1111111");
-        user.setUserName("哈哈哈");
+    public Response test(User user) {
+        UserProjectKey userProjectKey = new UserProjectKey();
+        userProjectKey.setUserId(Integer.valueOf(user.getId()));
         Response response = new Response();
         response.setData(user);
         return response;
+
     }
 
 }

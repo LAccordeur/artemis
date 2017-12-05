@@ -56,6 +56,12 @@
     where project_id = #{projectId} and user_id = #{userId}
   </select>
 
+  <select id="selectAdminProject" resultType="UserProject" >
+    select project_name, project_id, project_admin_id, project_admin_name, create_time
+    from user_project_view
+    where user_id = #{userId} and project_admin_id = #{userId}
+  </select>
+
 
   <update id="updateUserProjectStatusByDelete">
     update user_project set status = 4 where user_id = #{userId} and project_id = #{projectId}

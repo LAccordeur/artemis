@@ -8,9 +8,9 @@ import java.lang.annotation.*;
 @Documented
 public @interface Authority {
     //默认验证
-    AuthorityType value() default AuthorityType.Authority;
+    AuthorityType option() default AuthorityType.Authority;
 
-    String name() default "0";
+    String value() default "0";
 
 
 }

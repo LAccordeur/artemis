@@ -6,10 +6,12 @@ package com.kuo.artemis.server.controller;
  * @Date : Created on 2017/11/9
  */
 
+import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.entity.UserProjectKey;
 import com.kuo.artemis.server.service.UserInvitationApplicationService;
 import com.kuo.artemis.server.service.UserProjectService;
+import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +82,7 @@ public class RelationshipController {
      * @param userProjectKey
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
     @RequestMapping(value = "/application/reject", method = RequestMethod.PUT)
     @ResponseBody
     public Response refuseApplication(@RequestBody UserProjectKey userProjectKey) {
@@ -91,6 +94,7 @@ public class RelationshipController {
      * @param userProjectKey
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
     @RequestMapping(value = "/application/acceptance", method = RequestMethod.PUT)
     @ResponseBody
     public Response acceptApplication(@RequestBody UserProjectKey userProjectKey) {
@@ -102,6 +106,7 @@ public class RelationshipController {
      * @param userProjectKey
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project/member", method = RequestMethod.DELETE)
     @ResponseBody
     public Response adminDeleteProjectMember(@RequestBody UserProjectKey userProjectKey) {

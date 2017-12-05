@@ -1,10 +1,12 @@
 package com.kuo.artemis.server.controller;
 
+import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.entity.Project;
 import com.kuo.artemis.server.service.ProjectService;
 import com.kuo.artemis.server.service.UserInvitationApplicationService;
 import com.kuo.artemis.server.service.UserProjectService;
+import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,7 @@ public class ProjectController {
      * @param project
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_UPDATE_PROJECT)
     @RequestMapping(value = "/project", method = RequestMethod.PUT)
     @ResponseBody
     public Response updateProjectInfo(@RequestBody Project project) {
@@ -69,6 +72,7 @@ public class ProjectController {
      * @param projectId
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project/{projectId}/member", method = RequestMethod.GET)
     @ResponseBody
     public Response listProjectMember(@PathVariable String projectId) {
@@ -80,6 +84,7 @@ public class ProjectController {
      * @param projectId
      * @return
      */
+    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
     @RequestMapping(value = "/project/{projectId}/application", method = RequestMethod.GET)
     @ResponseBody
     public Response listProjectApplication(@PathVariable String projectId) {

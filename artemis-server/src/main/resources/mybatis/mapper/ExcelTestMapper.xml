@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.ExcelTestMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.ExcelTest">
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="score" jdbcType="DECIMAL" property="score" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.ExcelTest">
+    insert into excel_test (name, score, age, 
+      birthday, create_time)
+    values (#{name,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL}, #{age,jdbcType=INTEGER}, 
+      #{birthday,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <insert id="insertBatch" parameterType="List">
+    insert into excel_test (name, score, age, birthday) values
+
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.name},#{item.score},#{item.age},#{item.birthday})
+    </foreach>
+
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.ExcelTest">
+    insert into excel_test
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
