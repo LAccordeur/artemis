@@ -4,7 +4,7 @@ import com.kuo.artemis.server.entity.ExcelTest;
 
 import java.util.List;
 
-public interface ExcelTestMapper {
+public interface ExcelTestMapper extends BaseMapper {
     int insert(ExcelTest record);
 
     int insertSelective(ExcelTest record);

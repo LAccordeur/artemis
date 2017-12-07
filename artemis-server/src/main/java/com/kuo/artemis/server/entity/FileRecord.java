@@ -1,0 +1,75 @@
+package com.kuo.artemis.server.entity;
+
+import java.util.Date;
+
+public class FileRecord {
+    private Integer id;
+
+    private Integer userId;
+
+    private Boolean fileType;
+
+    private Integer projectId;
+
+    private Boolean operationType;
+
+    private Date createTime;
+
+    private Date modifiedTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Boolean getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(Boolean fileType) {
+        this.fileType = fileType;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Boolean getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(Boolean operationType) {
+        this.operationType = operationType;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(Date modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+}

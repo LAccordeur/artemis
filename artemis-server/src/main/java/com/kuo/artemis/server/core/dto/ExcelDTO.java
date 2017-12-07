@@ -17,7 +17,7 @@ public class ExcelDTO {
 
     private String signature;
 
-    private List<String> fields;  //Excel表的所有字段名列表
+    private List<String> fields;  //Excel表的所有字段名列表，名字形如initBW即Java驼峰型
 
     private Set<Class> classes;    //Excel表中所有指标来自的类集合
 

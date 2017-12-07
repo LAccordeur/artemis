@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +20,22 @@ public class TypeBindFactoryTest {
 
         Class<?> clazz = Class.forName(ExcelConst.ENTITY_PACKAGE + ".ExcelTest");
         System.out.println(dataBind(clazz, map));
+
+        Set set = new HashSet();
+        set.add("1");
+        set.add("2");
+
+        Iterator iterator = set.iterator();
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+            iterator.remove();
+        }
+        iterator = set.iterator();
+        while (iterator.hasNext()) {
+            System.out.println("new");
+            System.out.println(iterator.next());
+        }
 
     }
 

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.BuildingRecordMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.BuildingRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="building_id" jdbcType="INTEGER" property="buildingId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="building_tempetature" jdbcType="DECIMAL" property="buildingTempetature" />
+    <result column="building_humidity" jdbcType="DECIMAL" property="buildingHumidity" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, building_id, project_id, building_tempetature, building_humidity, create_time, 
+    modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from building_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from building_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.BuildingRecord">
+    insert into building_record (id, building_id, project_id, 
+      building_tempetature, building_humidity, 
+      create_time, modified_time)
+    values (#{id,jdbcType=INTEGER}, #{buildingId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{buildingTempetature,jdbcType=DECIMAL}, #{buildingHumidity,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.BuildingRecord">
+    insert into building_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="buildingTempetature != null">
+        building_tempetature,
+      </if>
+      <if test="buildingHumidity != null">
+        building_humidity,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingTempetature != null">
+        #{buildingTempetature,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingHumidity != null">
+        #{buildingHumidity,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.BuildingRecord">
+    update building_record
+    <set>
+      <if test="buildingId != null">
+        building_id = #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingTempetature != null">
+        building_tempetature = #{buildingTempetature,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingHumidity != null">
+        building_humidity = #{buildingHumidity,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.BuildingRecord">
+    update building_record
+    set building_id = #{buildingId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      building_tempetature = #{buildingTempetature,jdbcType=DECIMAL},
+      building_humidity = #{buildingHumidity,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

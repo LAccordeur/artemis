@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.command.ExportExcelCommand;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -11,4 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileService {
 
     Response parseAndSaveExcel(MultipartFile file) throws Exception;
+
+    Response exportExcelTemplate(ExportExcelCommand command);
+
+    Response exportExcelWithData(ExportExcelCommand command);
 }

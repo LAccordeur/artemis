@@ -81,7 +81,7 @@ public final class ExcelUtil {
     }
 
     /**
-     * 将Excel字段名格式转化为Java驼峰类型
+     * 将Excel字段名格式转化为Java驼峰类型  ##BUG##  等于一情况下UpperCase待商榷
      * @param value
      * @return
      */
@@ -119,7 +119,7 @@ public final class ExcelUtil {
 
 
     /**
-     * 解析Excel表的正文内容
+     * 解析Excel表的正文内容，标题名为Java驼峰型
      * @param workbook
      * @param sheetIndex
      * @Param rowIndex
@@ -280,29 +280,16 @@ public final class ExcelUtil {
     }
 
     /**
-     * 导出Excel文件
+     * 导出Excel文件模板   ##modified## 未来可增加样式的美化
      * @param
      */
-    public static Workbook exportExcel(List<String> titles, List<List> contents) {
+    public static Workbook exportExcelTemplate(List<String> englishFields, List<String> chineseFields) {
 
         //1.创建一个Workbook对象对应一个Excel文件
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        //2.添加sheet
-        XSSFSheet sheet = workbook.createSheet("sheet 1");
-        //3.添加表头
-        XSSFRow row = sheet.createRow(0);
-        //4.设置表头格式
-        XSSFCellStyle style = workbook.createCellStyle();
-        style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-        //5.设置表头
-        XSSFCell cell = null;
-        for (int i = 0; i < titles.size(); i++) {
-            cell = row.createCell(i);
-            cell.setCellValue(titles.get(i));
-            cell.setCellStyle(style);
-        }
+        XSSFWorkbook workbook = getXSSfSheets(englishFields, chineseFields);
 
-        //6.写入数据
+
+        /*//6.写入数据
         for (int i = 0; i < contents.size(); i++) {
             row = sheet.createRow(i+1);
             List<Object> rowItem = contents.get(i);
@@ -310,11 +297,64 @@ public final class ExcelUtil {
                 cell = row.createCell(j);
                 cell.setCellValue((String) rowItem.get(j));
             }
-        }
+        }*/
 
         return workbook;
     }
 
+
+    /**
+     * field中的标题名形如init BW 即在Excel中呈现的形式
+     * @param englishFields
+     * @param chineseFields
+     * @param dataRows
+     * @return
+     */
+    public static Workbook exportExcelWithData(List<String> englishFields, List<String> chineseFields, List<Map<String, Object>> dataRows) {
+        XSSFWorkbook workbook = getXSSfSheets(englishFields, chineseFields);
+        XSSFSheet sheet = workbook.getSheet("sheet 1");
+
+        //写入数据，由于前两行为中英文标题行，故从第三行开始
+        for (int i = 0; i < dataRows.size(); i++) {
+            XSSFRow row = sheet.createRow(i + 2);
+            Map<String, Object> dataRow = dataRows.get(i);
+            for (int j = 0; j < englishFields.size(); j++) {
+                XSSFCell cell = row.createCell(j);
+                cell.setCellValue((String) dataRow.get(englishFields.get(j)));
+            }
+        }
+
+
+        return workbook;
+    }
+
+    private static XSSFWorkbook getXSSfSheets(List<String> englishFields, List<String> chineseFields) {
+        //1.创建一个Workbook对象对应一个Excel文件
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        //2.添加sheet
+        XSSFSheet sheet = workbook.createSheet("sheet 1");
+        //3.添加表头
+        XSSFRow englishRow = sheet.createRow(0);
+        //4.设置表头格式
+        XSSFCellStyle style = workbook.createCellStyle();
+        style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+        //5.设置英文表头
+        XSSFCell cell = null;
+        for (int i = 0; i < englishFields.size(); i++) {
+            cell = englishRow.createCell(i);
+            cell.setCellValue(englishFields.get(i));
+            cell.setCellStyle(style);
+        }
+
+        //6.设置中文表头
+        XSSFRow chineseRow = sheet.createRow(1);
+        for (int i = 0; i < chineseFields.size(); i++) {
+            cell = chineseRow.createCell(i);
+            cell.setCellValue(chineseFields.get(i));
+            cell.setCellStyle(style);
+        }
+        return workbook;
+    }
 
     /**
      * 将包含来自多个表的指标的数据LIST解析成一个LIST，该LIST中的每个元素中的指标都来自同一个表
@@ -486,7 +526,9 @@ public final class ExcelUtil {
 
                             //通过反射的方式执行bean的mothod方法，在这里相当于执行set方法赋值
                             Object param = TypeBindFactory.createBean(paramType, value);
-                            method.invoke(bean, param);
+                            if (param != null) {
+                                method.invoke(bean, param);
+                            }
 
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();

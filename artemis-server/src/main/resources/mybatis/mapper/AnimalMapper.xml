@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.AnimalMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.Animal">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="animal_type_id" jdbcType="INTEGER" property="animalTypeId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="animal_sex" jdbcType="SMALLINT" property="animalSex" />
+    <result column="animal_init_weight" jdbcType="DECIMAL" property="animalInitWeight" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+    <result column="treatment" jdbcType="CHAR" property="treatment" />
+    <result column="replicate" jdbcType="CHAR" property="replicate" />
+    <result column="animal_birthday" jdbcType="TIMESTAMP" property="animalBirthday" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, animal_type_id, project_id, animal_sex, animal_init_weight, code, id_number, 
+    treatment, replicate, animal_birthday, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from animal
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from animal
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.Animal">
+    insert into animal (id, animal_type_id, project_id, 
+      animal_sex, animal_init_weight, code, 
+      id_number, treatment, replicate, 
+      animal_birthday, create_time, modified_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{animalTypeId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{animalSex,jdbcType=SMALLINT}, #{animalInitWeight,jdbcType=DECIMAL}, #{code,jdbcType=VARCHAR}, 
+      #{idNumber,jdbcType=VARCHAR}, #{treatment,jdbcType=CHAR}, #{replicate,jdbcType=CHAR}, 
+      #{animalBirthday,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Animal">
+    insert into animal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="animalTypeId != null">
+        animal_type_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="animalSex != null">
+        animal_sex,
+      </if>
+      <if test="animalInitWeight != null">
+        animal_init_weight,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="idNumber != null">
+        id_number,
+      </if>
+      <if test="treatment != null">
+        treatment,
+      </if>
+      <if test="replicate != null">
+        replicate,
+      </if>
+      <if test="animalBirthday != null">
+        animal_birthday,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="animalTypeId != null">
+        #{animalTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="animalSex != null">
+        #{animalSex,jdbcType=SMALLINT},
+      </if>
+      <if test="animalInitWeight != null">
+        #{animalInitWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment != null">
+        #{treatment,jdbcType=CHAR},
+      </if>
+      <if test="replicate != null">
+        #{replicate,jdbcType=CHAR},
+      </if>
+      <if test="animalBirthday != null">
+        #{animalBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.Animal">
+    update animal
+    <set>
+      <if test="animalTypeId != null">
+        animal_type_id = #{animalTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="animalSex != null">
+        animal_sex = #{animalSex,jdbcType=SMALLINT},
+      </if>
+      <if test="animalInitWeight != null">
+        animal_init_weight = #{animalInitWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment != null">
+        treatment = #{treatment,jdbcType=CHAR},
+      </if>
+      <if test="replicate != null">
+        replicate = #{replicate,jdbcType=CHAR},
+      </if>
+      <if test="animalBirthday != null">
+        animal_birthday = #{animalBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.Animal">
+    update animal
+    set animal_type_id = #{animalTypeId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      animal_sex = #{animalSex,jdbcType=SMALLINT},
+      animal_init_weight = #{animalInitWeight,jdbcType=DECIMAL},
+      code = #{code,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      treatment = #{treatment,jdbcType=CHAR},
+      replicate = #{replicate,jdbcType=CHAR},
+      animal_birthday = #{animalBirthday,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

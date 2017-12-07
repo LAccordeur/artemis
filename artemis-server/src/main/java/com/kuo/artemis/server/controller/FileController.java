@@ -1,29 +1,17 @@
 package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.core.helper.ExcelHelper;
-import com.kuo.artemis.server.entity.ExcelTest;
+import com.kuo.artemis.server.core.dto.command.ExportExcelCommand;
 import com.kuo.artemis.server.service.FileService;
-import com.kuo.artemis.server.util.file.ExcelUtil;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,23 +43,63 @@ public class FileController {
     }
 
 
-    @RequestMapping(value = "/excel/download")
-    public Response sendExcelFile(HttpServletResponse response) {
+    @RequestMapping(value = "/excel/template/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})
+    public void exportExcelFile(@RequestBody ExportExcelCommand command, HttpServletResponse response) {
         try {
+            Response<Workbook> result = fileService.exportExcelTemplate(command);
+            Workbook workbook = result.getData();
+
             OutputStream outputStream = response.getOutputStream();
-            String filename = "test.xlsx";
+            String filename = command.getFileName();
+            if (filename == null) {
+                filename = "unnamed.xlsx";
+            }
+            if (!filename.endsWith(".xlsx")) {
+                filename = filename + ".xlsx";
+            }
+
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "iso-8859-1"));
-            List<String> list = new ArrayList<String>();
-            list.add("test");
-            List<List> lists = new ArrayList<List>();
-            lists.add(list);
-            lists.add(list);
-            Workbook workbook = ExcelUtil.exportExcel(list, lists);
+            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
+
             workbook.write(outputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+
+    }
+
+    @RequestMapping(value = "/excel/template/test", method = RequestMethod.GET, produces = {"application/vnd.ms-excel;charset=UTF-8"})
+    public void exportExcelFileTest(@RequestParam String indicatorId, HttpServletResponse response) {
+        try {
+            ExportExcelCommand command = new ExportExcelCommand();
+            List<String> indicators = new ArrayList<String>();
+            indicators.add(indicatorId);
+            command.setIndicatorIds(indicators);
+
+            Response<Workbook> result = fileService.exportExcelTemplate(command);
+            Workbook workbook = result.getData();
+
+            OutputStream outputStream = response.getOutputStream();
+            String filename = command.getFileName();
+            if (filename == null) {
+                filename = "unnamed.xlsx";
+            }
+            if (!filename.endsWith(".xlsx")) {
+                filename = filename + ".xlsx";
+            }
+
+            response.setContentType("application/vnd.ms-excel;charset=utf-8");
+            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
+
+            workbook.write(outputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @RequestMapping(value = "/test")
+    public void test() {
+        System.out.println("test");
     }
 }

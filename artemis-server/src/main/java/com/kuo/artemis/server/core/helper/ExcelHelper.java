@@ -1,11 +1,11 @@
 package com.kuo.artemis.server.core.helper;
 
 import com.kuo.artemis.server.core.dto.ExcelDTO;
+import com.kuo.artemis.server.core.dto.command.ExportExcelCommand;
 import com.kuo.artemis.server.util.file.ExcelUtil;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -88,10 +88,28 @@ public class ExcelHelper {
     }
 
     /**
-     * 发送excel文件
+     * 导出excel模板文件
      */
-    public static byte[] sendExcel(List<String> titles, List<List<Object>> contents) {
-        //Workbook workbook = ExcelUtil.exportExcel(titles, contents);
-        return null;
+    public static Workbook exportExcelTemplate(ExportExcelCommand command) {
+
+        List<String> englishFields = command.getGetIndicatorEnglishNames();
+        List<String> chineseFields = command.getIndicatorNames();
+        Workbook workbook = ExcelUtil.exportExcelTemplate(englishFields, chineseFields);
+        return workbook;
+    }
+
+    /**
+     * 导出含有指标记录数据的Excel文件
+     * @param command
+     * @return
+     */
+    public static Workbook exportExcelWithData(ExportExcelCommand command) {
+
+        List<String> englishFields = command.getGetIndicatorEnglishNames();
+        List<String> chineseFields = command.getIndicatorNames();
+        List<Map<String, Object>> dataRows = command.getDataRows();
+        Workbook workbook = ExcelUtil.exportExcelWithData(englishFields, chineseFields, dataRows);
+        return workbook;
+
     }
 }

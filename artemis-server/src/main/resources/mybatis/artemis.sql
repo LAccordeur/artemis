@@ -10,10 +10,403 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2017-11-13 20:32:01
+Date: 2017-12-07 17:40:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for animal
+-- ----------------------------
+DROP TABLE IF EXISTS `animal`;
+CREATE TABLE `animal` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `animal_type_id` int(10) unsigned NOT NULL COMMENT '动物类别id',
+  `project_id` int(10) unsigned NOT NULL COMMENT '动物所属课题的id',
+  `animal_sex` smallint(5) unsigned DEFAULT '0' COMMENT '动物性别：1表示雄性；2表示雌性；0为默认未定义',
+  `animal_init_weight` decimal(12,5) NOT NULL COMMENT '动物初始体重',
+  `code` varchar(32) DEFAULT '' COMMENT '动物编号',
+  `id_number` varchar(32) DEFAULT '' COMMENT '动物耳号',
+  `treatment` char(4) DEFAULT '' COMMENT '动物所在处理组编号',
+  `replicate` char(4) DEFAULT '' COMMENT '动物所在重复组编号',
+  `animal_birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_animal_type` (`animal_type_id`),
+  CONSTRAINT `fk_animal_type` FOREIGN KEY (`animal_type_id`) REFERENCES `animal_type` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for animal_building
+-- ----------------------------
+DROP TABLE IF EXISTS `animal_building`;
+CREATE TABLE `animal_building` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `building_code` varchar(16) DEFAULT '' COMMENT '动物圈舍所在的建筑编号',
+  `house_number` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '该建筑所含圈舍数目',
+  `house_type` smallint(5) unsigned DEFAULT '0' COMMENT '建筑内的圈舍类型',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for animal_growth_record
+-- ----------------------------
+DROP TABLE IF EXISTS `animal_growth_record`;
+CREATE TABLE `animal_growth_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `animal_id` int(10) unsigned NOT NULL,
+  `initial_bw` decimal(12,5) DEFAULT NULL,
+  `bw_week1` decimal(12,5) DEFAULT NULL,
+  `bw_week2` decimal(12,5) DEFAULT NULL,
+  `bw_week3` decimal(12,5) DEFAULT NULL,
+  `bw_week4` decimal(12,5) DEFAULT NULL,
+  `bw_week5` decimal(12,5) DEFAULT NULL,
+  `bw_week6` decimal(12,5) DEFAULT NULL,
+  `bw_week7` decimal(12,5) DEFAULT NULL,
+  `bw_week8` decimal(12,5) DEFAULT NULL,
+  `bw_week9` decimal(12,5) DEFAULT NULL,
+  `bw_week10` decimal(12,5) DEFAULT NULL,
+  `bw_week11` decimal(12,5) DEFAULT NULL,
+  `bw_week12` decimal(12,5) DEFAULT NULL,
+  `bw_week13` decimal(12,5) DEFAULT NULL,
+  `bw_week14` decimal(12,5) DEFAULT NULL,
+  `bw_week15` decimal(12,5) DEFAULT NULL,
+  `bw_week16` decimal(12,5) DEFAULT NULL,
+  `bw_week17` decimal(12,5) DEFAULT NULL,
+  `bw_week18` decimal(12,5) DEFAULT NULL,
+  `bw_week19` decimal(12,5) DEFAULT NULL,
+  `bw_week20` decimal(12,5) DEFAULT NULL,
+  `bw_week21` decimal(12,5) DEFAULT NULL,
+  `bw_week22` decimal(12,5) DEFAULT NULL,
+  `bw_week23` decimal(12,5) DEFAULT NULL,
+  `adg_week1` decimal(12,5) DEFAULT NULL,
+  `phase1_bw` decimal(12,5) DEFAULT NULL,
+  `phase2_bw` decimal(12,5) DEFAULT NULL,
+  `phase3_bw` decimal(12,5) DEFAULT NULL,
+  `phase4_bw` decimal(12,5) DEFAULT NULL,
+  `phase5_bw` decimal(12,5) DEFAULT NULL,
+  `bw_week24` decimal(12,5) DEFAULT NULL,
+  `adg_week2` decimal(12,5) DEFAULT NULL,
+  `adg_week3` decimal(12,5) DEFAULT NULL,
+  `adg_week4` decimal(12,5) DEFAULT NULL,
+  `adg_week5` decimal(12,5) DEFAULT NULL,
+  `adg_week6` decimal(12,5) DEFAULT NULL,
+  `adg_week7` decimal(12,5) DEFAULT NULL,
+  `adg_week8` decimal(12,5) DEFAULT NULL,
+  `adg_week9` decimal(12,5) DEFAULT NULL,
+  `adg_week10` decimal(12,5) DEFAULT NULL,
+  `adg_week11` decimal(12,5) DEFAULT NULL,
+  `adg_week12` decimal(12,5) DEFAULT NULL,
+  `adg_week13` decimal(12,5) DEFAULT NULL,
+  `adg_week14` decimal(12,5) DEFAULT NULL,
+  `adg_week15` decimal(12,5) DEFAULT NULL,
+  `adg_week16` decimal(12,5) DEFAULT NULL,
+  `adg_week17` decimal(12,5) DEFAULT NULL,
+  `adg_week18` decimal(12,5) DEFAULT NULL,
+  `adg_week19` decimal(12,5) DEFAULT NULL,
+  `adg_week20` decimal(12,5) DEFAULT NULL,
+  `adg_week21` decimal(12,5) DEFAULT NULL,
+  `adg_week22` decimal(12,5) DEFAULT NULL,
+  `adg_week23` decimal(12,5) DEFAULT NULL,
+  `adg_week24` decimal(12,5) DEFAULT NULL,
+  `phase1_adg` decimal(12,5) DEFAULT NULL,
+  `phase2_adg` decimal(12,5) DEFAULT NULL,
+  `phase3_adg` decimal(12,5) DEFAULT NULL,
+  `phase4_adg` decimal(12,5) DEFAULT NULL,
+  `phase5_adg` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week1` decimal(12,5) DEFAULT NULL,
+  `residual_week1` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week1` decimal(12,5) DEFAULT NULL,
+  `adfi_week1` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week2` decimal(12,5) DEFAULT NULL,
+  `residual_week2` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week2` decimal(12,5) DEFAULT NULL,
+  `adfi_week2` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week3` decimal(12,5) DEFAULT NULL,
+  `residual_week3` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week3` decimal(12,5) DEFAULT NULL,
+  `adfi_week3` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week4` decimal(12,5) DEFAULT NULL,
+  `residual_week4` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week4` decimal(12,5) DEFAULT NULL,
+  `adfi_week4` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week5` decimal(12,5) DEFAULT NULL,
+  `residual_week5` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week5` decimal(12,5) DEFAULT NULL,
+  `adfi_week5` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week6` decimal(12,5) DEFAULT NULL,
+  `residual_week6` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week6` decimal(12,5) DEFAULT NULL,
+  `adfi_week6` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week7` decimal(12,5) DEFAULT NULL,
+  `residual_week7` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week7` decimal(12,5) DEFAULT NULL,
+  `adfi_week7` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week8` decimal(12,5) DEFAULT NULL,
+  `residual_week8` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week8` decimal(12,5) DEFAULT NULL,
+  `adfi_week8` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week9` decimal(12,5) DEFAULT NULL,
+  `residual_week9` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week9` decimal(12,5) DEFAULT NULL,
+  `adfi_week9` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week10` decimal(12,5) DEFAULT NULL,
+  `residual_week10` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week10` decimal(12,5) DEFAULT NULL,
+  `adfi_week10` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week11` decimal(12,5) DEFAULT NULL,
+  `residual_week11` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week11` decimal(12,5) DEFAULT NULL,
+  `adfi_week11` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week12` decimal(12,5) DEFAULT NULL,
+  `residual_week12` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week12` decimal(12,5) DEFAULT NULL,
+  `adfi_week12` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week13` decimal(12,5) DEFAULT NULL,
+  `residual_week13` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week13` decimal(12,5) DEFAULT NULL,
+  `adfi_week13` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week14` decimal(12,5) DEFAULT NULL,
+  `residual_week14` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week14` decimal(12,5) DEFAULT NULL,
+  `adfi_week14` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week15` decimal(12,5) DEFAULT NULL,
+  `residual_week15` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week15` decimal(12,5) DEFAULT NULL,
+  `adfi_week15` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week16` decimal(12,5) DEFAULT NULL,
+  `residual_week16` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week16` decimal(12,5) DEFAULT NULL,
+  `adfi_week16` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week17` decimal(12,5) DEFAULT NULL,
+  `residual_week17` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week17` decimal(12,5) DEFAULT NULL,
+  `adfi_week17` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week18` decimal(12,5) DEFAULT NULL,
+  `residual_week18` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week18` decimal(12,5) DEFAULT NULL,
+  `adfi_week18` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week19` decimal(12,5) DEFAULT NULL,
+  `residual_week19` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week19` decimal(12,5) DEFAULT NULL,
+  `adfi_week19` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week20` decimal(12,5) DEFAULT NULL,
+  `residual_week20` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week20` decimal(12,5) DEFAULT NULL,
+  `adfi_week20` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week21` decimal(12,5) DEFAULT NULL,
+  `residual_week21` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week21` decimal(12,5) DEFAULT NULL,
+  `adfi_week21` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week22` decimal(12,5) DEFAULT NULL,
+  `residual_week22` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week22` decimal(12,5) DEFAULT NULL,
+  `adfi_week22` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week23` decimal(12,5) DEFAULT NULL,
+  `residual_week23` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week23` decimal(12,5) DEFAULT NULL,
+  `adfi_week23` decimal(12,5) DEFAULT NULL,
+  `feed_supplied_week24` decimal(12,5) DEFAULT NULL,
+  `residual_week24` decimal(12,5) DEFAULT NULL,
+  `deed_loss_week24` decimal(12,5) DEFAULT NULL,
+  `adfi_week24` decimal(12,5) DEFAULT NULL,
+  `phase1_feed_supplied` decimal(12,5) DEFAULT NULL,
+  `phase1_residual` decimal(12,5) DEFAULT NULL,
+  `phase1_feed_loss` decimal(12,5) DEFAULT NULL,
+  `phase1_adfi` decimal(12,5) DEFAULT NULL,
+  `phase2_feed_supplied` decimal(12,5) DEFAULT NULL,
+  `phase2_residual` decimal(12,5) DEFAULT NULL,
+  `phase2_feed_loss` decimal(12,5) DEFAULT NULL,
+  `phase2_adfi` decimal(12,5) DEFAULT NULL,
+  `phase3_feed_supplied` decimal(12,5) DEFAULT NULL,
+  `phase3_residual` decimal(12,5) DEFAULT NULL,
+  `phase3_feed_loss` decimal(12,5) DEFAULT NULL,
+  `phase3_adfi` decimal(12,5) DEFAULT NULL,
+  `phase4_feed_supplied` decimal(12,5) DEFAULT NULL,
+  `phase4_residual` decimal(12,5) DEFAULT NULL,
+  `phase4_feed_loss` decimal(12,5) DEFAULT NULL,
+  `phase4_adfi` decimal(12,5) DEFAULT NULL,
+  `phase5_feed_supplied` decimal(12,5) DEFAULT NULL,
+  `phase5_residual` decimal(12,5) DEFAULT NULL,
+  `phase5_feed_loss` decimal(12,5) DEFAULT NULL,
+  `phase5_adfi` decimal(12,5) DEFAULT NULL,
+  `fcr_week1` decimal(12,5) DEFAULT NULL,
+  `fcr_week2` decimal(12,5) DEFAULT NULL,
+  `fcr_week3` decimal(12,5) DEFAULT NULL,
+  `fcr_week4` decimal(12,5) DEFAULT NULL,
+  `fcr_week5` decimal(12,5) DEFAULT NULL,
+  `fcr_week6` decimal(12,5) DEFAULT NULL,
+  `fcr_week7` decimal(12,5) DEFAULT NULL,
+  `fcr_week8` decimal(12,5) DEFAULT NULL,
+  `fcr_week9` decimal(12,5) DEFAULT NULL,
+  `fcr_week10` decimal(12,5) DEFAULT NULL,
+  `fcr_week11` decimal(12,5) DEFAULT NULL,
+  `fcr_week12` decimal(12,5) DEFAULT NULL,
+  `fcr_week13` decimal(12,5) DEFAULT NULL,
+  `fcr_week14` decimal(12,5) DEFAULT NULL,
+  `fcr_week15` decimal(12,5) DEFAULT NULL,
+  `fcr_week16` decimal(12,5) DEFAULT NULL,
+  `fcr_week17` decimal(12,5) DEFAULT NULL,
+  `fcr_week18` decimal(12,5) DEFAULT NULL,
+  `fcr_week19` decimal(12,5) DEFAULT NULL,
+  `fcr_week20` decimal(12,5) DEFAULT NULL,
+  `fcr_week21` decimal(12,5) DEFAULT NULL,
+  `fcr_week22` decimal(12,5) DEFAULT NULL,
+  `fcr_week23` decimal(12,5) DEFAULT NULL,
+  `fcr_week24` decimal(12,5) DEFAULT NULL,
+  `phase1_fcr` decimal(12,5) DEFAULT NULL,
+  `phase2_fcr` decimal(12,5) DEFAULT NULL,
+  `phase3_fcr` decimal(12,5) DEFAULT NULL,
+  `phase4_fcr` decimal(12,5) DEFAULT NULL,
+  `phase5_fcr` decimal(12,5) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_animal_growth_relation` (`animal_id`),
+  CONSTRAINT `fk_animal_growth_relation` FOREIGN KEY (`animal_id`) REFERENCES `animal` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for animal_house
+-- ----------------------------
+DROP TABLE IF EXISTS `animal_house`;
+CREATE TABLE `animal_house` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `building_id` int(10) unsigned NOT NULL,
+  `house_code` varchar(16) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_house_building` (`building_id`),
+  CONSTRAINT `fk_house_building` FOREIGN KEY (`building_id`) REFERENCES `animal_building` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for animal_house_relation
+-- ----------------------------
+DROP TABLE IF EXISTS `animal_house_relation`;
+CREATE TABLE `animal_house_relation` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `animal_id` int(10) unsigned NOT NULL,
+  `house_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_animal_house` (`animal_id`),
+  KEY `fk_animal_house2` (`house_id`),
+  CONSTRAINT `fk_animal_house` FOREIGN KEY (`animal_id`) REFERENCES `animal` (`id`),
+  CONSTRAINT `fk_animal_house2` FOREIGN KEY (`house_id`) REFERENCES `animal_house` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for animal_type
+-- ----------------------------
+DROP TABLE IF EXISTS `animal_type`;
+CREATE TABLE `animal_type` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `animal_type_name` varchar(32) NOT NULL,
+  `animal_type_name_english` varchar(32) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for building_record
+-- ----------------------------
+DROP TABLE IF EXISTS `building_record`;
+CREATE TABLE `building_record` (
+  `id` int(10) unsigned NOT NULL,
+  `building_id` int(10) unsigned NOT NULL,
+  `project_id` int(10) unsigned NOT NULL,
+  `building_tempetature` decimal(12,5) NOT NULL COMMENT '温度',
+  `building_humidity` decimal(12,5) NOT NULL COMMENT '湿度',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_building_record_relation` (`building_id`),
+  CONSTRAINT `fk_building_record_relation` FOREIGN KEY (`building_id`) REFERENCES `animal_building` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for excel_file_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `excel_file_detail`;
+CREATE TABLE `excel_file_detail` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `file_record_id` int(10) unsigned NOT NULL,
+  `indicator_id` int(10) unsigned DEFAULT NULL,
+  `indicator_name` varchar(64) DEFAULT NULL,
+  `table_name` varchar(32) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_file_record` (`file_record_id`),
+  KEY `fk_indicator_name` (`indicator_name`),
+  KEY `fk_indicator_id` (`indicator_id`),
+  CONSTRAINT `fk_file_record` FOREIGN KEY (`file_record_id`) REFERENCES `file_record` (`id`),
+  CONSTRAINT `fk_indicator_id` FOREIGN KEY (`indicator_id`) REFERENCES `indicator` (`id`),
+  CONSTRAINT `fk_indicator_name` FOREIGN KEY (`indicator_name`) REFERENCES `indicator` (`indicator_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for excel_test
+-- ----------------------------
+DROP TABLE IF EXISTS `excel_test`;
+CREATE TABLE `excel_test` (
+  `name` varchar(255) NOT NULL,
+  `score` decimal(10,0) NOT NULL,
+  `age` int(11) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `decimal_test` decimal(10,0) DEFAULT NULL,
+  `decimal_test2` decimal(10,5) DEFAULT NULL,
+  `double_test` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for excel_test_two
+-- ----------------------------
+DROP TABLE IF EXISTS `excel_test_two`;
+CREATE TABLE `excel_test_two` (
+  `university` varchar(64) DEFAULT NULL,
+  `school` varchar(64) DEFAULT NULL,
+  `grade` int(10) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for file_record
+-- ----------------------------
+DROP TABLE IF EXISTS `file_record`;
+CREATE TABLE `file_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned DEFAULT NULL COMMENT '进行文件操作的用户id',
+  `file_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '文件类型,0为默认，1为excel，2为word',
+  `project_id` int(10) unsigned DEFAULT NULL COMMENT '文件所在课题的id',
+  `operation_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '操作类型，1表示上传，2表示下载',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_file` (`user_id`) USING BTREE,
+  KEY `fk_project_file` (`project_id`) USING BTREE,
+  CONSTRAINT `fk_project_file` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
+  CONSTRAINT `fk_user_file` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for indicator
+-- ----------------------------
+DROP TABLE IF EXISTS `indicator`;
+CREATE TABLE `indicator` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `indicator_name` varchar(64) NOT NULL,
+  `indicator_name_english` varchar(64) NOT NULL,
+  `indicator_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '指标所属类别，1表示动物生长性能',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `indicator_name_english` (`indicator_name_english`),
+  KEY `indicator_name` (`indicator_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=743 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for permission
@@ -27,40 +420,12 @@ CREATE TABLE `permission` (
   `permission_description_english` varchar(60) NOT NULL DEFAULT '' COMMENT '权限描述英文',
   `permission_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '权限的类型',
   `permission_action` tinyint(1) NOT NULL DEFAULT '0' COMMENT '权限的操作类型，0为默认，1表示添加、2表示删除、3表示修改、4表示查看',
-  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级权限id',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父级权限id',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '权限状态：0表示该权限已被废弃，1表示该权限有效',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of permission
--- ----------------------------
-INSERT INTO `permission` VALUES ('6', '数据录入', '', '数据录入', '', '0', '1', '0', '2017-11-06 20:34:03', '2017-11-06 20:34:03');
-INSERT INTO `permission` VALUES ('7', '动物数据录入', '', '数据录入-动物数据录入', '', '0', '1', '6', '2017-11-06 20:34:43', '2017-11-06 20:34:43');
-INSERT INTO `permission` VALUES ('8', '配方数据录入', '', '数据录入-配方数据录入', '', '0', '1', '6', '2017-11-06 20:35:25', '2017-11-06 20:35:25');
-INSERT INTO `permission` VALUES ('9', '原料数据录入', '', '数据录入-原料数据录入', '', '0', '1', '6', '2017-11-06 20:36:05', '2017-11-06 20:36:05');
-INSERT INTO `permission` VALUES ('10', '执行动物分组', '', '数据录入-执行动物分组', '', '0', '1', '6', '2017-11-06 20:36:32', '2017-11-06 20:36:32');
-INSERT INTO `permission` VALUES ('12', '数据查看', '', '数据查看', '', '0', '4', '0', '2017-11-06 20:37:49', '2017-11-06 20:37:49');
-INSERT INTO `permission` VALUES ('13', '动物数据查看', '', '数据查看-动物数据查看', '', '0', '4', '12', '2017-11-06 20:38:17', '2017-11-06 20:38:17');
-INSERT INTO `permission` VALUES ('14', '配方数据查看', '', '数据查看-配方数据查看', '', '0', '4', '12', '2017-11-06 20:38:50', '2017-11-06 20:38:50');
-INSERT INTO `permission` VALUES ('15', '原料数据查看', '', '数据查看-原料数据查看', '', '0', '4', '12', '2017-11-06 20:39:11', '2017-11-06 20:39:11');
-INSERT INTO `permission` VALUES ('16', '动物分组数据查看', '', '数据查看-动物分组数据查看', '', '0', '4', '12', '2017-11-06 20:41:05', '2017-11-06 20:41:05');
-INSERT INTO `permission` VALUES ('18', '数据修改', '', '数据修改', '', '0', '3', '0', '2017-11-06 20:42:38', '2017-11-06 20:42:38');
-INSERT INTO `permission` VALUES ('19', '动物数据修改', '', '数据修改-动物数据修改', '', '0', '3', '18', '2017-11-06 20:43:06', '2017-11-06 20:43:06');
-INSERT INTO `permission` VALUES ('20', '配方数据修改', '', '数据修改-配方数据修改', '', '0', '3', '18', '2017-11-06 20:43:30', '2017-11-06 20:43:30');
-INSERT INTO `permission` VALUES ('21', '原料数据修改', '', '数据修改-原料数据修改', '', '0', '3', '18', '2017-11-06 20:43:54', '2017-11-06 20:43:54');
-INSERT INTO `permission` VALUES ('22', '动物分组数据修改', '', '数据修改-动物分组数据修改', '', '0', '3', '18', '2017-11-06 20:44:40', '2017-11-06 20:44:40');
-INSERT INTO `permission` VALUES ('24', '数据删除', '', '数据删除', '', '0', '2', '0', '2017-11-06 20:45:54', '2017-11-06 20:45:54');
-INSERT INTO `permission` VALUES ('25', '动物数据删除', '', '数据删除-动物数据删除', '', '0', '2', '24', '2017-11-06 20:46:20', '2017-11-06 20:46:20');
-INSERT INTO `permission` VALUES ('26', '配方数据删除', '', '数据删除-配方数据删除', '', '0', '2', '24', '2017-11-06 20:48:24', '2017-11-06 20:48:51');
-INSERT INTO `permission` VALUES ('27', '原料数据删除', '', '数据删除-原料数据删除', '', '0', '2', '24', '2017-11-06 20:49:27', '2017-11-06 20:49:27');
-INSERT INTO `permission` VALUES ('28', '动物分组数据删除', '', '数据删除-动物分组数据删除', '', '0', '2', '24', '2017-11-06 20:50:23', '2017-11-06 20:50:23');
-INSERT INTO `permission` VALUES ('30', '人员管理', '', '人员管理', '', '0', '0', '0', '2017-11-06 20:52:47', '2017-11-06 20:52:47');
-INSERT INTO `permission` VALUES ('31', '删除成员', '', '人员管理-删除成员', '', '0', '2', '30', '2017-11-06 20:53:31', '2017-11-06 20:54:37');
-INSERT INTO `permission` VALUES ('32', '处理申请', '', '人员管理-处理申请', '', '0', '1', '30', '2017-11-06 20:54:27', '2017-11-06 20:55:10');
-INSERT INTO `permission` VALUES ('33', '指导性文档上传/编辑', '', '指导性文档上传/编辑', '', '0', '1', '0', '2017-11-06 20:55:00', '2017-11-06 20:55:07');
-INSERT INTO `permission` VALUES ('34', '权限授予/收回', '', '权限授予/收回', '', '0', '0', '0', '2017-11-06 20:55:46', '2017-11-06 20:55:46');
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for project
@@ -77,12 +442,7 @@ CREATE TABLE `project` (
   PRIMARY KEY (`id`),
   KEY `fk_user_id` (`project_admin_id`),
   CONSTRAINT `fk_user_id` FOREIGN KEY (`project_admin_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of project
--- ----------------------------
-INSERT INTO `project` VALUES ('20', '正经课题', '7', '正经测试', '一个正经的测试课题,对的你妹看错', '2017-11-10 17:47:18', '2017-11-12 10:33:57');
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for role
@@ -101,13 +461,6 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of role
--- ----------------------------
-INSERT INTO `role` VALUES ('29', '20', '课题负责人', '0', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role` VALUES ('33', '20', '课题成员', '0', '2017-11-12 11:10:10', '2017-11-12 11:10:10');
-INSERT INTO `role` VALUES ('37', '20', '课题成员', '0', '2017-11-12 17:29:08', '2017-11-12 17:29:08');
-
--- ----------------------------
 -- Table structure for role_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `role_permission`;
@@ -123,40 +476,6 @@ CREATE TABLE `role_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of role_permission
--- ----------------------------
-INSERT INTO `role_permission` VALUES ('29', '6', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '7', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '8', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '9', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '10', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '12', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '13', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '14', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '15', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '16', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '18', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '19', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '20', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '21', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '22', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '24', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '25', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '26', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '27', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '28', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '30', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '31', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '32', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '33', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('29', '34', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-INSERT INTO `role_permission` VALUES ('33', '12', '2017-11-12 11:10:10', '2017-11-12 11:10:10');
-INSERT INTO `role_permission` VALUES ('33', '13', '2017-11-12 11:10:10', '2017-11-12 11:10:10');
-INSERT INTO `role_permission` VALUES ('33', '14', '2017-11-12 11:10:10', '2017-11-12 11:10:10');
-INSERT INTO `role_permission` VALUES ('33', '15', '2017-11-12 11:10:10', '2017-11-12 11:10:10');
-INSERT INTO `role_permission` VALUES ('33', '16', '2017-11-12 11:10:10', '2017-11-12 11:10:10');
-
--- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -168,24 +487,13 @@ CREATE TABLE `user` (
   `user_email` varchar(60) NOT NULL DEFAULT '' COMMENT '用户邮箱',
   `user_password` varchar(64) NOT NULL COMMENT '用户密码',
   `university` varchar(30) NOT NULL DEFAULT '' COMMENT '用户学校',
-  `user_identity` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '用户身份,1表示学生,2表示老师,0为默认值无身份',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '用户认证状态，默认0为未认证，1为已认证',
+  `user_identity` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '用户身份,1表示学生,2表示老师,0为默认值无身份',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '用户认证状态，默认0为未认证，1为已认证',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
   KEY `user_name` (`user_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', '测试', '1', '18936752870', '222@qq.com', 'test', 'test', '1', '0', '2017-10-26 14:53:01', '2017-11-02 11:39:18');
-INSERT INTO `user` VALUES ('2', '加密测试', '0', '13813331870', '111@gmail.com', '73ece911d10a00c7b679775652ad4a457a17285319f5da2b46a639335ef0914f', 'test', '1', '0', '2017-10-28 13:10:12', '2017-10-28 13:10:12');
-INSERT INTO `user` VALUES ('3', 'testtest', '0', '18936752871', '222@gmail.com', 'b3bcb85f1ea8ad62bb390fb51584a8b6aa75a504f36dd45c8ee57137aa57dada', 'uestc', '1', '0', '2017-10-28 13:40:44', '2017-10-28 13:40:44');
-INSERT INTO `user` VALUES ('4', '申请邀请测试', '0', '15152835200', '', '176904f8c4d46a7f3c410cc5f3f3ef93dd3e2d5c5f3acdbe053b3051a15d9421', 'uestc', '2', '0', '2017-11-02 17:03:53', '2017-11-02 17:03:53');
-INSERT INTO `user` VALUES ('5', '改一下名字', '1', '15152835201', '', '760af1774d2d64829cf99f9b083ce65786f521283a8f169181c93450d07cf941', 'uestc', '1', '0', '2017-11-02 17:11:20', '2017-11-10 17:30:43');
-INSERT INTO `user` VALUES ('6', '呼哈呼哈', '0', '11111111111', '', 'fda10b896ef478f9dce93e8c4bf1646fec79e7606fd04ada4f4e12a7cf413ace', '', '0', '0', '2017-11-05 10:54:48', '2017-11-05 10:54:48');
-INSERT INTO `user` VALUES ('7', '正经测试', '0', '18936752879', '', '690d13f97c47d6bee2c1fa469839ebfbe461d84d0759b82b21bbae8b6c941c4a', '', '0', '0', '2017-11-10 16:50:24', '2017-11-10 16:50:24');
 
 -- ----------------------------
 -- Table structure for user_project
@@ -205,13 +513,6 @@ CREATE TABLE `user_project` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of user_project
--- ----------------------------
-INSERT INTO `user_project` VALUES ('20', '4', '2', '1', '2017-11-12 11:48:48', '2017-11-12 17:29:08');
-INSERT INTO `user_project` VALUES ('20', '6', '2', '2', '2017-11-12 10:40:52', '2017-11-12 11:10:09');
-INSERT INTO `user_project` VALUES ('20', '7', '2', '0', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
-
--- ----------------------------
 -- Table structure for user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `user_role`;
@@ -227,18 +528,21 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of user_role
+-- Table structure for 繁殖动物
 -- ----------------------------
-INSERT INTO `user_role` VALUES ('4', '37', '2017-11-12 17:29:08', '2017-11-12 17:29:08');
-INSERT INTO `user_role` VALUES ('6', '33', '2017-11-12 11:10:10', '2017-11-12 11:10:10');
-INSERT INTO `user_role` VALUES ('7', '29', '2017-11-10 17:47:18', '2017-11-10 17:47:18');
+DROP TABLE IF EXISTS `繁殖动物`;
+CREATE TABLE `繁殖动物` (
+  `考察指标` varchar(255) DEFAULT NULL,
+  `英文翻译` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- View structure for role_permission_view
 -- ----------------------------
 DROP VIEW IF EXISTS `role_permission_view`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `role_permission_view` AS select role.id as role_id, role.role_name as role_name, permission.id as permission_id, permission.permission_name as permission_name, (select count(*) from role_permission where role_permission.role_id=role.id and role_permission.permission_id=permission.id ) as status
-from role, permission ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `role_permission_view` AS select role.id as role_id, role.role_name as role_name, permission.id as permission_id, permission.permission_name as permission_name, permission.permission_name_english as permission_name_english, (select count(*) from role_permission where role_permission.role_id=role.id and role_permission.permission_id=permission.id ) as status
+from role, permission 
+where permission.`status` = 1 ;
 
 -- ----------------------------
 -- View structure for user_invitation_application_view
@@ -285,7 +589,10 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW
         JOIN `user_role` `ur` ON ((`u`.`id` = `ur`.`user_id`)))
         LEFT JOIN `role` `r` ON ((`ur`.`role_id` = `r`.`id`)))
         LEFT JOIN `role_permission` `rp` ON ((`r`.`id` = `rp`.`role_id`)))
-        LEFT JOIN `permission` `p` ON ((`rp`.`permission_id` = `p`.`id`)))) ;
+        LEFT JOIN `permission` `p` ON ((`rp`.`permission_id` = `p`.`id`)))
+
+		WHERE p.`status` = 1
+) ;
 
 -- ----------------------------
 -- View structure for user_project_view

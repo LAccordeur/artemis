@@ -8,9 +8,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.util.*;
 
 import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,6 +24,27 @@ public class ExcelTestMapperTest {
         excelTest.setName("测试");
         excelTest.setScore(88L);
         excelTestMapper.insert(excelTest);*/
+        BaseMapper baseMapper = excelTestMapper;
+        Class[] classes = baseMapper.getClass().getInterfaces();
+        System.out.println("length:" + classes.length);
+        for (int i = 0; i < classes.length; i++)
+        System.out.println(classes[i].getSimpleName());
+
+
+        Map<String, Class> fieldClassMap = new HashMap<String, Class>();
+        Class<?> clazz = null;
+        try {
+            clazz = Class.forName("com.kuo.artemis.server.entity.AnimalGrowthRecord");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            fieldClassMap.put(field.getName(), clazz);
+        }
+
+        System.out.println(fieldClassMap);
+
     }
 
     @Resource
