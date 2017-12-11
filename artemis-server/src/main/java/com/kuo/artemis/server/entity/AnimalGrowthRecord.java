@@ -6,7 +6,7 @@ import java.util.Date;
 public class AnimalGrowthRecord {
     private Integer id;
 
-    private Integer animalId;
+    private String animalId;
 
     private BigDecimal initialBw;
 
@@ -428,11 +428,11 @@ public class AnimalGrowthRecord {
         this.id = id;
     }
 
-    public Integer getAnimalId() {
+    public String getAnimalId() {
         return animalId;
     }
 
-    public void setAnimalId(Integer animalId) {
+    public void setAnimalId(String animalId) {
         this.animalId = animalId;
     }
 

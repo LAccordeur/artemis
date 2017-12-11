@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.AnimalIndicator;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface AnimalIndicatorMapper {
     int insertSelective(AnimalIndicator record);
 
     AnimalIndicator selectByPrimaryKey(Integer id);
+
+    List<AnimalIndicator> selectIdsByFields(List<String> indicatorEnglishNames);
 
     List<AnimalIndicator> selectByPrimaryKeys(List<String> ids);
 

@@ -7,11 +7,11 @@ public class FileRecord {
 
     private Integer userId;
 
-    private Boolean fileType;
+    private Byte fileType;
 
     private Integer projectId;
 
-    private Boolean operationType;
+    private Byte operationType;
 
     private Date createTime;
 
@@ -33,11 +33,11 @@ public class FileRecord {
         this.userId = userId;
     }
 
-    public Boolean getFileType() {
+    public Byte getFileType() {
         return fileType;
     }
 
-    public void setFileType(Boolean fileType) {
+    public void setFileType(Byte fileType) {
         this.fileType = fileType;
     }
 
@@ -49,11 +49,11 @@ public class FileRecord {
         this.projectId = projectId;
     }
 
-    public Boolean getOperationType() {
+    public Byte getOperationType() {
         return operationType;
     }
 
-    public void setOperationType(Boolean operationType) {
+    public void setOperationType(Byte operationType) {
         this.operationType = operationType;
     }
 

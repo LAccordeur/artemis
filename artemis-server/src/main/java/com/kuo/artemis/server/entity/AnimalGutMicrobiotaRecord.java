@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class AnimalGutMicrobiotaRecord {
     private Integer id;
 
-    private Integer animalId;
+    private String animalId;
 
     private BigDecimal eColi;
 
@@ -25,11 +25,11 @@ public class AnimalGutMicrobiotaRecord {
         this.id = id;
     }
 
-    public Integer getAnimalId() {
+    public String getAnimalId() {
         return animalId;
     }
 
-    public void setAnimalId(Integer animalId) {
+    public void setAnimalId(String animalId) {
         this.animalId = animalId;
     }
 

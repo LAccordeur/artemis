@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface FileService {
 
-    Response parseAndSaveExcel(MultipartFile file) throws Exception;
+    Response parseAndSaveExcel(MultipartFile file, String userId, String projectId) throws Exception;
 
     Response exportExcelTemplate(ExportExcelCommand command);
 

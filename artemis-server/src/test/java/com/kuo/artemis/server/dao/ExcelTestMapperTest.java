@@ -18,6 +18,15 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class ExcelTestMapperTest {
     @Test
+    public void selectSelective() throws Exception {
+        List<String> columns = new ArrayList<String>();
+        columns.add("name");
+        columns.add("create_time");
+        System.out.println(excelTestMapper.selectSelective(columns));
+
+    }
+
+    @Test
     public void insertSelective() throws Exception {
         /*ExcelTest excelTest = new ExcelTest();
         excelTest.setAge(12);

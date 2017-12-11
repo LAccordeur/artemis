@@ -15,6 +15,15 @@
       #{birthday,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
 
+  <select id="selectSelective" parameterType="List" resultType="ExcelTest">
+    select
+    <foreach collection="list" item="item" index="index" separator=",">
+      ${item}
+    </foreach>
+    from
+    excel_test
+  </select>
+
   <insert id="insertBatch" parameterType="List">
     insert into excel_test (name, score, age, birthday) values
 

@@ -2,7 +2,9 @@ package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.AnimalGutMicrobiotaRecord;
 
-public interface AnimalGutMicrobiotaRecordMapper {
+import java.util.List;
+
+public interface AnimalGutMicrobiotaRecordMapper extends BaseMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(AnimalGutMicrobiotaRecord record);
@@ -14,4 +16,6 @@ public interface AnimalGutMicrobiotaRecordMapper {
     int updateByPrimaryKeySelective(AnimalGutMicrobiotaRecord record);
 
     int updateByPrimaryKey(AnimalGutMicrobiotaRecord record);
+
+    int insertBatch(List rows);
 }

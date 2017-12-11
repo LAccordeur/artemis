@@ -18,8 +18,19 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectIdsByFields" parameterType="List" resultType="AnimalIndicator">
+    select id, indicator_name, indicator_name_english, indicator_type
+    from animal_indicator
+    where indicator_name_english in
+    (
+    <foreach collection="list" item="item" index="index" separator=",">
+      #{item}
+    </foreach>
+    )
+  </select>
+
   <select id="selectByPrimaryKeys" parameterType="List" resultType="AnimalIndicator">
-    select id, indicator_name, indicator_name_english
+    select id, indicator_name, indicator_name_english, indicator_type
     from animal_indicator
     where id in
     (

@@ -3,7 +3,7 @@ package com.kuo.artemis.server.entity;
 public class AnimalHouseRelation {
     private Integer id;
 
-    private Integer animalId;
+    private String animalId;
 
     private Integer houseId;
 
@@ -15,11 +15,11 @@ public class AnimalHouseRelation {
         this.id = id;
     }
 
-    public Integer getAnimalId() {
+    public String getAnimalId() {
         return animalId;
     }
 
-    public void setAnimalId(Integer animalId) {
+    public void setAnimalId(String animalId) {
         this.animalId = animalId;
     }
 

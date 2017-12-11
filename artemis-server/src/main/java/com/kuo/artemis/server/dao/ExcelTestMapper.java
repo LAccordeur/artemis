@@ -10,4 +10,6 @@ public interface ExcelTestMapper extends BaseMapper {
     int insertSelective(ExcelTest record);
 
     int insertBatch(List rows);
+
+    List<ExcelTest> selectSelective(List<String> columns);
 }

@@ -1,17 +1,21 @@
 package com.kuo.artemis.server.util.constant;
 
-import com.kuo.artemis.server.entity.ExcelTest;
-import com.kuo.artemis.server.entity.ExcelTestTwo;
-import com.kuo.artemis.server.entity.User;
+import com.kuo.artemis.server.entity.*;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class FieldClassConst {
     public final static Map<String, Class> fieldClassMap = new HashMap<String, Class>();
 
+    public final static Set<Class> clazzSet = new HashSet();
+
+
     static {
+
+
+
+
         fieldClassMap.put("name", ExcelTest.class);
         fieldClassMap.put("score", ExcelTest.class);
         fieldClassMap.put("age", ExcelTest.class);
@@ -22,15 +26,23 @@ public class FieldClassConst {
         fieldClassMap.put("school", ExcelTestTwo.class);
         fieldClassMap.put("grade", ExcelTestTwo.class);
 
+
+        clazzSet.add(Animal.class);
+        clazzSet.add(AnimalGutMicrobiotaRecord.class);
+        clazzSet.add(AnimalGrowthRecord.class);
+
         Class<?> clazz = null;
-        try {
-            clazz = Class.forName("com.kuo.artemis.server.entity.AnimalGrowthRecord");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        Iterator<Class> iterator = clazzSet.iterator();
+        while (iterator.hasNext()) {
+            clazz = iterator.next();
+
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                fieldClassMap.put(field.getName(), clazz);
+            }
         }
-        Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields) {
-            fieldClassMap.put(field.getName(), clazz);
-        }
+        fieldClassMap.remove("id");
+        fieldClassMap.remove("animalId");
+
     }
 }

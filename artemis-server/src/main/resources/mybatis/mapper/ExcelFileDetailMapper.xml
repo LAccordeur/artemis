@@ -22,6 +22,15 @@
     delete from excel_file_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <insert id="insertBatch" parameterType="List">
+    insert into excel_file_detail
+    (file_record_id, indicator_id, indicator_name, table_name)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.fileRecordId}, #{item.indicatorId}, #{item.indicatorName}, #{item.tableName})
+    </foreach>
+  </insert>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.ExcelFileDetail">
     insert into excel_file_detail (id, file_record_id, indicator_id, 
       indicator_name, table_name, create_time

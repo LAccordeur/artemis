@@ -2,7 +2,9 @@ package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.AnimalGrowthRecord;
 
-public interface AnimalGrowthRecordMapper {
+import java.util.List;
+
+public interface AnimalGrowthRecordMapper extends BaseMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(AnimalGrowthRecord record);
@@ -14,4 +16,6 @@ public interface AnimalGrowthRecordMapper {
     int updateByPrimaryKeySelective(AnimalGrowthRecord record);
 
     int updateByPrimaryKey(AnimalGrowthRecord record);
+
+    int insertBatch(List rows);
 }

@@ -107,6 +107,11 @@ public class ExcelUtilTest {
 
     }
 
+    @Test
+    public void format() {
+
+    }
+
     private static Object mapToObject(Class clazz, Map<String, Object> map) throws Exception {
         Method[] methods = clazz.getDeclaredMethods();
         Object object = clazz.newInstance();

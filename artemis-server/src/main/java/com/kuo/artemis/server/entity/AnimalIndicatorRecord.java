@@ -4,9 +4,19 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class AnimalIndicatorRecord {
-    private Integer animalId;
+    private String animalId;
 
     private Integer projectId;
+
+    private String code;
+
+    private String house;
+
+    private String idNumber;
+
+    private String replicate;
+
+    private String treatment;
 
     private Integer animalTypeId;
 
@@ -432,12 +442,12 @@ public class AnimalIndicatorRecord {
 
     private BigDecimal liveYeast;
 
-    public Integer getAnimalId() {
+    public String getAnimalId() {
         return animalId;
     }
 
-    public void setAnimalId(Integer animalId) {
-        this.animalId = animalId;
+    public void setAnimalId(String animalId) {
+        this.animalId = animalId == null ? null : animalId.trim();
     }
 
     public Integer getProjectId() {
@@ -446,6 +456,46 @@ public class AnimalIndicatorRecord {
 
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house == null ? null : house.trim();
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber == null ? null : idNumber.trim();
+    }
+
+    public String getReplicate() {
+        return replicate;
+    }
+
+    public void setReplicate(String replicate) {
+        this.replicate = replicate == null ? null : replicate.trim();
+    }
+
+    public String getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(String treatment) {
+        this.treatment = treatment == null ? null : treatment.trim();
     }
 
     public Integer getAnimalTypeId() {

@@ -15,17 +15,17 @@ public class ExportExcelCommand {
 
     private String projectId;
 
-    private String fileType = "excel";  //模板文件类型，默认为Excel
+    private String fileType = "1";  //模板文件类型，默认为Excel
 
-    private String operationType = "2";  //表示是下载文件请求
+    private String operationType = "2";  //表示是下载模板文件请求
 
     private List<String> indicatorIds;  //选择的指标id集合
 
     private List<String> indicatorNames;  //指标中文名集合
 
-    private List<String> getIndicatorEnglishNames;  //指标英文名集合名字形如init BW
+    private List<String> getIndicatorEnglishNames;  //指标英文名集合名字形如initial BW
 
-    private List<Map<String, Object>> dataRows;   //指标数据,指标英文名集合名字形如init BW
+    private List<Map<String, Object>> dataRows;   //指标数据,指标英文名集合名字形如initial BW
 
     @Override
     public String toString() {

@@ -3,8 +3,10 @@ package com.kuo.artemis.server.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
+
 public class Animal {
-    private Integer id;
+    private String id;
 
     private Integer animalTypeId;
 
@@ -13,6 +15,8 @@ public class Animal {
     private Short animalSex;
 
     private BigDecimal animalInitWeight;
+
+    private String house;
 
     private String code;
 
@@ -28,11 +32,37 @@ public class Animal {
 
     private Date modifiedTime;
 
-    public Integer getId() {
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "id=" + id +
+                ", animalTypeId=" + animalTypeId +
+                ", projectId=" + projectId +
+                ", animalSex=" + animalSex +
+                ", animalInitWeight=" + animalInitWeight +
+                ", code='" + code + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", treatment='" + treatment + '\'' +
+                ", replicate='" + replicate + '\'' +
+                ", animalBirthday=" + animalBirthday +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
+    }
+
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

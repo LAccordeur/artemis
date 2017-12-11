@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.factory;
 
+import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.constant.ExcelConst;
 import com.kuo.artemis.server.util.file.ExcelUtil;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class TypeBindFactoryTest {
     }
 
     public static <T> T dataBind(Class<T> beanClass, Map<String, Object> fieldValueMap) throws Exception {
-        return ExcelUtil.dataBind(beanClass, fieldValueMap);
+        return BeanUtil.dataBind(beanClass, fieldValueMap);
     }
 
 }

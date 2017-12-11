@@ -1,10 +1,10 @@
 package com.kuo.artemis.server.util.file;
 
+import com.kuo.artemis.server.core.factory.StringCastFactory;
 import com.kuo.artemis.server.core.factory.TypeBindFactory;
+import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.constant.ExcelConst;
 import com.kuo.artemis.server.util.constant.FieldClassConst;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.BeanUtilsBean2;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -12,11 +12,8 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -74,47 +71,30 @@ public final class ExcelUtil {
         int columnCount = row.getPhysicalNumberOfCells();
         List<String> list = new ArrayList<String>();
         for (int i = 0; i < columnCount; i++) {
-            list.add(formatForImport(row.getCell(i).getStringCellValue()));
+            list.add(BeanUtil.spaceFieldToCamel(row.getCell(i).getStringCellValue()));
         }
 
         return list;
     }
 
-    /**
-     * 将Excel字段名格式转化为Java驼峰类型  ##BUG##  等于一情况下UpperCase待商榷
-     * @param value
-     * @return
-     */
-    private static String formatForImport(String value) {
-        if (value.contains(" ")) {
-            String[] words = value.trim().split(" ");
-            StringBuffer newValue = new StringBuffer();
-            for (int i = 0; i < words.length; i++) {
-                //System.out.println(words[i]);
-                if (words[i].length() > 1) {
-                    if (i == 0) {
-                        newValue.append(words[i].substring(0, 1).toLowerCase() + words[i].substring(1, (words[i]).length()));
-                    } else {
-                        newValue.append(words[i].substring(0, 1).toUpperCase() + words[i].substring(1, (words[i]).length()));
-                    }
-                } else {
-                    if (i != 0) {
-                        if (words[i].length() == 1 && words[i] != " ") {
-                            newValue.append(words[i].toUpperCase());
-                        }
-                    } else {
-                        if (words[i].length() == 1 && words[i] != " ") {
-                            newValue.append(words[i]);
-                        }
-                    }
-                }
-            }
-            value = newValue.toString();
-
+    public static List<String> listIndicator(Workbook workbook, int sheetIndex) throws Exception {
+        if (workbook == null) {
+            throw new Exception("Workbook is null!");
         }
 
-        return value;
+        Sheet sheet = workbook.getSheetAt(sheetIndex);
+        Row row = sheet.getRow(0);
+
+        //标题总列数
+        int columnCount = row.getPhysicalNumberOfCells();
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < columnCount; i++) {
+            list.add(row.getCell(i).getStringCellValue());
+        }
+
+        return list;
     }
+
 
 
 
@@ -312,7 +292,7 @@ public final class ExcelUtil {
      */
     public static Workbook exportExcelWithData(List<String> englishFields, List<String> chineseFields, List<Map<String, Object>> dataRows) {
         XSSFWorkbook workbook = getXSSfSheets(englishFields, chineseFields);
-        XSSFSheet sheet = workbook.getSheet("sheet 1");
+        XSSFSheet sheet = workbook.getSheetAt(0);
 
         //写入数据，由于前两行为中英文标题行，故从第三行开始
         for (int i = 0; i < dataRows.size(); i++) {
@@ -320,7 +300,9 @@ public final class ExcelUtil {
             Map<String, Object> dataRow = dataRows.get(i);
             for (int j = 0; j < englishFields.size(); j++) {
                 XSSFCell cell = row.createCell(j);
-                cell.setCellValue((String) dataRow.get(englishFields.get(j)));
+                String camelName = BeanUtil.spaceFieldToCamel(englishFields.get(j));
+                Object value = dataRow.get(camelName);
+                cell.setCellValue(StringCastFactory.createString(value));
             }
         }
 
@@ -449,6 +431,8 @@ public final class ExcelUtil {
                 beanList.add(rowMap);
             }
 
+
+
         }
 
 
@@ -490,17 +474,17 @@ public final class ExcelUtil {
      * @param fieldValueMap
      * @return
      * @throws Exception
-     */
+     *//*
     public static <T> T dataBind(Class<T> beanClass, Map<String, Object> fieldValueMap) throws Exception {
         T bean = null;
 
         //通过反射生成对象
         bean = beanClass.newInstance();
 
-       /* //利用Apache的工具类进行数据绑定
+       *//* //利用Apache的工具类进行数据绑定
         BeanUtils.populate(bean, fieldValueMap);
 
-        //return bean;*/
+        //return bean;*//*
 
 
 
@@ -541,7 +525,7 @@ public final class ExcelUtil {
             }
         }
         return bean;
-    }
+    }*/
 
     //取字段名且让其首字母小写
     public static String firstCharToLowerCase(String substring) {

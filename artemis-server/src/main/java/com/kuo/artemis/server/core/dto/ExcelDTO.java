@@ -17,7 +17,9 @@ public class ExcelDTO {
 
     private String signature;
 
-    private List<String> fields;  //Excel表的所有字段名列表，名字形如initBW即Java驼峰型
+    private List<String> indicators;  //指标名集合  形如Initial BW
+
+    private List<String> fields;  //Excel表的所有字段名列表，名字形如initialBw即Java驼峰型
 
     private Set<Class> classes;    //Excel表中所有指标来自的类集合
 
@@ -32,6 +34,14 @@ public class ExcelDTO {
                 ", fields=" + fields +
                 ", items=" + items +
                 '}';
+    }
+
+    public List<String> getIndicators() {
+        return indicators;
+    }
+
+    public void setIndicators(List<String> indicators) {
+        this.indicators = indicators;
     }
 
     public String getFilename() {
