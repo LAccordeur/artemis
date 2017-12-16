@@ -1,7 +1,7 @@
 package com.kuo.artemis.server.core.helper;
 
-import com.kuo.artemis.server.core.dto.ExcelDTO;
-import com.kuo.artemis.server.core.dto.command.ExportExcelCommand;
+import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
+import com.kuo.artemis.server.core.dto.excel.IndicatorExcelImportDTO;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
@@ -14,25 +14,25 @@ import java.util.*;
 
 /**
  * @Author : guoyang
- * @Description : Excel文件操作相关的助手类
+ * @Description : Excel文件操作相关的助手
  * @Date : Created on 2017/11/25
  */
 public class ExcelHelper {
 
     /**
-     * 解析excel文件
+     * 解析indicator excel文件
      * @param file
      * @return
      * @throws Exception
      */
-    public static ExcelDTO parseExcel(MultipartFile file, String projectId) throws Exception {
+    public static IndicatorExcelImportDTO parseIndicatorExcel(MultipartFile file, String projectId) throws Exception {
 
-        ExcelDTO excelDTO = new ExcelDTO();
+        IndicatorExcelImportDTO indicatorExcelImportDTO = new IndicatorExcelImportDTO();
 
         String filename = file.getOriginalFilename();
         InputStream inputStream = file.getInputStream();
-        excelDTO.setFilename(filename);
-        excelDTO.setInputStream(inputStream);
+        indicatorExcelImportDTO.setFilename(filename);
+        indicatorExcelImportDTO.setInputStream(inputStream);
 
 
         //解析开始
@@ -45,14 +45,14 @@ public class ExcelHelper {
 
         //2.解析表title
         List<String> fields =  ExcelUtil.parseExcelFields(workbook, 0);
-        excelDTO.setFields(fields);
+        indicatorExcelImportDTO.setFields(fields);
         //3.获取指标来自的类
         Set<Class> classSet = ExcelUtil.getClassSet(fields);
-        excelDTO.setClasses(classSet);
+        indicatorExcelImportDTO.setClasses(classSet);
 
         //记录initial BW形式的表头
-        List<String> indicators = ExcelUtil.listIndicator(workbook, 0);
-        excelDTO.setIndicators(indicators);
+        List<String> indicators = ExcelUtil.getExcelRowFields(workbook, 0);
+        indicatorExcelImportDTO.setIndicators(indicators);
 
         //4.解析表正文
         List<Map<String, Object>> rowList = ExcelUtil.parseExcelContent(workbook, 0, 2);
@@ -64,13 +64,13 @@ public class ExcelHelper {
             map.put(ExcelUtil.getClassByField(fields.get(0)), rowList);
             //指定主键uuid
             appointIds(rowList, map, projectId);
-            excelDTO.setItems(map);
+            indicatorExcelImportDTO.setItems(map);
         } else if (classSet.size() > 1) {
             //Excel文件中的指标来自多个类
             map = ExcelUtil.groupExcel(rowList, fields);
             //指定主键uuid
             appointIds(rowList, map, projectId);
-            excelDTO.setItems(map);
+            indicatorExcelImportDTO.setItems(map);
         }
 
 
@@ -82,7 +82,7 @@ public class ExcelHelper {
             throw e;
         }
 
-        return excelDTO;
+        return indicatorExcelImportDTO;
     }
 
     private static void appointIds(List<Map<String, Object>> rowList, Map<Class, List<Map<String, Object>>> map, String projectId) {
@@ -110,7 +110,7 @@ public class ExcelHelper {
     }
 
     /**
-     * 将Excel每行中的数据键值对转化为其所在的对象(暂时无法解析日期格式)  ##BUG##
+     * 将Excel每行中的数据键值对转化为其所在的对象(暂时无法解析日期格式)  TODO  ##BUG##日期格式无法解析
      * @param clazz
      * @param fieldValueMap
      * @param <T>
@@ -124,7 +124,7 @@ public class ExcelHelper {
     /**
      * 导出excel模板文件
      */
-    public static Workbook exportExcelTemplate(ExportExcelCommand command) {
+    public static Workbook exportExcelTemplate(IndicatorExcelExportCommand command) {
 
         List<String> englishFields = command.getGetIndicatorEnglishNames();
         List<String> chineseFields = command.getIndicatorNames();
@@ -137,7 +137,7 @@ public class ExcelHelper {
      * @param command
      * @return
      */
-    public static Workbook exportExcelWithData(ExportExcelCommand command) {
+    public static Workbook exportExcelWithData(IndicatorExcelExportCommand command) {
 
         List<String> englishFields = command.getGetIndicatorEnglishNames();
         List<String> chineseFields = command.getIndicatorNames();

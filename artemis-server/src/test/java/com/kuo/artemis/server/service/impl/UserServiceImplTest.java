@@ -1,6 +1,6 @@
 package com.kuo.artemis.server.service.impl;
 
-import com.kuo.artemis.server.core.dto.UserDTO;
+import com.kuo.artemis.server.core.dto.user.UserDTO;
 import com.kuo.artemis.server.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

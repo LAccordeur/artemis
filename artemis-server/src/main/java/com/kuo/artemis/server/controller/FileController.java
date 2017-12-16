@@ -1,7 +1,7 @@
 package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.core.dto.command.ExportExcelCommand;
+import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import com.kuo.artemis.server.service.FileService;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.http.HttpStatus;
@@ -29,24 +29,31 @@ public class FileController {
 
     @RequestMapping(value = "/excel/upload", method = RequestMethod.POST)
     @ResponseBody
-    public Response receiveExcelFile(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response receiveExcelFile(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId, @RequestParam("type") String type) {
+
 
         if (!file.isEmpty()) {
             try {
-                return fileService.parseAndSaveExcel(file, userId, projectId);
+                if ("indicator".equals(type)) {
+                    return fileService.parseAndSaveIndicatorExcel(file, userId, projectId);
+                } else if ("material".equals(type)) {
+                    // something to do
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        return new Response(HttpStatus.BAD_REQUEST.value(), "上传失败");
+        return new Response(HttpStatus.BAD_REQUEST.value(), "文件错误，上传失败");
     }
 
 
-    @RequestMapping(value = "/excel/template/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})
-    public void exportExcelTemplateFile(@RequestBody ExportExcelCommand command, HttpServletResponse response) {
-        try {
-            Response<Workbook> result = fileService.exportExcelTemplate(command);
+    //@RequestMapping(value = "/excel/template/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})
+    @RequestMapping(value = "/excel/template/export", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Response exportExcelTemplateFile(@RequestBody IndicatorExcelExportCommand command, HttpServletResponse response) {
+        /*try {
+            Response<Workbook> result = fileService.exportIndicatorExcelTemplate(command);
             Workbook workbook = result.getData();
 
             OutputStream outputStream = response.getOutputStream();
@@ -64,14 +71,18 @@ public class FileController {
             workbook.write(outputStream);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+
+        return fileService.exportIndicatorExcelTemplate(command);
 
     }
 
-    @RequestMapping(value = "/excel/data/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})
-    public void exportExcelWithData(@RequestBody ExportExcelCommand command, HttpServletResponse response) {
-        try {
-            Response<Workbook> result = fileService.exportExcelWithData(command);
+    //@RequestMapping(value = "/excel/data/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})
+    @RequestMapping(value = "/excel/data/export", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Response exportExcelWithData(@RequestBody IndicatorExcelExportCommand command, HttpServletResponse response) {
+        /*try {
+            Response<Workbook> result = fileService.exportIndicatorExcelWithData(command);
             Workbook workbook = result.getData();
 
             OutputStream outputStream = response.getOutputStream();
@@ -89,71 +100,10 @@ public class FileController {
             workbook.write(outputStream);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+
+        return fileService.exportIndicatorExcelWithData(command);
     }
 
-    @RequestMapping(value = "/excel/template/test", method = RequestMethod.GET, produces = {"application/vnd.ms-excel;charset=UTF-8"})
-    public void exportExcelFileTest(@RequestParam String indicatorId, HttpServletResponse response) {
-        try {
-            ExportExcelCommand command = new ExportExcelCommand();
-            List<String> indicators = new ArrayList<String>();
-            indicators.add(indicatorId);
-            command.setIndicatorIds(indicators);
 
-            Response<Workbook> result = fileService.exportExcelTemplate(command);
-            Workbook workbook = result.getData();
-
-            OutputStream outputStream = response.getOutputStream();
-            String filename = command.getFileName();
-            if (filename == null) {
-                filename = "unnamed.xlsx";
-            }
-            if (!filename.endsWith(".xlsx")) {
-                filename = filename + ".xlsx";
-            }
-
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
-
-            workbook.write(outputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @RequestMapping(value = "/excel/data/test", method = RequestMethod.GET, produces = {"application/vnd.ms-excel;charset=UTF-8"})
-    public void exportExcelWithDataTest(@RequestParam String indicatorId, HttpServletResponse response) {
-        try {
-
-            ExportExcelCommand command = new ExportExcelCommand();
-            List<String> indicators = new ArrayList<String>();
-            indicators.add(indicatorId);
-            command.setIndicatorIds(indicators);
-
-            Response<Workbook> result = fileService.exportExcelWithData(command);
-            Workbook workbook = result.getData();
-
-            OutputStream outputStream = response.getOutputStream();
-            String filename = command.getFileName();
-            if (filename == null) {
-                filename = "unnamed.xlsx";
-            }
-            if (!filename.endsWith(".xlsx")) {
-                filename = filename + ".xlsx";
-            }
-
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");
-            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
-
-            workbook.write(outputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @RequestMapping(value = "/test")
-    public void test() {
-        System.out.println("test");
-    }
 }

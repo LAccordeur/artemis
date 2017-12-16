@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 /**
  * @Author : guoyang
- * @Description : 用于处理Excel相关的解析，导出
+ * @Description : 用于处理Excel相关的解析，导出；导入时将Excel中所有字段名解析为Java对象变量的规范
  * @Date : Created on 2017/11/25
  */
 public final class ExcelUtil {
@@ -52,13 +52,14 @@ public final class ExcelUtil {
     }
 
     /**
+     * TODO  对解析进行更一般化的改造，即增加起始列、起始行
      * 解析excel文件的表title,规定excel文件的第一行为英文title
      * @param workbook
      * @param sheetIndex
      * @return
      * @throws Exception
      */
-    public static List<String> parseExcelFields(Workbook workbook, int sheetIndex) throws Exception {
+    public static List<String> parseExcelFields(Workbook workbook, Integer sheetIndex) throws Exception {
 
         if (workbook == null) {
             throw new Exception("Workbook is null!");
@@ -71,13 +72,34 @@ public final class ExcelUtil {
         int columnCount = row.getPhysicalNumberOfCells();
         List<String> list = new ArrayList<String>();
         for (int i = 0; i < columnCount; i++) {
-            list.add(BeanUtil.spaceFieldToCamel(row.getCell(i).getStringCellValue()));
+            String field = row.getCell(i).getStringCellValue();
+
+            list.add(fieldFormat(field));
         }
 
         return list;
     }
 
-    public static List<String> listIndicator(Workbook workbook, int sheetIndex) throws Exception {
+    /**
+     * 导入文件时对文件中的字段名转换为符合Java规范的
+     * @param field
+     * @return
+     */
+    private static String fieldFormat(String field) {
+
+        //TODO  导入文件中的数据包含指标数据和原料数据，对原料数据字段的解析还未添加
+        return BeanUtil.spaceFieldToCamel(field);
+    }
+
+
+    /**
+     * 获取原始的Excel文件表的字段
+     * @param workbook
+     * @param sheetIndex
+     * @return
+     * @throws Exception
+     */
+    public static List<String> getExcelRowFields(Workbook workbook, int sheetIndex) throws Exception {
         if (workbook == null) {
             throw new Exception("Workbook is null!");
         }
@@ -99,6 +121,7 @@ public final class ExcelUtil {
 
 
     /**
+     * TODO 增加起始列 参数 使之更一般化
      * 解析Excel表的正文内容，标题名为Java驼峰型
      * @param workbook
      * @param sheetIndex
@@ -260,7 +283,7 @@ public final class ExcelUtil {
     }
 
     /**
-     * 导出Excel文件模板   ##modified## 未来可增加样式的美化
+     * 导出Excel文件模板   TODO 未来可增加样式的美化
      * @param
      */
     public static Workbook exportExcelTemplate(List<String> englishFields, List<String> chineseFields) {

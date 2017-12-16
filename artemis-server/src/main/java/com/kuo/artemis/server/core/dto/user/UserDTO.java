@@ -1,4 +1,4 @@
-package com.kuo.artemis.server.core.dto;
+package com.kuo.artemis.server.core.dto.user;
 
 /**
  * @Author : guoyang

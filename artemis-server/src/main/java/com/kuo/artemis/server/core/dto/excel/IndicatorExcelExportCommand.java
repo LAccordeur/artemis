@@ -1,4 +1,4 @@
-package com.kuo.artemis.server.core.dto.command;
+package com.kuo.artemis.server.core.dto.excel;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
  * @Description :
  * @Date : Created on 2017/12/7
  */
-public class ExportExcelCommand {
+public class IndicatorExcelExportCommand {
     private String fileName;   //模板文件名
 
     private String userId;   //请求模板文件的用户id
@@ -29,7 +29,7 @@ public class ExportExcelCommand {
 
     @Override
     public String toString() {
-        return "ExportExcelCommand{" +
+        return "IndicatorExcelExportCommand{" +
                 "fileName='" + fileName + '\'' +
                 ", userId='" + userId + '\'' +
                 ", projectId='" + projectId + '\'' +

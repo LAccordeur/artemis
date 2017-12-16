@@ -3,6 +3,7 @@ package com.kuo.artemis.server.util.common;
 import com.kuo.artemis.server.core.factory.TypeBindFactory;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.io.FileUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -137,6 +138,8 @@ public final class BeanUtil {
             value = "e_coli";
 
         }
+
+
 
         if (value.contains(" ")) {
             String[] words = value.trim().split(" ");

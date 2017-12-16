@@ -26,7 +26,7 @@ public class FieldClassConst {
         fieldClassMap.put("school", ExcelTestTwo.class);
         fieldClassMap.put("grade", ExcelTestTwo.class);
 
-
+        //TODO  剩余指标建表后  需添加到set中
         clazzSet.add(Animal.class);
         clazzSet.add(AnimalGutMicrobiotaRecord.class);
         clazzSet.add(AnimalGrowthRecord.class);

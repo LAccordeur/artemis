@@ -1,7 +1,7 @@
 package com.kuo.artemis.server.util.assembler;
 
 import com.kuo.artemis.server.core.dto.command.LoginCommend;
-import com.kuo.artemis.server.core.dto.UserDTO;
+import com.kuo.artemis.server.core.dto.user.UserDTO;
 import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.util.common.StringUtil;
 

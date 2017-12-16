@@ -1,7 +1,9 @@
 package com.kuo.artemis.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,6 +14,8 @@ public class User {
 
     private Byte userGender;
 
+    @NotNull
+    @Length(min = 11, max = 11)
     private String userPhone;
 
     private String userEmail;

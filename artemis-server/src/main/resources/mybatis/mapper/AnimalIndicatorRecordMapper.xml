@@ -231,7 +231,7 @@
     from
     animal_indicator_record_view
     where project_id = #{projectId}
-    and create_date = (select create_date from animal_indicator_record_view order by create_date desc limit 1)
+
   </select>
 
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalIndicatorRecord">

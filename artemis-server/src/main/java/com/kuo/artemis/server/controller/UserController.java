@@ -1,20 +1,16 @@
 package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.common.Authority;
-import com.kuo.artemis.server.core.common.AuthorityType;
 import com.kuo.artemis.server.core.dto.command.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.core.dto.UserDTO;
+import com.kuo.artemis.server.core.dto.user.UserDTO;
 import com.kuo.artemis.server.entity.User;
-import com.kuo.artemis.server.entity.UserProject;
 import com.kuo.artemis.server.entity.UserProjectKey;
 import com.kuo.artemis.server.service.UserInvitationApplicationService;
 import com.kuo.artemis.server.service.UserProjectService;
 import com.kuo.artemis.server.service.UserService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;

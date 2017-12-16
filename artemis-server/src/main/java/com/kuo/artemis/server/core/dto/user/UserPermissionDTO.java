@@ -1,4 +1,4 @@
-package com.kuo.artemis.server.core.dto;
+package com.kuo.artemis.server.core.dto.user;
 
 import com.kuo.artemis.server.entity.Permission;
 

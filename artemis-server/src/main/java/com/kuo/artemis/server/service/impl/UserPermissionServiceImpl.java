@@ -1,7 +1,7 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.core.dto.UserPermissionDTO;
+import com.kuo.artemis.server.core.dto.user.UserPermissionDTO;
 import com.kuo.artemis.server.core.dto.command.UpdatePermissionCommend;
 import com.kuo.artemis.server.dao.PermissionMapper;
 import com.kuo.artemis.server.dao.RolePermissionMapper;

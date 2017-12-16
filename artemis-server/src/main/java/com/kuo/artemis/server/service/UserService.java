@@ -2,7 +2,7 @@ package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.command.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.core.dto.UserDTO;
+import com.kuo.artemis.server.core.dto.user.UserDTO;
 import com.kuo.artemis.server.entity.User;
 
 public interface UserService {

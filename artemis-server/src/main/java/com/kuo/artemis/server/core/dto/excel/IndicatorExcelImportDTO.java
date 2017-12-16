@@ -1,4 +1,4 @@
-package com.kuo.artemis.server.core.dto;
+package com.kuo.artemis.server.core.dto.excel;
 
 import java.io.InputStream;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.Set;
 
 /**
  * @Author : guoyang
- * @Description :
+ * @Description : 用来保存 指标数据的Excel文件 解析后内容的数据结构类
  * @Date : Created on 2017/11/25
  */
-public class ExcelDTO {
+public class IndicatorExcelImportDTO {
     private String filename;
 
     private InputStream inputStream;
@@ -27,7 +27,7 @@ public class ExcelDTO {
 
     @Override
     public String toString() {
-        return "ExcelDTO{" +
+        return "IndicatorExcelImportDTO{" +
                 "filename='" + filename + '\'' +
                 ", inputStream=" + inputStream +
                 ", signature='" + signature + '\'' +

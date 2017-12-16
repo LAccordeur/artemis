@@ -1,7 +1,7 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.core.dto.UserDTO;
+import com.kuo.artemis.server.core.dto.user.UserDTO;
 import com.kuo.artemis.server.core.dto.command.LoginCommend;
 import com.kuo.artemis.server.core.jwt.JwtHelper;
 import com.kuo.artemis.server.dao.UserMapper;
@@ -9,6 +9,7 @@ import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.service.UserService;
 import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.assembler.UserAssembler;
+import com.kuo.artemis.server.util.common.AccountValidatorUtil;
 import com.kuo.artemis.server.util.security.CodecUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ import javax.inject.Inject;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -85,8 +88,10 @@ public class UserServiceImpl implements UserService {
      */
     public Response register(User user) {
 
+        //TODO 对手机号进行正则判断
         Response response = new Response();
 
+        ValidationUtil.getInstance().validateParams(user);
         String encryptPassword = CodecUtil.encryptWithSHA256(user.getUserPassword() + user.getUserPhone());
         user.setUserPassword(encryptPassword);
 
@@ -137,6 +142,22 @@ public class UserServiceImpl implements UserService {
     public Response checkUser(String phone) {
         Response response = new Response(HttpStatus.UNAUTHORIZED.value(), "查询用户失败");
 
+        String regex = AccountValidatorUtil.REGEX_MOBILE;
+
+        if (phone == null) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "手机号应为11位数");
+        }
+
+        if (phone != null && phone.length() != 11) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "手机号应为11位数");
+        } else {
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(phone);
+            boolean isMatch = matcher.matches();
+            if (!isMatch) {
+                return new Response(HttpStatus.BAD_REQUEST.value(), "手机号格式非法");
+            }
+        }
 
         User user = userMapper.selectByPhone(phone);
         if (user != null) {
