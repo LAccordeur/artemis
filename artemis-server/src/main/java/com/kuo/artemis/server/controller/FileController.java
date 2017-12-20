@@ -1,8 +1,11 @@
 package com.kuo.artemis.server.controller;
 
+import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.ExcelImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import com.kuo.artemis.server.service.FileService;
+import com.kuo.artemis.server.util.constant.DataTypeConst;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,9 +37,11 @@ public class FileController {
 
         if (!file.isEmpty()) {
             try {
-                if ("indicator".equals(type)) {
-                    return fileService.parseAndSaveIndicatorExcel(file, userId, projectId);
-                } else if ("material".equals(type)) {
+                if ((DataTypeConst.INDICATOR).equals(type)) {
+                    FileImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
+
+                    return fileService.parseAndSaveIndicatorExcel(command);
+                } else if ((DataTypeConst.MATERIAL).equals(type)) {
                     // something to do
                 }
             } catch (Exception e) {

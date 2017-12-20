@@ -9,6 +9,10 @@ public class AnimalHouse {
 
     private String houseCode;
 
+    private String treatment;
+
+    private String replicate;
+
     private Date createTime;
 
     private Date modifiedTime;
@@ -35,6 +39,22 @@ public class AnimalHouse {
 
     public void setHouseCode(String houseCode) {
         this.houseCode = houseCode == null ? null : houseCode.trim();
+    }
+
+    public String getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(String treatment) {
+        this.treatment = treatment == null ? null : treatment.trim();
+    }
+
+    public String getReplicate() {
+        return replicate;
+    }
+
+    public void setReplicate(String replicate) {
+        this.replicate = replicate == null ? null : replicate.trim();
     }
 
     public Date getCreateTime() {

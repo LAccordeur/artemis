@@ -8,6 +8,8 @@ import org.apache.commons.io.FileUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Author : guoyang
@@ -84,6 +86,20 @@ public final class BeanUtil {
         return bean;
     }
 
+    /**
+     * 判断字符串中是否含有中文
+     * @param string
+     * @return
+     */
+    public static boolean isContainChinese(String string) {
+        Pattern pattern = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher matcher = pattern.matcher(string);
+
+        if (matcher.find()) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * 将字段名格式转化为Java驼峰类型  xx Yy  =>  xxYy

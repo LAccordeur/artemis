@@ -1,0 +1,41 @@
+package com.kuo.artemis.server.core.dto.excel;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @Author : guoyang
+ * @Description :
+ * @Date : Created on 2017/12/18
+ */
+public class NutritionExcelImportDTO {
+    private List<String> fields;    //转换为驼峰类型的字段名
+
+    private List<String> initFields;    //原始的字段名（未转换）
+
+    private List<Map<String, Object>> items;    //具体的数据
+
+    public List<String> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<String> fields) {
+        this.fields = fields;
+    }
+
+    public List<String> getInitFields() {
+        return initFields;
+    }
+
+    public void setInitFields(List<String> initFields) {
+        this.initFields = initFields;
+    }
+
+    public List<Map<String, Object>> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Map<String, Object>> items) {
+        this.items = items;
+    }
+}

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.FormulationMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.Formulation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="formulation_code" jdbcType="VARCHAR" property="formulationCode" />
+    <result column="formulation_name" jdbcType="VARCHAR" property="formulationName" />
+    <result column="formulation_material_cost" jdbcType="DECIMAL" property="formulationMaterialCost" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, project_id, formulation_code, formulation_name, formulation_material_cost, 
+    create_time, modified_time
+  </sql>
+
+  <select id="selectByProjectId" parameterType="java.lang.Integer" resultType="Formulation">
+    select
+    <include refid="Base_Column_List" />
+    from formulation
+    where project_id = #{projectId}
+  </select>
+
+  <select id="selectIdByFormulationName" parameterType="java.lang.String" resultType="Integer">
+    select id from formulation where formulation_name = #{formulationName}
+  </select>
+
+  <select id="selectFormulationNamesByProjectId" parameterType="java.lang.Integer" resultType="String">
+    select
+    formulation_name
+    from formulation
+    where
+    project_id = #{projectId}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from formulation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from formulation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.Formulation">
+    insert into formulation (id, user_id, project_id, 
+      formulation_code, formulation_name, formulation_material_cost, 
+      create_time, modified_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{formulationCode,jdbcType=VARCHAR}, #{formulationName,jdbcType=VARCHAR}, #{formulationMaterialCost,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Formulation">
+    insert into formulation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="formulationCode != null">
+        formulation_code,
+      </if>
+      <if test="formulationName != null">
+        formulation_name,
+      </if>
+      <if test="formulationMaterialCost != null">
+        formulation_material_cost,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="formulationCode != null">
+        #{formulationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationName != null">
+        #{formulationName,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationMaterialCost != null">
+        #{formulationMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.Formulation">
+    update formulation
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="formulationCode != null">
+        formulation_code = #{formulationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationName != null">
+        formulation_name = #{formulationName,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationMaterialCost != null">
+        formulation_material_cost = #{formulationMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.Formulation">
+    update formulation
+    set user_id = #{userId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      formulation_code = #{formulationCode,jdbcType=VARCHAR},
+      formulation_name = #{formulationName,jdbcType=VARCHAR},
+      formulation_material_cost = #{formulationMaterialCost,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

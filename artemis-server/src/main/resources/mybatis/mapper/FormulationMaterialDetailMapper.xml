@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.FormulationMaterialDetailMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.FormulationMaterialDetail">
+    <result column="formulation_id" jdbcType="INTEGER" property="formulationId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="formulation_code" jdbcType="VARCHAR" property="formulationCode" />
+    <result column="formulation_name" jdbcType="VARCHAR" property="formulationName" />
+    <result column="formulation_material_cost" jdbcType="DECIMAL" property="formulationMaterialCost" />
+    <result column="formulation_material_relation_id" jdbcType="VARCHAR" property="formulationMaterialRelationId" />
+    <result column="material_id" jdbcType="INTEGER" property="materialId" />
+    <result column="material_name" jdbcType="VARCHAR" property="materialName" />
+    <result column="material_price" jdbcType="DECIMAL" property="materialPrice" />
+    <result column="optimal_ratio" jdbcType="DECIMAL" property="optimalRatio" />
+    <result column="ponderance_ton" jdbcType="DECIMAL" property="ponderanceTon" />
+  </resultMap>
+
+  <select id="selectByFormulationId" parameterType="Integer" resultType="FormulationMaterialDetail">
+    select * from formulation_material_detail_view where formulation_id = #{formulationId}
+  </select>
+
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.FormulationMaterialDetail">
+    insert into formulation_material_detail_view (formulation_id, user_id, project_id, 
+      formulation_code, formulation_name, formulation_material_cost, 
+      formulation_material_relation_id, material_id, 
+      material_name, material_price, optimal_ratio, 
+      ponderance_ton)
+    values (#{formulationId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{formulationCode,jdbcType=VARCHAR}, #{formulationName,jdbcType=VARCHAR}, #{formulationMaterialCost,jdbcType=DECIMAL}, 
+      #{formulationMaterialRelationId,jdbcType=VARCHAR}, #{materialId,jdbcType=INTEGER}, 
+      #{materialName,jdbcType=VARCHAR}, #{materialPrice,jdbcType=DECIMAL}, #{optimalRatio,jdbcType=DECIMAL}, 
+      #{ponderanceTon,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FormulationMaterialDetail">
+    insert into formulation_material_detail_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="formulationId != null">
+        formulation_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="formulationCode != null">
+        formulation_code,
+      </if>
+      <if test="formulationName != null">
+        formulation_name,
+      </if>
+      <if test="formulationMaterialCost != null">
+        formulation_material_cost,
+      </if>
+      <if test="formulationMaterialRelationId != null">
+        formulation_material_relation_id,
+      </if>
+      <if test="materialId != null">
+        material_id,
+      </if>
+      <if test="materialName != null">
+        material_name,
+      </if>
+      <if test="materialPrice != null">
+        material_price,
+      </if>
+      <if test="optimalRatio != null">
+        optimal_ratio,
+      </if>
+      <if test="ponderanceTon != null">
+        ponderance_ton,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="formulationId != null">
+        #{formulationId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="formulationCode != null">
+        #{formulationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationName != null">
+        #{formulationName,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationMaterialCost != null">
+        #{formulationMaterialCost,jdbcType=DECIMAL},
+      </if>
+      <if test="formulationMaterialRelationId != null">
+        #{formulationMaterialRelationId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null">
+        #{materialId,jdbcType=INTEGER},
+      </if>
+      <if test="materialName != null">
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPrice != null">
+        #{materialPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="optimalRatio != null">
+        #{optimalRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="ponderanceTon != null">
+        #{ponderanceTon,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

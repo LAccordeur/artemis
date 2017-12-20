@@ -8,6 +8,10 @@ public class AnimalGrowthRecord {
 
     private String animalId;
 
+    private Integer projectId;
+
+    private Integer userId;
+
     private BigDecimal initialBw;
 
     private BigDecimal bwWeek1;
@@ -433,7 +437,23 @@ public class AnimalGrowthRecord {
     }
 
     public void setAnimalId(String animalId) {
-        this.animalId = animalId;
+        this.animalId = animalId == null ? null : animalId.trim();
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public BigDecimal getInitialBw() {

@@ -14,6 +14,8 @@ public interface UserMapper {
 
     User selectByEntity(User user);
 
+    int selectPhoneCount(@Param("userPhone") String userPhone);
+
     User selectByPhone(@Param("userPhone") String userPhone);
 
     User selectById(@Param("userId") Integer userId);

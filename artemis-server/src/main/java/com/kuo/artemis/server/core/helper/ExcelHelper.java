@@ -1,7 +1,10 @@
 package com.kuo.artemis.server.core.helper;
 
+import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelImportDTO;
+import com.kuo.artemis.server.core.dto.excel.MaterialExcelImportDTO;
+import com.kuo.artemis.server.core.dto.excel.NutritionExcelImportDTO;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
@@ -21,11 +24,14 @@ public class ExcelHelper {
 
     /**
      * 解析indicator excel文件
-     * @param file
+     * @param command
      * @return
      * @throws Exception
      */
-    public static IndicatorExcelImportDTO parseIndicatorExcel(MultipartFile file, String projectId) throws Exception {
+    public static IndicatorExcelImportDTO parseIndicatorExcel(FileImportCommand command) throws Exception {
+
+        MultipartFile file = command.getFile();
+        String projectId = command.getProjectId();
 
         IndicatorExcelImportDTO indicatorExcelImportDTO = new IndicatorExcelImportDTO();
 
@@ -44,18 +50,18 @@ public class ExcelHelper {
 
 
         //2.解析表title
-        List<String> fields =  ExcelUtil.parseExcelFields(workbook, 0);
+        List<String> fields =  ExcelUtil.parseExcelFields(workbook, 0, 0, 0);
         indicatorExcelImportDTO.setFields(fields);
         //3.获取指标来自的类
         Set<Class> classSet = ExcelUtil.getClassSet(fields);
         indicatorExcelImportDTO.setClasses(classSet);
 
         //记录initial BW形式的表头
-        List<String> indicators = ExcelUtil.getExcelRowFields(workbook, 0);
+        List<String> indicators = ExcelUtil.getExcelInitFields(workbook, 0, 0, 0);
         indicatorExcelImportDTO.setIndicators(indicators);
 
         //4.解析表正文
-        List<Map<String, Object>> rowList = ExcelUtil.parseExcelContent(workbook, 0, 2);
+        List<Map<String, Object>> rowList = ExcelUtil.parseExcelContent(workbook, 0, 0, 2, 0);
 
         Map<Class, List<Map<String,Object>>> map;
         if (classSet.size() == 1) {
@@ -83,6 +89,80 @@ public class ExcelHelper {
         }
 
         return indicatorExcelImportDTO;
+    }
+
+
+    /**
+     * 解析material excel文件
+     * @param command
+     * @return
+     */
+    public static MaterialExcelImportDTO parseMaterialExcel(FileImportCommand command) throws Exception {
+        MaterialExcelImportDTO materialExcelImportDTO = new MaterialExcelImportDTO();
+
+        //1.从命令中获取解析需要的参数
+        MultipartFile file = command.getFile();
+        InputStream inputStream = file.getInputStream();
+        String filename = file.getOriginalFilename();
+        String userId = command.getUserId();
+
+        //2.创建Workbook
+        Workbook workbook = ExcelUtil.createExcelObject(inputStream, filename);
+
+        //3.解析表头,暂时默认表头为第一行
+        List<String> field = ExcelUtil.getExcelInitFields(workbook, 0, 0, 0);
+
+        //4.解析正文
+        List<Map<String, Object>> contents = ExcelUtil.parseExcelContent(workbook, 0, 0, 1, 0);
+
+        //5.为每一行的数据加入id和userId用来导入数据库
+        for (int i = 0; i < contents.size(); i++) {
+            Map<String, Object> row = contents.get(i);
+            row.put("userId", userId);
+            row.put("id", UUIDUtil.get32UUIDLowerCase());
+        }
+
+        materialExcelImportDTO.setItems(contents);
+        materialExcelImportDTO.setInitFields(field);
+
+        return materialExcelImportDTO;
+    }
+
+    /**
+     * 解析nutrition excel文件
+     * @param command
+     * @return
+     * @throws Exception
+     */
+    public static NutritionExcelImportDTO parseNutritionExcelImportDTO(FileImportCommand command) throws Exception {
+        NutritionExcelImportDTO nutritionExcelImportDTO = new NutritionExcelImportDTO();
+
+        //1.获取参数
+        //1.从命令中获取解析需要的参数
+        MultipartFile file = command.getFile();
+        InputStream inputStream = file.getInputStream();
+        String filename = file.getOriginalFilename();
+        String userId = command.getUserId();
+
+        //2.创建Workbook
+        Workbook workbook = ExcelUtil.createExcelObject(inputStream, filename);
+
+        //3.解析表头,暂时默认表头为第一行
+        List<String> field = ExcelUtil.getExcelInitFields(workbook, 0, 0, 0);
+
+        //4.解析正文
+        List<Map<String, Object>> contents = ExcelUtil.parseExcelContent(workbook, 0, 0, 1, 0);
+
+        //5.为每一行的数据加入id和userId用来导入数据库
+        for (int i = 0; i < contents.size(); i++) {
+            Map<String, Object> row = contents.get(i);
+            row.put("userId", userId);
+            row.put("id", UUIDUtil.get32UUIDLowerCase());
+        }
+
+        nutritionExcelImportDTO.setItems(contents);
+
+        return nutritionExcelImportDTO;
     }
 
     private static void appointIds(List<Map<String, Object>> rowList, Map<Class, List<Map<String, Object>>> map, String projectId) {

@@ -8,6 +8,8 @@ public class BuildingRecord {
 
     private Integer buildingId;
 
+    private Integer userId;
+
     private Integer projectId;
 
     private BigDecimal buildingTempetature;
@@ -32,6 +34,14 @@ public class BuildingRecord {
 
     public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getProjectId() {

@@ -5,6 +5,10 @@ import java.math.BigDecimal;
 public class AnimalGutMicrobiotaRecord {
     private Integer id;
 
+    private Integer projectId;
+
+    private Integer userId;
+
     private String animalId;
 
     private BigDecimal eColi;
@@ -25,12 +29,28 @@ public class AnimalGutMicrobiotaRecord {
         this.id = id;
     }
 
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getAnimalId() {
         return animalId;
     }
 
     public void setAnimalId(String animalId) {
-        this.animalId = animalId;
+        this.animalId = animalId == null ? null : animalId.trim();
     }
 
     public BigDecimal geteColi() {

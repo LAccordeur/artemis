@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.FormulationMaterialMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.FormulationMaterial">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="formulation_id" jdbcType="INTEGER" property="formulationId" />
+    <result column="material_id" jdbcType="INTEGER" property="materialId" />
+    <result column="material_name" jdbcType="VARCHAR" property="materialName" />
+    <result column="material_price" jdbcType="DECIMAL" property="materialPrice" />
+    <result column="optimal_ratio" jdbcType="DECIMAL" property="optimalRatio" />
+    <result column="ponderance_ton" jdbcType="DECIMAL" property="ponderanceTon" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, formulation_id, material_id, material_name, material_price, optimal_ratio, ponderance_ton, 
+    create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from formulation_material_relation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from formulation_material_relation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.FormulationMaterial">
+    insert into formulation_material_relation (id, formulation_id, material_id, 
+      material_name, material_price, optimal_ratio, 
+      ponderance_ton, create_time, modified_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{formulationId,jdbcType=INTEGER}, #{materialId,jdbcType=INTEGER}, 
+      #{materialName,jdbcType=VARCHAR}, #{materialPrice,jdbcType=DECIMAL}, #{optimalRatio,jdbcType=DECIMAL}, 
+      #{ponderanceTon,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FormulationMaterial">
+    insert into formulation_material_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="formulationId != null">
+        formulation_id,
+      </if>
+      <if test="materialId != null">
+        material_id,
+      </if>
+      <if test="materialName != null">
+        material_name,
+      </if>
+      <if test="materialPrice != null">
+        material_price,
+      </if>
+      <if test="optimalRatio != null">
+        optimal_ratio,
+      </if>
+      <if test="ponderanceTon != null">
+        ponderance_ton,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationId != null">
+        #{formulationId,jdbcType=INTEGER},
+      </if>
+      <if test="materialId != null">
+        #{materialId,jdbcType=INTEGER},
+      </if>
+      <if test="materialName != null">
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPrice != null">
+        #{materialPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="optimalRatio != null">
+        #{optimalRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="ponderanceTon != null">
+        #{ponderanceTon,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertBatch" parameterType="List">
+    insert into formulation_material_relation
+    (formulation_id, material_id, material_name, material_price, optimal_ratio)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.formulationId}, #{item.materialId}, #{item.materialName}, #{item.materialPrice}, #{item.optimal_ration})
+    </foreach>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.FormulationMaterial">
+    update formulation_material_relation
+    <set>
+      <if test="formulationId != null">
+        formulation_id = #{formulationId,jdbcType=INTEGER},
+      </if>
+      <if test="materialId != null">
+        material_id = #{materialId,jdbcType=INTEGER},
+      </if>
+      <if test="materialName != null">
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPrice != null">
+        material_price = #{materialPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="optimalRatio != null">
+        optimal_ratio = #{optimalRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="ponderanceTon != null">
+        ponderance_ton = #{ponderanceTon,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.FormulationMaterial">
+    update formulation_material_relation
+    set formulation_id = #{formulationId,jdbcType=INTEGER},
+      material_id = #{materialId,jdbcType=INTEGER},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      material_price = #{materialPrice,jdbcType=DECIMAL},
+      optimal_ratio = #{optimalRatio,jdbcType=DECIMAL},
+      ponderance_ton = #{ponderanceTon,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         ValidationUtil.getInstance().validateParams(loginCommend);
         User user = UserAssembler.toUser(loginCommend);
-        if (userMapper.selectByPhone(user.getUserPhone()) == null) {
+        if (userMapper.selectPhoneCount(user.getUserPhone()) < 1) {
             //1.账号不存在
             response.setCode(HttpStatus.NOT_FOUND.value());
             response.setMsg("账号不存在");
@@ -159,8 +159,8 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        User user = userMapper.selectByPhone(phone);
-        if (user != null) {
+        int count = userMapper.selectPhoneCount(phone);
+        if (count > 0) {
             response.setCode(HttpStatus.CONFLICT.value());
             response.setMsg("该手机号已被注册");
 

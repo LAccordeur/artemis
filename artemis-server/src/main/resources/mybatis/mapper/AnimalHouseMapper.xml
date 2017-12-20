@@ -5,11 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="building_id" jdbcType="INTEGER" property="buildingId" />
     <result column="house_code" jdbcType="VARCHAR" property="houseCode" />
+    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="replicate" jdbcType="VARCHAR" property="replicate" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, building_id, house_code, create_time, modified_time
+    id, building_id, house_code, treatment, replicate, create_time, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,9 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalHouse">
     insert into animal_house (id, building_id, house_code, 
-      create_time, modified_time)
+      treatment, replicate, create_time, 
+      modified_time)
     values (#{id,jdbcType=INTEGER}, #{buildingId,jdbcType=INTEGER}, #{houseCode,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
+      #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalHouse">
     insert into animal_house
@@ -38,6 +42,12 @@
       </if>
       <if test="houseCode != null">
         house_code,
+      </if>
+      <if test="treatment != null">
+        treatment,
+      </if>
+      <if test="replicate != null">
+        replicate,
       </if>
       <if test="createTime != null">
         create_time,
@@ -56,6 +66,12 @@
       <if test="houseCode != null">
         #{houseCode,jdbcType=VARCHAR},
       </if>
+      <if test="treatment != null">
+        #{treatment,jdbcType=VARCHAR},
+      </if>
+      <if test="replicate != null">
+        #{replicate,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -73,6 +89,12 @@
       <if test="houseCode != null">
         house_code = #{houseCode,jdbcType=VARCHAR},
       </if>
+      <if test="treatment != null">
+        treatment = #{treatment,jdbcType=VARCHAR},
+      </if>
+      <if test="replicate != null">
+        replicate = #{replicate,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -86,6 +108,8 @@
     update animal_house
     set building_id = #{buildingId,jdbcType=INTEGER},
       house_code = #{houseCode,jdbcType=VARCHAR},
+      treatment = #{treatment,jdbcType=VARCHAR},
+      replicate = #{replicate,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

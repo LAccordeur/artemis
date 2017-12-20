@@ -3,12 +3,12 @@ package com.kuo.artemis.server.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-
 public class Animal {
     private String id;
 
     private Integer animalTypeId;
+
+    private Integer userId;
 
     private Integer projectId;
 
@@ -35,13 +35,8 @@ public class Animal {
     @Override
     public String toString() {
         return "Animal{" +
-                "id=" + id +
-                ", animalTypeId=" + animalTypeId +
-                ", projectId=" + projectId +
-                ", animalSex=" + animalSex +
+                "id='" + id + '\'' +
                 ", animalInitWeight=" + animalInitWeight +
-                ", code='" + code + '\'' +
-                ", idNumber='" + idNumber + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", replicate='" + replicate + '\'' +
                 ", animalBirthday=" + animalBirthday +
@@ -50,20 +45,12 @@ public class Animal {
                 '}';
     }
 
-    public String getHouse() {
-        return house;
-    }
-
-    public void setHouse(String house) {
-        this.house = house;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public Integer getAnimalTypeId() {
@@ -72,6 +59,14 @@ public class Animal {
 
     public void setAnimalTypeId(Integer animalTypeId) {
         this.animalTypeId = animalTypeId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getProjectId() {
@@ -96,6 +91,14 @@ public class Animal {
 
     public void setAnimalInitWeight(BigDecimal animalInitWeight) {
         this.animalInitWeight = animalInitWeight;
+    }
+
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house == null ? null : house.trim();
     }
 
     public String getCode() {

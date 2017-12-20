@@ -9,6 +9,11 @@ import java.math.BigDecimal;
 import static org.junit.Assert.*;
 
 public class BeanUtilTest {
+    @Test
+    public void isContainChinese() throws Exception {
+
+        System.out.println(BeanUtil.isContainChinese("fs人ad"));
+    }
 
     @Test
     public void spaceFieldToCamel() throws Exception {

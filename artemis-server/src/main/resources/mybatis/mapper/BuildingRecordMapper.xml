@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.BuildingRecord">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="building_id" jdbcType="INTEGER" property="buildingId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="building_tempetature" jdbcType="DECIMAL" property="buildingTempetature" />
     <result column="building_humidity" jdbcType="DECIMAL" property="buildingHumidity" />
@@ -11,9 +12,18 @@
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, building_id, project_id, building_tempetature, building_humidity, create_time, 
+    id, building_id, user_id, project_id, building_tempetature, building_humidity, create_time, 
     modified_time
   </sql>
+
+  <select id="selectByProjectId" parameterType="Integer" resultType="BuildRecord">
+    select
+    <include refid="Base_Column_List" />
+    from
+    building_record
+    where project_id = #{project_id}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -25,11 +35,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.BuildingRecord">
-    insert into building_record (id, building_id, project_id, 
-      building_tempetature, building_humidity, 
+    insert into building_record (id, building_id, user_id, 
+      project_id, building_tempetature, building_humidity, 
       create_time, modified_time)
-    values (#{id,jdbcType=INTEGER}, #{buildingId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
-      #{buildingTempetature,jdbcType=DECIMAL}, #{buildingHumidity,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=INTEGER}, #{buildingId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{projectId,jdbcType=INTEGER}, #{buildingTempetature,jdbcType=DECIMAL}, #{buildingHumidity,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.BuildingRecord">
@@ -40,6 +50,9 @@
       </if>
       <if test="buildingId != null">
         building_id,
+      </if>
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="projectId != null">
         project_id,
@@ -64,6 +77,9 @@
       <if test="buildingId != null">
         #{buildingId,jdbcType=INTEGER},
       </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
       </if>
@@ -87,6 +103,9 @@
       <if test="buildingId != null">
         building_id = #{buildingId,jdbcType=INTEGER},
       </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
@@ -108,6 +127,7 @@
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.BuildingRecord">
     update building_record
     set building_id = #{buildingId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       project_id = #{projectId,jdbcType=INTEGER},
       building_tempetature = #{buildingTempetature,jdbcType=DECIMAL},
       building_humidity = #{buildingHumidity,jdbcType=DECIMAL},

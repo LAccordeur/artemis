@@ -5,6 +5,7 @@ import com.kuo.artemis.server.core.factory.TypeBindFactory;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.constant.ExcelConst;
 import com.kuo.artemis.server.util.constant.FieldClassConst;
+import com.kuo.artemis.server.util.constant.FieldFormatConst;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -52,29 +53,37 @@ public final class ExcelUtil {
     }
 
     /**
-     * TODO  对解析进行更一般化的改造，即增加起始列、起始行
-     * 解析excel文件的表title,规定excel文件的第一行为英文title
+     * TODO 对参数进行异常判断
+     * 解析excel文件的表title, 参数的起始计数从0开始
      * @param workbook
      * @param sheetIndex
      * @return
      * @throws Exception
      */
-    public static List<String> parseExcelFields(Workbook workbook, Integer sheetIndex) throws Exception {
+    public static List<String> parseExcelFields(Workbook workbook, Integer sheetIndex, Integer titleRow, Integer columnIndex) throws Exception {
 
         if (workbook == null) {
             throw new Exception("Workbook is null!");
         }
 
         Sheet sheet = workbook.getSheetAt(sheetIndex);
-        Row row = sheet.getRow(0);
+        Row row = sheet.getRow(titleRow);
+        List<String> list = new ArrayList<String>();
 
         //标题总列数
         int columnCount = row.getPhysicalNumberOfCells();
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < columnCount; i++) {
-            String field = row.getCell(i).getStringCellValue();
+        if (columnIndex == null) {
 
-            list.add(fieldFormat(field));
+            for (int i = 0; i < columnCount; i++) {
+                String field = row.getCell(i).getStringCellValue();
+                list.add(fieldFormat(field));
+            }
+        } else {
+            //poi 中的列从0开始计数
+            for (int i = columnIndex; i < columnCount; i++) {
+                String field = row.getCell(i).getStringCellValue();
+                list.add(fieldFormat(field));
+            }
         }
 
         return list;
@@ -88,8 +97,14 @@ public final class ExcelUtil {
     private static String fieldFormat(String field) {
 
         //TODO  导入文件中的数据包含指标数据和原料数据，对原料数据字段的解析还未添加
+        //如果含有中文，则改用另一种方法转换
+        if (BeanUtil.isContainChinese(field)) {
+            return FieldFormatConst.map.get(field);
+        }
         return BeanUtil.spaceFieldToCamel(field);
     }
+
+
 
 
     /**
@@ -99,19 +114,30 @@ public final class ExcelUtil {
      * @return
      * @throws Exception
      */
-    public static List<String> getExcelRowFields(Workbook workbook, int sheetIndex) throws Exception {
+    public static List<String> getExcelInitFields(Workbook workbook, Integer sheetIndex, Integer titleRow, Integer columnIndex) throws Exception {
         if (workbook == null) {
             throw new Exception("Workbook is null!");
         }
 
         Sheet sheet = workbook.getSheetAt(sheetIndex);
-        Row row = sheet.getRow(0);
+        Row row = sheet.getRow(titleRow);
+        List<String> list = new ArrayList<String>();
+
 
         //标题总列数
         int columnCount = row.getPhysicalNumberOfCells();
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < columnCount; i++) {
-            list.add(row.getCell(i).getStringCellValue());
+        if (columnIndex == null) {
+
+            for (int i = 0; i < columnCount; i++) {
+                String field = row.getCell(i).getStringCellValue();
+                list.add(field);
+            }
+        } else {
+            //poi 中的列从0开始计数
+            for (int i = columnIndex; i < columnCount; i++) {
+                String field = row.getCell(i).getStringCellValue();
+                list.add(field);
+            }
         }
 
         return list;
@@ -121,7 +147,7 @@ public final class ExcelUtil {
 
 
     /**
-     * TODO 增加起始列 参数 使之更一般化
+     *
      * 解析Excel表的正文内容，标题名为Java驼峰型
      * @param workbook
      * @param sheetIndex
@@ -129,7 +155,7 @@ public final class ExcelUtil {
      * @return
      * @throws Exception
      */
-    public static List<Map<String, Object>> parseExcelContent(Workbook workbook, int sheetIndex, int rowIndex) throws Exception {
+    public static List<Map<String, Object>> parseExcelContent(Workbook workbook, Integer sheetIndex, Integer titleRow, Integer rowIndex, Integer columnIndex) throws Exception {
 
         if (workbook == null) {
             throw new Exception();
@@ -142,17 +168,16 @@ public final class ExcelUtil {
         //总行数
         int rowCount = sheet.getLastRowNum();
         //总列数
-        int columnCount = sheet.getRow(0).getPhysicalNumberOfCells();
+        int columnCount = sheet.getRow(titleRow).getPhysicalNumberOfCells();
 
         //excel每一列的字段名
-        List<String> fields = parseExcelFields(workbook, sheetIndex);
+        List<String> fields = parseExcelFields(workbook, sheetIndex, titleRow, columnIndex);
         //依次解析正文
         for (int i = rowIndex; i <= rowCount; i++) {
             row = sheet.getRow(i);
             Map<String, Object> rowItem = new HashMap();
-            for (int j = 0; j < columnCount; j++) {
+            for (int j = columnIndex; j < columnCount; j++) {
                 Object item = getCellFormatValue(row.getCell(j));
-                //System.out.println("Field:" + fields.get(j) + "--- Type:" + item.getClass());
                 rowItem.put(fields.get(j), item);
             }
             rowList.add(rowItem);
@@ -491,75 +516,6 @@ public final class ExcelUtil {
         return classSet;
     }
 
-    /**
-     * 将键值对绑定到相应的类对象中
-     * @param beanClass
-     * @param fieldValueMap
-     * @return
-     * @throws Exception
-     *//*
-    public static <T> T dataBind(Class<T> beanClass, Map<String, Object> fieldValueMap) throws Exception {
-        T bean = null;
-
-        //通过反射生成对象
-        bean = beanClass.newInstance();
-
-       *//* //利用Apache的工具类进行数据绑定
-        BeanUtils.populate(bean, fieldValueMap);
-
-        //return bean;*//*
-
-
-
-        //获取类的方法
-        Method[] methods = beanClass.getMethods();
-        int len = methods.length;
-        for(int i = 0; i < len; ++i) {
-            Method method = methods[i];
-            String methodName = method.getName();
-            //如果方法名是set开头的且名字长度大于3的
-            if(methodName.startsWith("set") && methodName.length() > 3) {
-                //获取方法的参数类型
-                Class[] types = method.getParameterTypes();
-                //只有一个参数的方法才继续执行
-                if(types.length == 1) {
-                    //取字段名且让其首字母小写
-                    String attrName = firstCharToLowerCase(methodName.substring(3));
-                    Class<?> paramType = types[0];
-                    //map中是否有属性名
-                    if(fieldValueMap.containsKey(attrName)) {
-                        Object value = fieldValueMap.get(attrName);
-                        try {
-
-                            //通过反射的方式执行bean的mothod方法，在这里相当于执行set方法赋值
-                            Object param = TypeBindFactory.createBean(paramType, value);
-                            if (param != null) {
-                                method.invoke(bean, param);
-                            }
-
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                            continue;
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-        return bean;
-    }*/
-
-    //取字段名且让其首字母小写
-    public static String firstCharToLowerCase(String substring) {
-        if (substring!=null&& substring.charAt(0)>='A' && substring.charAt(0)<='Z'){
-            char[] arr = substring.toCharArray();
-            arr[0] = (char)(arr[0] + 32);
-            return new String(arr);
-        }else {
-            return substring;
-        }
-    }
 
 
     /**

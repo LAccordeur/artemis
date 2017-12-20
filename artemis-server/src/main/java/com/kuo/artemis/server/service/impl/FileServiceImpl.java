@@ -1,10 +1,13 @@
 package com.kuo.artemis.server.service.impl;
 
-import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
-import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportDataDTO;
-import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportTemplateDTO;
-import com.kuo.artemis.server.core.dto.excel.IndicatorExcelImportDTO;
+import com.kuo.artemis.server.core.dto.FileExportCommand;
+import com.kuo.artemis.server.core.dto.FileImportCommand;
+import com.kuo.artemis.server.core.dto.FileImportProduct;
+import com.kuo.artemis.server.core.dto.excel.*;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.factory.FactoryManager;
+import com.kuo.artemis.server.core.factory.FileImportFactory;
+import com.kuo.artemis.server.core.factory.excel.ExcelImportFactory;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
 import com.kuo.artemis.server.core.thread.ImportExcelTask;
 import com.kuo.artemis.server.dao.*;
@@ -19,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import sun.security.smartcardio.SunPCSC;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -60,48 +64,28 @@ public class FileServiceImpl implements FileService {
 
     /**
      * 接收用户上传的Indicator excel文件并解析导入至数据库中   TODO ##BUG## 3.未进行计算指标的更新  1.未进行上传记录更新（已解决） 2.未考虑数据历史记录（已解决目前采用多次存储的简单粗暴的方法）
-     * @param file                 TODO ##NEW## 后期可考虑将源文件单独保存至云存储中
+     * @param command                 TODO ##NEW## 后期可考虑将源文件单独保存至云存储中
      * @return
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
-    public Response parseAndSaveIndicatorExcel(MultipartFile file, String userId, String projectId) throws Exception {
+    public Response parseAndSaveIndicatorExcel(FileImportCommand command) throws Exception {
 
-        if ((file.getName()).endsWith(".xlsx") || (file.getName()).endsWith(".xls")) {
+        if ((command.getFile().getOriginalFilename()).endsWith(".xlsx") || (command.getFile().getOriginalFilename()).endsWith(".xls")) {
             //nothing to do
         } else {
             return new Response(HttpStatus.FORBIDDEN.value(), "文件类型错误");
         }
 
 
-        //解析
+        /* 解析 */
         //1.将Excel文件解析
-        IndicatorExcelImportDTO indicatorExcelImportDTO = ExcelHelper.parseIndicatorExcel(file, projectId);
+        IndicatorExcelImportDTO indicatorExcelImportDTO = ExcelHelper.parseIndicatorExcel(command);
 
         //2.依次将List中的每一行数据转化为改行所对应的对象
         Map<Class, List<Map<String, Object>>> map = indicatorExcelImportDTO.getItems();
         Set<Map.Entry<Class, List<Map<String, Object>>>> set = map.entrySet();
         Iterator<Map.Entry<Class, List<Map<String, Object>>>> iterator = set.iterator();
-        /*while (iterator.hasNext()) {
-            Map.Entry<Class, List<Map<String, Object>>> entry = iterator.next();
-            Class key = entry.getKey();
-            List<Map<String, Object>> value = entry.getValue();
-
-
-            List resultList = new ArrayList();
-            for (int i = 0; i < value.size(); i++) {
-
-                resultList.add(ExcelHelper.parseExcelRowToBean(key, value.get(i)));
-            }
-            //选择mapper进行导入
-            if ("ExcelTestMapper".startsWith(key.getSimpleName())) {
-                excelTestMapper.insertBatch(resultList);
-            } else if ("ExcelTestTwoMapper".startsWith(key.getSimpleName())) {
-                excelTestTwoMapper.insertBatch(resultList);
-            }
-
-        }*/
-
 
         //3.导入数据至数据库
         List<BaseMapper> mappers = new ArrayList<BaseMapper>();   //##BUG##  目前是写死的 后期需要动态加载
@@ -113,7 +97,7 @@ public class FileServiceImpl implements FileService {
 
         List<Future<Integer>> futures = new ArrayList<Future<Integer>>();
         for (int i = 0; i < set.size(); i++) {
-            Future<Integer> future = executorService.submit(task);    //##BUG##  (已解决 手动设定uuid)记录表中的共用id字段如何添加
+            Future<Integer> future = executorService.submit(task);
             futures.add(future);
         }
 
@@ -122,8 +106,8 @@ public class FileServiceImpl implements FileService {
         FileRecord fileRecord = new FileRecord();
         fileRecord.setFileType((byte) 1);  //Excel
         fileRecord.setOperationType((byte) 1);    //upload
-        fileRecord.setUserId(Integer.valueOf(userId));
-        fileRecord.setProjectId(Integer.valueOf(projectId));
+        fileRecord.setUserId(Integer.valueOf(command.getUserId()));
+        fileRecord.setProjectId(Integer.valueOf(command.getProjectId()));
         fileRecordMapper.insertSelective(fileRecord);
 
         //5.更新excel文件上传详细记录
@@ -162,18 +146,40 @@ public class FileServiceImpl implements FileService {
         }
 
 
-
-        //保存至数据库
-        //int result = excelTestMapper.insertBatch(resultList);     // ##BUG##  多次导入同一文件
-
-        /*if (result > 0) {
-            return new Response(HttpStatus.OK.value(), "upload success");
-        } else {
-            return new Response(HttpStatus.BAD_REQUEST.value(), "Excel数据有误，上传失败");
-        }*/
         return new Response(HttpStatus.OK.value(), "upload success");
     }
 
+
+    @Transactional(rollbackFor = Exception.class)
+    public Response parseAndSaveExcelFile(FileImportCommand command) throws Exception {
+
+        //1.获取解析好的对象
+        FileImportProduct product = FactoryManager.createFileImportProduct(command);
+
+        //2.依次将List中的每一行数据转化为改行所对应的对象
+        Map<Class, List<Map<String, Object>>> map = product.getItems();
+        Set<Map.Entry<Class, List<Map<String, Object>>>> set = map.entrySet();
+        Iterator<Map.Entry<Class, List<Map<String, Object>>>> iterator = set.iterator();
+
+        //3.导入数据至数据库
+        List<BaseMapper> mappers = new ArrayList<BaseMapper>();   //##BUG##  目前是写死的 后期需要动态加载
+        mappers.add(animalGrowthRecordMapper);
+        mappers.add(animalGutMicrobiotaRecordMapper);
+        mappers.add(animalMapper);
+
+        ImportExcelTask task = new ImportExcelTask(iterator, mappers);
+
+        List<Future<Integer>> futures = new ArrayList<Future<Integer>>();
+        for (int i = 0; i < set.size(); i++) {
+            Future<Integer> future = executorService.submit(task);
+            futures.add(future);
+        }
+
+
+
+
+        return null;
+    }
 
     /**
      * 根据用户选择的指标导出数据录入的excel模板  TODO ##BUG## 1.未更新文件记录表（已解决）  2.未判断自定义字段是否已经使用完
@@ -278,6 +284,7 @@ public class FileServiceImpl implements FileService {
 
         return response;
     }
+
 
     private void updateFileRecord(IndicatorExcelExportCommand command, List<AnimalIndicator> animalIndicators) {
         //更新文件记录

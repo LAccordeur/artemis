@@ -38,6 +38,13 @@
     where user_phone = #{userPhone}
   </select>
 
+  <select id="selectPhoneCount" resultType="Integer">
+    select
+    count(*)
+    from user
+    where user_phone = #{userPhone}
+  </select>
+
   <select id="selectById" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

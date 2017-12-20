@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.NutritionStandardMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.NutritionStandard">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="nutrition_standard_code" jdbcType="VARCHAR" property="nutritionStandardCode" />
+    <result column="nutrition_standard_name" jdbcType="VARCHAR" property="nutritionStandardName" />
+    <result column="water_content_standard" jdbcType="DECIMAL" property="waterContentStandard" />
+    <result column="water_content_actual" jdbcType="DECIMAL" property="waterContentActual" />
+    <result column="dietary_electrolyte_balance" jdbcType="DECIMAL" property="dietaryElectrolyteBalance" />
+    <result column="natrium" jdbcType="DECIMAL" property="natrium" />
+    <result column="kalium" jdbcType="DECIMAL" property="kalium" />
+    <result column="chlorine" jdbcType="DECIMAL" property="chlorine" />
+    <result column="digestive_energy_standard" jdbcType="DECIMAL" property="digestiveEnergyStandard" />
+    <result column="digestive_energy_actual" jdbcType="DECIMAL" property="digestiveEnergyActual" />
+    <result column="net_energy" jdbcType="DECIMAL" property="netEnergy" />
+    <result column="linolic_acid" jdbcType="DECIMAL" property="linolicAcid" />
+    <result column="crude_protein" jdbcType="DECIMAL" property="crudeProtein" />
+    <result column="crude_fa" jdbcType="DECIMAL" property="crudeFa" />
+    <result column="crude_fiber" jdbcType="DECIMAL" property="crudeFiber" />
+    <result column="crude_ash" jdbcType="DECIMAL" property="crudeAsh" />
+    <result column="nertral_detergent_fiber" jdbcType="DECIMAL" property="nertralDetergentFiber" />
+    <result column="acid_detergent_fiber" jdbcType="DECIMAL" property="acidDetergentFiber" />
+    <result column="calcium" jdbcType="DECIMAL" property="calcium" />
+    <result column="total_phosphor" jdbcType="DECIMAL" property="totalPhosphor" />
+    <result column="available_phosphor" jdbcType="DECIMAL" property="availablePhosphor" />
+    <result column="lysine" jdbcType="DECIMAL" property="lysine" />
+    <result column="methionine" jdbcType="DECIMAL" property="methionine" />
+    <result column="tryptophan" jdbcType="DECIMAL" property="tryptophan" />
+    <result column="threonine" jdbcType="DECIMAL" property="threonine" />
+    <result column="valine" jdbcType="DECIMAL" property="valine" />
+    <result column="arginine" jdbcType="DECIMAL" property="arginine" />
+    <result column="isoleucine" jdbcType="DECIMAL" property="isoleucine" />
+    <result column="leucine" jdbcType="DECIMAL" property="leucine" />
+    <result column="cystine" jdbcType="DECIMAL" property="cystine" />
+    <result column="methionine_cystine" jdbcType="DECIMAL" property="methionineCystine" />
+    <result column="digestible_lysine" jdbcType="DECIMAL" property="digestibleLysine" />
+    <result column="digestible_methionine" jdbcType="DECIMAL" property="digestibleMethionine" />
+    <result column="digestible_tryptophan" jdbcType="DECIMAL" property="digestibleTryptophan" />
+    <result column="digestible_threonine" jdbcType="DECIMAL" property="digestibleThreonine" />
+    <result column="digestible_valine" jdbcType="DECIMAL" property="digestibleValine" />
+    <result column="digestible_arginine" jdbcType="DECIMAL" property="digestibleArginine" />
+    <result column="digestible_isoleucine" jdbcType="DECIMAL" property="digestibleIsoleucine" />
+    <result column="digestible_leucine" jdbcType="DECIMAL" property="digestibleLeucine" />
+    <result column="digestible_cystine" jdbcType="DECIMAL" property="digestibleCystine" />
+    <result column="digestible_methionine_cystine" jdbcType="DECIMAL" property="digestibleMethionineCystine" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, nutrition_standard_code, nutrition_standard_name, water_content_standard, 
+    water_content_actual, dietary_electrolyte_balance, natrium, kalium, chlorine, digestive_energy_standard, 
+    digestive_energy_actual, net_energy, linolic_acid, crude_protein, crude_fa, crude_fiber, 
+    crude_ash, nertral_detergent_fiber, acid_detergent_fiber, calcium, total_phosphor, 
+    available_phosphor, lysine, methionine, tryptophan, threonine, valine, arginine, 
+    isoleucine, leucine, cystine, methionine_cystine, digestible_lysine, digestible_methionine, 
+    digestible_tryptophan, digestible_threonine, digestible_valine, digestible_arginine, 
+    digestible_isoleucine, digestible_leucine, digestible_cystine, digestible_methionine_cystine, 
+    create_time, modified_time
+  </sql>
+
+  <select id="selectByUserId" parameterType="Integer" resultType="NutritionStandard">
+    select
+    <include refid="Base_Column_List" />
+    from nutrition_standard
+    where id = #{userId}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nutrition_standard
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nutrition_standard
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.NutritionStandard">
+    insert into nutrition_standard (id, user_id, nutrition_standard_code, 
+      nutrition_standard_name, water_content_standard, 
+      water_content_actual, dietary_electrolyte_balance, 
+      natrium, kalium, chlorine, 
+      digestive_energy_standard, digestive_energy_actual, 
+      net_energy, linolic_acid, crude_protein, 
+      crude_fa, crude_fiber, crude_ash, 
+      nertral_detergent_fiber, acid_detergent_fiber, 
+      calcium, total_phosphor, available_phosphor, 
+      lysine, methionine, tryptophan, 
+      threonine, valine, arginine, 
+      isoleucine, leucine, cystine, 
+      methionine_cystine, digestible_lysine, digestible_methionine, 
+      digestible_tryptophan, digestible_threonine, 
+      digestible_valine, digestible_arginine, digestible_isoleucine, 
+      digestible_leucine, digestible_cystine, digestible_methionine_cystine, 
+      create_time, modified_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{nutritionStandardCode,jdbcType=VARCHAR}, 
+      #{nutritionStandardName,jdbcType=VARCHAR}, #{waterContentStandard,jdbcType=DECIMAL}, 
+      #{waterContentActual,jdbcType=DECIMAL}, #{dietaryElectrolyteBalance,jdbcType=DECIMAL}, 
+      #{natrium,jdbcType=DECIMAL}, #{kalium,jdbcType=DECIMAL}, #{chlorine,jdbcType=DECIMAL}, 
+      #{digestiveEnergyStandard,jdbcType=DECIMAL}, #{digestiveEnergyActual,jdbcType=DECIMAL}, 
+      #{netEnergy,jdbcType=DECIMAL}, #{linolicAcid,jdbcType=DECIMAL}, #{crudeProtein,jdbcType=DECIMAL}, 
+      #{crudeFa,jdbcType=DECIMAL}, #{crudeFiber,jdbcType=DECIMAL}, #{crudeAsh,jdbcType=DECIMAL}, 
+      #{nertralDetergentFiber,jdbcType=DECIMAL}, #{acidDetergentFiber,jdbcType=DECIMAL}, 
+      #{calcium,jdbcType=DECIMAL}, #{totalPhosphor,jdbcType=DECIMAL}, #{availablePhosphor,jdbcType=DECIMAL}, 
+      #{lysine,jdbcType=DECIMAL}, #{methionine,jdbcType=DECIMAL}, #{tryptophan,jdbcType=DECIMAL}, 
+      #{threonine,jdbcType=DECIMAL}, #{valine,jdbcType=DECIMAL}, #{arginine,jdbcType=DECIMAL}, 
+      #{isoleucine,jdbcType=DECIMAL}, #{leucine,jdbcType=DECIMAL}, #{cystine,jdbcType=DECIMAL}, 
+      #{methionineCystine,jdbcType=DECIMAL}, #{digestibleLysine,jdbcType=DECIMAL}, #{digestibleMethionine,jdbcType=DECIMAL}, 
+      #{digestibleTryptophan,jdbcType=DECIMAL}, #{digestibleThreonine,jdbcType=DECIMAL}, 
+      #{digestibleValine,jdbcType=DECIMAL}, #{digestibleArginine,jdbcType=DECIMAL}, #{digestibleIsoleucine,jdbcType=DECIMAL}, 
+      #{digestibleLeucine,jdbcType=DECIMAL}, #{digestibleCystine,jdbcType=DECIMAL}, #{digestibleMethionineCystine,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.NutritionStandard">
+    insert into nutrition_standard
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="nutritionStandardCode != null">
+        nutrition_standard_code,
+      </if>
+      <if test="nutritionStandardName != null">
+        nutrition_standard_name,
+      </if>
+      <if test="waterContentStandard != null">
+        water_content_standard,
+      </if>
+      <if test="waterContentActual != null">
+        water_content_actual,
+      </if>
+      <if test="dietaryElectrolyteBalance != null">
+        dietary_electrolyte_balance,
+      </if>
+      <if test="natrium != null">
+        natrium,
+      </if>
+      <if test="kalium != null">
+        kalium,
+      </if>
+      <if test="chlorine != null">
+        chlorine,
+      </if>
+      <if test="digestiveEnergyStandard != null">
+        digestive_energy_standard,
+      </if>
+      <if test="digestiveEnergyActual != null">
+        digestive_energy_actual,
+      </if>
+      <if test="netEnergy != null">
+        net_energy,
+      </if>
+      <if test="linolicAcid != null">
+        linolic_acid,
+      </if>
+      <if test="crudeProtein != null">
+        crude_protein,
+      </if>
+      <if test="crudeFa != null">
+        crude_fa,
+      </if>
+      <if test="crudeFiber != null">
+        crude_fiber,
+      </if>
+      <if test="crudeAsh != null">
+        crude_ash,
+      </if>
+      <if test="nertralDetergentFiber != null">
+        nertral_detergent_fiber,
+      </if>
+      <if test="acidDetergentFiber != null">
+        acid_detergent_fiber,
+      </if>
+      <if test="calcium != null">
+        calcium,
+      </if>
+      <if test="totalPhosphor != null">
+        total_phosphor,
+      </if>
+      <if test="availablePhosphor != null">
+        available_phosphor,
+      </if>
+      <if test="lysine != null">
+        lysine,
+      </if>
+      <if test="methionine != null">
+        methionine,
+      </if>
+      <if test="tryptophan != null">
+        tryptophan,
+      </if>
+      <if test="threonine != null">
+        threonine,
+      </if>
+      <if test="valine != null">
+        valine,
+      </if>
+      <if test="arginine != null">
+        arginine,
+      </if>
+      <if test="isoleucine != null">
+        isoleucine,
+      </if>
+      <if test="leucine != null">
+        leucine,
+      </if>
+      <if test="cystine != null">
+        cystine,
+      </if>
+      <if test="methionineCystine != null">
+        methionine_cystine,
+      </if>
+      <if test="digestibleLysine != null">
+        digestible_lysine,
+      </if>
+      <if test="digestibleMethionine != null">
+        digestible_methionine,
+      </if>
+      <if test="digestibleTryptophan != null">
+        digestible_tryptophan,
+      </if>
+      <if test="digestibleThreonine != null">
+        digestible_threonine,
+      </if>
+      <if test="digestibleValine != null">
+        digestible_valine,
+      </if>
+      <if test="digestibleArginine != null">
+        digestible_arginine,
+      </if>
+      <if test="digestibleIsoleucine != null">
+        digestible_isoleucine,
+      </if>
+      <if test="digestibleLeucine != null">
+        digestible_leucine,
+      </if>
+      <if test="digestibleCystine != null">
+        digestible_cystine,
+      </if>
+      <if test="digestibleMethionineCystine != null">
+        digestible_methionine_cystine,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="nutritionStandardCode != null">
+        #{nutritionStandardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nutritionStandardName != null">
+        #{nutritionStandardName,jdbcType=VARCHAR},
+      </if>
+      <if test="waterContentStandard != null">
+        #{waterContentStandard,jdbcType=DECIMAL},
+      </if>
+      <if test="waterContentActual != null">
+        #{waterContentActual,jdbcType=DECIMAL},
+      </if>
+      <if test="dietaryElectrolyteBalance != null">
+        #{dietaryElectrolyteBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="natrium != null">
+        #{natrium,jdbcType=DECIMAL},
+      </if>
+      <if test="kalium != null">
+        #{kalium,jdbcType=DECIMAL},
+      </if>
+      <if test="chlorine != null">
+        #{chlorine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestiveEnergyStandard != null">
+        #{digestiveEnergyStandard,jdbcType=DECIMAL},
+      </if>
+      <if test="digestiveEnergyActual != null">
+        #{digestiveEnergyActual,jdbcType=DECIMAL},
+      </if>
+      <if test="netEnergy != null">
+        #{netEnergy,jdbcType=DECIMAL},
+      </if>
+      <if test="linolicAcid != null">
+        #{linolicAcid,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeProtein != null">
+        #{crudeProtein,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeFa != null">
+        #{crudeFa,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeFiber != null">
+        #{crudeFiber,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeAsh != null">
+        #{crudeAsh,jdbcType=DECIMAL},
+      </if>
+      <if test="nertralDetergentFiber != null">
+        #{nertralDetergentFiber,jdbcType=DECIMAL},
+      </if>
+      <if test="acidDetergentFiber != null">
+        #{acidDetergentFiber,jdbcType=DECIMAL},
+      </if>
+      <if test="calcium != null">
+        #{calcium,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPhosphor != null">
+        #{totalPhosphor,jdbcType=DECIMAL},
+      </if>
+      <if test="availablePhosphor != null">
+        #{availablePhosphor,jdbcType=DECIMAL},
+      </if>
+      <if test="lysine != null">
+        #{lysine,jdbcType=DECIMAL},
+      </if>
+      <if test="methionine != null">
+        #{methionine,jdbcType=DECIMAL},
+      </if>
+      <if test="tryptophan != null">
+        #{tryptophan,jdbcType=DECIMAL},
+      </if>
+      <if test="threonine != null">
+        #{threonine,jdbcType=DECIMAL},
+      </if>
+      <if test="valine != null">
+        #{valine,jdbcType=DECIMAL},
+      </if>
+      <if test="arginine != null">
+        #{arginine,jdbcType=DECIMAL},
+      </if>
+      <if test="isoleucine != null">
+        #{isoleucine,jdbcType=DECIMAL},
+      </if>
+      <if test="leucine != null">
+        #{leucine,jdbcType=DECIMAL},
+      </if>
+      <if test="cystine != null">
+        #{cystine,jdbcType=DECIMAL},
+      </if>
+      <if test="methionineCystine != null">
+        #{methionineCystine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleLysine != null">
+        #{digestibleLysine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleMethionine != null">
+        #{digestibleMethionine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleTryptophan != null">
+        #{digestibleTryptophan,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleThreonine != null">
+        #{digestibleThreonine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleValine != null">
+        #{digestibleValine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleArginine != null">
+        #{digestibleArginine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleIsoleucine != null">
+        #{digestibleIsoleucine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleLeucine != null">
+        #{digestibleLeucine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleCystine != null">
+        #{digestibleCystine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleMethionineCystine != null">
+        #{digestibleMethionineCystine,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.NutritionStandard">
+    update nutrition_standard
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="nutritionStandardCode != null">
+        nutrition_standard_code = #{nutritionStandardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nutritionStandardName != null">
+        nutrition_standard_name = #{nutritionStandardName,jdbcType=VARCHAR},
+      </if>
+      <if test="waterContentStandard != null">
+        water_content_standard = #{waterContentStandard,jdbcType=DECIMAL},
+      </if>
+      <if test="waterContentActual != null">
+        water_content_actual = #{waterContentActual,jdbcType=DECIMAL},
+      </if>
+      <if test="dietaryElectrolyteBalance != null">
+        dietary_electrolyte_balance = #{dietaryElectrolyteBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="natrium != null">
+        natrium = #{natrium,jdbcType=DECIMAL},
+      </if>
+      <if test="kalium != null">
+        kalium = #{kalium,jdbcType=DECIMAL},
+      </if>
+      <if test="chlorine != null">
+        chlorine = #{chlorine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestiveEnergyStandard != null">
+        digestive_energy_standard = #{digestiveEnergyStandard,jdbcType=DECIMAL},
+      </if>
+      <if test="digestiveEnergyActual != null">
+        digestive_energy_actual = #{digestiveEnergyActual,jdbcType=DECIMAL},
+      </if>
+      <if test="netEnergy != null">
+        net_energy = #{netEnergy,jdbcType=DECIMAL},
+      </if>
+      <if test="linolicAcid != null">
+        linolic_acid = #{linolicAcid,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeProtein != null">
+        crude_protein = #{crudeProtein,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeFa != null">
+        crude_fa = #{crudeFa,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeFiber != null">
+        crude_fiber = #{crudeFiber,jdbcType=DECIMAL},
+      </if>
+      <if test="crudeAsh != null">
+        crude_ash = #{crudeAsh,jdbcType=DECIMAL},
+      </if>
+      <if test="nertralDetergentFiber != null">
+        nertral_detergent_fiber = #{nertralDetergentFiber,jdbcType=DECIMAL},
+      </if>
+      <if test="acidDetergentFiber != null">
+        acid_detergent_fiber = #{acidDetergentFiber,jdbcType=DECIMAL},
+      </if>
+      <if test="calcium != null">
+        calcium = #{calcium,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPhosphor != null">
+        total_phosphor = #{totalPhosphor,jdbcType=DECIMAL},
+      </if>
+      <if test="availablePhosphor != null">
+        available_phosphor = #{availablePhosphor,jdbcType=DECIMAL},
+      </if>
+      <if test="lysine != null">
+        lysine = #{lysine,jdbcType=DECIMAL},
+      </if>
+      <if test="methionine != null">
+        methionine = #{methionine,jdbcType=DECIMAL},
+      </if>
+      <if test="tryptophan != null">
+        tryptophan = #{tryptophan,jdbcType=DECIMAL},
+      </if>
+      <if test="threonine != null">
+        threonine = #{threonine,jdbcType=DECIMAL},
+      </if>
+      <if test="valine != null">
+        valine = #{valine,jdbcType=DECIMAL},
+      </if>
+      <if test="arginine != null">
+        arginine = #{arginine,jdbcType=DECIMAL},
+      </if>
+      <if test="isoleucine != null">
+        isoleucine = #{isoleucine,jdbcType=DECIMAL},
+      </if>
+      <if test="leucine != null">
+        leucine = #{leucine,jdbcType=DECIMAL},
+      </if>
+      <if test="cystine != null">
+        cystine = #{cystine,jdbcType=DECIMAL},
+      </if>
+      <if test="methionineCystine != null">
+        methionine_cystine = #{methionineCystine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleLysine != null">
+        digestible_lysine = #{digestibleLysine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleMethionine != null">
+        digestible_methionine = #{digestibleMethionine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleTryptophan != null">
+        digestible_tryptophan = #{digestibleTryptophan,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleThreonine != null">
+        digestible_threonine = #{digestibleThreonine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleValine != null">
+        digestible_valine = #{digestibleValine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleArginine != null">
+        digestible_arginine = #{digestibleArginine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleIsoleucine != null">
+        digestible_isoleucine = #{digestibleIsoleucine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleLeucine != null">
+        digestible_leucine = #{digestibleLeucine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleCystine != null">
+        digestible_cystine = #{digestibleCystine,jdbcType=DECIMAL},
+      </if>
+      <if test="digestibleMethionineCystine != null">
+        digestible_methionine_cystine = #{digestibleMethionineCystine,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.NutritionStandard">
+    update nutrition_standard
+    set user_id = #{userId,jdbcType=INTEGER},
+      nutrition_standard_code = #{nutritionStandardCode,jdbcType=VARCHAR},
+      nutrition_standard_name = #{nutritionStandardName,jdbcType=VARCHAR},
+      water_content_standard = #{waterContentStandard,jdbcType=DECIMAL},
+      water_content_actual = #{waterContentActual,jdbcType=DECIMAL},
+      dietary_electrolyte_balance = #{dietaryElectrolyteBalance,jdbcType=DECIMAL},
+      natrium = #{natrium,jdbcType=DECIMAL},
+      kalium = #{kalium,jdbcType=DECIMAL},
+      chlorine = #{chlorine,jdbcType=DECIMAL},
+      digestive_energy_standard = #{digestiveEnergyStandard,jdbcType=DECIMAL},
+      digestive_energy_actual = #{digestiveEnergyActual,jdbcType=DECIMAL},
+      net_energy = #{netEnergy,jdbcType=DECIMAL},
+      linolic_acid = #{linolicAcid,jdbcType=DECIMAL},
+      crude_protein = #{crudeProtein,jdbcType=DECIMAL},
+      crude_fa = #{crudeFa,jdbcType=DECIMAL},
+      crude_fiber = #{crudeFiber,jdbcType=DECIMAL},
+      crude_ash = #{crudeAsh,jdbcType=DECIMAL},
+      nertral_detergent_fiber = #{nertralDetergentFiber,jdbcType=DECIMAL},
+      acid_detergent_fiber = #{acidDetergentFiber,jdbcType=DECIMAL},
+      calcium = #{calcium,jdbcType=DECIMAL},
+      total_phosphor = #{totalPhosphor,jdbcType=DECIMAL},
+      available_phosphor = #{availablePhosphor,jdbcType=DECIMAL},
+      lysine = #{lysine,jdbcType=DECIMAL},
+      methionine = #{methionine,jdbcType=DECIMAL},
+      tryptophan = #{tryptophan,jdbcType=DECIMAL},
+      threonine = #{threonine,jdbcType=DECIMAL},
+      valine = #{valine,jdbcType=DECIMAL},
+      arginine = #{arginine,jdbcType=DECIMAL},
+      isoleucine = #{isoleucine,jdbcType=DECIMAL},
+      leucine = #{leucine,jdbcType=DECIMAL},
+      cystine = #{cystine,jdbcType=DECIMAL},
+      methionine_cystine = #{methionineCystine,jdbcType=DECIMAL},
+      digestible_lysine = #{digestibleLysine,jdbcType=DECIMAL},
+      digestible_methionine = #{digestibleMethionine,jdbcType=DECIMAL},
+      digestible_tryptophan = #{digestibleTryptophan,jdbcType=DECIMAL},
+      digestible_threonine = #{digestibleThreonine,jdbcType=DECIMAL},
+      digestible_valine = #{digestibleValine,jdbcType=DECIMAL},
+      digestible_arginine = #{digestibleArginine,jdbcType=DECIMAL},
+      digestible_isoleucine = #{digestibleIsoleucine,jdbcType=DECIMAL},
+      digestible_leucine = #{digestibleLeucine,jdbcType=DECIMAL},
+      digestible_cystine = #{digestibleCystine,jdbcType=DECIMAL},
+      digestible_methionine_cystine = #{digestibleMethionineCystine,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

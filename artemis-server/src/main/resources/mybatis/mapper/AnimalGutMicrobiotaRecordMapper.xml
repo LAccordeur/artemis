@@ -3,6 +3,8 @@
 <mapper namespace="com.kuo.artemis.server.dao.AnimalGutMicrobiotaRecordMapper">
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.AnimalGutMicrobiotaRecord">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="animal_id" jdbcType="VARCHAR" property="animalId" />
     <result column="e_coli" jdbcType="DECIMAL" property="eColi" />
     <result column="bifidobacterium" jdbcType="DECIMAL" property="bifidobacterium" />
@@ -11,7 +13,8 @@
     <result column="live_yeast" jdbcType="DECIMAL" property="liveYeast" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, animal_id, e_coli, bifidobacterium, lactic_acid_bacteria, total_bacteria, live_yeast
+    id, project_id, user_id, animal_id, e_coli, bifidobacterium, lactic_acid_bacteria, 
+    total_bacteria, live_yeast
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,7 +26,7 @@
     delete from animal_gut_microbiota_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-
+  
   <insert id="insertBatch" parameterType="List">
     <foreach collection="list" item="item" index="index" separator=";">
       insert into animal_gut_microbiota_record
@@ -33,6 +36,12 @@
       </if>
       <if test="item.animalId != null">
         animal_id,
+      </if>
+	  <if test="item.projectId != null">
+        project_id,
+      </if>
+	  <if test="item.userId != null">
+        user_id,
       </if>
       <if test="item.eColi != null">
         e_coli,
@@ -58,6 +67,12 @@
       <if test="item.animalId != null">
         #{item.animalId},
       </if>
+	  <if test="item.projectId != null">
+        #{item.projectId},
+      </if>
+	  <if test="item.userId != null">
+        #{item.userId},
+      </if>
       <if test="item.eColi != null">
         #{item.eColi},
       </if>
@@ -76,20 +91,28 @@
     </trim>
     </foreach>
   </insert>
-
+  
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalGutMicrobiotaRecord">
-    insert into animal_gut_microbiota_record (id, animal_id, e_coli, 
-      bifidobacterium, lactic_acid_bacteria, total_bacteria, 
-      live_yeast)
-    values (#{id,jdbcType=INTEGER}, #{animalId,jdbcType=VARCHAR}, #{eColi,jdbcType=DECIMAL},
-      #{bifidobacterium,jdbcType=DECIMAL}, #{lacticAcidBacteria,jdbcType=DECIMAL}, #{totalBacteria,jdbcType=DECIMAL}, 
-      #{liveYeast,jdbcType=DECIMAL})
+    insert into animal_gut_microbiota_record (id, project_id, user_id, 
+      animal_id, e_coli, bifidobacterium, 
+      lactic_acid_bacteria, total_bacteria, live_yeast
+      )
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{animalId,jdbcType=VARCHAR}, #{eColi,jdbcType=DECIMAL}, #{bifidobacterium,jdbcType=DECIMAL}, 
+      #{lacticAcidBacteria,jdbcType=DECIMAL}, #{totalBacteria,jdbcType=DECIMAL}, #{liveYeast,jdbcType=DECIMAL}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalGutMicrobiotaRecord">
     insert into animal_gut_microbiota_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="animalId != null">
         animal_id,
@@ -114,6 +137,12 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
       <if test="animalId != null">
         #{animalId,jdbcType=VARCHAR},
       </if>
@@ -137,6 +166,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.AnimalGutMicrobiotaRecord">
     update animal_gut_microbiota_record
     <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
       <if test="animalId != null">
         animal_id = #{animalId,jdbcType=VARCHAR},
       </if>
@@ -160,7 +195,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.AnimalGutMicrobiotaRecord">
     update animal_gut_microbiota_record
-    set animal_id = #{animalId,jdbcType=VARCHAR},
+    set project_id = #{projectId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      animal_id = #{animalId,jdbcType=VARCHAR},
       e_coli = #{eColi,jdbcType=DECIMAL},
       bifidobacterium = #{bifidobacterium,jdbcType=DECIMAL},
       lactic_acid_bacteria = #{lacticAcidBacteria,jdbcType=DECIMAL},

@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.service;
 
+import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface FileService {
 
-    Response parseAndSaveIndicatorExcel(MultipartFile file, String userId, String projectId) throws Exception;
+    Response parseAndSaveIndicatorExcel(FileImportCommand command) throws Exception;
 
     Response exportIndicatorExcelTemplate(IndicatorExcelExportCommand command);
 

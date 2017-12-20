@@ -91,7 +91,7 @@ public class UserController {
     @RequestMapping(value = "/unique", method = RequestMethod.GET)
     @ResponseBody
     public Response checkUser(String phone) {
-        return userService.checkUser(phone);
+        return userService.checkUser(phone.trim());
     }
 
     /**
