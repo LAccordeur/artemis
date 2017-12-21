@@ -82,7 +82,9 @@ public final class ExcelUtil {
             //poi 中的列从0开始计数
             for (int i = columnIndex; i < columnCount; i++) {
                 String field = row.getCell(i).getStringCellValue();
-                list.add(fieldFormat(field));
+                String formatField = fieldFormat(field);
+                list.add(formatField);
+
             }
         }
 
@@ -99,9 +101,24 @@ public final class ExcelUtil {
         //TODO  导入文件中的数据包含指标数据和原料数据，对原料数据字段的解析还未添加
         //如果含有中文，则改用另一种方法转换
         if (BeanUtil.isContainChinese(field)) {
-            return FieldFormatConst.map.get(field);
+            if (field.trim().contains("（%）")) {
+                field = field.replace("（%）","");
+            }
+            if (field.trim().contains("(%)")) {
+                field = field.replace("(%)", "");
+            }
+            if (field.trim().contains("kcal/kg")) {
+                field = field.replace("kcal/kg", "");
+            }
+            if (field.trim().contains("Mcal/kg")) {
+                field = field.replace("Mcal/kg", "");
+            }
+            if (field.trim().contains("\n")) {
+                field = field.replace("\n", "");
+            }
+            return FieldFormatConst.map.get(field.trim());
         }
-        return BeanUtil.spaceFieldToCamel(field);
+        return BeanUtil.spaceFieldToCamel(field.trim());
     }
 
 

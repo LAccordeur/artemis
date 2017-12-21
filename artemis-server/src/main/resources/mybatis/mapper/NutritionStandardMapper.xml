@@ -17,7 +17,7 @@
     <result column="net_energy" jdbcType="DECIMAL" property="netEnergy" />
     <result column="linolic_acid" jdbcType="DECIMAL" property="linolicAcid" />
     <result column="crude_protein" jdbcType="DECIMAL" property="crudeProtein" />
-    <result column="crude_fa" jdbcType="DECIMAL" property="crudeFa" />
+    <result column="crude_fat" jdbcType="DECIMAL" property="crudeFa" />
     <result column="crude_fiber" jdbcType="DECIMAL" property="crudeFiber" />
     <result column="crude_ash" jdbcType="DECIMAL" property="crudeAsh" />
     <result column="nertral_detergent_fiber" jdbcType="DECIMAL" property="nertralDetergentFiber" />
@@ -51,7 +51,7 @@
   <sql id="Base_Column_List">
     id, user_id, nutrition_standard_code, nutrition_standard_name, water_content_standard, 
     water_content_actual, dietary_electrolyte_balance, natrium, kalium, chlorine, digestive_energy_standard, 
-    digestive_energy_actual, net_energy, linolic_acid, crude_protein, crude_fa, crude_fiber, 
+    digestive_energy_actual, net_energy, linolic_acid, crude_protein, crude_fat, crude_fiber, 
     crude_ash, nertral_detergent_fiber, acid_detergent_fiber, calcium, total_phosphor, 
     available_phosphor, lysine, methionine, tryptophan, threonine, valine, arginine, 
     isoleucine, leucine, cystine, methionine_cystine, digestible_lysine, digestible_methionine, 
@@ -64,9 +64,296 @@
     select
     <include refid="Base_Column_List" />
     from nutrition_standard
-    where id = #{userId}
+    where user_id = #{userId}
   </select>
 
+  <select id="selectBriefByUserId" parameterType="Integer" resultType="NutritionStandard">
+    select
+    id, nutrition_standard_code, nutrition_standard_name
+    from nutrition_standard
+    where user_id = #{userId}
+  </select>
+
+  <insert id="insertBatch" parameterType="List">
+    <foreach collection="list" item="item" index="index" separator=";">
+    insert into nutrition_standard
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        id,
+      </if>
+      <if test="item.userId != null">
+        user_id,
+      </if>
+      <if test="item.nutritionStandardCode != null">
+        nutrition_standard_code,
+      </if>
+      <if test="item.nutritionStandardName != null">
+        nutrition_standard_name,
+      </if>
+      <if test="item.waterContentStandard != null">
+        water_content_standard,
+      </if>
+      <if test="item.waterContentActual != null">
+        water_content_actual,
+      </if>
+      <if test="item.dietaryElectrolyteBalance != null">
+        dietary_electrolyte_balance,
+      </if>
+      <if test="item.natrium != null">
+        natrium,
+      </if>
+      <if test="item.kalium != null">
+        kalium,
+      </if>
+      <if test="item.chlorine != null">
+        chlorine,
+      </if>
+      <if test="item.digestiveEnergyStandard != null">
+        digestive_energy_standard,
+      </if>
+      <if test="item.digestiveEnergyActual != null">
+        digestive_energy_actual,
+      </if>
+      <if test="item.netEnergy != null">
+        net_energy,
+      </if>
+      <if test="item.linolicAcid != null">
+        linolic_acid,
+      </if>
+      <if test="item.crudeProtein != null">
+        crude_protein,
+      </if>
+      <if test="item.crudeFa != null">
+        crude_fat,
+      </if>
+      <if test="item.crudeFiber != null">
+        crude_fiber,
+      </if>
+      <if test="item.crudeAsh != null">
+        crude_ash,
+      </if>
+      <if test="item.nertralDetergentFiber != null">
+        nertral_detergent_fiber,
+      </if>
+      <if test="item.acidDetergentFiber != null">
+        acid_detergent_fiber,
+      </if>
+      <if test="item.calcium != null">
+        calcium,
+      </if>
+      <if test="item.totalPhosphor != null">
+        total_phosphor,
+      </if>
+      <if test="item.availablePhosphor != null">
+        available_phosphor,
+      </if>
+      <if test="item.lysine != null">
+        lysine,
+      </if>
+      <if test="item.methionine != null">
+        methionine,
+      </if>
+      <if test="item.tryptophan != null">
+        tryptophan,
+      </if>
+      <if test="item.threonine != null">
+        threonine,
+      </if>
+      <if test="item.valine != null">
+        valine,
+      </if>
+      <if test="item.arginine != null">
+        arginine,
+      </if>
+      <if test="item.isoleucine != null">
+        isoleucine,
+      </if>
+      <if test="item.leucine != null">
+        leucine,
+      </if>
+      <if test="item.cystine != null">
+        cystine,
+      </if>
+      <if test="item.methionineCystine != null">
+        methionine_cystine,
+      </if>
+      <if test="item.digestibleLysine != null">
+        digestible_lysine,
+      </if>
+      <if test="item.digestibleMethionine != null">
+        digestible_methionine,
+      </if>
+      <if test="item.digestibleTryptophan != null">
+        digestible_tryptophan,
+      </if>
+      <if test="item.digestibleThreonine != null">
+        digestible_threonine,
+      </if>
+      <if test="item.digestibleValine != null">
+        digestible_valine,
+      </if>
+      <if test="item.digestibleArginine != null">
+        digestible_arginine,
+      </if>
+      <if test="item.digestibleIsoleucine != null">
+        digestible_isoleucine,
+      </if>
+      <if test="item.digestibleLeucine != null">
+        digestible_leucine,
+      </if>
+      <if test="item.digestibleCystine != null">
+        digestible_cystine,
+      </if>
+      <if test="item.digestibleMethionineCystine != null">
+        digestible_methionine_cystine,
+      </if>
+      <if test="item.createTime != null">
+        create_time,
+      </if>
+      <if test="item.modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        #{item.id},
+      </if>
+      <if test="item.userId != null">
+        #{item.userId},
+      </if>
+      <if test="item.nutritionStandardCode != null">
+        #{item.nutritionStandardCode},
+      </if>
+      <if test="item.nutritionStandardName != null">
+        #{item.nutritionStandardName},
+      </if>
+      <if test="item.waterContentStandard != null">
+        #{item.waterContentStandard},
+      </if>
+      <if test="item.waterContentActual != null">
+        #{item.waterContentActual},
+      </if>
+      <if test="item.dietaryElectrolyteBalance != null">
+        #{item.dietaryElectrolyteBalance},
+      </if>
+      <if test="item.natrium != null">
+        #{item.natrium},
+      </if>
+      <if test="item.kalium != null">
+        #{item.kalium},
+      </if>
+      <if test="item.chlorine != null">
+        #{item.chlorine},
+      </if>
+      <if test="item.digestiveEnergyStandard != null">
+        #{item.digestiveEnergyStandard},
+      </if>
+      <if test="item.digestiveEnergyActual != null">
+        #{item.digestiveEnergyActual},
+      </if>
+      <if test="item.netEnergy != null">
+        #{item.netEnergy},
+      </if>
+      <if test="item.linolicAcid != null">
+        #{item.linolicAcid},
+      </if>
+      <if test="item.crudeProtein != null">
+        #{item.crudeProtein},
+      </if>
+      <if test="item.crudeFa != null">
+        #{item.crudeFa},
+      </if>
+      <if test="item.crudeFiber != null">
+        #{item.crudeFiber},
+      </if>
+      <if test="item.crudeAsh != null">
+        #{item.crudeAsh},
+      </if>
+      <if test="item.nertralDetergentFiber != null">
+        #{item.nertralDetergentFiber},
+      </if>
+      <if test="item.acidDetergentFiber != null">
+        #{item.acidDetergentFiber},
+      </if>
+      <if test="item.calcium != null">
+        #{item.calcium},
+      </if>
+      <if test="item.totalPhosphor != null">
+        #{item.totalPhosphor},
+      </if>
+      <if test="item.availablePhosphor != null">
+        #{item.availablePhosphor},
+      </if>
+      <if test="item.lysine != null">
+        #{item.lysine},
+      </if>
+      <if test="item.methionine != null">
+        #{item.methionine},
+      </if>
+      <if test="item.tryptophan != null">
+        #{item.tryptophan},
+      </if>
+      <if test="item.threonine != null">
+        #{item.threonine},
+      </if>
+      <if test="item.valine != null">
+        #{item.valine},
+      </if>
+      <if test="item.arginine != null">
+        #{item.arginine},
+      </if>
+      <if test="item.isoleucine != null">
+        #{item.isoleucine},
+      </if>
+      <if test="item.leucine != null">
+        #{item.leucine},
+      </if>
+      <if test="item.cystine != null">
+        #{item.cystine},
+      </if>
+      <if test="item.methionineCystine != null">
+        #{item.methionineCystine},
+      </if>
+      <if test="item.digestibleLysine != null">
+        #{item.digestibleLysine},
+      </if>
+      <if test="item.digestibleMethionine != null">
+        #{item.digestibleMethionine},
+      </if>
+      <if test="item.digestibleTryptophan != null">
+        #{item.digestibleTryptophan},
+      </if>
+      <if test="item.digestibleThreonine != null">
+        #{item.digestibleThreonine},
+      </if>
+      <if test="item.digestibleValine != null">
+        #{item.digestibleValine},
+      </if>
+      <if test="item.digestibleArginine != null">
+        #{item.digestibleArginine},
+      </if>
+      <if test="item.digestibleIsoleucine != null">
+        #{item.digestibleIsoleucine},
+      </if>
+      <if test="item.digestibleLeucine != null">
+        #{item.digestibleLeucine},
+      </if>
+      <if test="item.digestibleCystine != null">
+        #{item.digestibleCystine},
+      </if>
+      <if test="item.digestibleMethionineCystine != null">
+        #{item.digestibleMethionineCystine},
+      </if>
+      <if test="item.createTime != null">
+        #{item.createTime},
+      </if>
+      <if test="item.modifiedTime != null">
+        #{item.modifiedTime},
+      </if>
+    </trim>
+    </foreach>
+  </insert>
+  
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -85,7 +372,7 @@
       natrium, kalium, chlorine, 
       digestive_energy_standard, digestive_energy_actual, 
       net_energy, linolic_acid, crude_protein, 
-      crude_fa, crude_fiber, crude_ash, 
+      crude_fat, crude_fiber, crude_ash, 
       nertral_detergent_fiber, acid_detergent_fiber, 
       calcium, total_phosphor, available_phosphor, 
       lysine, methionine, tryptophan, 
@@ -163,7 +450,7 @@
         crude_protein,
       </if>
       <if test="crudeFa != null">
-        crude_fa,
+        crude_fat,
       </if>
       <if test="crudeFiber != null">
         crude_fiber,
@@ -437,7 +724,7 @@
         crude_protein = #{crudeProtein,jdbcType=DECIMAL},
       </if>
       <if test="crudeFa != null">
-        crude_fa = #{crudeFa,jdbcType=DECIMAL},
+        crude_fat = #{crudeFa,jdbcType=DECIMAL},
       </if>
       <if test="crudeFiber != null">
         crude_fiber = #{crudeFiber,jdbcType=DECIMAL},
@@ -545,7 +832,7 @@
       net_energy = #{netEnergy,jdbcType=DECIMAL},
       linolic_acid = #{linolicAcid,jdbcType=DECIMAL},
       crude_protein = #{crudeProtein,jdbcType=DECIMAL},
-      crude_fa = #{crudeFa,jdbcType=DECIMAL},
+      crude_fat = #{crudeFa,jdbcType=DECIMAL},
       crude_fiber = #{crudeFiber,jdbcType=DECIMAL},
       crude_ash = #{crudeAsh,jdbcType=DECIMAL},
       nertral_detergent_fiber = #{nertralDetergentFiber,jdbcType=DECIMAL},

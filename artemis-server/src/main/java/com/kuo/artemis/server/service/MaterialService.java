@@ -19,6 +19,14 @@ public interface MaterialService {
 
 
     /**
+     * 获取课题负责人的所有原料的简略信息
+     * @param userId
+     * @return
+     */
+    Response listMaterialsBrief(String userId);
+
+
+    /**
      * 获取某个原料的详细信息
      * @param materialId
      * @return
@@ -30,7 +38,7 @@ public interface MaterialService {
      * @param material
      * @return
      */
-    Response updateMaterialDetail(Material material);
+    Response updateMaterialDetail(Material material, String userId);
 
     /**
      * 删除某个原料
@@ -45,5 +53,5 @@ public interface MaterialService {
      * @param material
      * @return
      */
-    Response createNewMaterial(Material material);
+    Response createNewMaterial(Material material, String userId);
 }

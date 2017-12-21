@@ -1,8 +1,11 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class NutritionStandard {
     private Integer id;
 
@@ -34,7 +37,7 @@ public class NutritionStandard {
 
     private BigDecimal crudeProtein;
 
-    private BigDecimal crudeFa;
+    private BigDecimal crudeFat;
 
     private BigDecimal crudeFiber;
 
@@ -214,12 +217,12 @@ public class NutritionStandard {
         this.crudeProtein = crudeProtein;
     }
 
-    public BigDecimal getCrudeFa() {
-        return crudeFa;
+    public BigDecimal getcrudeFat() {
+        return crudeFat;
     }
 
-    public void setCrudeFa(BigDecimal crudeFa) {
-        this.crudeFa = crudeFa;
+    public void setcrudeFat(BigDecimal crudeFat) {
+        this.crudeFat = crudeFat;
     }
 
     public BigDecimal getCrudeFiber() {

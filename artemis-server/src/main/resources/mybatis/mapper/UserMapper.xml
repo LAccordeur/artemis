@@ -45,7 +45,7 @@
     where user_phone = #{userPhone}
   </select>
 
-  <select id="selectById" resultMap="BaseResultMap">
+  <select id="selectById" parameterType="Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from user

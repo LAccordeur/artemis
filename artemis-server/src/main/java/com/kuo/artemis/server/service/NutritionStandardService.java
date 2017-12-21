@@ -17,6 +17,13 @@ public interface NutritionStandardService {
     Response listNutritionStandards(String userId);
 
     /**
+     * 列出某个人建立的营养指标的简略信息
+     * @param userId
+     * @return
+     */
+    Response listNutritionStandardsBrief(String userId);
+
+    /**
      * 获取详细信息
      * @param nutritionStandardId
      * @return
@@ -28,7 +35,7 @@ public interface NutritionStandardService {
      * @param nutritionStandard
      * @return
      */
-    Response updateNutritionStandardDetail(NutritionStandard nutritionStandard);
+    Response updateNutritionStandardDetail(NutritionStandard nutritionStandard, String userId);
 
     /**
      * 删除某个营养指标
@@ -42,5 +49,5 @@ public interface NutritionStandardService {
      * @param nutritionStandard
      * @return
      */
-    Response createNewNutritionStandard(NutritionStandard nutritionStandard);
+    Response createNewNutritionStandard(NutritionStandard nutritionStandard, String userId);
 }

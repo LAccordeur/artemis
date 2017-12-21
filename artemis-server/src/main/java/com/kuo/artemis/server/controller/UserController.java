@@ -68,7 +68,7 @@ public class UserController {
     @RequestMapping(value = "/{userId}/info", method = RequestMethod.GET)
     @ResponseBody
     public Response getUserById(@PathVariable("userId") String id) {
-        return userService.getUserById(id);
+        return userService.getUserById(id.trim());
     }
 
     /**

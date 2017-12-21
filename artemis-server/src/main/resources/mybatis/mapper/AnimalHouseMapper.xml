@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.AnimalHouse">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="building_id" jdbcType="INTEGER" property="buildingId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="house_code" jdbcType="VARCHAR" property="houseCode" />
     <result column="treatment" jdbcType="VARCHAR" property="treatment" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
@@ -11,8 +12,16 @@
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, building_id, house_code, treatment, replicate, create_time, modified_time
+    id, building_id, project_id, house_code, treatment, replicate, create_time, modified_time
   </sql>
+
+  <select id="selectByProjectId" parameterType="Integer" resultType="AnimalHouse">
+    select
+    <include refid="Base_Column_List" />
+    from animal_house
+    where project_id = #{projectId}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -24,12 +33,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalHouse">
-    insert into animal_house (id, building_id, house_code, 
-      treatment, replicate, create_time, 
-      modified_time)
-    values (#{id,jdbcType=INTEGER}, #{buildingId,jdbcType=INTEGER}, #{houseCode,jdbcType=VARCHAR}, 
-      #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifiedTime,jdbcType=TIMESTAMP})
+    insert into animal_house (id, building_id, project_id, 
+      house_code, treatment, replicate, 
+      create_time, modified_time)
+    values (#{id,jdbcType=INTEGER}, #{buildingId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{houseCode,jdbcType=VARCHAR}, #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalHouse">
     insert into animal_house
@@ -39,6 +48,9 @@
       </if>
       <if test="buildingId != null">
         building_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
       </if>
       <if test="houseCode != null">
         house_code,
@@ -63,6 +75,9 @@
       <if test="buildingId != null">
         #{buildingId,jdbcType=INTEGER},
       </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
       <if test="houseCode != null">
         #{houseCode,jdbcType=VARCHAR},
       </if>
@@ -86,6 +101,9 @@
       <if test="buildingId != null">
         building_id = #{buildingId,jdbcType=INTEGER},
       </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
       <if test="houseCode != null">
         house_code = #{houseCode,jdbcType=VARCHAR},
       </if>
@@ -107,6 +125,7 @@
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.AnimalHouse">
     update animal_house
     set building_id = #{buildingId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
       house_code = #{houseCode,jdbcType=VARCHAR},
       treatment = #{treatment,jdbcType=VARCHAR},
       replicate = #{replicate,jdbcType=VARCHAR},

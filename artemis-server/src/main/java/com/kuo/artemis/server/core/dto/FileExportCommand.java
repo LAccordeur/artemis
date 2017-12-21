@@ -8,6 +8,7 @@ import com.kuo.artemis.server.util.constant.OperationTypeConst;
  * @Description :
  * @Date : Created on 2017/12/19
  */
+@Deprecated
 public abstract class FileExportCommand {
 
     private String userId;    //请求导出文件的用户id

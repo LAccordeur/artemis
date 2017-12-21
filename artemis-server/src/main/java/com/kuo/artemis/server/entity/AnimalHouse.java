@@ -7,6 +7,8 @@ public class AnimalHouse {
 
     private Integer buildingId;
 
+    private Integer projectId;
+
     private String houseCode;
 
     private String treatment;
@@ -31,6 +33,14 @@ public class AnimalHouse {
 
     public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
     public String getHouseCode() {

@@ -11,12 +11,12 @@ import com.kuo.artemis.server.core.factory.excel.ExcelImportFactory;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
 import com.kuo.artemis.server.core.thread.ImportExcelTask;
 import com.kuo.artemis.server.dao.*;
-import com.kuo.artemis.server.entity.AnimalIndicator;
-import com.kuo.artemis.server.entity.AnimalIndicatorRecord;
-import com.kuo.artemis.server.entity.ExcelFileDetail;
-import com.kuo.artemis.server.entity.FileRecord;
+import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.FileService;
 import com.kuo.artemis.server.util.common.BeanUtil;
+import com.kuo.artemis.server.util.constant.DataTypeConst;
+import com.kuo.artemis.server.util.constant.FileTypeConst;
+import com.kuo.artemis.server.util.constant.OperationTypeConst;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -59,6 +59,12 @@ public class FileServiceImpl implements FileService {
 
     @Inject
     private ExcelFileDetailMapper excelFileDetailMapper;
+
+    @Inject
+    private MaterialMapper materialMapper;
+
+    @Inject
+    private NutritionStandardMapper nutritionStandardMapper;
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -149,6 +155,71 @@ public class FileServiceImpl implements FileService {
         return new Response(HttpStatus.OK.value(), "upload success");
     }
 
+    public Response parseAndSaveMaterialExcel(FileImportCommand command) throws Exception {
+
+        ExcelImportDTO excelImportDTO = null;
+        //1.解析文件
+        if (DataTypeConst.MATERIAL.equals(command.getDataType())) {
+            excelImportDTO = ExcelHelper.parseMaterialExcel(command);
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "该文件数据无法解析");
+        }
+
+        //2.将每行数据转化为对应的对象
+        List<Map<String, Object>> data = excelImportDTO.getItems();
+        List<Material> materialList = new ArrayList<Material>();
+        for (int i = 0; i < data.size(); i++) {
+            Material material = BeanUtil.dataBind(Material.class, data.get(i));
+            materialList.add(material);
+        }
+
+        //3.将数据导入至数据库中
+        materialMapper.insertBatch(materialList);
+
+        //4.更新文件上传记录
+        FileRecord fileRecord = new FileRecord();
+        fileRecord.setUserId(Integer.valueOf(command.getUserId()));
+        fileRecord.setOperationType(Byte.valueOf(OperationTypeConst.UPLOAD));
+        fileRecord.setFileType(Byte.valueOf(FileTypeConst.EXCEL));
+        fileRecord.setProjectId(Integer.valueOf(command.getProjectId()));
+        fileRecordMapper.insertSelective(fileRecord);
+
+
+        return new Response(materialList, HttpStatus.OK.value(), "upload success");
+    }
+
+    public Response parseAndSaveNutritionStandardExcel(FileImportCommand command) throws Exception {
+        ExcelImportDTO excelImportDTO = null;
+        //1.解析文件
+        if (DataTypeConst.NUTRITION.equals(command.getDataType())) {
+            excelImportDTO = ExcelHelper.parseNutritionExcelImportDTO(command);
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "该文件数据无法解析");
+        }
+
+        //2.将每行数据转化为对应的对象
+        List<Map<String, Object>> data = excelImportDTO.getItems();
+        List<NutritionStandard> nutritionStandardList = new ArrayList<NutritionStandard>();
+        for (int i = 0; i < data.size(); i++) {
+            NutritionStandard nutritionStandard = BeanUtil.dataBind(NutritionStandard.class, data.get(i));
+            nutritionStandardList.add(nutritionStandard);
+        }
+
+        //3.将数据导入至数据库中
+        nutritionStandardMapper.insertBatch(nutritionStandardList);
+
+        //4.更新文件上传记录
+        FileRecord fileRecord = new FileRecord();
+        fileRecord.setUserId(Integer.valueOf(command.getUserId()));
+        fileRecord.setOperationType(Byte.valueOf(OperationTypeConst.UPLOAD));
+        fileRecord.setFileType(Byte.valueOf(FileTypeConst.EXCEL));
+        fileRecord.setProjectId(Integer.valueOf(command.getProjectId()));
+        fileRecordMapper.insertSelective(fileRecord);
+
+
+        return new Response(nutritionStandardList, HttpStatus.OK.value(), "upload success");
+    }
+
 
     @Transactional(rollbackFor = Exception.class)
     public Response parseAndSaveExcelFile(FileImportCommand command) throws Exception {
@@ -186,6 +257,7 @@ public class FileServiceImpl implements FileService {
      * @param command
      * @return
      */
+    @Deprecated
     @Transactional(rollbackFor = Exception.class)
     public Response exportIndicatorExcelTemplate(IndicatorExcelExportCommand command) {
 
@@ -229,6 +301,7 @@ public class FileServiceImpl implements FileService {
      * @param command
      * @return
      */
+    @Deprecated
     public Response exportIndicatorExcelWithData(IndicatorExcelExportCommand command) {
         //1.获取指标id集合
         List<String> ids = command.getIndicatorIds();

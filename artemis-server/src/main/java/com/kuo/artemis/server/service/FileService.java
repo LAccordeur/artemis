@@ -14,6 +14,10 @@ public interface FileService {
 
     Response parseAndSaveIndicatorExcel(FileImportCommand command) throws Exception;
 
+    Response parseAndSaveMaterialExcel(FileImportCommand command) throws Exception;
+
+    Response parseAndSaveNutritionStandardExcel(FileImportCommand command) throws Exception;
+
     Response exportIndicatorExcelTemplate(IndicatorExcelExportCommand command);
 
     Response exportIndicatorExcelWithData(IndicatorExcelExportCommand command);

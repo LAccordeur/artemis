@@ -8,6 +8,7 @@ import java.util.Map;
  * @Description :
  * @Date : Created on 2017/12/7
  */
+@Deprecated
 public class IndicatorExcelExportCommand {
     private String fileName;   //模板文件名
 

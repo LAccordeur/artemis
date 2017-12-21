@@ -14,6 +14,8 @@ public class UserProject {
 
     private String projectAdminName;
 
+    private String projectIntro;
+
     private Integer userId;
 
     private String userName;
@@ -31,12 +33,21 @@ public class UserProject {
                 ", projectName='" + projectName + '\'' +
                 ", projectAdminId=" + projectAdminId +
                 ", projectAdminName='" + projectAdminName + '\'' +
+                ", projectIntro='" + projectIntro + '\'' +
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", roleId=" + roleId +
                 ", roleName='" + roleName + '\'' +
                 ", createTime=" + createTime +
                 '}';
+    }
+
+    public String getProjectIntro() {
+        return projectIntro;
+    }
+
+    public void setProjectIntro(String projectIntro) {
+        this.projectIntro = projectIntro;
     }
 
     public Integer getProjectId() {

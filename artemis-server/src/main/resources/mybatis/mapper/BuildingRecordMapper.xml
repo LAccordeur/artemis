@@ -16,7 +16,7 @@
     modified_time
   </sql>
 
-  <select id="selectByProjectId" parameterType="Integer" resultType="BuildRecord">
+  <select id="selectByProjectId" parameterType="Integer" resultType="BuildingRecord">
     select
     <include refid="Base_Column_List" />
     from

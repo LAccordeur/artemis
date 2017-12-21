@@ -6,6 +6,7 @@
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
     <result column="project_admin_id" jdbcType="INTEGER" property="projectAdminId" />
     <result column="project_admin_name" jdbcType="VARCHAR" property="projectAdminName" />
+    <result column="project_intro" jdbcType="VARCHAR" property="projectIntro" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
@@ -21,7 +22,7 @@
   </insert>
 
   <select id="selectProjectsByUserId" resultType="UserProject">
-    select project_name, project_id, project_admin_id, project_admin_name, create_time
+    select project_name, project_id, project_admin_id, project_admin_name, project_intro, create_time
     from user_project_view
     where user_id = #{userId}
   </select>

@@ -11,6 +11,7 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2017/12/17
  */
+@Deprecated
 public class ExcelExportCommand extends FileExportCommand {
 
     private List<String> indicatorIds;  //选择的指标id集合

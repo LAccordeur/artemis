@@ -134,7 +134,8 @@ public class LinearProgramming {
             for (int j = 0; j < variableSize; j++) {
                 expression.add(coefficientList.get(j), variables[j]);
             }
-            expression.leq(constraintFunctionValueList.get(i));
+            expression.eq(constraintFunctionValueList.get(i));
+
         }
 
         //6.求解

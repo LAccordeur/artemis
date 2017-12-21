@@ -39,10 +39,13 @@ public class FileController {
             try {
                 if ((DataTypeConst.INDICATOR).equals(type)) {
                     FileImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
-
                     return fileService.parseAndSaveIndicatorExcel(command);
                 } else if ((DataTypeConst.MATERIAL).equals(type)) {
-                    // something to do
+                    FileImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.MATERIAL);
+                    return fileService.parseAndSaveMaterialExcel(command);
+                } else if ((DataTypeConst.NUTRITION).equals(type)) {
+                    FileImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.NUTRITION);
+                    return fileService.parseAndSaveNutritionStandardExcel(command);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -56,6 +59,7 @@ public class FileController {
     //@RequestMapping(value = "/excel/template/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})
     @RequestMapping(value = "/excel/template/export", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
+    @Deprecated
     public Response exportExcelTemplateFile(@RequestBody IndicatorExcelExportCommand command, HttpServletResponse response) {
         /*try {
             Response<Workbook> result = fileService.exportIndicatorExcelTemplate(command);
@@ -85,6 +89,7 @@ public class FileController {
     //@RequestMapping(value = "/excel/data/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})
     @RequestMapping(value = "/excel/data/export", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
+    @Deprecated
     public Response exportExcelWithData(@RequestBody IndicatorExcelExportCommand command, HttpServletResponse response) {
         /*try {
             Response<Workbook> result = fileService.exportIndicatorExcelWithData(command);

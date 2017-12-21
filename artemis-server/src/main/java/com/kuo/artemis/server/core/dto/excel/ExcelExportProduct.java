@@ -10,6 +10,7 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2017/12/19
  */
+@Deprecated
 public class ExcelExportProduct extends FileExportProduct<List> {
 
     private List<String> englishFields;    //指标数据记录模板中的英文表头

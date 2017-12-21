@@ -10,9 +10,15 @@ public interface MaterialMapper {
 
     int insert(Material record);
 
+    int insertBatch(List<Material> materialList);
+
     int insertSelective(Material record);
 
+    List<Material> selectMaterialIndicators(List<Integer> materialIds);
+
     List<Material> selectByUserId(@Param("userId") Integer userId);
+
+    List<Material> selectBriefByUserId(@Param("userId") Integer userId);
 
     Material selectByPrimaryKey(Integer id);
 

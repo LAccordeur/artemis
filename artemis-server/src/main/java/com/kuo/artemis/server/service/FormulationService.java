@@ -2,6 +2,7 @@ package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.formulation.FormulationParams;
+import com.kuo.artemis.server.core.dto.formulation.FormulationResult;
 import com.kuo.artemis.server.entity.Formulation;
 import com.kuo.artemis.server.entity.FormulationMaterial;
 
@@ -62,9 +63,16 @@ public interface FormulationService {
     Response deleteFormulation(String formulationId);
 
     /**
-     * 生成配方
+     * 规划配方
      * @param params
      * @return
      */
-    Response createNewFormulation(FormulationParams params);
+    Response programNewFormulation(FormulationParams params);
+
+    /**
+     * 生成一个新配方
+     * @param result
+     * @return
+     */
+    Response createNewFormulation(FormulationResult result);
 }

@@ -9,11 +9,11 @@ import com.kuo.artemis.server.core.helper.ExcelHelper;
  * @Description :
  * @Date : Created on 2017/12/17
  */
-public class MaterialExcelImportProduct extends FileImportProduct {
+public class ExcelImportProduct extends FileImportProduct {
 
     private FileImportCommand command;
 
-    public MaterialExcelImportProduct(FileImportCommand command) {
+    public ExcelImportProduct(FileImportCommand command) {
         this.command = command;
     }
 
@@ -23,9 +23,9 @@ public class MaterialExcelImportProduct extends FileImportProduct {
             excelImportCommand = (ExcelImportCommand) command;
         }
 
-        FileImportProduct product = new MaterialExcelImportProduct(excelImportCommand);
-        MaterialExcelImportDTO materialExcelImportDTO = ExcelHelper.parseMaterialExcel(command);
-        product.setData(materialExcelImportDTO);
+        FileImportProduct product = new ExcelImportProduct(excelImportCommand);
+        ExcelImportDTO excelImportDTO = ExcelHelper.parseMaterialExcel(command);
+        product.setData(excelImportDTO);
 
 
         return null;

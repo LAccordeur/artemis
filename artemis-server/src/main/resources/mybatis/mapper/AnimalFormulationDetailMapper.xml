@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.AnimalFormulationDetailMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.AnimalFormulationDetail">
+    <result column="animal_id" jdbcType="VARCHAR" property="animalId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="animal_init_weight" jdbcType="DECIMAL" property="animalInitWeight" />
+    <result column="house" jdbcType="VARCHAR" property="house" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="replicate" jdbcType="VARCHAR" property="replicate" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end__time" jdbcType="DATE" property="endTime" />
+    <result column="formulation_id" jdbcType="INTEGER" property="formulationId" />
+    <result column="formulation_code" jdbcType="VARCHAR" property="formulationCode" />
+    <result column="formulation_name" jdbcType="VARCHAR" property="formulationName" />
+    <result column="formulation_material_cost" jdbcType="DECIMAL" property="formulationMaterialCost" />
+  </resultMap>
+
+
+  <select id="selectByProjectId" parameterType="Integer" resultType="AnimalFormulationDetail">
+    select * from animal_formulation_detail_view where project_id = #{projectId}
+  </select>
+
+  <select id="selectAnimalByFormulationId" parameterType="Integer" resultType="AnimalFormulationDetail">
+    select * from animal_formulation_detail_view where formulation_id = #{formulationId}
+  </select>
+
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalFormulationDetail">
+    insert into animal_formulation_detail_view (animal_id, user_id, project_id, 
+      animal_init_weight, house, code, 
+      id_number, treatment, replicate, 
+      start_time, end__time, formulation_id, 
+      formulation_code, formulation_name, formulation_material_cost
+      )
+    values (#{animalId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{animalInitWeight,jdbcType=DECIMAL}, #{house,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{idNumber,jdbcType=VARCHAR}, #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, #{formulationId,jdbcType=INTEGER}, 
+      #{formulationCode,jdbcType=VARCHAR}, #{formulationName,jdbcType=VARCHAR}, #{formulationMaterialCost,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalFormulationDetail">
+    insert into animal_formulation_detail_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animalId != null">
+        animal_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="animalInitWeight != null">
+        animal_init_weight,
+      </if>
+      <if test="house != null">
+        house,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="idNumber != null">
+        id_number,
+      </if>
+      <if test="treatment != null">
+        treatment,
+      </if>
+      <if test="replicate != null">
+        replicate,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end__time,
+      </if>
+      <if test="formulationId != null">
+        formulation_id,
+      </if>
+      <if test="formulationCode != null">
+        formulation_code,
+      </if>
+      <if test="formulationName != null">
+        formulation_name,
+      </if>
+      <if test="formulationMaterialCost != null">
+        formulation_material_cost,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animalId != null">
+        #{animalId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="animalInitWeight != null">
+        #{animalInitWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="house != null">
+        #{house,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment != null">
+        #{treatment,jdbcType=VARCHAR},
+      </if>
+      <if test="replicate != null">
+        #{replicate,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="formulationId != null">
+        #{formulationId,jdbcType=INTEGER},
+      </if>
+      <if test="formulationCode != null">
+        #{formulationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationName != null">
+        #{formulationName,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationMaterialCost != null">
+        #{formulationMaterialCost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

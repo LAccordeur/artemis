@@ -12,7 +12,11 @@ public interface NutritionStandardMapper {
 
     int insertSelective(NutritionStandard record);
 
+    int insertBatch(List<NutritionStandard> nutritionStandardList);
+
     List<NutritionStandard> selectByUserId(@Param("userId") Integer userId);
+
+    List<NutritionStandard> selectBriefByUserId(@Param("userId") Integer userId);
 
     NutritionStandard selectByPrimaryKey(Integer id);
 

@@ -5,6 +5,7 @@ package com.kuo.artemis.server.core.dto;
  * @Description :
  * @Date : Created on 2017/12/19
  */
+@Deprecated
 public abstract class FileExportProduct<T> {
 
     private String userId;    //请求导出文件的用户id

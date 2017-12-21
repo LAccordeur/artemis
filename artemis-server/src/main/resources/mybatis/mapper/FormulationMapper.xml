@@ -53,7 +53,7 @@
       #{formulationCode,jdbcType=VARCHAR}, #{formulationName,jdbcType=VARCHAR}, #{formulationMaterialCost,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Formulation">
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Formulation" useGeneratedKeys="true" keyProperty="id">
     insert into formulation
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

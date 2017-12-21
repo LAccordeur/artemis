@@ -5,10 +5,11 @@ import java.util.Map;
 
 /**
  * @Author : guoyang
- * @Description :
- * @Date : Created on 2017/12/18
+ * @Description : material excel解析后存储的数据结构类
+ * @Date : Created on 2017/12/17
  */
-public class NutritionExcelImportDTO {
+public class ExcelImportDTO {
+
     private List<String> fields;    //转换为驼峰类型的字段名
 
     private List<String> initFields;    //原始的字段名（未转换）

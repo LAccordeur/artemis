@@ -129,6 +129,614 @@
     where user_id = #{userId}
   </select>
 
+
+  <select id="selectBriefByUserId" parameterType="java.lang.Integer" resultType="Material">
+    select
+    id, material_name, material_price
+    from material
+    where user_id = #{userId}
+  </select>
+  
+  <select id="selectMaterialIndicators" parameterType="List" resultType="Material">
+    select
+    id, user_id, water_content_standard, material_price,
+    water_content_actual, dietary_electrolyte_balance, natrium, kalium, chlorine, digestive_energy_standard,
+    digestive_energy_actual, net_energy, linolic_acid, crude_protein, crude_fat, crude_fiber,
+    crude_ash, nertral_detergent_fiber, acid_detergent_fiber, calcium, total_phosphor,
+    available_phosphor, lysine, methionine, tryptophan, threonine, valine, arginine,
+    isoleucine, leucine, cystine, methionine_cystine, digestible_lysine, digestible_methionine,
+    digestible_tryptophan, digestible_threonine, digestible_valine, digestible_arginine,
+    digestible_isoleucine, digestible_leucine, digestible_cystine, digestible_methionine_cystine
+    from material
+    where id in
+    <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
+  
+  
+
+  <insert id="insertBatch" parameterType="List">
+    <foreach collection="list" item="item" index="index" separator=";">
+    insert into material
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        id,
+      </if>
+      <if test="item.userId != null">
+        user_id,
+      </if>
+      <if test="item.materialName != null">
+        material_name,
+      </if>
+      <if test="item.materialPrice != null">
+        material_price,
+      </if>
+      <if test="item.waterContentStandard != null">
+        water_content_standard,
+      </if>
+      <if test="item.waterContentActual != null">
+        water_content_actual,
+      </if>
+      <if test="item.dietaryElectrolyteBalance != null">
+        dietary_electrolyte_balance,
+      </if>
+      <if test="item.dietaryElectrolyteBalanceActual != null">
+        dietary_electrolyte_balance_actual,
+      </if>
+      <if test="item.natrium != null">
+        natrium,
+      </if>
+      <if test="item.natriumActual != null">
+        natrium_actual,
+      </if>
+      <if test="item.kalium != null">
+        kalium,
+      </if>
+      <if test="item.kaliumActual != null">
+        kalium_actual,
+      </if>
+      <if test="item.chlorine != null">
+        chlorine,
+      </if>
+      <if test="item.chlorineActual != null">
+        chlorine_actual,
+      </if>
+      <if test="item.digestiveEnergyStandard != null">
+        digestive_energy_standard,
+      </if>
+      <if test="item.digestiveEnergyActual != null">
+        digestive_energy_actual,
+      </if>
+      <if test="item.netEnergy != null">
+        net_energy,
+      </if>
+      <if test="item.netEnergyActual != null">
+        net_energy_actual,
+      </if>
+      <if test="item.linolicAcid != null">
+        linolic_acid,
+      </if>
+      <if test="item.linolicAcidActual != null">
+        linolic_acid_actual,
+      </if>
+      <if test="item.crudeProtein != null">
+        crude_protein,
+      </if>
+      <if test="item.crudeProteinActual != null">
+        crude_protein_actual,
+      </if>
+      <if test="item.crudeFat != null">
+        crude_fat,
+      </if>
+      <if test="item.crudeFatActual != null">
+        crude_fat_actual,
+      </if>
+      <if test="item.crudeFiber != null">
+        crude_fiber,
+      </if>
+      <if test="item.crudeFiberActual != null">
+        crude_fiber_actual,
+      </if>
+      <if test="item.crudeAsh != null">
+        crude_ash,
+      </if>
+      <if test="item.crudeAshActual != null">
+        crude_ash_actual,
+      </if>
+      <if test="item.nertralDetergentFiber != null">
+        nertral_detergent_fiber,
+      </if>
+      <if test="item.neutralDetergentFiberActual != null">
+        neutral_detergent_fiber_actual,
+      </if>
+      <if test="item.acidDetergentFiber != null">
+        acid_detergent_fiber,
+      </if>
+      <if test="item.acidDetergentFiberActual != null">
+        acid_detergent_fiber_actual,
+      </if>
+      <if test="item.calcium != null">
+        calcium,
+      </if>
+      <if test="item.calciumActual != null">
+        calcium_actual,
+      </if>
+      <if test="item.totalPhosphor != null">
+        total_phosphor,
+      </if>
+      <if test="item.totalPhosphorActual != null">
+        total_phosphor_actual,
+      </if>
+      <if test="item.availablePhosphor != null">
+        available_phosphor,
+      </if>
+      <if test="item.availablePhosphorActual != null">
+        available_phosphor_actual,
+      </if>
+      <if test="item.lysine != null">
+        lysine,
+      </if>
+      <if test="item.lysineActual != null">
+        lysine_actual,
+      </if>
+      <if test="item.methionine != null">
+        methionine,
+      </if>
+      <if test="item.methionineActual != null">
+        methionine_actual,
+      </if>
+      <if test="item.tryptophan != null">
+        tryptophan,
+      </if>
+      <if test="item.tryptophanActual != null">
+        tryptophan_actual,
+      </if>
+      <if test="item.threonine != null">
+        threonine,
+      </if>
+      <if test="item.threonineActual != null">
+        threonine_actual,
+      </if>
+      <if test="item.valine != null">
+        valine,
+      </if>
+      <if test="item.valineActual != null">
+        valine_actual,
+      </if>
+      <if test="item.arginine != null">
+        arginine,
+      </if>
+      <if test="item.arginineActual != null">
+        arginine_actual,
+      </if>
+      <if test="item.isoleucine != null">
+        isoleucine,
+      </if>
+      <if test="item.isoleucineActual != null">
+        isoleucine_actual,
+      </if>
+      <if test="item.leucine != null">
+        leucine,
+      </if>
+      <if test="item.leucineActual != null">
+        leucine_actual,
+      </if>
+      <if test="item.cystine != null">
+        cystine,
+      </if>
+      <if test="item.cystineActual != null">
+        cystine_actual,
+      </if>
+      <if test="item.methionineCystine != null">
+        methionine_cystine,
+      </if>
+      <if test="item.methionineCystineActual != null">
+        methionine_cystine_actual,
+      </if>
+      <if test="item.digestibleLysine != null">
+        digestible_lysine,
+      </if>
+      <if test="item.digestibleLysineActual != null">
+        digestible_lysine_actual,
+      </if>
+      <if test="item.digestibleMethionine != null">
+        digestible_methionine,
+      </if>
+      <if test="item.digestibleMethionineActual != null">
+        digestible_methionine_actual,
+      </if>
+      <if test="item.digestibleTryptophan != null">
+        digestible_tryptophan,
+      </if>
+      <if test="item.digestibleTryptophanActual != null">
+        digestible_tryptophan_actual,
+      </if>
+      <if test="item.digestibleThreonine != null">
+        digestible_threonine,
+      </if>
+      <if test="item.digestibleThreonineActual != null">
+        digestible_threonine_actual,
+      </if>
+      <if test="item.digestibleValine != null">
+        digestible_valine,
+      </if>
+      <if test="item.digestibleValineActual != null">
+        digestible_valine_actual,
+      </if>
+      <if test="item.digestibleArginine != null">
+        digestible_arginine,
+      </if>
+      <if test="item.digestibleArginineActual != null">
+        digestible_arginine_actual,
+      </if>
+      <if test="item.digestibleIsoleucine != null">
+        digestible_isoleucine,
+      </if>
+      <if test="item.digestibleIsoleucineActual != null">
+        digestible_isoleucine_actual,
+      </if>
+      <if test="item.digestibleLeucine != null">
+        digestible_leucine,
+      </if>
+      <if test="item.digestibleLeucineActual != null">
+        digestible_leucine_actual,
+      </if>
+      <if test="item.digestibleCystine != null">
+        digestible_cystine,
+      </if>
+      <if test="item.digestibleCystineActual != null">
+        digestible_cystine_actual,
+      </if>
+      <if test="item.digestibleMethionineCystine != null">
+        digestible_methionine_cystine,
+      </if>
+      <if test="item.digestibleMethionineCystineActual != null">
+        digestible_methionine_cystine_actual,
+      </if>
+      <if test="item.lysineDigestibility != null">
+        lysine_digestibility,
+      </if>
+      <if test="item.methionineDigestibility != null">
+        methionine_digestibility,
+      </if>
+      <if test="item.tryptophanDigestibility != null">
+        tryptophan_digestibility,
+      </if>
+      <if test="item.threonineDigestibility != null">
+        threonine_digestibility,
+      </if>
+      <if test="item.valineDigestibility != null">
+        valine_digestibility,
+      </if>
+      <if test="item.arginineDigestibility != null">
+        arginine_digestibility,
+      </if>
+      <if test="item.isoleucineDigestibility != null">
+        isoleucine_digestibility,
+      </if>
+      <if test="item.leucineDigestibility != null">
+        leucine_digestibility,
+      </if>
+      <if test="item.cystineDigestibility != null">
+        cystine_digestibility,
+      </if>
+      <if test="item.methionineCystineDigestibility != null">
+        methionine_cystine_digestibility,
+      </if>
+      <if test="item.waterContentCoefficient != null">
+        water_content_coefficient,
+      </if>
+      <if test="item.crudeProteinCoefficient != null">
+        crude_protein_coefficient,
+      </if>
+      <if test="item.crudeFatCoefficient != null">
+        crude_fat_coefficient,
+      </if>
+      <if test="item.crudeFiberCoefficient != null">
+        crude_fiber_coefficient,
+      </if>
+      <if test="item.crudeAshCoefficient != null">
+        crude_ash_coefficient,
+      </if>
+      <if test="item.createTime != null">
+        create_time,
+      </if>
+      <if test="item.modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        #{item.id},
+      </if>
+      <if test="item.userId != null">
+        #{item.userId},
+      </if>
+      <if test="item.materialName != null">
+        #{item.materialName},
+      </if>
+      <if test="item.materialPrice != null">
+        #{item.materialPrice},
+      </if>
+      <if test="item.waterContentStandard != null">
+        #{item.waterContentStandard},
+      </if>
+      <if test="item.waterContentActual != null">
+        #{item.waterContentActual},
+      </if>
+      <if test="item.dietaryElectrolyteBalance != null">
+        #{item.dietaryElectrolyteBalance},
+      </if>
+      <if test="item.dietaryElectrolyteBalanceActual != null">
+        #{item.dietaryElectrolyteBalanceActual},
+      </if>
+      <if test="item.natrium != null">
+        #{item.natrium},
+      </if>
+      <if test="item.natriumActual != null">
+        #{item.natriumActual},
+      </if>
+      <if test="item.kalium != null">
+        #{item.kalium},
+      </if>
+      <if test="item.kaliumActual != null">
+        #{item.kaliumActual},
+      </if>
+      <if test="item.chlorine != null">
+        #{item.chlorine},
+      </if>
+      <if test="item.chlorineActual != null">
+        #{item.chlorineActual},
+      </if>
+      <if test="item.digestiveEnergyStandard != null">
+        #{item.digestiveEnergyStandard},
+      </if>
+      <if test="item.digestiveEnergyActual != null">
+        #{item.digestiveEnergyActual},
+      </if>
+      <if test="item.netEnergy != null">
+        #{item.netEnergy},
+      </if>
+      <if test="item.netEnergyActual != null">
+        #{item.netEnergyActual},
+      </if>
+      <if test="item.linolicAcid != null">
+        #{item.linolicAcid},
+      </if>
+      <if test="item.linolicAcidActual != null">
+        #{item.linolicAcidActual},
+      </if>
+      <if test="item.crudeProtein != null">
+        #{item.crudeProtein},
+      </if>
+      <if test="item.crudeProteinActual != null">
+        #{item.crudeProteinActual},
+      </if>
+      <if test="item.crudeFat != null">
+        #{item.crudeFat},
+      </if>
+      <if test="item.crudeFatActual != null">
+        #{item.crudeFatActual},
+      </if>
+      <if test="item.crudeFiber != null">
+        #{item.crudeFiber},
+      </if>
+      <if test="item.crudeFiberActual != null">
+        #{item.crudeFiberActual},
+      </if>
+      <if test="item.crudeAsh != null">
+        #{item.crudeAsh},
+      </if>
+      <if test="item.crudeAshActual != null">
+        #{item.crudeAshActual},
+      </if>
+      <if test="item.nertralDetergentFiber != null">
+        #{item.nertralDetergentFiber},
+      </if>
+      <if test="item.neutralDetergentFiberActual != null">
+        #{item.neutralDetergentFiberActual},
+      </if>
+      <if test="item.acidDetergentFiber != null">
+        #{item.acidDetergentFiber},
+      </if>
+      <if test="item.acidDetergentFiberActual != null">
+        #{item.acidDetergentFiberActual},
+      </if>
+      <if test="item.calcium != null">
+        #{item.calcium},
+      </if>
+      <if test="item.calciumActual != null">
+        #{item.calciumActual},
+      </if>
+      <if test="item.totalPhosphor != null">
+        #{item.totalPhosphor},
+      </if>
+      <if test="item.totalPhosphorActual != null">
+        #{item.totalPhosphorActual},
+      </if>
+      <if test="item.availablePhosphor != null">
+        #{item.availablePhosphor},
+      </if>
+      <if test="item.availablePhosphorActual != null">
+        #{item.availablePhosphorActual},
+      </if>
+      <if test="item.lysine != null">
+        #{item.lysine},
+      </if>
+      <if test="item.lysineActual != null">
+        #{item.lysineActual},
+      </if>
+      <if test="item.methionine != null">
+        #{item.methionine},
+      </if>
+      <if test="item.methionineActual != null">
+        #{item.methionineActual},
+      </if>
+      <if test="item.tryptophan != null">
+        #{item.tryptophan},
+      </if>
+      <if test="item.tryptophanActual != null">
+        #{item.tryptophanActual},
+      </if>
+      <if test="item.threonine != null">
+        #{item.threonine},
+      </if>
+      <if test="item.threonineActual != null">
+        #{item.threonineActual},
+      </if>
+      <if test="item.valine != null">
+        #{item.valine},
+      </if>
+      <if test="item.valineActual != null">
+        #{item.valineActual},
+      </if>
+      <if test="item.arginine != null">
+        #{item.arginine},
+      </if>
+      <if test="item.arginineActual != null">
+        #{item.arginineActual},
+      </if>
+      <if test="item.isoleucine != null">
+        #{item.isoleucine},
+      </if>
+      <if test="item.isoleucineActual != null">
+        #{item.isoleucineActual},
+      </if>
+      <if test="item.leucine != null">
+        #{item.leucine},
+      </if>
+      <if test="item.leucineActual != null">
+        #{item.leucineActual},
+      </if>
+      <if test="item.cystine != null">
+        #{item.cystine},
+      </if>
+      <if test="item.cystineActual != null">
+        #{item.cystineActual},
+      </if>
+      <if test="item.methionineCystine != null">
+        #{item.methionineCystine},
+      </if>
+      <if test="item.methionineCystineActual != null">
+        #{item.methionineCystineActual},
+      </if>
+      <if test="item.digestibleLysine != null">
+        #{item.digestibleLysine},
+      </if>
+      <if test="item.digestibleLysineActual != null">
+        #{item.digestibleLysineActual},
+      </if>
+      <if test="item.digestibleMethionine != null">
+        #{item.digestibleMethionine},
+      </if>
+      <if test="item.digestibleMethionineActual != null">
+        #{item.digestibleMethionineActual},
+      </if>
+      <if test="item.digestibleTryptophan != null">
+        #{item.digestibleTryptophan},
+      </if>
+      <if test="item.digestibleTryptophanActual != null">
+        #{item.digestibleTryptophanActual},
+      </if>
+      <if test="item.digestibleThreonine != null">
+        #{item.digestibleThreonine},
+      </if>
+      <if test="item.digestibleThreonineActual != null">
+        #{item.digestibleThreonineActual},
+      </if>
+      <if test="item.digestibleValine != null">
+        #{item.digestibleValine},
+      </if>
+      <if test="item.digestibleValineActual != null">
+        #{item.digestibleValineActual},
+      </if>
+      <if test="item.digestibleArginine != null">
+        #{item.digestibleArginine},
+      </if>
+      <if test="item.digestibleArginineActual != null">
+        #{item.digestibleArginineActual},
+      </if>
+      <if test="item.digestibleIsoleucine != null">
+        #{item.digestibleIsoleucine},
+      </if>
+      <if test="item.digestibleIsoleucineActual != null">
+        #{item.digestibleIsoleucineActual},
+      </if>
+      <if test="item.digestibleLeucine != null">
+        #{item.digestibleLeucine},
+      </if>
+      <if test="item.digestibleLeucineActual != null">
+        #{item.digestibleLeucineActual},
+      </if>
+      <if test="item.digestibleCystine != null">
+        #{item.digestibleCystine},
+      </if>
+      <if test="item.digestibleCystineActual != null">
+        #{item.digestibleCystineActual},
+      </if>
+      <if test="item.digestibleMethionineCystine != null">
+        #{item.digestibleMethionineCystine},
+      </if>
+      <if test="item.digestibleMethionineCystineActual != null">
+        #{item.digestibleMethionineCystineActual},
+      </if>
+      <if test="item.lysineDigestibility != null">
+        #{item.lysineDigestibility},
+      </if>
+      <if test="item.methionineDigestibility != null">
+        #{item.methionineDigestibility},
+      </if>
+      <if test="item.tryptophanDigestibility != null">
+        #{item.tryptophanDigestibility},
+      </if>
+      <if test="item.threonineDigestibility != null">
+        #{item.threonineDigestibility},
+      </if>
+      <if test="item.valineDigestibility != null">
+        #{item.valineDigestibility},
+      </if>
+      <if test="item.arginineDigestibility != null">
+        #{item.arginineDigestibility},
+      </if>
+      <if test="item.isoleucineDigestibility != null">
+        #{item.isoleucineDigestibility},
+      </if>
+      <if test="item.leucineDigestibility != null">
+        #{item.leucineDigestibility},
+      </if>
+      <if test="item.cystineDigestibility != null">
+        #{item.cystineDigestibility},
+      </if>
+      <if test="item.methionineCystineDigestibility != null">
+        #{item.methionineCystineDigestibility},
+      </if>
+      <if test="item.waterContentCoefficient != null">
+        #{item.waterContentCoefficient},
+      </if>
+      <if test="item.crudeProteinCoefficient != null">
+        #{item.crudeProteinCoefficient},
+      </if>
+      <if test="item.crudeFatCoefficient != null">
+        #{item.crudeFatCoefficient},
+      </if>
+      <if test="item.crudeFiberCoefficient != null">
+        #{item.crudeFiberCoefficient},
+      </if>
+      <if test="item.crudeAshCoefficient != null">
+        #{item.crudeAshCoefficient},
+      </if>
+      <if test="item.createTime != null">
+        #{item.createTime},
+      </if>
+      <if test="item.modifiedTime != null">
+        #{item.modifiedTime},
+      </if>
+    </trim>
+    </foreach>
+  </insert>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

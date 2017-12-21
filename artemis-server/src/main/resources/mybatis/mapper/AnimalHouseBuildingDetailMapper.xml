@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.AnimalHouseBuildingDetailMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.AnimalHouseBuildingDetail">
+    <result column="animal_id" jdbcType="VARCHAR" property="animalId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="house" jdbcType="VARCHAR" property="house" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="replicate" jdbcType="VARCHAR" property="replicate" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+    <result column="house_id" jdbcType="INTEGER" property="houseId" />
+    <result column="house_code" jdbcType="VARCHAR" property="houseCode" />
+    <result column="building_id" jdbcType="INTEGER" property="buildingId" />
+    <result column="building_code" jdbcType="VARCHAR" property="buildingCode" />
+    <result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+  </resultMap>
+
+  <select id="selectByProjectId" parameterType="Integer" resultType="AnimalHouseBuildingDetail">
+    select * from animal_house_building_detail_view where project_id = #{projectId}
+  </select>
+
+  <select id="selectByHouseId" parameterType="Integer" resultType="AnimalHouseBuildingDetail">
+    select * from animal_house_building_detail_view where house_id = #{houseId}
+  </select>
+
+  <select id="selectByAnimalId" parameterType="String" resultType="AnimalHouseBuildingDetail">
+    select * from animal_house_building_detail_view where animal_id = #{animalId}
+  </select>
+
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalHouseBuildingDetail">
+    insert into animal_house_building_detail_view (animal_id, user_id, project_id, 
+      house, code, id_number, 
+      treatment, replicate, start_time, 
+      end_time, house_id, house_code, 
+      building_id, building_code, house_number
+      )
+    values (#{animalId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{house,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, 
+      #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE}, #{houseId,jdbcType=INTEGER}, #{houseCode,jdbcType=VARCHAR}, 
+      #{buildingId,jdbcType=INTEGER}, #{buildingCode,jdbcType=VARCHAR}, #{houseNumber,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalHouseBuildingDetail">
+    insert into animal_house_building_detail_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animalId != null">
+        animal_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="house != null">
+        house,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="idNumber != null">
+        id_number,
+      </if>
+      <if test="treatment != null">
+        treatment,
+      </if>
+      <if test="replicate != null">
+        replicate,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="houseCode != null">
+        house_code,
+      </if>
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="buildingCode != null">
+        building_code,
+      </if>
+      <if test="houseNumber != null">
+        house_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animalId != null">
+        #{animalId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="house != null">
+        #{house,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment != null">
+        #{treatment,jdbcType=VARCHAR},
+      </if>
+      <if test="replicate != null">
+        #{replicate,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="houseCode != null">
+        #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingCode != null">
+        #{buildingCode,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNumber != null">
+        #{houseNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -12,6 +12,11 @@
   <sql id="Base_Column_List">
     formulation_id, animal_id, start_time, end__time, create_time, modified_time
   </sql>
+
+  <select id="selectAnimalIdByFormulationId" parameterType="Integer" resultType="FormulationAnimal">
+    select animal_id from formulation_animal_relation where formulation_id = #{formulation_id}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="com.kuo.artemis.server.entity.FormulationAnimalKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

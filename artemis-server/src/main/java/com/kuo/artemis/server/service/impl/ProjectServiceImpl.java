@@ -80,10 +80,10 @@ public class ProjectServiceImpl implements ProjectService {
             rolePermissionKey.setPermissionId(id);
         }
 
-        RolePermission rolePermission = new RolePermission();
+        /*RolePermission rolePermission = new RolePermission();
         rolePermission.setPermissionId(1);
         rolePermission.setRoleId(1);
-        rolePermissionMapper.insert(rolePermission);
+        rolePermissionMapper.insertSelective(rolePermission);*/
 
 
         rolePermissionMapper.insertBatch(rolePermissionList);

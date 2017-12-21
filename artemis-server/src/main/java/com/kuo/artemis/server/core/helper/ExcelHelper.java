@@ -3,8 +3,7 @@ package com.kuo.artemis.server.core.helper;
 import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelImportDTO;
-import com.kuo.artemis.server.core.dto.excel.MaterialExcelImportDTO;
-import com.kuo.artemis.server.core.dto.excel.NutritionExcelImportDTO;
+import com.kuo.artemis.server.core.dto.excel.ExcelImportDTO;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
@@ -97,8 +96,8 @@ public class ExcelHelper {
      * @param command
      * @return
      */
-    public static MaterialExcelImportDTO parseMaterialExcel(FileImportCommand command) throws Exception {
-        MaterialExcelImportDTO materialExcelImportDTO = new MaterialExcelImportDTO();
+    public static ExcelImportDTO parseMaterialExcel(FileImportCommand command) throws Exception {
+        ExcelImportDTO excelImportDTO = new ExcelImportDTO();
 
         //1.从命令中获取解析需要的参数
         MultipartFile file = command.getFile();
@@ -119,13 +118,13 @@ public class ExcelHelper {
         for (int i = 0; i < contents.size(); i++) {
             Map<String, Object> row = contents.get(i);
             row.put("userId", userId);
-            row.put("id", UUIDUtil.get32UUIDLowerCase());
+            //row.put("id", UUIDUtil.get32UUIDLowerCase());
         }
 
-        materialExcelImportDTO.setItems(contents);
-        materialExcelImportDTO.setInitFields(field);
+        excelImportDTO.setItems(contents);
+        excelImportDTO.setInitFields(field);
 
-        return materialExcelImportDTO;
+        return excelImportDTO;
     }
 
     /**
@@ -134,8 +133,8 @@ public class ExcelHelper {
      * @return
      * @throws Exception
      */
-    public static NutritionExcelImportDTO parseNutritionExcelImportDTO(FileImportCommand command) throws Exception {
-        NutritionExcelImportDTO nutritionExcelImportDTO = new NutritionExcelImportDTO();
+    public static ExcelImportDTO parseNutritionExcelImportDTO(FileImportCommand command) throws Exception {
+        ExcelImportDTO nutritionExcelImportDTO = new ExcelImportDTO();
 
         //1.获取参数
         //1.从命令中获取解析需要的参数
@@ -157,7 +156,7 @@ public class ExcelHelper {
         for (int i = 0; i < contents.size(); i++) {
             Map<String, Object> row = contents.get(i);
             row.put("userId", userId);
-            row.put("id", UUIDUtil.get32UUIDLowerCase());
+            //row.put("id", UUIDUtil.get32UUIDLowerCase());
         }
 
         nutritionExcelImportDTO.setItems(contents);
