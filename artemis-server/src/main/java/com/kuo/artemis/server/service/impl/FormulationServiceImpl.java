@@ -12,6 +12,8 @@ import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.lang.reflect.Field;
@@ -156,13 +158,14 @@ public class FormulationServiceImpl implements FormulationService {
 
 
                 }
+
                 constraintLists.add(coefficientList);
             }
 
         }
 
         //约束函数的值
-        List<Double> constraintValueList = new ArrayList<Double>();
+        /*List<Double> constraintValueList = new ArrayList<Double>();
         Map<String, Object> nutritionStandardMap = BeanUtil.beanToMap(nutritionStandard);
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
@@ -176,10 +179,11 @@ public class FormulationServiceImpl implements FormulationService {
                 }
                 constraintValueList.add(value);
             }
+            //constraintValueList.remove(0.0);
 
-        }
+        }*/
 
-        LinearProgrammingResult result = LinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, constraintValueList, materialLeftBoundList, materialRightBoundList);
+        LinearProgrammingResult result = LinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
 
         //构造返回结果
         FormulationResult formulationResult = new FormulationResult();
@@ -188,6 +192,7 @@ public class FormulationServiceImpl implements FormulationService {
         formulationResult.setFormulationCode(params.getFormulationCode());
         formulationResult.setFormulationName(params.getFormulationName());
         formulationResult.setFormulationMaterialCost(result.getResultValue());
+        formulationResult.setProgrammingStatus(result.getStatus().toString());
 
         List<FormulationMaterial> formulationMaterialList = new ArrayList<FormulationMaterial>();
         List<Double> resultValue = result.getVariableValueList();
@@ -198,6 +203,7 @@ public class FormulationServiceImpl implements FormulationService {
             formulationMaterial.setOptimalRatio(BigDecimal.valueOf(resultValue.get(i)));
             formulationMaterial.setMaterialName(material.getMaterialName());
             formulationMaterial.setMaterialPrice(material.getMaterialPrice());
+            formulationMaterialList.add(formulationMaterial);
         }
         formulationResult.setFormulationMaterials(formulationMaterialList);
 
@@ -205,6 +211,7 @@ public class FormulationServiceImpl implements FormulationService {
     }
 
 
+    @Transactional(rollbackFor = Exception.class)
     public Response createNewFormulation(FormulationResult result) {
 
         //1.新建配方信息
@@ -226,6 +233,7 @@ public class FormulationServiceImpl implements FormulationService {
             formulationMaterial.setId(UUIDUtil.get32UUIDLowerCase());
             formulationMaterial.setFormulationId(formulationId);
         }
+        formulationMaterialMapper.insertBatch(formulationMaterialList);
         return new Response(HttpStatus.OK.value(), "新增配方成功");
     }
 }

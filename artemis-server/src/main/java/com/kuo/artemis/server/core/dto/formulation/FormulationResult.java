@@ -22,6 +22,8 @@ public class FormulationResult {
 
     private Double formulationMaterialCost;
 
+    private String programmingStatus;
+
     private Formulation formulation;
 
     private List<FormulationMaterial> formulationMaterials;
@@ -33,9 +35,19 @@ public class FormulationResult {
                 ", projectId='" + projectId + '\'' +
                 ", formulationCode='" + formulationCode + '\'' +
                 ", formulationName='" + formulationName + '\'' +
-                ", formulationMaterialCost='" + formulationMaterialCost + '\'' +
+                ", formulationMaterialCost=" + formulationMaterialCost +
+                ", programmingStatus='" + programmingStatus + '\'' +
+                ", formulation=" + formulation +
                 ", formulationMaterials=" + formulationMaterials +
                 '}';
+    }
+
+    public String getProgrammingStatus() {
+        return programmingStatus;
+    }
+
+    public void setProgrammingStatus(String programmingStatus) {
+        this.programmingStatus = programmingStatus;
     }
 
     public Formulation getFormulation() {

@@ -14,6 +14,8 @@ public interface FormulationMaterialMapper {
 
     List<FormulationMaterial> selectByFormulationId(@Param("formulationId") Integer formulationId);
 
+    int insertBatch(List<FormulationMaterial> formulationMaterials);
+
     FormulationMaterial selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(FormulationMaterial record);

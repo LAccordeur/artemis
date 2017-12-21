@@ -1,10 +1,13 @@
 package com.kuo.artemis.server.controller;
 
+import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.formulation.FormulationParams;
+import com.kuo.artemis.server.core.dto.formulation.FormulationResult;
 import com.kuo.artemis.server.service.FormulationService;
+import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 
@@ -20,8 +23,53 @@ public class FormulationController {
     @Inject
     private FormulationService formulationService;
 
-    public Response programNewFormulation(FormulationParams params) {
+    @Authority(value = PermissionConst.VIEW_DATA_FORMULA)
+    @ResponseBody
+    @RequestMapping(value = "/list/brief", method = RequestMethod.GET)
+    public Response listFormulationsBrief(String projectId) {
+        return formulationService.listFormulationNames(projectId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    public Response getIdByFormulationName(String formulationName) {
+        return formulationService.getIdByFormulationName(formulationName);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/name/list", method = RequestMethod.GET)
+    public Response listFormulationNames(String projectId) {
+        return formulationService.listFormulationNames(projectId);
+    }
+
+    @Authority(value = PermissionConst.VIEW_DATA_FORMULA)
+    @ResponseBody
+    @RequestMapping(value = "/{formulationId}/detail", method = RequestMethod.GET)
+    public Response getFormulationDetail(@PathVariable String formulationId) {
+        return formulationService.getFormulationDetail(formulationId);
+    }
+
+    @Authority(value = PermissionConst.DELETE_DATA_FORMULA)
+    @ResponseBody
+    @RequestMapping(value = "/{formulationId}", method = RequestMethod.DELETE)
+    public Response deleteFormulation(@PathVariable String formulationId) {
+        return formulationService.deleteFormulation(formulationId);
+    }
+
+    @Authority(value = PermissionConst.ADD_DATA_GROUP)
+    @ResponseBody
+    @RequestMapping(value = "/programming", method = RequestMethod.POST)
+    public Response programNewFormulation(@RequestBody FormulationParams params) {
         return formulationService.programNewFormulation(params);
     }
+
+    @Authority(value = PermissionConst.ADD_DATA_FORMULA)
+    @ResponseBody
+    @RequestMapping(value = "/result", method = RequestMethod.POST)
+    public Response createNewFormulation(@RequestBody FormulationResult result) {
+        return formulationService.createNewFormulation(result);
+    }
+
+
 
 }

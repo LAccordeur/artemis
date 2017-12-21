@@ -129,7 +129,7 @@ public class LinearProgramTest {
         List<Double> row5 = Arrays.asList(0D,  0D,  1D);
         lists.add(row5);
 
-        LinearProgrammingResult result = LinearProgramming.getMaximize(objectList, lists, valueList, null, null);
-        System.out.println(result);
+        //LinearProgrammingResult result = LinearProgramming.getMinimize(objectList, lists, valueList, null, null);
+        //System.out.println(result);
     }
 }

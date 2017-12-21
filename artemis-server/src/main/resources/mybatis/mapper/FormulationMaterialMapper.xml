@@ -22,6 +22,72 @@
     from formulation_material_relation
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
+  
+  <insert id="insertBatch" parameterType="List">
+    <foreach collection="list" item="item" index="index" separator=";">
+    insert into formulation_material_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        id,
+      </if>
+      <if test="item.formulationId != null">
+        formulation_id,
+      </if>
+      <if test="item.materialId != null">
+        material_id,
+      </if>
+      <if test="item.materialName != null">
+        material_name,
+      </if>
+      <if test="item.materialPrice != null">
+        material_price,
+      </if>
+      <if test="item.optimalRatio != null">
+        optimal_ratio,
+      </if>
+      <if test="item.ponderanceTon != null">
+        ponderance_ton,
+      </if>
+      <if test="item.createTime != null">
+        create_time,
+      </if>
+      <if test="item.modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        #{item.id},
+      </if>
+      <if test="item.formulationId != null">
+        #{item.formulationId},
+      </if>
+      <if test="item.materialId != null">
+        #{item.materialId},
+      </if>
+      <if test="item.materialName != null">
+        #{item.materialName},
+      </if>
+      <if test="item.materialPrice != null">
+        #{item.materialPrice},
+      </if>
+      <if test="item.optimalRatio != null">
+        #{item.optimalRatio},
+      </if>
+      <if test="item.ponderanceTon != null">
+        #{item.ponderanceTon},
+      </if>
+      <if test="item.createTime != null">
+        #{item.createTime},
+      </if>
+      <if test="item.modifiedTime != null">
+        #{item.modifiedTime},
+      </if>
+    </trim>
+  </foreach>
+  </insert>
+  
   
   <select id="selectByFormulationId" parameterType="java.lang.Integer" resultType="FormulationMaterial" >
     select
@@ -106,14 +172,14 @@
     </trim>
   </insert>
 
-  <insert id="insertBatch" parameterType="List">
+  <!--<insert id="insertBatch" parameterType="List">
     insert into formulation_material_relation
     (formulation_id, material_id, material_name, material_price, optimal_ratio)
     values
     <foreach collection="list" index="index" item="item" separator=",">
       (#{item.formulationId}, #{item.materialId}, #{item.materialName}, #{item.materialPrice}, #{item.optimal_ration})
     </foreach>
-  </insert>
+  </insert>-->
 
   <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.FormulationMaterial">
     update formulation_material_relation

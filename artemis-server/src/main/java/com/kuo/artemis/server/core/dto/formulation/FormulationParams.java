@@ -25,9 +25,9 @@ public class FormulationParams {
 
     private List<Double> materialRightBoundList;
 
-    private List<Double> nutritionStandardRightBoundList;
-
     private List<Double> nutritionStandardLeftBoundList;
+
+    private List<Double> nutritionStandardRightBoundList;
 
     @Override
     public String toString() {
