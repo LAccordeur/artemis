@@ -10,6 +10,7 @@ import com.kuo.artemis.server.util.constant.DataTypeConst;
  * @Description :
  * @Date : Created on 2017/12/18
  */
+@Deprecated
 public class FactoryManager {
 
     public static FileImportProduct createFileImportProduct(FileImportCommand command) throws Exception {

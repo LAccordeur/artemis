@@ -65,8 +65,12 @@ public class MaterialServiceImpl implements MaterialService {
     public Response createNewMaterial(Material material, String userId) {
 
         material.setUserId(Integer.valueOf(userId));
-        materialMapper.insert(material);
+        int result = materialMapper.insert(material);
 
-        return new Response(HttpStatus.OK.value(), "创建新原料成功");
+        if (result > 0) {
+            return new Response(HttpStatus.OK.value(), "创建新原料成功");
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "创建新原料失败");
+        }
     }
 }

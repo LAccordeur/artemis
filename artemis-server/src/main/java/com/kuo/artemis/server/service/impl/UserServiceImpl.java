@@ -11,13 +11,12 @@ import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.assembler.UserAssembler;
 import com.kuo.artemis.server.util.common.AccountValidatorUtil;
 import com.kuo.artemis.server.util.security.CodecUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,8 +37,7 @@ public class UserServiceImpl implements UserService {
 
         Response response = new Response();
 
-
-        ValidationUtil.getInstance().validateParams(loginCommend);
+        //ValidationUtil.getInstance().validateParams(loginCommend);
         User user = UserAssembler.toUser(loginCommend);
         if (userMapper.selectPhoneCount(user.getUserPhone()) < 1) {
             //1.账号不存在
@@ -92,6 +90,9 @@ public class UserServiceImpl implements UserService {
         Response response = new Response();
 
         ValidationUtil.getInstance().validateParams(user);
+        if (!AccountValidatorUtil.isMobile(user.getUserPhone())) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "手机号格式非法");
+        }
         String encryptPassword = CodecUtil.encryptWithSHA256(user.getUserPassword() + user.getUserPhone());
         user.setUserPassword(encryptPassword);
 
@@ -182,7 +183,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     public Response getUserById(String id) {
-        Response response = new Response();
+        Response response = new Response(HttpStatus.BAD_REQUEST.value(), "缺少参数");
 
 
         User user = null;
@@ -210,8 +211,6 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     public Response updateUserInfo(UserDTO user) {
-        Response response = new Response();
-
 
         int result = userMapper.updateByPrimaryKeySelective(UserAssembler.UserDTOToUser(user));
         if (result > 0) {
@@ -221,6 +220,39 @@ public class UserServiceImpl implements UserService {
         }
 
 
+    }
+
+    public Response searchUser(String keyword) {
+
+        if ("".equals(keyword)) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "搜索参数不能为空");
+        }
+
+        List<User> userList = userMapper.selectByKeyword(keyword);
+
+        if (StringUtils.isNumeric(keyword)) {
+            User user = userMapper.selectById(Integer.valueOf(keyword));
+            if (userList != null) {
+                userList.add(user);
+            } else {
+                userList = new ArrayList<User>();
+                userList.add(user);
+            }
+
+            user = userMapper.selectByPhone(keyword);
+            if (userList != null) {
+                userList.add(user);
+            } else {
+                userList = new ArrayList<User>();
+                userList.add(user);
+            }
+
+        }
+        userList.remove(null);
+        userList.remove(null);
+        userList.remove(null);
+
+        return new Response(userList, HttpStatus.OK.value(), "用户搜索列表");
     }
 
     private String getToken(User user) {

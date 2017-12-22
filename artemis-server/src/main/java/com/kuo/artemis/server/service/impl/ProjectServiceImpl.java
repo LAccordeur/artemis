@@ -4,6 +4,7 @@ import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.ProjectService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -158,4 +159,24 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
+    public Response searchProject(String keyword) {
+        if ("".equals(keyword)) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "搜索参数不能为空");
+        }
+
+        List<Project> projectList = projectMapper.selectByKeyword(keyword);
+
+        if (StringUtils.isNumeric(keyword)) {
+            Project project = projectMapper.selectByPrimaryKey(Integer.valueOf(keyword));
+            if (projectList != null) {
+                projectList.add(project);
+            } else {
+                projectList = new ArrayList<Project>();
+                projectList.add(project);
+            }
+
+        }
+        projectList.remove(null);
+        return new Response(projectList, HttpStatus.OK.value(), "课题搜索列表");
+    }
 }

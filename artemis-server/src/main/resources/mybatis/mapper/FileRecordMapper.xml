@@ -4,14 +4,15 @@
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.FileRecord">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="file_type" jdbcType="BIT" property="fileType" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="file_type" jdbcType="TINYINT" property="fileType" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
-    <result column="operation_type" jdbcType="BIT" property="operationType" />
+    <result column="operation_type" jdbcType="TINYINT" property="operationType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, file_type, project_id, operation_type, create_time, modified_time
+    id, user_id, filename, file_type, project_id, operation_type, create_time, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,14 +25,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.FileRecord">
-    insert into file_record (id, user_id, file_type, 
-      project_id, operation_type, create_time, 
-      modified_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{fileType,jdbcType=BIT}, 
-      #{projectId,jdbcType=INTEGER}, #{operationType,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifiedTime,jdbcType=TIMESTAMP})
+    insert into file_record (id, user_id, filename, 
+      file_type, project_id, operation_type, 
+      create_time, modified_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{filename,jdbcType=VARCHAR}, 
+      #{fileType,jdbcType=TINYINT}, #{projectId,jdbcType=INTEGER}, #{operationType,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord">
     insert into file_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -39,6 +40,9 @@
       </if>
       <if test="userId != null">
         user_id,
+      </if>
+      <if test="filename != null">
+        filename,
       </if>
       <if test="fileType != null">
         file_type,
@@ -63,14 +67,17 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
       <if test="fileType != null">
-        #{fileType,jdbcType=BIT},
+        #{fileType,jdbcType=TINYINT},
       </if>
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
       </if>
       <if test="operationType != null">
-        #{operationType,jdbcType=BIT},
+        #{operationType,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -86,14 +93,17 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="filename != null">
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
       <if test="fileType != null">
-        file_type = #{fileType,jdbcType=BIT},
+        file_type = #{fileType,jdbcType=TINYINT},
       </if>
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
       <if test="operationType != null">
-        operation_type = #{operationType,jdbcType=BIT},
+        operation_type = #{operationType,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -107,9 +117,10 @@
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.FileRecord">
     update file_record
     set user_id = #{userId,jdbcType=INTEGER},
-      file_type = #{fileType,jdbcType=BIT},
+      filename = #{filename,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=TINYINT},
       project_id = #{projectId,jdbcType=INTEGER},
-      operation_type = #{operationType,jdbcType=BIT},
+      operation_type = #{operationType,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

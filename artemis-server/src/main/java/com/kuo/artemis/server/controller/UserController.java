@@ -117,12 +117,13 @@ public class UserController {
 
 
     /**
-     * 根据姓名关键词查询用户(未完成)
+     * 根据姓名关键词查询用户
      * @return
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ResponseBody
     public Response searchUserByName(String keyword) {
-        return null;
+        return userService.searchUser(keyword);
     }
 
 

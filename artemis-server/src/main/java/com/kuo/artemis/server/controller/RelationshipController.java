@@ -12,6 +12,8 @@ import com.kuo.artemis.server.entity.UserProjectKey;
 import com.kuo.artemis.server.service.UserInvitationApplicationService;
 import com.kuo.artemis.server.service.UserProjectService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import javax.inject.Inject;
 @Controller
 @RequestMapping(value = "/api/relation", produces = {"application/json;charset=utf8"})
 public class RelationshipController {
+
+    private static Logger logger = LoggerFactory.getLogger(RelationshipController.class);
 
     @Inject
     private UserInvitationApplicationService userInvitationApplicationService;
@@ -107,9 +111,13 @@ public class RelationshipController {
      * @return
      */
     @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
-    @RequestMapping(value = "/project/member", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/project/member", method = RequestMethod.PUT)    //TODO  之后改为delete
     @ResponseBody
     public Response adminDeleteProjectMember(@RequestBody UserProjectKey userProjectKey) {
+
+        logger.info("-------------------userProjectKey----------------");
+        logger.info(userProjectKey.toString());
+
         return userProjectService.exitProject(userProjectKey);
     }
 
@@ -118,7 +126,7 @@ public class RelationshipController {
      * @param userProjectKey
      * @return
      */
-    @RequestMapping(value = "/user/project", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/project", method = RequestMethod.PUT)    //TODO  之后改为delete
     @ResponseBody
     public Response userExitProject(@RequestBody UserProjectKey userProjectKey) {
         return userProjectService.exitProject(userProjectKey);

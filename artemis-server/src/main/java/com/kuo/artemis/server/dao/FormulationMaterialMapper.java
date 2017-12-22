@@ -8,6 +8,8 @@ import java.util.List;
 public interface FormulationMaterialMapper {
     int deleteByPrimaryKey(String id);
 
+    int deleteByFormulationId(@Param("formulationId") Integer formulationId);
+
     int insert(FormulationMaterial record);
 
     int insertSelective(FormulationMaterial record);

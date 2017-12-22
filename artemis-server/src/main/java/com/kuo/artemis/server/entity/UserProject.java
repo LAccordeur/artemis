@@ -3,6 +3,7 @@ package com.kuo.artemis.server.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserProject {
@@ -26,6 +27,10 @@ public class UserProject {
 
     private Date createTime;
 
+    private Boolean isDisplay;  //TODO
+
+    private Object userInfo;   //TODO
+
     @Override
     public String toString() {
         return "UserProject{" +
@@ -37,9 +42,26 @@ public class UserProject {
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", roleId=" + roleId +
+                ", isDisplay=" + isDisplay +
                 ", roleName='" + roleName + '\'' +
                 ", createTime=" + createTime +
                 '}';
+    }
+
+    public Object getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(Object userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public Boolean getDisplay() {
+        return isDisplay;
+    }
+
+    public void setDisplay(Boolean display) {
+        isDisplay = display;
     }
 
     public String getProjectIntro() {

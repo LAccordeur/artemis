@@ -7,15 +7,11 @@ import java.util.Set;
 
 /**
  * @Author : guoyang
- * @Description : 用来保存 指标数据的Excel文件 解析后内容的数据结构类
+ * @Description : 由于动物指标数据较为特殊 故采用了单独的一个类，用来保存 指标数据的Excel文件 解析后内容的数据结构类
  * @Date : Created on 2017/11/25
  */
 public class IndicatorExcelImportDTO {
     private String filename;
-
-    private InputStream inputStream;
-
-    private String signature;
 
     private List<String> indicators;  //指标名集合  形如Initial BW
 
@@ -29,8 +25,6 @@ public class IndicatorExcelImportDTO {
     public String toString() {
         return "IndicatorExcelImportDTO{" +
                 "filename='" + filename + '\'' +
-                ", inputStream=" + inputStream +
-                ", signature='" + signature + '\'' +
                 ", fields=" + fields +
                 ", items=" + items +
                 '}';
@@ -50,22 +44,6 @@ public class IndicatorExcelImportDTO {
 
     public void setFilename(String filename) {
         this.filename = filename;
-    }
-
-    public InputStream getInputStream() {
-        return inputStream;
-    }
-
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
     }
 
 

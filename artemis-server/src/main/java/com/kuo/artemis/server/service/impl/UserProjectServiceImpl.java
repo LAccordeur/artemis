@@ -1,10 +1,8 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
-import com.kuo.artemis.server.dao.RoleMapper;
-import com.kuo.artemis.server.dao.RolePermissionMapper;
-import com.kuo.artemis.server.dao.UserProjectMapper;
-import com.kuo.artemis.server.dao.UserRoleMapper;
+import com.kuo.artemis.server.dao.*;
+import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.entity.UserProject;
 import com.kuo.artemis.server.entity.UserProjectKey;
 import com.kuo.artemis.server.entity.UserRoleKey;
@@ -35,6 +33,9 @@ public class UserProjectServiceImpl implements UserProjectService {
 
     @Inject
     private RoleMapper roleMapper;
+
+    @Inject
+    private UserMapper userMapper;
 
 
     /**
@@ -81,6 +82,15 @@ public class UserProjectServiceImpl implements UserProjectService {
 
         if (projectId != null) {
             members = userProjectMapper.selectMembersByProjectId(Integer.valueOf(projectId));
+        }
+
+
+
+        //增加字段便于前端展示处理
+        for (UserProject userProject : members) {
+            userProject.setDisplay(false);
+            User user = userMapper.selectById(userProject.getUserId());
+            userProject.setUserInfo(user);
         }
 
         if (members != null) {

@@ -20,6 +20,14 @@
     from project
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByKeyword" parameterType="String" resultType="Project">
+    select
+    <include refid="Base_Column_List" />
+    from project
+    where project_name like concat(concat('%',#{keyword}),'%')
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from project
     where id = #{id,jdbcType=INTEGER}

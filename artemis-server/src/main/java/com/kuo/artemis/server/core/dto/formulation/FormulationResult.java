@@ -1,7 +1,9 @@
 package com.kuo.artemis.server.core.dto.formulation;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kuo.artemis.server.entity.Formulation;
 import com.kuo.artemis.server.entity.FormulationMaterial;
+import com.kuo.artemis.server.entity.FormulationNutrition;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2017/12/21
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormulationResult {
 
     private String userId;
@@ -20,13 +23,17 @@ public class FormulationResult {
 
     private String formulationName;
 
-    private Double formulationMaterialCost;
+    private Double formulationMaterialCost;   //配方价格
 
-    private String programmingStatus;
+    private String programmingStatus;  //规划状态
+
+
 
     private Formulation formulation;
 
     private List<FormulationMaterial> formulationMaterials;
+
+    private List<FormulationNutrition> formulationNutritions;
 
     @Override
     public String toString() {
@@ -39,7 +46,16 @@ public class FormulationResult {
                 ", programmingStatus='" + programmingStatus + '\'' +
                 ", formulation=" + formulation +
                 ", formulationMaterials=" + formulationMaterials +
+                ", formulationNutritions=" + formulationNutritions +
                 '}';
+    }
+
+    public List<FormulationNutrition> getFormulationNutritions() {
+        return formulationNutritions;
+    }
+
+    public void setFormulationNutritions(List<FormulationNutrition> formulationNutritions) {
+        this.formulationNutritions = formulationNutritions;
     }
 
     public String getProgrammingStatus() {

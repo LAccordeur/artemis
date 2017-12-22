@@ -11,5 +11,6 @@ public interface ProjectService {
 
     Response updateProjectInfoById(Project project);
 
+    Response searchProject(String keyword);
 
 }

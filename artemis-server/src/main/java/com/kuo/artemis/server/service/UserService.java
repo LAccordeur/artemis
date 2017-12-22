@@ -13,6 +13,8 @@ public interface UserService {
 
     Response getUserByPhone(String phone);
 
+    Response searchUser(String keyword);
+
     Response checkUser(String phone);
 
     Response getUserById(String id);

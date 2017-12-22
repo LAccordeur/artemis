@@ -95,7 +95,12 @@
     from formulation_material_relation
     where formulation_id = #{formulationId}
   </select>
-  
+
+  <delete id="deleteByFormulationId" parameterType="java.lang.Integer">
+    delete from formulation_material_relation
+    where formulation_id = #{formulationId}
+  </delete>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from formulation_material_relation
     where id = #{id,jdbcType=VARCHAR}

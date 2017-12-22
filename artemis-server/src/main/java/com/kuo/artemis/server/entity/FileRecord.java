@@ -7,6 +7,8 @@ public class FileRecord {
 
     private Integer userId;
 
+    private String filename;
+
     private Byte fileType;
 
     private Integer projectId;
@@ -31,6 +33,14 @@ public class FileRecord {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename == null ? null : filename.trim();
     }
 
     public Byte getFileType() {

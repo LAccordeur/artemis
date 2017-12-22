@@ -139,7 +139,7 @@
   
   <select id="selectMaterialIndicators" parameterType="List" resultType="Material">
     select
-    id, user_id, water_content_standard, material_price,
+    id, user_id, material_name, material_price, water_content_standard,
     water_content_actual, dietary_electrolyte_balance, natrium, kalium, chlorine, digestive_energy_standard,
     digestive_energy_actual, net_energy, linolic_acid, crude_protein, crude_fat, crude_fiber,
     crude_ash, nertral_detergent_fiber, acid_detergent_fiber, calcium, total_phosphor,
@@ -152,6 +152,7 @@
     <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
       #{item}
     </foreach>
+    order by id
   </select>
 
   

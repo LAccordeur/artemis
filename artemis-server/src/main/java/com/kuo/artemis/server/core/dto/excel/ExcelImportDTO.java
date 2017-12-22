@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * @Author : guoyang
- * @Description : material excel解析后存储的数据结构类
+ * @Description : 除指标excel文件外的excel解析后存储的数据结构类
  * @Date : Created on 2017/12/17
  */
 public class ExcelImportDTO {

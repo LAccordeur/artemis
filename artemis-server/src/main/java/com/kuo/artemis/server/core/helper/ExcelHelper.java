@@ -37,7 +37,6 @@ public class ExcelHelper {
         String filename = file.getOriginalFilename();
         InputStream inputStream = file.getInputStream();
         indicatorExcelImportDTO.setFilename(filename);
-        indicatorExcelImportDTO.setInputStream(inputStream);
 
 
         //解析开始

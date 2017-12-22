@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.FormulationNutritionMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.FormulationNutrition">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="formulation_id" jdbcType="INTEGER" property="formulationId" />
+    <result column="nutrition_indicator_name" jdbcType="VARCHAR" property="nutritionIndicatorName" />
+    <result column="nutrition_content_actual" jdbcType="DECIMAL" property="nutritionContentActual" />
+    <result column="nutrition_content_ideal" jdbcType="DECIMAL" property="nutritionContentIdeal" />
+    <result column="nutrition_content_low_bound" jdbcType="DECIMAL" property="nutritionContentLowBound" />
+    <result column="nutrition_content_high_bound" jdbcType="DECIMAL" property="nutritionContentHighBound" />
+    <result column="shadow_price" jdbcType="DECIMAL" property="shadowPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, formulation_id, nutrition_indicator_name, nutrition_content_actual, nutrition_content_ideal, 
+    nutrition_content_low_bound, nutrition_content_high_bound, shadow_price, create_time, 
+    modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from formulation_nutrition_relation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByFormulationId" parameterType="java.lang.Integer" resultType="FormulationNutrition">
+    select
+    <include refid="Base_Column_List" />
+    from formulation_nutrition_relation
+    where formulation_id = #{formulationId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from formulation_nutrition_relation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByFormulationId" parameterType="java.lang.Integer">
+    delete from formulation_nutrition_relation
+    where formulation_id = #{formulationId}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.FormulationNutrition">
+    insert into formulation_nutrition_relation (id, formulation_id, nutrition_indicator_name, 
+      nutrition_content_actual, nutrition_content_ideal, 
+      nutrition_content_low_bound, nutrition_content_high_bound, 
+      shadow_price, create_time, modified_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{formulationId,jdbcType=INTEGER}, #{nutritionIndicatorName,jdbcType=VARCHAR}, 
+      #{nutritionContentActual,jdbcType=DECIMAL}, #{nutritionContentIdeal,jdbcType=DECIMAL}, 
+      #{nutritionContentLowBound,jdbcType=DECIMAL}, #{nutritionContentHighBound,jdbcType=DECIMAL}, 
+      #{shadowPrice,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <insert id="insertBatch" parameterType="List">
+    <foreach collection="list" index="index" item="item" separator=";">
+    insert into formulation_nutrition_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        id,
+      </if>
+      <if test="item.formulationId != null">
+        formulation_id,
+      </if>
+      <if test="item.nutritionIndicatorName != null">
+        nutrition_indicator_name,
+      </if>
+      <if test="item.nutritionContentActual != null">
+        nutrition_content_actual,
+      </if>
+      <if test="item.nutritionContentIdeal != null">
+        nutrition_content_ideal,
+      </if>
+      <if test="item.nutritionContentLowBound != null">
+        nutrition_content_low_bound,
+      </if>
+      <if test="item.nutritionContentHighBound != null">
+        nutrition_content_high_bound,
+      </if>
+      <if test="item.shadowPrice != null">
+        shadow_price,
+      </if>
+      <if test="item.createTime != null">
+        create_time,
+      </if>
+      <if test="item.modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="item.id != null">
+        #{item.id},
+      </if>
+      <if test="item.formulationId != null">
+        #{item.formulationId},
+      </if>
+      <if test="item.nutritionIndicatorName != null">
+        #{item.nutritionIndicatorName},
+      </if>
+      <if test="item.nutritionContentActual != null">
+        #{item.nutritionContentActual},
+      </if>
+      <if test="item.nutritionContentIdeal != null">
+        #{item.nutritionContentIdeal},
+      </if>
+      <if test="item.nutritionContentLowBound != null">
+        #{item.nutritionContentLowBound},
+      </if>
+      <if test="item.nutritionContentHighBound != null">
+        #{item.nutritionContentHighBound},
+      </if>
+      <if test="item.shadowPrice != null">
+        #{item.shadowPrice},
+      </if>
+      <if test="item.createTime != null">
+        #{item.createTime},
+      </if>
+      <if test="item.modifiedTime != null">
+        #{item.modifiedTime},
+      </if>
+    </trim>
+    </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FormulationNutrition">
+    insert into formulation_nutrition_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="formulationId != null">
+        formulation_id,
+      </if>
+      <if test="nutritionIndicatorName != null">
+        nutrition_indicator_name,
+      </if>
+      <if test="nutritionContentActual != null">
+        nutrition_content_actual,
+      </if>
+      <if test="nutritionContentIdeal != null">
+        nutrition_content_ideal,
+      </if>
+      <if test="nutritionContentLowBound != null">
+        nutrition_content_low_bound,
+      </if>
+      <if test="nutritionContentHighBound != null">
+        nutrition_content_high_bound,
+      </if>
+      <if test="shadowPrice != null">
+        shadow_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="formulationId != null">
+        #{formulationId,jdbcType=INTEGER},
+      </if>
+      <if test="nutritionIndicatorName != null">
+        #{nutritionIndicatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="nutritionContentActual != null">
+        #{nutritionContentActual,jdbcType=DECIMAL},
+      </if>
+      <if test="nutritionContentIdeal != null">
+        #{nutritionContentIdeal,jdbcType=DECIMAL},
+      </if>
+      <if test="nutritionContentLowBound != null">
+        #{nutritionContentLowBound,jdbcType=DECIMAL},
+      </if>
+      <if test="nutritionContentHighBound != null">
+        #{nutritionContentHighBound,jdbcType=DECIMAL},
+      </if>
+      <if test="shadowPrice != null">
+        #{shadowPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.FormulationNutrition">
+    update formulation_nutrition_relation
+    <set>
+      <if test="formulationId != null">
+        formulation_id = #{formulationId,jdbcType=INTEGER},
+      </if>
+      <if test="nutritionIndicatorName != null">
+        nutrition_indicator_name = #{nutritionIndicatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="nutritionContentActual != null">
+        nutrition_content_actual = #{nutritionContentActual,jdbcType=DECIMAL},
+      </if>
+      <if test="nutritionContentIdeal != null">
+        nutrition_content_ideal = #{nutritionContentIdeal,jdbcType=DECIMAL},
+      </if>
+      <if test="nutritionContentLowBound != null">
+        nutrition_content_low_bound = #{nutritionContentLowBound,jdbcType=DECIMAL},
+      </if>
+      <if test="nutritionContentHighBound != null">
+        nutrition_content_high_bound = #{nutritionContentHighBound,jdbcType=DECIMAL},
+      </if>
+      <if test="shadowPrice != null">
+        shadow_price = #{shadowPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.FormulationNutrition">
+    update formulation_nutrition_relation
+    set formulation_id = #{formulationId,jdbcType=INTEGER},
+      nutrition_indicator_name = #{nutritionIndicatorName,jdbcType=VARCHAR},
+      nutrition_content_actual = #{nutritionContentActual,jdbcType=DECIMAL},
+      nutrition_content_ideal = #{nutritionContentIdeal,jdbcType=DECIMAL},
+      nutrition_content_low_bound = #{nutritionContentLowBound,jdbcType=DECIMAL},
+      nutrition_content_high_bound = #{nutritionContentHighBound,jdbcType=DECIMAL},
+      shadow_price = #{shadowPrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

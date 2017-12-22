@@ -9,6 +9,7 @@ import com.kuo.artemis.server.core.helper.ExcelHelper;
  * @Description :
  * @Date : Created on 2017/12/17
  */
+@Deprecated
 public class ExcelImportProduct extends FileImportProduct {
 
     private FileImportCommand command;

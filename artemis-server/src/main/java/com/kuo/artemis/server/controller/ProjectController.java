@@ -92,13 +92,15 @@ public class ProjectController {
     }
 
     /**
-     * 根据课题名称关键词查询课题（未完成）
+     * 根据课题名称关键词查询课题
      * @param keyword
      * @return
      */
     @RequestMapping(value = "/project/list")
+    @ResponseBody
     public Response queryProjectByKeyword(String keyword) {
-        return null;
+
+        return projectService.searchProject(keyword);
     }
 
 

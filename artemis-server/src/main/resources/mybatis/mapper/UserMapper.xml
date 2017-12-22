@@ -45,6 +45,13 @@
     where user_phone = #{userPhone}
   </select>
 
+  <select id="selectByKeyword" resultType="User">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where user_name like concat(concat('%', #{keyword}), '%')
+  </select>
+
   <select id="selectById" parameterType="Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

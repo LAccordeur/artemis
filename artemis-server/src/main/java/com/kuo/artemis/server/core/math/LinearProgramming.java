@@ -4,10 +4,10 @@ import com.quantego.clp.CLP;
 import com.quantego.clp.CLPExpression;
 import com.quantego.clp.CLPVariable;
 import com.quantego.clp.CLPVariableSet;
-import com.sun.istack.internal.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,11 +103,24 @@ public class LinearProgramming {
      */
     public static LinearProgrammingResult getMinimize(List<Double> objectFunctionCoefficientList, List<List<Double>> constraintFunctionCoefficientList, List<Double> constraintFunctionLeftValueBoundList, List<Double> constraintFunctionRightValueBoundList, List<Double> variableLeftBoundList, List<Double> variableRightBoundList) {
 
+        //先对传入参数进行判断是否合法
+        if (objectFunctionCoefficientList.size() == variableLeftBoundList.size() && objectFunctionCoefficientList.size() == variableRightBoundList.size()) {
+            //do nothing
+        } else {
+            return null;
+        }
+
+        if (constraintFunctionCoefficientList.size() == constraintFunctionLeftValueBoundList.size() && constraintFunctionCoefficientList.size() == constraintFunctionRightValueBoundList.size()) {
+            //do nothing
+        } else {
+            return null;
+        }
+
         LinearProgrammingResult result = new LinearProgrammingResult();
 
         //1.从参数中提取必要的信息
         int variableSize = objectFunctionCoefficientList.size();  //模型中的所有变量数
-        int constraintSize = constraintFunctionLeftValueBoundList.size() + constraintFunctionRightValueBoundList.size();  //约束方程数
+        //int constraintSize = constraintFunctionLeftValueBoundList.size() + constraintFunctionRightValueBoundList.size();  //约束方程数
 
         //2.建立线性规划模型
         CLP model = new CLP();
@@ -131,27 +144,31 @@ public class LinearProgramming {
         model.addObjective(map, 0);
 
         //5.设置下界约束条件
-        for (int i = 0; i < constraintFunctionLeftValueBoundList.size(); i++) {
-            //按行进行构建约束方程
-            CLPExpression expression = model.createExpression();
-            List<Double> coefficientList = constraintFunctionCoefficientList.get(i);
-            for (int j = 0; j < variableSize; j++) {
-                expression.add(coefficientList.get(j), variables[j]);
-            }
-            expression.geq(constraintFunctionLeftValueBoundList.get(i));
+        if (constraintFunctionLeftValueBoundList != null) {
+            for (int i = 0; i < constraintFunctionLeftValueBoundList.size(); i++) {
+                //按行进行构建约束方程
+                CLPExpression expression = model.createExpression();
+                List<Double> coefficientList = constraintFunctionCoefficientList.get(i);
+                for (int j = 0; j < variableSize; j++) {
+                    expression.add(coefficientList.get(j), variables[j]);
+                }
+                expression.geq(constraintFunctionLeftValueBoundList.get(i));
 
+            }
         }
 
         //设置上界
-        for (int i = 0; i < constraintFunctionRightValueBoundList.size(); i++) {
-            //按行进行构建约束方程
-            CLPExpression expression = model.createExpression();
-            List<Double> coefficientList = constraintFunctionCoefficientList.get(i);
-            for (int j = 0; j < variableSize; j++) {
-                expression.add(coefficientList.get(j), variables[j]);
-            }
-            expression.leq(constraintFunctionRightValueBoundList.get(i));
+        if (constraintFunctionRightValueBoundList != null) {
+            for (int i = 0; i < constraintFunctionRightValueBoundList.size(); i++) {
+                //按行进行构建约束方程
+                CLPExpression expression = model.createExpression();
+                List<Double> coefficientList = constraintFunctionCoefficientList.get(i);
+                for (int j = 0; j < variableSize; j++) {
+                    expression.add(coefficientList.get(j), variables[j]);
+                }
+                expression.leq(constraintFunctionRightValueBoundList.get(i));
 
+            }
         }
 
         CLPExpression expression = model.createExpression();
@@ -165,15 +182,38 @@ public class LinearProgramming {
         result.setStatus(status);
 
         //7.设置返回结果
+        DecimalFormat decimalFormat = new DecimalFormat("0.000000");
+        //目标变量系数
         List<Double> resultVarValueList = new ArrayList<Double>();
         for (int i = 0; i < variableSize; i++) {
             Double value = model.getSolution(variables[i]);
-            resultVarValueList.add(value);
+            resultVarValueList.add(Double.valueOf(decimalFormat.format(value)));
         }
         result.setVariableValueList(resultVarValueList);
 
+        //目标变量系数下限
+        result.setVariableValueLeftBoundList(variableLeftBoundList);
+        result.setVariableValueRightBoundList(variableRightBoundList);
+
+        //约束方程函数值下限与上限
+        result.setConstraintValueLeftBoundList(constraintFunctionLeftValueBoundList);
+        result.setConstraintValueRightBoundList(constraintFunctionRightValueBoundList);
+
+        //约束方程函数值
+        List<Double> constraintFunctionValueList = new ArrayList<Double>();
+        for (int i = 0; i < constraintFunctionCoefficientList.size(); i++) {
+            Double functionValue = 0D;
+            List<Double> functionCoefficientList = constraintFunctionCoefficientList.get(i);
+            for (int j = 0; j < functionCoefficientList.size(); j++) {
+                functionValue = functionValue + functionCoefficientList.get(j) * resultVarValueList.get(j);
+            }
+            constraintFunctionValueList.add(Double.valueOf(decimalFormat.format(functionValue)));
+        }
+        result.setConstraintFunctionValueList(constraintFunctionValueList);
+
+        //规划结果值
         Double resultValue = model.getObjectiveValue();
-        result.setResultValue(resultValue);
+        result.setResultValue(Double.valueOf(decimalFormat.format(resultValue)));
 
         logger.info(model.toString());
 

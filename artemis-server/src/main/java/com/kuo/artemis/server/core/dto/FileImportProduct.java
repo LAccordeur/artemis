@@ -9,6 +9,7 @@ import java.util.Set;
  * @Description : 经过处理过的文件导入产品
  * @Date : Created on 2017/12/17
  */
+@Deprecated
 public abstract class FileImportProduct<T> {
 
     private String filename;    //导入的文件名

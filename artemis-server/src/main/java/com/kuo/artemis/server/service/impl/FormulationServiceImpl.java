@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.service.impl;
 
+import com.kuo.artemis.server.core.common.NutritionIndicator;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.formulation.FormulationParams;
 import com.kuo.artemis.server.core.dto.formulation.FormulationResult;
@@ -12,12 +13,12 @@ import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,7 @@ public class FormulationServiceImpl implements FormulationService {
     private NutritionStandardMapper nutritionStandardMapper;
 
     @Inject
-    private FormulationMaterialDetailMapper formulationMaterialDetailMapper;
+    private FormulationNutritionMapper formulationNutritionMapper;
 
     @Inject
     private FormulationMaterialMapper formulationMaterialMapper;
@@ -85,9 +86,10 @@ public class FormulationServiceImpl implements FormulationService {
         result.setFormulation(formulation);
 
         List<FormulationMaterial> formulationMaterialList = formulationMaterialMapper.selectByFormulationId(Integer.valueOf(formulationId));
-
         result.setFormulationMaterials(formulationMaterialList);
 
+        List<FormulationNutrition> formulationNutritionList = formulationNutritionMapper.selectByFormulationId(Integer.valueOf(formulationId));
+        result.setFormulationNutritions(formulationNutritionList);
         return new Response(result, HttpStatus.OK.value(), "获取配方信息成功");
     }
 
@@ -95,24 +97,33 @@ public class FormulationServiceImpl implements FormulationService {
         return null;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Response deleteFormulation(String formulationId) {
 
-        int result = formulationMapper.deleteByPrimaryKey(Integer.valueOf(formulationId));
+        Integer id = Integer.valueOf(formulationId);
 
-        if (result > 0) {
+        int resultMaterial = formulationMaterialMapper.deleteByFormulationId(id);
+        int resultNutrition = formulationNutritionMapper.deleteByFormulationId(id);
+
+        int result = formulationMapper.deleteByPrimaryKey(id);
+
+        if (resultMaterial > 0 && resultNutrition > 0 && result > 0) {
             return new Response(HttpStatus.OK.value(), "删除配方成功");
         } else {
             return new Response(HttpStatus.BAD_REQUEST.value(), "删除配方失败");
         }
     }
 
+    /**
+     * TODO  ##BUG##  需保证原料id顺序为从小到大，原料营养指标的顺序符合Excel文件中 “营养指标设定” 那一页的顺序
+     * @param params
+     * @return
+     */
     public Response programNewFormulation(FormulationParams params) {
 
         //1.获取参数
         List<Integer> materialIdList = params.getMaterialIdList();
         String nutritionStandardId = params.getNutritionStandardId();
-        String userId = params.getUserId();
-        String projectId = params.getProjectId();
         List<Double> nutritionStandardLeftBoundList = params.getNutritionStandardLeftBoundList();
         List<Double> nutritionStandardRightBoundList = params.getNutritionStandardRightBoundList();
         List<Double> materialLeftBoundList = params.getMaterialLeftBoundList();
@@ -124,25 +135,52 @@ public class FormulationServiceImpl implements FormulationService {
 
 
         //3.构建线性规划的参数
-        //目标函数系数
+        //目标函数系数  即为各个原料的价格
         List<Double> objectFunctionCoefficient = new ArrayList<Double>();
         for (int i = 0; i < materialList.size(); i++) {
             Material material = materialList.get(i);
             objectFunctionCoefficient.add(material.getMaterialPrice().doubleValue());
         }
 
-        Field[] fields = nutritionStandard.getClass().getDeclaredFields();
-
+        Field[] fields = nutritionStandard.getClass().getDeclaredFields();  //TODO  可能存在field随机改变而产生的BUG
         //约束函数的系数
         List<List<Double>> constraintLists = new ArrayList<List<Double>>();
+        getConstraintLists(materialList, fields, constraintLists);
+
+        //4.执行规划
+        LinearProgrammingResult result = LinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
+        if (result == null) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "线性规划参数不全");
+        }
+
+        //5.构造返回结果
+        //构造基本参数
+        FormulationResult formulationResult = new FormulationResult();
+        formulationResult.setUserId(params.getUserId());
+        formulationResult.setProjectId(params.getProjectId());
+        formulationResult.setFormulationCode(params.getFormulationCode());
+        formulationResult.setFormulationName(params.getFormulationName());
+        formulationResult.setFormulationMaterialCost(result.getResultValue());
+        formulationResult.setProgrammingStatus(result.getStatus().toString());
+        //构造配方原料关系
+        List<FormulationMaterial> formulationMaterialList = getFormulationMaterials(materialList, result);
+        formulationResult.setFormulationMaterials(formulationMaterialList);
+        //构造配方营养关系
+        List<FormulationNutrition> formulationNutritionList = getFormulationNutritions(nutritionStandardLeftBoundList, nutritionStandardRightBoundList, nutritionStandard, fields, result);
+        formulationResult.setFormulationNutritions(formulationNutritionList);
+
+        return new Response(formulationResult, HttpStatus.OK.value(), "配方规划结果");
+    }
+
+    private void getConstraintLists(List<Material> materialList, Field[] fields, List<List<Double>> constraintLists) {
         for (int i = 0; i < fields.length; i++) {
 
             //针对每一个营养标准指标构造约束方程
             Field field = fields[i];
-            int materialSize = materialIdList.size();
+            int materialSize = materialList.size();
             List<Double> coefficientList = new ArrayList<Double>();
 
-            if (field.getType().equals(BigDecimal.class)) {
+            if (field.isAnnotationPresent(NutritionIndicator.class)) {
 
                 for (int j = 0; j < materialSize; j++) {
                     Material material = materialList.get(j);
@@ -155,59 +193,64 @@ public class FormulationServiceImpl implements FormulationService {
                     } else {
                         coefficientList.add(0.0);
                     }
-
-
                 }
 
                 constraintLists.add(coefficientList);
             }
-
         }
+    }
 
-        //约束函数的值
-        /*List<Double> constraintValueList = new ArrayList<Double>();
-        Map<String, Object> nutritionStandardMap = BeanUtil.beanToMap(nutritionStandard);
-        for (int i = 0; i < fields.length; i++) {
-            Field field = fields[i];
-
-            if (field.getType().equals(BigDecimal.class)) {
-                Double value = null;
-                if (nutritionStandardMap.get(field.getName()) != null) {
-                    value = ((BigDecimal) nutritionStandardMap.get(field.getName())).doubleValue();
-                } else {
-                    value = 0.0;
-                }
-                constraintValueList.add(value);
-            }
-            //constraintValueList.remove(0.0);
-
-        }*/
-
-        LinearProgrammingResult result = LinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
-
-        //构造返回结果
-        FormulationResult formulationResult = new FormulationResult();
-        formulationResult.setUserId(params.getUserId());
-        formulationResult.setProjectId(params.getProjectId());
-        formulationResult.setFormulationCode(params.getFormulationCode());
-        formulationResult.setFormulationName(params.getFormulationName());
-        formulationResult.setFormulationMaterialCost(result.getResultValue());
-        formulationResult.setProgrammingStatus(result.getStatus().toString());
-
+    private List<FormulationMaterial> getFormulationMaterials(List<Material> materialList, LinearProgrammingResult result) {
         List<FormulationMaterial> formulationMaterialList = new ArrayList<FormulationMaterial>();
         List<Double> resultValue = result.getVariableValueList();
+        DecimalFormat decimalFormat = new DecimalFormat("0.000000");
         for (int i = 0; i < resultValue.size(); i++) {
             FormulationMaterial formulationMaterial = new FormulationMaterial();
             Material material = materialList.get(i);
-            formulationMaterial.setMaterialId(materialIdList.get(i));
+            formulationMaterial.setMaterialId(material.getId());
             formulationMaterial.setOptimalRatio(BigDecimal.valueOf(resultValue.get(i)));
             formulationMaterial.setMaterialName(material.getMaterialName());
             formulationMaterial.setMaterialPrice(material.getMaterialPrice());
+            String ponderanceTon = decimalFormat.format(resultValue.get(i) * 100 * 10);
+            formulationMaterial.setPonderanceTon(new BigDecimal(ponderanceTon));
             formulationMaterialList.add(formulationMaterial);
         }
-        formulationResult.setFormulationMaterials(formulationMaterialList);
+        return formulationMaterialList;
+    }
 
-        return new Response(formulationResult, HttpStatus.OK.value(), "配方规划结果");
+    private List<FormulationNutrition> getFormulationNutritions(List<Double> nutritionStandardLeftBoundList, List<Double> nutritionStandardRightBoundList, NutritionStandard nutritionStandard, Field[] fields, LinearProgrammingResult result) {
+
+        List<String> nutritionNameList = new ArrayList<String>();
+        List<Double> nutritionContentIdealList = new ArrayList<Double>();
+        Map map = BeanUtil.beanToMap(nutritionStandard);
+        //从注解中获取指标名以及被注解的字段的值
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            if (field.isAnnotationPresent(NutritionIndicator.class)) {
+                nutritionNameList.add(field.getAnnotation(NutritionIndicator.class).name());
+                BigDecimal value = (BigDecimal) map.get(field.getName());
+                if (value != null) {
+                    nutritionContentIdealList.add(value.doubleValue());
+                } else {
+                    nutritionContentIdealList.add(-1D);
+                }
+
+            }
+        }
+
+        List<FormulationNutrition> formulationNutritionList = new ArrayList<FormulationNutrition>();
+        List<Double> constraintFunctionValueList = result.getConstraintFunctionValueList();
+        for (int i = 0; i < constraintFunctionValueList.size(); i++) {
+            FormulationNutrition formulationNutrition = new FormulationNutrition();
+            formulationNutrition.setNutritionIndicatorName(nutritionNameList.get(i));
+            formulationNutrition.setNutritionContentActual(BigDecimal.valueOf(constraintFunctionValueList.get(i)));
+            formulationNutrition.setNutritionContentIdeal(BigDecimal.valueOf(nutritionContentIdealList.get(i)));
+            formulationNutrition.setNutritionContentLowBound(BigDecimal.valueOf(nutritionStandardLeftBoundList.get(i)));
+            formulationNutrition.setNutritionContentHighBound(BigDecimal.valueOf(nutritionStandardRightBoundList.get(i)));
+
+            formulationNutritionList.add(formulationNutrition);
+        }
+        return formulationNutritionList;
     }
 
 
@@ -221,7 +264,7 @@ public class FormulationServiceImpl implements FormulationService {
         formulation.setFormulationCode(result.getFormulationCode());
         formulation.setFormulationName(result.getFormulationName());
         formulation.setFormulationMaterialCost(BigDecimal.valueOf(result.getFormulationMaterialCost()));
-        formulationMapper.insertSelective(formulation);
+        int resultFormulation = formulationMapper.insertSelective(formulation);
 
         //2.更新配方原料关系
         Integer formulationId = formulation.getId();
@@ -233,7 +276,21 @@ public class FormulationServiceImpl implements FormulationService {
             formulationMaterial.setId(UUIDUtil.get32UUIDLowerCase());
             formulationMaterial.setFormulationId(formulationId);
         }
-        formulationMaterialMapper.insertBatch(formulationMaterialList);
-        return new Response(HttpStatus.OK.value(), "新增配方成功");
+        int resultMaterial = formulationMaterialMapper.insertBatch(formulationMaterialList);
+
+        //3.更新配方营养关系
+        List<FormulationNutrition> formulationNutritionList = result.getFormulationNutritions();
+        for (int i = 0; i < formulationNutritionList.size(); i++) {
+            FormulationNutrition formulationNutrition = formulationNutritionList.get(i);
+
+            formulationNutrition.setId(UUIDUtil.get32UUIDLowerCase());
+            formulationNutrition.setFormulationId(formulationId);
+        }
+        int resultNutrition = formulationNutritionMapper.insertBatch(formulationNutritionList);
+        if (resultFormulation > 0 && resultMaterial > 0 && resultNutrition > 0) {
+            return new Response(HttpStatus.OK.value(), "新增配方成功");
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "新增配方失败");
+        }
     }
 }

@@ -14,7 +14,7 @@ public interface AnimalIndicatorMapper {
 
     AnimalIndicator selectByPrimaryKey(Integer id);
 
-    List<AnimalIndicator> selectIdsByFields(List<String> indicatorEnglishNames);
+    List<AnimalIndicator> selectByFields(List<String> indicatorEnglishNames);
 
     List<AnimalIndicator> selectByPrimaryKeys(List<String> ids);
 

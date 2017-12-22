@@ -36,15 +36,21 @@ public class FileController {
 
 
         if (!file.isEmpty()) {
+            String filename = file.getOriginalFilename();
+            if ((filename).endsWith(".xlsx") || (filename).endsWith(".xls")) {
+                //nothing to do
+            } else {
+                return new Response(HttpStatus.FORBIDDEN.value(), "文件类型错误");
+            }
             try {
                 if ((DataTypeConst.INDICATOR).equals(type)) {
-                    FileImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
+                    ExcelImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
                     return fileService.parseAndSaveIndicatorExcel(command);
                 } else if ((DataTypeConst.MATERIAL).equals(type)) {
-                    FileImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.MATERIAL);
+                    ExcelImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.MATERIAL);
                     return fileService.parseAndSaveMaterialExcel(command);
                 } else if ((DataTypeConst.NUTRITION).equals(type)) {
-                    FileImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.NUTRITION);
+                    ExcelImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.NUTRITION);
                     return fileService.parseAndSaveNutritionStandardExcel(command);
                 }
             } catch (Exception e) {

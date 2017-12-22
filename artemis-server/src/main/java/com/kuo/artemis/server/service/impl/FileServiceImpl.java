@@ -1,13 +1,10 @@
 package com.kuo.artemis.server.service.impl;
 
-import com.kuo.artemis.server.core.dto.FileExportCommand;
 import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.FileImportProduct;
 import com.kuo.artemis.server.core.dto.excel.*;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.factory.FactoryManager;
-import com.kuo.artemis.server.core.factory.FileImportFactory;
-import com.kuo.artemis.server.core.factory.excel.ExcelImportFactory;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
 import com.kuo.artemis.server.core.thread.ImportExcelTask;
 import com.kuo.artemis.server.dao.*;
@@ -17,12 +14,9 @@ import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.constant.DataTypeConst;
 import com.kuo.artemis.server.util.constant.FileTypeConst;
 import com.kuo.artemis.server.util.constant.OperationTypeConst;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import sun.security.smartcardio.SunPCSC;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -75,13 +69,7 @@ public class FileServiceImpl implements FileService {
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
-    public Response parseAndSaveIndicatorExcel(FileImportCommand command) throws Exception {
-
-        if ((command.getFile().getOriginalFilename()).endsWith(".xlsx") || (command.getFile().getOriginalFilename()).endsWith(".xls")) {
-            //nothing to do
-        } else {
-            return new Response(HttpStatus.FORBIDDEN.value(), "文件类型错误");
-        }
+    public Response parseAndSaveIndicatorExcel(ExcelImportCommand command) throws Exception {
 
 
         /* 解析 */
@@ -107,21 +95,19 @@ public class FileServiceImpl implements FileService {
             futures.add(future);
         }
 
-
         //4.更新文件上传记录
         FileRecord fileRecord = new FileRecord();
-        fileRecord.setFileType((byte) 1);  //Excel
-        fileRecord.setOperationType((byte) 1);    //upload
+        fileRecord.setFilename(command.getFilename());
+        fileRecord.setFileType(Byte.valueOf(FileTypeConst.EXCEL));  //Excel
+        fileRecord.setOperationType(Byte.valueOf(OperationTypeConst.UPLOAD));    //upload
         fileRecord.setUserId(Integer.valueOf(command.getUserId()));
         fileRecord.setProjectId(Integer.valueOf(command.getProjectId()));
         fileRecordMapper.insertSelective(fileRecord);
 
         //5.更新excel文件上传详细记录
         List<ExcelFileDetail> excelFileDetails = new ArrayList<ExcelFileDetail>();
-
         List<String> indicatorEnglishNames = indicatorExcelImportDTO.getIndicators();
-        List<AnimalIndicator> animalIndicators = animalIndicatorMapper.selectIdsByFields(indicatorEnglishNames);
-
+        List<AnimalIndicator> animalIndicators = animalIndicatorMapper.selectByFields(indicatorEnglishNames);
         for (int i = 0; i < animalIndicators.size(); i++) {
             ExcelFileDetail excelFileDetail = new ExcelFileDetail();
             excelFileDetails.add(excelFileDetail);
@@ -147,7 +133,7 @@ public class FileServiceImpl implements FileService {
             if (future.get() > 0) {
                 continue;
             } else {
-                return new Response(HttpStatus.BAD_REQUEST.value(), "upload fail");
+                return new Response(HttpStatus.BAD_REQUEST.value(), "upload failure");
             }
         }
 
@@ -155,7 +141,7 @@ public class FileServiceImpl implements FileService {
         return new Response(HttpStatus.OK.value(), "upload success");
     }
 
-    public Response parseAndSaveMaterialExcel(FileImportCommand command) throws Exception {
+    public Response parseAndSaveMaterialExcel(ExcelImportCommand command) throws Exception {
 
         ExcelImportDTO excelImportDTO = null;
         //1.解析文件
@@ -174,21 +160,25 @@ public class FileServiceImpl implements FileService {
         }
 
         //3.将数据导入至数据库中
-        materialMapper.insertBatch(materialList);
+        int result = materialMapper.insertBatch(materialList);
 
         //4.更新文件上传记录
         FileRecord fileRecord = new FileRecord();
+        fileRecord.setFilename(command.getFilename());
         fileRecord.setUserId(Integer.valueOf(command.getUserId()));
         fileRecord.setOperationType(Byte.valueOf(OperationTypeConst.UPLOAD));
         fileRecord.setFileType(Byte.valueOf(FileTypeConst.EXCEL));
         fileRecord.setProjectId(Integer.valueOf(command.getProjectId()));
-        fileRecordMapper.insertSelective(fileRecord);
+        int resultRecord = fileRecordMapper.insertSelective(fileRecord);
 
-
-        return new Response(materialList, HttpStatus.OK.value(), "upload success");
+        if (result > 0 && resultRecord > 0) {
+            return new Response(materialList, HttpStatus.OK.value(), "upload success");
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "upload failure");
+        }
     }
 
-    public Response parseAndSaveNutritionStandardExcel(FileImportCommand command) throws Exception {
+    public Response parseAndSaveNutritionStandardExcel(ExcelImportCommand command) throws Exception {
         ExcelImportDTO excelImportDTO = null;
         //1.解析文件
         if (DataTypeConst.NUTRITION.equals(command.getDataType())) {
@@ -206,21 +196,26 @@ public class FileServiceImpl implements FileService {
         }
 
         //3.将数据导入至数据库中
-        nutritionStandardMapper.insertBatch(nutritionStandardList);
+        int result = nutritionStandardMapper.insertBatch(nutritionStandardList);
 
         //4.更新文件上传记录
         FileRecord fileRecord = new FileRecord();
+        fileRecord.setFilename(command.getFilename());
         fileRecord.setUserId(Integer.valueOf(command.getUserId()));
         fileRecord.setOperationType(Byte.valueOf(OperationTypeConst.UPLOAD));
         fileRecord.setFileType(Byte.valueOf(FileTypeConst.EXCEL));
         fileRecord.setProjectId(Integer.valueOf(command.getProjectId()));
-        fileRecordMapper.insertSelective(fileRecord);
+        int resultRecord = fileRecordMapper.insertSelective(fileRecord);
 
-
-        return new Response(nutritionStandardList, HttpStatus.OK.value(), "upload success");
+        if (result > 0 && resultRecord > 0) {
+            return new Response(nutritionStandardList, HttpStatus.OK.value(), "upload success");
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "upload failure");
+        }
     }
 
 
+    @Deprecated
     @Transactional(rollbackFor = Exception.class)
     public Response parseAndSaveExcelFile(FileImportCommand command) throws Exception {
 

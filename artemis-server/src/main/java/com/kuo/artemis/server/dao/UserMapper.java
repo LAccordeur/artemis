@@ -3,6 +3,8 @@ package com.kuo.artemis.server.dao;
 import com.kuo.artemis.server.entity.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -19,6 +21,8 @@ public interface UserMapper {
     User selectByPhone(@Param("userPhone") String userPhone);
 
     User selectById(@Param("userId") Integer userId);
+
+    List<User> selectByKeyword(@Param("keyword") String keyword);
 
     int updateByPrimaryKeySelective(User record);
 

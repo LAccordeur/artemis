@@ -18,7 +18,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectIdsByFields" parameterType="List" resultType="AnimalIndicator">
+  <select id="selectByFields" parameterType="List" resultType="AnimalIndicator">
     select id, indicator_name, indicator_name_english, indicator_type
     from animal_indicator
     where indicator_name_english in

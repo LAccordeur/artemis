@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.kuo.artemis.server.core.common.NutritionIndicator;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,82 +16,121 @@ public class NutritionStandard {
 
     private String nutritionStandardName;
 
+    @NutritionIndicator(name = "标准水份(%)")
     private BigDecimal waterContentStandard;
 
+    @NutritionIndicator(name = "实际水份(%)")
     private BigDecimal waterContentActual;
 
+    @NutritionIndicator(name = "电解质平衡值")
     private BigDecimal dietaryElectrolyteBalance;
 
+    @NutritionIndicator(name = "钠Na(%)")
     private BigDecimal natrium;
 
+    @NutritionIndicator(name = "钾K(%)")
     private BigDecimal kalium;
 
+    @NutritionIndicator(name = "氯Cl(%)")
     private BigDecimal chlorine;
 
+    @NutritionIndicator(name = "标准消化能DE kcal/kg")
     private BigDecimal digestiveEnergyStandard;
 
+    @NutritionIndicator(name = "实际消化能DE kcal/kg")
     private BigDecimal digestiveEnergyActual;
 
+    @NutritionIndicator(name = "净能NE kcal/kg")
     private BigDecimal netEnergy;
 
+    @NutritionIndicator(name = "亚油酸(%)")
     private BigDecimal linolicAcid;
 
+    @NutritionIndicator(name = "粗蛋白质CP(%)")
     private BigDecimal crudeProtein;
 
+    @NutritionIndicator(name = "粗脂肪EE(%)")
     private BigDecimal crudeFat;
 
+    @NutritionIndicator(name = "粗纤维CF(%)")
     private BigDecimal crudeFiber;
 
+    @NutritionIndicator(name = "粗灰分Ash(%)")
     private BigDecimal crudeAsh;
 
+    @NutritionIndicator(name = "中性洗涤纤维NDF(%)")
     private BigDecimal nertralDetergentFiber;
 
+    @NutritionIndicator(name = "酸性洗涤纤维ADF(%)")
     private BigDecimal acidDetergentFiber;
 
+    @NutritionIndicator(name = "钙Ca(%)")
     private BigDecimal calcium;
 
+    @NutritionIndicator(name = "总磷P(%)")
     private BigDecimal totalPhosphor;
 
+    @NutritionIndicator(name = "有效磷A-P(%)")
     private BigDecimal availablePhosphor;
 
+    @NutritionIndicator(name = "赖氨酸Lys(%)")
     private BigDecimal lysine;
 
+    @NutritionIndicator(name = "蛋氨酸Met(%)")
     private BigDecimal methionine;
 
+    @NutritionIndicator(name = "色氨酸Trp(%)")
     private BigDecimal tryptophan;
 
+    @NutritionIndicator(name = "苏氨酸Thr(%)")
     private BigDecimal threonine;
 
+    @NutritionIndicator(name = "缬氨酸Val(%)")
     private BigDecimal valine;
 
+    @NutritionIndicator(name = "精氨酸Arg(%)")
     private BigDecimal arginine;
 
+    @NutritionIndicator(name = "异亮氨酸Ile(%)")
     private BigDecimal isoleucine;
 
+    @NutritionIndicator(name = "亮氨酸Leu(%)")
     private BigDecimal leucine;
 
+    @NutritionIndicator(name = "胱氨酸Cys(%)")
     private BigDecimal cystine;
 
+    @NutritionIndicator(name = "蛋+胱 (%)")
     private BigDecimal methionineCystine;
 
+    @NutritionIndicator(name = "可消化赖氨酸Lys(%)")
     private BigDecimal digestibleLysine;
 
+    @NutritionIndicator(name = "可消化蛋氨酸Met(%)")
     private BigDecimal digestibleMethionine;
 
+    @NutritionIndicator(name = "可消化色氨酸Trp(%)")
     private BigDecimal digestibleTryptophan;
 
+    @NutritionIndicator(name = "可消化苏氨酸Thr(%)")
     private BigDecimal digestibleThreonine;
 
+    @NutritionIndicator(name = "可消化缬氨酸Val(%)")
     private BigDecimal digestibleValine;
 
+    @NutritionIndicator(name = "可消化精氨酸Arg(%)")
     private BigDecimal digestibleArginine;
 
+    @NutritionIndicator(name = "可消化异亮氨酸Ile(%)")
     private BigDecimal digestibleIsoleucine;
 
+    @NutritionIndicator(name = "可消化亮氨酸Leu(%)")
     private BigDecimal digestibleLeucine;
 
+    @NutritionIndicator(name = "可消化胱氨酸Cys(%)")
     private BigDecimal digestibleCystine;
 
+    @NutritionIndicator(name = "可消化蛋+胱氨酸(%)")
     private BigDecimal digestibleMethionineCystine;
 
     private Date createTime;

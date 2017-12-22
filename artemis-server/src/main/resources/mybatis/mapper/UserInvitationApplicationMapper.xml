@@ -37,7 +37,7 @@
   </insert>
 
   <select id="selectInvitationList" resultType="UserInvitationApplication">
-    select user_name, user_id, project_name, project_id, project_admin_name, university, create_time
+    select user_name, user_id, project_name, project_id, project_intro, project_admin_name, university, create_time
     from user_invitation_application_view
     where user_id = #{userId} and status = 1 and join_type = 2
   </select>
