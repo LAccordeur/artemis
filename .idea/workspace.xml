@@ -62,8 +62,8 @@
       <file leaf-file-name="FileController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/controller/FileController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="46" column="42" lean-forward="true" selection-start-line="46" selection-start-column="42" selection-end-line="46" selection-end-column="42" />
+            <state relative-caret-position="132">
+              <caret line="47" column="47" lean-forward="true" selection-start-line="47" selection-start-column="47" selection-end-line="47" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -72,23 +72,54 @@
       <file leaf-file-name="FileServiceImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/FileServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="95" column="9" lean-forward="false" selection-start-line="95" selection-start-column="9" selection-end-line="95" selection-end-column="9" />
+            <state relative-caret-position="397">
+              <caret line="102" column="12" lean-forward="false" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="12" />
               <folding>
-                <element signature="e#5937#5947#0" expanded="true" />
-                <element signature="e#7538#7557#0" expanded="true" />
-                <element signature="method#parseAndSaveExcelFile#0;class#FileServiceImpl#0" expanded="false" />
-                <element signature="e#9248#9260#0" expanded="true" />
-                <element signature="e#9555#9572#0" expanded="true" />
-                <element signature="method#exportIndicatorExcelTemplate#0;class#FileServiceImpl#0" expanded="false" />
-                <element signature="method#exportIndicatorExcelWithData#0;class#FileServiceImpl#0" expanded="false" />
-                <element signature="e#11854#11862#0" expanded="true" />
-                <element signature="e#11914#11922#0" expanded="true" />
-                <element signature="method#updateFileRecord#0;class#FileServiceImpl#0" expanded="false" />
-                <marker date="1513946794371" expanded="false" signature="10912:10922" ph="&lt;~&gt;" />
-                <marker date="1513946794371" expanded="false" signature="12982:13003" ph="&lt;~&gt;" />
-                <marker date="1513946794371" expanded="false" signature="13373:13383" ph="&lt;~&gt;" />
+                <element signature="e#2672#2693#0" expanded="true" />
+                <element signature="e#3233#3241#0" expanded="true" />
+                <element signature="e#3777#3789#0" expanded="true" />
+                <element signature="e#4084#4101#0" expanded="true" />
+                <element signature="e#4842#4859#0" expanded="true" />
+                <element signature="e#6807#6817#0" expanded="true" />
+                <element signature="e#8408#8427#0" expanded="true" />
+                <element signature="e#10118#10130#0" expanded="true" />
+                <element signature="e#10425#10442#0" expanded="true" />
+                <element signature="e#12724#12732#0" expanded="true" />
+                <element signature="e#12784#12792#0" expanded="true" />
+                <marker date="1513955345738" expanded="false" signature="9660:10633" ph="{...}" />
+                <marker date="1513955345738" expanded="false" signature="10920:12268" ph="{...}" />
+                <marker date="1513955345738" expanded="false" signature="11184:11192" ph="&lt;~&gt;" />
+                <marker date="1513955345738" expanded="false" signature="11244:11252" ph="&lt;~&gt;" />
+                <marker date="1513955345738" expanded="false" signature="11782:11792" ph="&lt;~&gt;" />
+                <marker date="1513955345738" expanded="false" signature="12459:14741" ph="{...}" />
+                <marker date="1513955345738" expanded="false" signature="13335:13343" ph="&lt;~&gt;" />
+                <marker date="1513955345738" expanded="false" signature="13852:13873" ph="&lt;~&gt;" />
+                <marker date="1513955345738" expanded="false" signature="14243:14253" ph="&lt;~&gt;" />
+                <marker date="1513955345738" expanded="false" signature="14855:16013" ph="{...}" />
+                <marker date="1513955345738" expanded="false" signature="15347:15364" ph="&lt;~&gt;" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExcelHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/ExcelHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImportExcelTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/thread/ImportExcelTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="65" column="51" lean-forward="false" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -124,13 +155,14 @@
       <find>CHAR</find>
       <find>,jdbcType=timestamp</find>
       <find>,jdbctype=timestamp</find>
-      <find>crude_fa</find>
       <find>crudefa</find>
       <find>（%）</find>
       <find>test=&quot;</find>
       <find>#{</find>
       <find>Boolean</find>
       <find>BIT</find>
+      <find>crude_fa</find>
+      <find>item.crudeFa</find>
     </findStrings>
     <replaceStrings>
       <replace>VARCHAR</replace>
@@ -151,13 +183,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/formulation/FormulationParams.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/UserProject.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/UserProjectServiceImpl.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/LinearProgrammingResult.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/common/NutritionIndicatorName.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/UserInvitationApplicationMapper.xml" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/NutritionStandard.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/FormulationNutrition.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/test/java/com/kuo/artemis/server/core/math/GroupDesignTest.java" />
         <option value="$PROJECT_DIR$/artemis-server/TODO.md" />
@@ -186,21 +216,23 @@
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/MaterialServiceImpl.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/FormulationServiceImpl.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/FileRecord.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/FileRecordMapper.xml" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportCommand.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/FileService.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/controller/FileController.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/ExcelHelper.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportProduct.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportProduct.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/factory/FactoryManager.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/factory/FileImportFactory.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/factory/excel/ExcelImportFactory.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/FileImportProduct.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportDTO.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportDTO.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalIndicatorMapper.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalIndicatorMapper.xml" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/FileRecordMapper.xml" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/NutritionStandard.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/NutritionStandardMapper.xml" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportDTO.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportProduct.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportDTO.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/ExcelHelper.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/FileServiceImpl.java" />
       </list>
     </option>
@@ -309,6 +341,33 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
@@ -793,7 +852,7 @@
       <workItem from="1512973617789" duration="10544000" />
       <workItem from="1512984315802" duration="26064000" />
       <workItem from="1513159353978" duration="2639000" />
-      <workItem from="1513165370414" duration="191738000" />
+      <workItem from="1513165370414" duration="199550000" />
     </task>
     <servers />
   </component>
@@ -830,7 +889,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="587599000" />
+    <option name="totallyTimeSpent" value="595411000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -843,6 +902,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
@@ -854,9 +914,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.49063033" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60988075" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6115843" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48381603" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39693356" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.65587735" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -865,10 +925,10 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.69335604" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24659607" sideWeight="0.48722318" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27912253" sideWeight="0.48722318" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7240204" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45655876" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2677761" sideWeight="0.51277685" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -897,148 +957,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="136" />
+      <option name="time" value="139" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/FormulationNutritionMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="8" column="77" lean-forward="false" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/FormulationNutritionMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-22">
-          <caret line="28" column="40" lean-forward="true" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
-          <folding>
-            <marker date="1513932951664" expanded="true" signature="1576:1702" ph="select from formulation_nutrition_relation" />
-            <marker date="1513932951664" expanded="true" signature="1825:1956" ph="select from formulation_nutrition_relation" />
-            <marker date="1513932951664" expanded="true" signature="2041:2121" ph="delete from " />
-            <marker date="1513932951664" expanded="true" signature="2211:2297" ph="delete from " />
-            <marker date="1513932951664" expanded="true" signature="2404:3099" ph="insert into formulation_nutrition_relation... " />
-            <marker date="1513932951664" expanded="true" signature="7530:8774" ph="update formu... " />
-            <marker date="1513932951664" expanded="true" signature="8893:9588" ph="update formu... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/spring/spring-web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="65" column="52" lean-forward="true" selection-start-line="65" selection-start-column="52" selection-end-line="65" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/ProjectMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="13" column="50" lean-forward="false" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/ProjectMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
-          <folding>
-            <marker date="1513936153661" expanded="true" signature="1101:1204" ph="select from project" />
-            <marker date="1513936153661" expanded="true" signature="1298:1343" ph="select 、... " />
-            <marker date="1513936153661" expanded="true" signature="1298:1425" ph="select from project" />
-            <marker date="1513936153661" expanded="true" signature="1512:1569" ph="delete from " />
-            <marker date="1513936153661" expanded="true" signature="1663:2057" ph="insert into project... " />
-            <marker date="1513936153661" expanded="true" signature="3618:4360" ph="update proje... " />
-            <marker date="1513936153661" expanded="true" signature="4466:4867" ph="update proje... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/file/ExcelUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-41">
-          <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding>
-            <element signature="method#createExcelObject#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="e#2073#2081#0" expanded="true" />
-            <element signature="e#4186#4194#0" expanded="true" />
-            <element signature="e#5245#5266#0" expanded="true" />
-            <element signature="method#getValueOfNumericCell#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="method#getRealStringValueOfDouble#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="method#exportExcelTemplate#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="method#exportExcelWithData#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="method#getXSSfSheets#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="method#parseStringToMapList#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="method#groupExcel#0;class#ExcelUtil#0" expanded="false" />
-            <element signature="method#getClassSet#0;class#ExcelUtil#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/common/AccountValidatorUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#1765#1766#0" expanded="true" />
-            <element signature="e#1825#1826#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/UserMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="24" column="65" lean-forward="false" selection-start-line="24" selection-start-column="65" selection-end-line="24" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/controller/ErrorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="32" column="61" lean-forward="false" selection-start-line="32" selection-start-column="61" selection-end-line="32" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/UserMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="51" column="61" lean-forward="true" selection-start-line="51" selection-start-column="61" selection-end-line="51" selection-end-column="61" />
-          <folding>
-            <marker date="1513937039590" expanded="true" signature="1345:1445" ph="select from user" />
-            <marker date="1513937039590" expanded="true" signature="1521:1654" ph="select from user" />
-            <marker date="1513937039590" expanded="true" signature="1728:1825" ph="select from user" />
-            <marker date="1513937039590" expanded="true" signature="1897:1966" ph="select count... user" />
-            <marker date="1513937039590" expanded="true" signature="2034:2157" ph="select from user" />
-            <marker date="1513937039590" expanded="true" signature="2252:2338" ph="select from user" />
-            <marker date="1513937039590" expanded="true" signature="2425:2479" ph="delete from " />
-            <marker date="1513937039590" expanded="true" signature="2570:3074" ph="insert into user... " />
-            <marker date="1513937039590" expanded="true" signature="5004:6007" ph="update user " />
-            <marker date="1513937039590" expanded="true" signature="6110:6632" ph="update user " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/Response.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-300">
@@ -1215,14 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/thread/ImportExcelTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="30" column="11" lean-forward="false" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/FileRecordMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -1272,51 +1187,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/FileRecordMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1039">
-          <caret line="122" column="55" lean-forward="false" selection-start-line="122" selection-start-column="55" selection-end-line="122" selection-end-column="55" />
-          <folding>
-            <marker date="1513945321121" expanded="true" signature="1129:1236" ph="select from file_record" />
-            <marker date="1513945321121" expanded="true" signature="1322:1383" ph="delete from " />
-            <marker date="1513945321121" expanded="true" signature="1480:1882" ph="insert into file_record... " />
-            <marker date="1513945321121" expanded="true" signature="3492:4281" ph="update file_... " />
-            <marker date="1513945321121" expanded="true" signature="4390:4806" ph="update file_... " />
-            <marker date="1513945321121" expanded="true" signature="4654:4806" ph="update file_... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/FileService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
           <caret line="15" column="58" lean-forward="false" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="18" column="50" lean-forward="false" selection-start-line="18" selection-start-column="50" selection-end-line="18" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/ExcelHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="38" column="54" lean-forward="false" selection-start-line="38" selection-start-column="54" selection-end-line="38" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/FileImportCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1353,45 +1227,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportProduct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportProduct.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="7" column="30" lean-forward="false" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-          <folding>
-            <element signature="e#1156#1157#0" expanded="true" />
-            <element signature="e#1196#1197#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/controller/FileController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="46" column="42" lean-forward="true" selection-start-line="46" selection-start-column="42" selection-end-line="46" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -1428,24 +1267,385 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/FileRecordMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="34" column="127" lean-forward="false" selection-start-line="34" selection-start-column="127" selection-end-line="34" selection-end-column="127" />
+          <folding>
+            <marker date="1513948279988" expanded="true" signature="1129:1236" ph="select from file_record" />
+            <marker date="1513948279988" expanded="true" signature="1322:1383" ph="delete from " />
+            <marker date="1513948279988" expanded="true" signature="1480:1882" ph="insert into file_record... " />
+            <marker date="1513948279988" expanded="true" signature="3533:4322" ph="update file_... " />
+            <marker date="1513948279988" expanded="true" signature="4431:4847" ph="update file_... " />
+            <marker date="1513948279988" expanded="true" signature="4695:4847" ph="update file_... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/filter/CheckTokenFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/NutritionStandardMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/NutritionStandardMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="259" column="43" lean-forward="true" selection-start-line="259" selection-start-column="43" selection-end-line="259" selection-end-column="43" />
+          <folding>
+            <marker date="1513949165564" expanded="true" signature="5029:5134" ph="select from nutrition_standard" />
+            <marker date="1513949165564" expanded="true" signature="5243:5364" ph="select id, n... nutrition_standard" />
+            <marker date="1513949165564" expanded="true" signature="13518:13632" ph="select from nutrition_standard" />
+            <marker date="1513949165564" expanded="true" signature="13718:13786" ph="delete from " />
+            <marker date="1513949165564" expanded="true" signature="13890:16509" ph="insert into nutrition_standard... " />
+            <marker date="1513949165564" expanded="true" signature="24723:29856" ph="update nutri... " />
+            <marker date="1513949165564" expanded="true" signature="29972:32669" ph="update nutri... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/NutritionStandard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3360">
+          <caret line="139" column="28" lean-forward="false" selection-start-line="139" selection-start-column="28" selection-end-line="139" selection-end-column="28" />
+          <folding>
+            <element signature="e#3841#3842#0" expanded="true" />
+            <element signature="e#3878#3879#0" expanded="true" />
+            <element signature="e#3906#3907#0" expanded="true" />
+            <element signature="e#3940#3941#0" expanded="true" />
+            <element signature="e#3969#3970#0" expanded="true" />
+            <element signature="e#4014#4015#0" expanded="true" />
+            <element signature="e#4050#4051#0" expanded="true" />
+            <element signature="e#4098#4099#0" expanded="true" />
+            <element signature="e#4142#4143#0" expanded="true" />
+            <element signature="e#4330#4331#0" expanded="true" />
+            <element signature="e#4374#4375#0" expanded="true" />
+            <element signature="e#4565#4566#0" expanded="true" />
+            <element signature="e#4608#4609#0" expanded="true" />
+            <element signature="e#4797#4798#0" expanded="true" />
+            <element signature="e#4838#4839#0" expanded="true" />
+            <element signature="e#4910#4911#0" expanded="true" />
+            <element signature="e#4970#4971#0" expanded="true" />
+            <element signature="e#5026#5027#0" expanded="true" />
+            <element signature="e#5074#5075#0" expanded="true" />
+            <element signature="e#5272#5273#0" expanded="true" />
+            <element signature="e#5302#5303#0" expanded="true" />
+            <element signature="e#5352#5353#0" expanded="true" />
+            <element signature="e#5390#5391#0" expanded="true" />
+            <element signature="e#5427#5428#0" expanded="true" />
+            <element signature="e#5456#5457#0" expanded="true" />
+            <element signature="e#5504#5505#0" expanded="true" />
+            <element signature="e#5540#5541#0" expanded="true" />
+            <element signature="e#5579#5580#0" expanded="true" />
+            <element signature="e#5610#5611#0" expanded="true" />
+            <element signature="e#5662#5663#0" expanded="true" />
+            <element signature="e#5702#5703#0" expanded="true" />
+            <element signature="e#5756#5757#0" expanded="true" />
+            <element signature="e#5802#5803#0" expanded="true" />
+            <element signature="e#6006#6007#0" expanded="true" />
+            <element signature="e#6050#6051#0" expanded="true" />
+            <element signature="e#6234#6235#0" expanded="true" />
+            <element signature="e#6266#6267#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#6362#6363#0" expanded="true" />
+            <element signature="e#6404#6405#0" expanded="true" />
+            <element signature="e#6438#6439#0" expanded="true" />
+            <element signature="e#6496#6497#0" expanded="true" />
+            <element signature="e#6542#6543#0" expanded="true" />
+            <element signature="e#6585#6586#0" expanded="true" />
+            <element signature="e#6620#6621#0" expanded="true" />
+            <element signature="e#6680#6681#0" expanded="true" />
+            <element signature="e#6728#6729#0" expanded="true" />
+            <element signature="e#6767#6768#0" expanded="true" />
+            <element signature="e#6798#6799#0" expanded="true" />
+            <element signature="e#6850#6851#0" expanded="true" />
+            <element signature="e#6890#6891#0" expanded="true" />
+            <element signature="e#6931#6932#0" expanded="true" />
+            <element signature="e#6964#6965#0" expanded="true" />
+            <element signature="e#7020#7021#0" expanded="true" />
+            <element signature="e#7064#7065#0" expanded="true" />
+            <element signature="e#7103#7104#0" expanded="true" />
+            <element signature="e#7134#7135#0" expanded="true" />
+            <element signature="e#7186#7187#0" expanded="true" />
+            <element signature="e#7226#7227#0" expanded="true" />
+            <element signature="e#7278#7279#0" expanded="true" />
+            <element signature="e#7322#7323#0" expanded="true" />
+            <element signature="e#7515#7516#0" expanded="true" />
+            <element signature="e#7556#7557#0" expanded="true" />
+            <element signature="e#7628#7629#0" expanded="true" />
+            <element signature="e#7688#7689#0" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7756#7757#0" expanded="true" />
+            <element signature="e#7806#7807#0" expanded="true" />
+            <element signature="e#7844#7845#0" expanded="true" />
+            <element signature="e#7888#7889#0" expanded="true" />
+            <element signature="e#7924#7925#0" expanded="true" />
+            <element signature="e#7986#7987#0" expanded="true" />
+            <element signature="e#8036#8037#0" expanded="true" />
+            <element signature="e#8084#8085#0" expanded="true" />
+            <element signature="e#8124#8125#0" expanded="true" />
+            <element signature="e#8194#8195#0" expanded="true" />
+            <element signature="e#8252#8253#0" expanded="true" />
+            <element signature="e#8289#8290#0" expanded="true" />
+            <element signature="e#8318#8319#0" expanded="true" />
+            <element signature="e#8366#8367#0" expanded="true" />
+            <element signature="e#8402#8403#0" expanded="true" />
+            <element signature="e#8443#8444#0" expanded="true" />
+            <element signature="e#8476#8477#0" expanded="true" />
+            <element signature="e#8532#8533#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
+            <element signature="e#8617#8618#0" expanded="true" />
+            <element signature="e#8650#8651#0" expanded="true" />
+            <element signature="e#8706#8707#0" expanded="true" />
+            <element signature="e#8750#8751#0" expanded="true" />
+            <element signature="e#8790#8791#0" expanded="true" />
+            <element signature="e#8822#8823#0" expanded="true" />
+            <element signature="e#8876#8877#0" expanded="true" />
+            <element signature="e#8918#8919#0" expanded="true" />
+            <element signature="e#8955#8956#0" expanded="true" />
+            <element signature="e#8984#8985#0" expanded="true" />
+            <element signature="e#9032#9033#0" expanded="true" />
+            <element signature="e#9068#9069#0" expanded="true" />
+            <element signature="e#9107#9108#0" expanded="true" />
+            <element signature="e#9138#9139#0" expanded="true" />
+            <element signature="e#9190#9191#0" expanded="true" />
+            <element signature="e#9230#9231#0" expanded="true" />
+            <element signature="e#9271#9272#0" expanded="true" />
+            <element signature="e#9304#9305#0" expanded="true" />
+            <element signature="e#9360#9361#0" expanded="true" />
+            <element signature="e#9404#9405#0" expanded="true" />
+            <element signature="e#9442#9443#0" expanded="true" />
+            <element signature="e#9472#9473#0" expanded="true" />
+            <element signature="e#9522#9523#0" expanded="true" />
+            <element signature="e#9560#9561#0" expanded="true" />
+            <element signature="e#9598#9599#0" expanded="true" />
+            <element signature="e#9628#9629#0" expanded="true" />
+            <element signature="e#9678#9679#0" expanded="true" />
+            <element signature="e#9716#9717#0" expanded="true" />
+            <element signature="e#9764#9765#0" expanded="true" />
+            <element signature="e#9804#9805#0" expanded="true" />
+            <element signature="e#9874#9875#0" expanded="true" />
+            <element signature="e#9932#9933#0" expanded="true" />
+            <element signature="e#9979#9980#0" expanded="true" />
+            <element signature="e#10018#10019#0" expanded="true" />
+            <element signature="e#10086#10087#0" expanded="true" />
+            <element signature="e#10142#10143#0" expanded="true" />
+            <element signature="e#10193#10194#0" expanded="true" />
+            <element signature="e#10236#10237#0" expanded="true" />
+            <element signature="e#10427#10428#0" expanded="true" />
+            <element signature="e#10470#10471#0" expanded="true" />
+            <element signature="e#10660#10661#0" expanded="true" />
+            <element signature="e#10702#10703#0" expanded="true" />
+            <element signature="e#10885#10886#0" expanded="true" />
+            <element signature="e#10924#10925#0" expanded="true" />
+            <element signature="e#10992#10993#0" expanded="true" />
+            <element signature="e#11048#11049#0" expanded="true" />
+            <element signature="e#11097#11098#0" expanded="true" />
+            <element signature="e#11138#11139#0" expanded="true" />
+            <element signature="e#11210#11211#0" expanded="true" />
+            <element signature="e#11270#11271#0" expanded="true" />
+            <element signature="e#11321#11322#0" expanded="true" />
+            <element signature="e#11364#11365#0" expanded="true" />
+            <element signature="e#11552#11553#0" expanded="true" />
+            <element signature="e#11592#11593#0" expanded="true" />
+            <element signature="e#11662#11663#0" expanded="true" />
+            <element signature="e#11720#11721#0" expanded="true" />
+            <element signature="e#11768#11769#0" expanded="true" />
+            <element signature="e#11808#11809#0" expanded="true" />
+            <element signature="e#11878#11879#0" expanded="true" />
+            <element signature="e#11936#11937#0" expanded="true" />
+            <element signature="e#11994#11995#0" expanded="true" />
+            <element signature="e#12044#12045#0" expanded="true" />
+            <element signature="e#12247#12248#0" expanded="true" />
+            <element signature="e#12280#12281#0" expanded="true" />
+            <element signature="e#12330#12331#0" expanded="true" />
+            <element signature="e#12374#12375#0" expanded="true" />
+            <element signature="e#12411#12412#0" expanded="true" />
+            <element signature="e#12446#12447#0" expanded="true" />
+            <element signature="e#12500#12501#0" expanded="true" />
+            <element signature="e#12548#12549#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/factory/TypeBindFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/common/BeanUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="70" column="63" lean-forward="true" selection-start-line="70" selection-start-column="63" selection-end-line="70" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/formulation/FormulationResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="73" column="13" lean-forward="false" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
+          <folding>
+            <element signature="e#2040#2041#0" expanded="true" />
+            <element signature="e#2074#2075#0" expanded="true" />
+            <element signature="e#2133#2134#0" expanded="true" />
+            <element signature="e#2179#2180#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportProduct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="34" column="69" lean-forward="false" selection-start-line="34" selection-start-column="69" selection-end-line="34" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/FileImportCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="11" column="49" lean-forward="false" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/controller/FileController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="47" column="47" lean-forward="true" selection-start-line="47" selection-start-column="47" selection-end-line="47" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1518">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1513687218128" expanded="true" signature="1657:1759" ph="select from animal" />
+            <marker date="1513687218128" expanded="true" signature="1844:1900" ph="delete from " />
+            <marker date="1513687218128" expanded="true" signature="4319:5009" ph="insert into animal... " />
+            <marker date="1513687218128" expanded="true" signature="7550:8945" ph="update anima... " />
+            <marker date="1513687218128" expanded="true" signature="9050:9769" ph="update anima... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalGrowthRecordMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4822">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#sql#0;n#mapper#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalGutMicrobiotaRecordMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-528">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1513673214032" expanded="true" signature="1273:1397" ph="select from animal_gut_microbiota_record" />
+            <marker date="1513673214032" expanded="true" signature="1483:1561" ph="delete from " />
+            <marker date="1513673214032" expanded="true" signature="3397:3886" ph="insert into animal_gut_microbiota_record... " />
+            <marker date="1513673214032" expanded="true" signature="5727:6654" ph="update anima... " />
+            <marker date="1513673214032" expanded="true" signature="6778:7274" ph="update anima... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/IndicatorExcelImportDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="32" column="5" lean-forward="false" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/excel/ExcelImportDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/ExcelHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/thread/ImportExcelTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="65" column="51" lean-forward="false" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/FileServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="95" column="9" lean-forward="false" selection-start-line="95" selection-start-column="9" selection-end-line="95" selection-end-column="9" />
+        <state relative-caret-position="397">
+          <caret line="102" column="12" lean-forward="false" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="12" />
           <folding>
-            <element signature="e#5937#5947#0" expanded="true" />
-            <element signature="e#7538#7557#0" expanded="true" />
-            <element signature="method#parseAndSaveExcelFile#0;class#FileServiceImpl#0" expanded="false" />
-            <element signature="e#9248#9260#0" expanded="true" />
-            <element signature="e#9555#9572#0" expanded="true" />
-            <element signature="method#exportIndicatorExcelTemplate#0;class#FileServiceImpl#0" expanded="false" />
-            <element signature="method#exportIndicatorExcelWithData#0;class#FileServiceImpl#0" expanded="false" />
-            <element signature="e#11854#11862#0" expanded="true" />
-            <element signature="e#11914#11922#0" expanded="true" />
-            <element signature="method#updateFileRecord#0;class#FileServiceImpl#0" expanded="false" />
-            <marker date="1513946794371" expanded="false" signature="10912:10922" ph="&lt;~&gt;" />
-            <marker date="1513946794371" expanded="false" signature="12982:13003" ph="&lt;~&gt;" />
-            <marker date="1513946794371" expanded="false" signature="13373:13383" ph="&lt;~&gt;" />
+            <element signature="e#2672#2693#0" expanded="true" />
+            <element signature="e#3233#3241#0" expanded="true" />
+            <element signature="e#3777#3789#0" expanded="true" />
+            <element signature="e#4084#4101#0" expanded="true" />
+            <element signature="e#4842#4859#0" expanded="true" />
+            <element signature="e#6807#6817#0" expanded="true" />
+            <element signature="e#8408#8427#0" expanded="true" />
+            <element signature="e#10118#10130#0" expanded="true" />
+            <element signature="e#10425#10442#0" expanded="true" />
+            <element signature="e#12724#12732#0" expanded="true" />
+            <element signature="e#12784#12792#0" expanded="true" />
+            <marker date="1513955345738" expanded="false" signature="9660:10633" ph="{...}" />
+            <marker date="1513955345738" expanded="false" signature="10920:12268" ph="{...}" />
+            <marker date="1513955345738" expanded="false" signature="11184:11192" ph="&lt;~&gt;" />
+            <marker date="1513955345738" expanded="false" signature="11244:11252" ph="&lt;~&gt;" />
+            <marker date="1513955345738" expanded="false" signature="11782:11792" ph="&lt;~&gt;" />
+            <marker date="1513955345738" expanded="false" signature="12459:14741" ph="{...}" />
+            <marker date="1513955345738" expanded="false" signature="13335:13343" ph="&lt;~&gt;" />
+            <marker date="1513955345738" expanded="false" signature="13852:13873" ph="&lt;~&gt;" />
+            <marker date="1513955345738" expanded="false" signature="14243:14253" ph="&lt;~&gt;" />
+            <marker date="1513955345738" expanded="false" signature="14855:16013" ph="{...}" />
+            <marker date="1513955345738" expanded="false" signature="15347:15364" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>

@@ -77,11 +77,34 @@ public class FileServiceImpl implements FileService {
         IndicatorExcelImportDTO indicatorExcelImportDTO = ExcelHelper.parseIndicatorExcel(command);
 
         //2.依次将List中的每一行数据转化为改行所对应的对象
-        Map<Class, List<Map<String, Object>>> map = indicatorExcelImportDTO.getItems();
+        Map<Class, List<Object>> resultMap = new HashMap<Class, List<Object>>();
+        Map<Class, List<Map<String, Object>>> map = indicatorExcelImportDTO.getMultiItems();
         Set<Map.Entry<Class, List<Map<String, Object>>>> set = map.entrySet();
         Iterator<Map.Entry<Class, List<Map<String, Object>>>> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Class, List<Map<String, Object>>> entry = iterator.next();
+            Class clazz = entry.getKey();
+            List<Map<String, Object>> value = entry.getValue();
+            List<Object> objectList = new ArrayList<Object>();
+            for (int i = 0; i < value.size(); i++) {
+                Object object = ExcelHelper.parseExcelRowToBean(clazz, value.get(i));
+                objectList.add(object);
+            }
+            resultMap.put(clazz, objectList);
+        }
+
 
         //3.导入数据至数据库
+        //由于外键约束，首先导入animal数据
+        List animalList = resultMap.get(Animal.class);
+        if (animalList != null) {
+            animalMapper.insertBatch(animalList);
+        } else {
+            
+        }
+
+
+
         List<BaseMapper> mappers = new ArrayList<BaseMapper>();   //##BUG##  目前是写死的 后期需要动态加载
         mappers.add(animalGrowthRecordMapper);
         mappers.add(animalGutMicrobiotaRecordMapper);
@@ -106,7 +129,7 @@ public class FileServiceImpl implements FileService {
 
         //5.更新excel文件上传详细记录
         List<ExcelFileDetail> excelFileDetails = new ArrayList<ExcelFileDetail>();
-        List<String> indicatorEnglishNames = indicatorExcelImportDTO.getIndicators();
+        List<String> indicatorEnglishNames = indicatorExcelImportDTO.getInitFields();
         List<AnimalIndicator> animalIndicators = animalIndicatorMapper.selectByFields(indicatorEnglishNames);
         for (int i = 0; i < animalIndicators.size(); i++) {
             ExcelFileDetail excelFileDetail = new ExcelFileDetail();
@@ -137,8 +160,7 @@ public class FileServiceImpl implements FileService {
             }
         }
 
-
-        return new Response(HttpStatus.OK.value(), "upload success");
+        return new Response(indicatorExcelImportDTO.getItems(), HttpStatus.OK.value(), "upload success");
     }
 
     public Response parseAndSaveMaterialExcel(ExcelImportCommand command) throws Exception {

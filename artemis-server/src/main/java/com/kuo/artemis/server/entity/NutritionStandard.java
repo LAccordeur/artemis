@@ -158,7 +158,7 @@ public class NutritionStandard {
     }
 
     public void setNutritionStandardCode(String nutritionStandardCode) {
-        this.nutritionStandardCode = nutritionStandardCode == null ? null : nutritionStandardCode.trim();
+        this.nutritionStandardCode = nutritionStandardCode;
     }
 
     public String getNutritionStandardName() {
@@ -166,7 +166,7 @@ public class NutritionStandard {
     }
 
     public void setNutritionStandardName(String nutritionStandardName) {
-        this.nutritionStandardName = nutritionStandardName == null ? null : nutritionStandardName.trim();
+        this.nutritionStandardName = nutritionStandardName;
     }
 
     public BigDecimal getWaterContentStandard() {
@@ -257,11 +257,11 @@ public class NutritionStandard {
         this.crudeProtein = crudeProtein;
     }
 
-    public BigDecimal getcrudeFat() {
+    public BigDecimal getCrudeFat() {
         return crudeFat;
     }
 
-    public void setcrudeFat(BigDecimal crudeFat) {
+    public void setCrudeFat(BigDecimal crudeFat) {
         this.crudeFat = crudeFat;
     }
 

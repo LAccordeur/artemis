@@ -31,6 +31,7 @@ public class ExcelHelper {
 
         MultipartFile file = command.getFile();
         String projectId = command.getProjectId();
+        String userId = command.getUserId();
 
         IndicatorExcelImportDTO indicatorExcelImportDTO = new IndicatorExcelImportDTO();
 
@@ -56,10 +57,11 @@ public class ExcelHelper {
 
         //记录initial BW形式的表头
         List<String> indicators = ExcelUtil.getExcelInitFields(workbook, 0, 0, 0);
-        indicatorExcelImportDTO.setIndicators(indicators);
+        indicatorExcelImportDTO.setInitFields(indicators);
 
         //4.解析表正文
         List<Map<String, Object>> rowList = ExcelUtil.parseExcelContent(workbook, 0, 0, 2, 0);
+        indicatorExcelImportDTO.setItems(rowList);
 
         Map<Class, List<Map<String,Object>>> map;
         if (classSet.size() == 1) {
@@ -67,14 +69,14 @@ public class ExcelHelper {
             map = new HashMap<Class, List<Map<String, Object>>>();
             map.put(ExcelUtil.getClassByField(fields.get(0)), rowList);
             //指定主键uuid
-            appointIds(rowList, map, projectId);
-            indicatorExcelImportDTO.setItems(map);
+            appointIds(rowList, map, projectId, userId);
+            indicatorExcelImportDTO.setMultiItems(map);
         } else if (classSet.size() > 1) {
             //Excel文件中的指标来自多个类
             map = ExcelUtil.groupExcel(rowList, fields);
             //指定主键uuid
-            appointIds(rowList, map, projectId);
-            indicatorExcelImportDTO.setItems(map);
+            appointIds(rowList, map, projectId, userId);
+            indicatorExcelImportDTO.setMultiItems(map);
         }
 
 
@@ -163,7 +165,7 @@ public class ExcelHelper {
         return nutritionExcelImportDTO;
     }
 
-    private static void appointIds(List<Map<String, Object>> rowList, Map<Class, List<Map<String, Object>>> map, String projectId) {
+    private static void appointIds(List<Map<String, Object>> rowList, Map<Class, List<Map<String, Object>>> map, String projectId, String userId) {
         //为每个对象指定id
         List<String> UUIDs = UUIDUtil.list32UUIDLowerCase(rowList.size());
         Set<Map.Entry<Class, List<Map<String, Object>>>> entries = map.entrySet();
@@ -177,11 +179,14 @@ public class ExcelHelper {
                     Map<String, Object> row = value.get(i);
                     row.put("id", UUIDs.get(i));
                     row.put("projectId", projectId);
+                    row.put("userId", userId);
                 }
             } else {
                 for (int i = 0; i < value.size(); i++) {
                     Map<String, Object> row = value.get(i);
                     row.put("animalId", UUIDs.get(i));
+                    row.put("projectId", projectId);
+                    row.put("userId", userId);
                 }
             }
         }

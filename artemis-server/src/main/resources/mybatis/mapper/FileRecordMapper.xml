@@ -32,7 +32,7 @@
       #{fileType,jdbcType=TINYINT}, #{projectId,jdbcType=INTEGER}, #{operationType,jdbcType=TINYINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord">
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord" useGeneratedKeys="true" keyProperty="id">
     insert into file_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

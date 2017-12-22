@@ -17,7 +17,7 @@
     <result column="net_energy" jdbcType="DECIMAL" property="netEnergy" />
     <result column="linolic_acid" jdbcType="DECIMAL" property="linolicAcid" />
     <result column="crude_protein" jdbcType="DECIMAL" property="crudeProtein" />
-    <result column="crude_fat" jdbcType="DECIMAL" property="crudeFa" />
+    <result column="crude_fat" jdbcType="DECIMAL" property="crudeFat" />
     <result column="crude_fiber" jdbcType="DECIMAL" property="crudeFiber" />
     <result column="crude_ash" jdbcType="DECIMAL" property="crudeAsh" />
     <result column="nertral_detergent_fiber" jdbcType="DECIMAL" property="nertralDetergentFiber" />
@@ -123,7 +123,7 @@
       <if test="item.crudeProtein != null">
         crude_protein,
       </if>
-      <if test="item.crudeFa != null">
+      <if test="item.crudeFat != null">
         crude_fat,
       </if>
       <if test="item.crudeFiber != null">
@@ -260,8 +260,8 @@
       <if test="item.crudeProtein != null">
         #{item.crudeProtein},
       </if>
-      <if test="item.crudeFa != null">
-        #{item.crudeFa},
+      <if test="item.crudeFat != null">
+        #{item.crudeFat},
       </if>
       <if test="item.crudeFiber != null">
         #{item.crudeFiber},
@@ -449,7 +449,7 @@
       <if test="crudeProtein != null">
         crude_protein,
       </if>
-      <if test="crudeFa != null">
+      <if test="crudeFat != null">
         crude_fat,
       </if>
       <if test="crudeFiber != null">
@@ -723,8 +723,8 @@
       <if test="crudeProtein != null">
         crude_protein = #{crudeProtein,jdbcType=DECIMAL},
       </if>
-      <if test="crudeFa != null">
-        crude_fat = #{crudeFa,jdbcType=DECIMAL},
+      <if test="crudeFat != null">
+        crude_fat = #{crudeFat,jdbcType=DECIMAL},
       </if>
       <if test="crudeFiber != null">
         crude_fiber = #{crudeFiber,jdbcType=DECIMAL},
@@ -832,7 +832,7 @@
       net_energy = #{netEnergy,jdbcType=DECIMAL},
       linolic_acid = #{linolicAcid,jdbcType=DECIMAL},
       crude_protein = #{crudeProtein,jdbcType=DECIMAL},
-      crude_fat = #{crudeFa,jdbcType=DECIMAL},
+      crude_fat = #{crudeFat,jdbcType=DECIMAL},
       crude_fiber = #{crudeFiber,jdbcType=DECIMAL},
       crude_ash = #{crudeAsh,jdbcType=DECIMAL},
       nertral_detergent_fiber = #{nertralDetergentFiber,jdbcType=DECIMAL},

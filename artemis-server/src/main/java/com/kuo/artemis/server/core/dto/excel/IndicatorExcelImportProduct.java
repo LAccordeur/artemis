@@ -32,9 +32,9 @@ public class IndicatorExcelImportProduct extends FileImportProduct {
         }
 
         IndicatorExcelImportDTO indicatorExcelImportDTO = ExcelHelper.parseIndicatorExcel(excelImportCommand);
-        this.setInitFieldList(indicatorExcelImportDTO.getIndicators());
+        this.setInitFieldList(indicatorExcelImportDTO.getInitFields());
         this.setClasses(indicatorExcelImportDTO.getClasses());
-        this.setItems(indicatorExcelImportDTO.getItems());
+        this.setItems(indicatorExcelImportDTO.getMultiItems());
         this.setFields(indicatorExcelImportDTO.getFields());
 
         return this;
