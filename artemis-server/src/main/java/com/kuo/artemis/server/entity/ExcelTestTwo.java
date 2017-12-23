@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.entity;
 
+@Deprecated
 public class ExcelTestTwo {
     private String university;
 

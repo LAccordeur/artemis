@@ -8,6 +8,7 @@ import java.util.Map;
  * @Description : 除指标excel文件外的excel解析后存储的数据结构类
  * @Date : Created on 2017/12/17
  */
+@Deprecated
 public class ExcelImportDTO {
 
     private List<String> fields;    //转换为驼峰类型的字段名

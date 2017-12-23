@@ -35,7 +35,7 @@ public class TypeBindFactory {
                 return (T) new Double((String) value);
         } else if ("java.math.BigDecimal".equals(clazzName)) {
             if ((String)value != null && !"".equals((String) value))
-                return (T) new BigDecimal((String) value);
+                return (T) new BigDecimal((String) value).setScale(5, BigDecimal.ROUND_HALF_EVEN);   //TODO bug可能点
         } else if ("java.lang.String".equals(clazzName)) {
             if ((String)value != null)
                 return (T) new String((String) value);

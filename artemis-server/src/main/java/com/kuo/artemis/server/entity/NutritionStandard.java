@@ -3,6 +3,7 @@ package com.kuo.artemis.server.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kuo.artemis.server.core.common.NutritionIndicator;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -136,6 +137,79 @@ public class NutritionStandard {
     private Date createTime;
 
     private Date modifiedTime;
+
+
+    @Override
+    public int hashCode() {
+        int hashCode = 2;
+        Field[] fields = NutritionStandard.class.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(NutritionIndicator.class)) {
+                field.setAccessible(true);
+                Object value = null;
+                try {
+                    value = field.get(this);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                hashCode = hashCode + (null == value ? 0 : value.hashCode());
+
+            }
+        }
+
+        return hashCode;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if ((obj == null) || (obj.getClass()) != this.getClass()) {
+            return false;
+        }
+
+        NutritionStandard comparedNutrition;
+        if (obj instanceof NutritionStandard) {
+            comparedNutrition = (NutritionStandard) obj;
+        } else {
+            return false;
+        }
+
+        Field[] fields = NutritionStandard.class.getDeclaredFields();
+
+        //依次比较它们带有注解的每个字段的值
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(NutritionIndicator.class)) {
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(this);
+                    Object comparedValue = field.get(comparedNutrition);
+
+                    if (value == null) {
+                        if (comparedValue != null) {
+                            return false;
+                        } else {
+                            continue;
+                        }
+                    } else if (value != null) {
+                        if (value.equals(comparedValue)) {
+                            continue;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public Integer getId() {
         return id;

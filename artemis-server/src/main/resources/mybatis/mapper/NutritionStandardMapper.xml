@@ -60,6 +60,10 @@
     create_time, modified_time
   </sql>
 
+  <select id="selectBaseNutritionStandards" resultType="NutritionStandard">
+    select * from base_nutrition_standard;
+  </select>
+
   <select id="selectByUserId" parameterType="Integer" resultType="NutritionStandard">
     select
     <include refid="Base_Column_List" />
@@ -75,6 +79,9 @@
   </select>
 
   <insert id="insertBatch" parameterType="List">
+    <!--<if test="userId != null" >
+      delete from nutrition_standard where user_id = #{userId};
+    </if>-->
     <foreach collection="list" item="item" index="index" separator=";">
     insert into nutrition_standard
     <trim prefix="(" suffix=")" suffixOverrides=",">

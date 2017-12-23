@@ -122,6 +122,10 @@
     create_time, modified_time
   </sql>
 
+  <select id="selectBaseMaterial" resultType="Material">
+    select * from base_material;
+  </select>
+
   <select id="selectByUserId" parameterType="java.lang.Integer" resultType="Material">
     select
     <include refid="Base_Column_List" />
@@ -159,6 +163,10 @@
   
 
   <insert id="insertBatch" parameterType="List">
+
+    <!--<if test="userId != null" >
+      delete from material where user_id = #{userId};
+    </if>-->
     <foreach collection="list" item="item" index="index" separator=";">
     insert into material
     <trim prefix="(" suffix=")" suffixOverrides=",">

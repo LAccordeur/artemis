@@ -1,7 +1,7 @@
 package com.kuo.artemis.server.entity;
 
 import java.util.Date;
-
+@Deprecated
 public class ExcelTest {
     private String name;
 

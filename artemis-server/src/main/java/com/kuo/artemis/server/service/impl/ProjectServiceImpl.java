@@ -43,6 +43,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Inject
     private UserMapper userMapper;
 
+    @Inject
+    private MaterialMapper materialMapper;
+
+    @Inject
+    private NutritionStandardMapper nutritionStandardMapper;
 
     /**
      * 创建一个课题
@@ -87,8 +92,24 @@ public class ProjectServiceImpl implements ProjectService {
         rolePermissionMapper.insertSelective(rolePermission);*/
 
 
+        //5.创建用户初始的原料库和指标库
+        List<Material> materialList = materialMapper.selectBaseMaterial();
+        for (Material material : materialList) {
+            material.setId(null);
+            material.setUserId(userId);
+        }
+        materialMapper.insertBatch(materialList);
+
+        List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectBaseNutritionStandards();
+        for (NutritionStandard nutritionStandard : nutritionStandardList) {
+            nutritionStandard.setId(null);
+            nutritionStandard.setUserId(userId);
+        }
+        nutritionStandardMapper.insertBatch(nutritionStandardList);
+
+
         rolePermissionMapper.insertBatch(rolePermissionList);
-        //5.创建用户角色关系
+        //6.创建用户角色关系
         int result = userRoleMapper.insertSelective(new UserRole(userId, newRoleId));
 
 

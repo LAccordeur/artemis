@@ -6,11 +6,15 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface MaterialMapper {
+
+    List<Material> selectBaseMaterial();
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Material record);
 
-    int insertBatch(List<Material> materialList);
+    //int insertBatch(@Param("list") List<Material> materialList, @Param("userId") Integer userId);
+    int insertBatch(@Param("list") List<Material> materialList);
 
     int insertSelective(Material record);
 

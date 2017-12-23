@@ -203,6 +203,44 @@ public final class ExcelUtil {
         return rowList;
     }
 
+    /**
+     * 将二维数组形式的Excel数据转换为返回类型
+     * @param initFields
+     * @param contexts
+     * @return
+     */
+    public static List<Map<String, Object>> listWithListToListWithMap(List<String> initFields, List<List<String>> contexts) {
+
+        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+
+        for (int i = 0; i < contexts.size(); i++) {
+
+            //一整行的数据
+            List<String> rowData = contexts.get(i);
+            //转为用一个map来表示，便于后期的对象转换
+            Map<String, Object> rowMap = new HashMap<String, Object>();
+            for (int j = 0; j < rowData.size(); j++) {
+                String initField = initFields.get(i);  //excel表中原始的字段名形式 比如init weight
+                String field = fieldFormat(initField);
+                Object value = rowData.get(j);
+                rowMap.put(field, value);
+            }
+
+            resultList.add(rowMap);
+        }
+
+        return resultList;
+    }
+
+    public static List<String> getFormatFieldList(List<String> initFields) {
+        List<String> formatFieldList = new ArrayList<String>();
+        for (int i = 0; i < initFields.size(); i++) {
+            String value = fieldFormat(initFields.get(i));
+            formatFieldList.add(value);
+        }
+
+        return formatFieldList;
+    }
 
 
     /**

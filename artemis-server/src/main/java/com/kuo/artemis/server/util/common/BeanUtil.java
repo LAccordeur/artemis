@@ -5,6 +5,8 @@ import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -25,6 +27,15 @@ public final class BeanUtil {
      */
     public static Map<String, Object> beanToMap(Object object) {
         return new BeanMap(object);
+    }
+
+    public static Annotation getFieldAnnotation(Field field, Class<? extends Annotation> clazz) {
+        if (field.isAnnotationPresent(clazz)) {
+            Annotation annotation = field.getAnnotation(clazz);
+            return annotation;
+        } else {
+            return null;
+        }
     }
 
     /**

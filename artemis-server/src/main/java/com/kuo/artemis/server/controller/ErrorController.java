@@ -3,8 +3,12 @@ package com.kuo.artemis.server.controller;
 import com.kuo.artemis.server.core.dto.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @Author : guoyang
@@ -27,9 +31,5 @@ public class ErrorController {
         return new Response(HttpStatus.NOT_FOUND.value(), "您进入了荒芜之地");
     }
 
-    @RequestMapping(value = "/test")
-    public Response test() {
 
-        return new Response(HttpStatus.NOT_FOUND.value(), "ce");
-    }
 }

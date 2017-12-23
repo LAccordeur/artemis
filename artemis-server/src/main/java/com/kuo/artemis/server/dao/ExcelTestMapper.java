@@ -4,6 +4,7 @@ import com.kuo.artemis.server.entity.ExcelTest;
 
 import java.util.List;
 
+@Deprecated
 public interface ExcelTestMapper extends BaseMapper {
     int insert(ExcelTest record);
 

@@ -21,30 +21,36 @@ public class ImportExcelTask implements Callable<Integer> {
 
     protected Logger logger = LoggerFactory.getLogger(ImportExcelTask.class);
 
-    private Iterator<Map.Entry<Class, List<Map<String, Object>>>> iterator; //获取导入任务的共享iterator
+    private Map<Class, List<Object>> map; //获取导入任务的共享map
+
+    private Iterator<Map.Entry<Class, List<Object>>> iterator;
 
     private List<BaseMapper> mappers;
 
 
     private ReentrantLock lock = new ReentrantLock();
 
-    public ImportExcelTask(Iterator<Map.Entry<Class, List<Map<String, Object>>>> iterator, List<BaseMapper> mappers) {
-        this.iterator = iterator;
-        this.mappers = mappers;
-    }
 
+    public ImportExcelTask(Map<Class, List<Object>> map, List<BaseMapper> mappers) {
+        this.map = map;
+        this.mappers = mappers;
+        this.iterator = map.entrySet().iterator();
+    }
 
     public Integer call() {
         Class key = null;
-        List<Map<String, Object>> value = null;
+        List<Object> value = null;
 
         //从iterator中获取一个需要插入的资源
         try {
             lock.lock();
             if (iterator.hasNext()) {
-                Map.Entry<Class, List<Map<String, Object>>> entry = iterator.next();
+                Map.Entry<Class, List<Object>> entry = iterator.next();
                 key = entry.getKey();
                 value = entry.getValue();
+            } else {
+                lock.unlock();
+                return 1;
             }
             logger.info("key:" + key.getSimpleName());
             logger.info("value:" + value.toString());
@@ -60,20 +66,18 @@ public class ImportExcelTask implements Callable<Integer> {
             }
         }
 
-        List resultList = new ArrayList();
-        for (int i = 0; i < value.size(); i++) {
-            try {
-                resultList.add(ExcelHelper.parseExcelRowToBean(key, value.get(i)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         int result = 0;
         for (BaseMapper mapper : mappers) {
             Class[] mapperInterfaces = mapper.getClass().getInterfaces();
             String mapperName = mapperInterfaces[0].getSimpleName();
             if (mapperName.equals(key.getSimpleName() + "Mapper")) {
-                result = mapper.insertBatch(resultList);
+                try {
+                    result = mapper.insertBatch(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    continue;
+                }
+                return result;
             }
         }
 

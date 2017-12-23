@@ -9,6 +9,7 @@ import java.util.Set;
  * @Description : 由于动物指标数据较为特殊 故采用了单独的一个类，用来保存 指标数据的Excel文件 解析后内容的数据结构类
  * @Date : Created on 2017/11/25
  */
+@Deprecated
 public class IndicatorExcelImportDTO extends ExcelImportDTO {
     private String filename;
 

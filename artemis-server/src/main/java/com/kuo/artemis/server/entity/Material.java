@@ -1,7 +1,9 @@
 package com.kuo.artemis.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.kuo.artemis.server.core.common.MaterialIndicator;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -12,189 +14,350 @@ public class Material {
 
     private String materialName;
 
+    @MaterialIndicator
     private BigDecimal materialPrice;
 
+    @MaterialIndicator
     private BigDecimal waterContentStandard;
 
+    @MaterialIndicator
     private BigDecimal waterContentActual;
 
+    @MaterialIndicator
     private BigDecimal dietaryElectrolyteBalance;
 
+    @MaterialIndicator
     private BigDecimal dietaryElectrolyteBalanceActual;
 
+    @MaterialIndicator
     private BigDecimal natrium;
 
+    @MaterialIndicator
     private BigDecimal natriumActual;
 
+    @MaterialIndicator
     private BigDecimal kalium;
 
+    @MaterialIndicator
     private BigDecimal kaliumActual;
 
+    @MaterialIndicator
     private BigDecimal chlorine;
 
+    @MaterialIndicator
     private BigDecimal chlorineActual;
 
+    @MaterialIndicator
     private BigDecimal digestiveEnergyStandard;
 
+    @MaterialIndicator
     private BigDecimal digestiveEnergyActual;
 
+    @MaterialIndicator
     private BigDecimal netEnergy;
 
+    @MaterialIndicator
     private BigDecimal netEnergyActual;
 
+    @MaterialIndicator
     private BigDecimal linolicAcid;
 
+    @MaterialIndicator
     private BigDecimal linolicAcidActual;
 
+    @MaterialIndicator
     private BigDecimal crudeProtein;
 
+    @MaterialIndicator
     private BigDecimal crudeProteinActual;
 
+    @MaterialIndicator
     private BigDecimal crudeFat;
 
+    @MaterialIndicator
     private BigDecimal crudeFatActual;
 
+    @MaterialIndicator
     private BigDecimal crudeFiber;
 
+    @MaterialIndicator
     private BigDecimal crudeFiberActual;
 
+    @MaterialIndicator
     private BigDecimal crudeAsh;
 
+    @MaterialIndicator
     private BigDecimal crudeAshActual;
 
+    @MaterialIndicator
     private BigDecimal nertralDetergentFiber;
 
+    @MaterialIndicator
     private BigDecimal neutralDetergentFiberActual;
 
+    @MaterialIndicator
     private BigDecimal acidDetergentFiber;
 
+    @MaterialIndicator
     private BigDecimal acidDetergentFiberActual;
 
+    @MaterialIndicator
     private BigDecimal calcium;
 
+    @MaterialIndicator
     private BigDecimal calciumActual;
 
+    @MaterialIndicator
     private BigDecimal totalPhosphor;
 
+    @MaterialIndicator
     private BigDecimal totalPhosphorActual;
 
+    @MaterialIndicator
     private BigDecimal availablePhosphor;
 
+    @MaterialIndicator
     private BigDecimal availablePhosphorActual;
 
+    @MaterialIndicator
     private BigDecimal lysine;
 
+    @MaterialIndicator
     private BigDecimal lysineActual;
 
+    @MaterialIndicator
     private BigDecimal methionine;
 
+    @MaterialIndicator
     private BigDecimal methionineActual;
 
+    @MaterialIndicator
     private BigDecimal tryptophan;
 
+    @MaterialIndicator
     private BigDecimal tryptophanActual;
 
+    @MaterialIndicator
     private BigDecimal threonine;
 
+    @MaterialIndicator
     private BigDecimal threonineActual;
 
+    @MaterialIndicator
     private BigDecimal valine;
 
+    @MaterialIndicator
     private BigDecimal valineActual;
 
+    @MaterialIndicator
     private BigDecimal arginine;
 
+    @MaterialIndicator
     private BigDecimal arginineActual;
 
+    @MaterialIndicator
     private BigDecimal isoleucine;
 
+    @MaterialIndicator
     private BigDecimal isoleucineActual;
 
+    @MaterialIndicator
     private BigDecimal leucine;
 
+    @MaterialIndicator
     private BigDecimal leucineActual;
 
+    @MaterialIndicator
     private BigDecimal cystine;
 
+    @MaterialIndicator
     private BigDecimal cystineActual;
 
+    @MaterialIndicator
     private BigDecimal methionineCystine;
 
+    @MaterialIndicator
     private BigDecimal methionineCystineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleLysine;
 
+    @MaterialIndicator
     private BigDecimal digestibleLysineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleMethionine;
 
+    @MaterialIndicator
     private BigDecimal digestibleMethionineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleTryptophan;
 
+    @MaterialIndicator
     private BigDecimal digestibleTryptophanActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleThreonine;
 
+    @MaterialIndicator
     private BigDecimal digestibleThreonineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleValine;
 
+    @MaterialIndicator
     private BigDecimal digestibleValineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleArginine;
 
+    @MaterialIndicator
     private BigDecimal digestibleArginineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleIsoleucine;
 
+    @MaterialIndicator
     private BigDecimal digestibleIsoleucineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleLeucine;
 
+    @MaterialIndicator
     private BigDecimal digestibleLeucineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleCystine;
 
+    @MaterialIndicator
     private BigDecimal digestibleCystineActual;
 
+    @MaterialIndicator
     private BigDecimal digestibleMethionineCystine;
 
+    @MaterialIndicator
     private BigDecimal digestibleMethionineCystineActual;
 
+    @MaterialIndicator
     private BigDecimal lysineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal methionineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal tryptophanDigestibility;
 
+    @MaterialIndicator
     private BigDecimal threonineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal valineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal arginineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal isoleucineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal leucineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal cystineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal methionineCystineDigestibility;
 
+    @MaterialIndicator
     private BigDecimal waterContentCoefficient;
 
+    @MaterialIndicator
     private BigDecimal crudeProteinCoefficient;
 
+    @MaterialIndicator
     private BigDecimal crudeFatCoefficient;
 
+    @MaterialIndicator
     private BigDecimal crudeFiberCoefficient;
 
+    @MaterialIndicator
     private BigDecimal crudeAshCoefficient;
 
     private Date createTime;
 
     private Date modifiedTime;
+
+    @Override
+    public int hashCode() {
+        int hashCode = 2;
+        Field[] fields = Material.class.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(MaterialIndicator.class)) {
+                field.setAccessible(true);
+                Object value = null;
+                try {
+                    value = field.get(this);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                hashCode = hashCode + (null == value ? 0 : value.hashCode());
+
+            }
+        }
+
+        return hashCode;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if ((obj == null) || (obj.getClass()) != this.getClass()) {
+            return false;
+        }
+
+        Material comparedMaterial;
+        if (obj instanceof Material) {
+            comparedMaterial = (Material) obj;
+        } else {
+            return false;
+        }
+
+        Field[] fields = Material.class.getDeclaredFields();
+
+        //依次比较它们带有注解的每个字段的值
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(MaterialIndicator.class)) {
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(this);
+                    Object comparedValue = field.get(comparedMaterial);
+
+                    if (value == null) {
+                        if (comparedValue != null) {
+                            return false;
+                        } else {
+                            continue;
+                        }
+                    } else if (value != null) {
+                        if (value.equals(comparedValue)) {
+                            continue;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public Integer getId() {
         return id;

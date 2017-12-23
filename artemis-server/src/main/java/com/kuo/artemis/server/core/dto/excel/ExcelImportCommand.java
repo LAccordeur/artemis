@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @Description :  TODO 后期可能会增加对指定范围内的Excel数据的导入的参数
  * @Date : Created on 2017/12/17
  */
+@Deprecated
 public class ExcelImportCommand extends FileImportCommand {
 
     private String filename;

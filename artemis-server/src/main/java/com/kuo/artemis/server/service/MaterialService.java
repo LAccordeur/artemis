@@ -4,6 +4,8 @@ package com.kuo.artemis.server.service;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.entity.Material;
 
+import java.util.List;
+
 /**
  * @author guoyang  TODO
  * @Description
@@ -54,4 +56,6 @@ public interface MaterialService {
      * @return
      */
     Response createNewMaterial(Material material, String userId);
+
+
 }

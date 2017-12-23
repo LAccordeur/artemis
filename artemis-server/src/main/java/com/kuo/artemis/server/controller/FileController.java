@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.controller;
 
+import com.kuo.artemis.server.core.dto.ArrayTest;
 import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.ExcelImportCommand;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author : guoyang
@@ -29,6 +31,14 @@ public class FileController {
 
     @Inject
     private FileService fileService;
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @ResponseBody
+    @Deprecated
+    public Response test(@RequestBody ArrayTest arrayList) {
+        System.out.println(arrayList);
+        return new Response(HttpStatus.OK.value(), "ce");
+    }
 
     @RequestMapping(value = "/excel/upload", method = RequestMethod.POST)
     @ResponseBody

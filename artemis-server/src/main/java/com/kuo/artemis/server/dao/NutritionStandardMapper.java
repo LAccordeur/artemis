@@ -6,13 +6,17 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface NutritionStandardMapper {
+
+    List<NutritionStandard> selectBaseNutritionStandards();
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(NutritionStandard record);
 
     int insertSelective(NutritionStandard record);
 
-    int insertBatch(List<NutritionStandard> nutritionStandardList);
+    //int insertBatch(@Param("list") List<NutritionStandard> nutritionStandardList, @Param("userId") Integer userId);
+    int insertBatch(@Param("list") List<NutritionStandard> nutritionStandardList);
 
     List<NutritionStandard> selectByUserId(@Param("userId") Integer userId);
 

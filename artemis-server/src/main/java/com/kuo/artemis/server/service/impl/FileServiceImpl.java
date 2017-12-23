@@ -100,23 +100,35 @@ public class FileServiceImpl implements FileService {
         if (animalList != null) {
             animalMapper.insertBatch(animalList);
         } else {
-            
+            return new Response(HttpStatus.BAD_REQUEST.value(), "缺少标识id");
+        }
+
+
+        List growthList = resultMap.get(AnimalGrowthRecord.class);
+        if (growthList != null) {
+            animalGrowthRecordMapper.insertBatch(growthList);
+        }
+
+        List gutList = resultMap.get(AnimalGutMicrobiotaRecord.class);
+        if (gutList != null) {
+            animalGutMicrobiotaRecordMapper.insertBatch(gutList);
         }
 
 
 
-        List<BaseMapper> mappers = new ArrayList<BaseMapper>();   //##BUG##  目前是写死的 后期需要动态加载
+        /*List<BaseMapper> mappers = new ArrayList<BaseMapper>();   //##BUG##  目前是写死的 后期需要动态加载
         mappers.add(animalGrowthRecordMapper);
         mappers.add(animalGutMicrobiotaRecordMapper);
-        mappers.add(animalMapper);
+        //mappers.add(animalMapper);
 
-        ImportExcelTask task = new ImportExcelTask(iterator, mappers);
+        resultMap.remove(Animal.class);
+        ImportExcelTask task = new ImportExcelTask(resultMap, mappers);
 
         List<Future<Integer>> futures = new ArrayList<Future<Integer>>();
         for (int i = 0; i < set.size(); i++) {
             Future<Integer> future = executorService.submit(task);
             futures.add(future);
-        }
+        }*/
 
         //4.更新文件上传记录
         FileRecord fileRecord = new FileRecord();
@@ -143,7 +155,7 @@ public class FileServiceImpl implements FileService {
         }
         excelFileDetailMapper.insertBatch(excelFileDetails);
 
-        //6.判断数据是否全部导入数据库中
+        /*//6.判断数据是否全部导入数据库中
         for (Future<Integer> future : futures) {
             if (future.isDone()) {
                 continue;
@@ -158,7 +170,7 @@ public class FileServiceImpl implements FileService {
             } else {
                 return new Response(HttpStatus.BAD_REQUEST.value(), "upload failure");
             }
-        }
+        }*/
 
         return new Response(indicatorExcelImportDTO.getItems(), HttpStatus.OK.value(), "upload success");
     }
@@ -182,6 +194,12 @@ public class FileServiceImpl implements FileService {
         }
 
         //3.将数据导入至数据库中
+        List<Material> materialListFromDB = materialMapper.selectByUserId(Integer.valueOf(command.getUserId()));
+        //TODO 剔除重复对象
+        Boolean removeResult = materialList.removeAll(materialListFromDB);
+        if (removeResult && materialList != null && materialList.size() == 0) {
+            return new Response(materialListFromDB, HttpStatus.NO_CONTENT.value(), "请勿添加重复数据");
+        }
         int result = materialMapper.insertBatch(materialList);
 
         //4.更新文件上传记录
@@ -218,7 +236,15 @@ public class FileServiceImpl implements FileService {
         }
 
         //3.将数据导入至数据库中
+        List<NutritionStandard> nutritionStandardListFromDB = nutritionStandardMapper.selectByUserId(Integer.valueOf(command.getUserId()));
+        //TODO 剔除重复对象
+        Boolean removeResult = nutritionStandardList.removeAll(nutritionStandardListFromDB);
+        if (removeResult && nutritionStandardList != null && nutritionStandardList.size() == 0) {
+            return new Response(nutritionStandardListFromDB, HttpStatus.NO_CONTENT.value(), "请勿添加重复数据");
+        }
+
         int result = nutritionStandardMapper.insertBatch(nutritionStandardList);
+
 
         //4.更新文件上传记录
         FileRecord fileRecord = new FileRecord();
@@ -237,7 +263,7 @@ public class FileServiceImpl implements FileService {
     }
 
 
-    @Deprecated
+    /*@Deprecated
     @Transactional(rollbackFor = Exception.class)
     public Response parseAndSaveExcelFile(FileImportCommand command) throws Exception {
 
@@ -267,7 +293,7 @@ public class FileServiceImpl implements FileService {
 
 
         return null;
-    }
+    }*/
 
     /**
      * 根据用户选择的指标导出数据录入的excel模板  TODO ##BUG## 1.未更新文件记录表（已解决）  2.未判断自定义字段是否已经使用完

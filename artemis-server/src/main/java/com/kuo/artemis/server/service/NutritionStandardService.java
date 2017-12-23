@@ -2,7 +2,10 @@ package com.kuo.artemis.server.service;
 
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.entity.NutritionStandard;
+
+import java.util.List;
 
 /**
  * @author guoyang  TODO
@@ -50,4 +53,11 @@ public interface NutritionStandardService {
      * @return
      */
     Response createNewNutritionStandard(NutritionStandard nutritionStandard, String userId);
+
+    /**
+     * 批量导入数据
+     * @param command
+     * @return
+     */
+    Response createBatchNutritionStandards(DataImportCommand command);
 }

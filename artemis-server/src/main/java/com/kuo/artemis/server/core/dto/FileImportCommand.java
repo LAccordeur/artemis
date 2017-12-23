@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @Description :  文件导入命令
  * @Date : Created on 2017/12/17
  */
+@Deprecated
 public class FileImportCommand {
 
     private MultipartFile file;    //需要导入的文件对象

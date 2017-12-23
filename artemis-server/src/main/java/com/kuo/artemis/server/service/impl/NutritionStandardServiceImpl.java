@@ -1,6 +1,8 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
+import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.NutritionStandardMapper;
 import com.kuo.artemis.server.entity.NutritionStandard;
 import com.kuo.artemis.server.service.NutritionStandardService;
@@ -25,7 +27,8 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
 
         List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectByUserId(Integer.valueOf(userId));
 
-        return new Response(nutritionStandardList, HttpStatus.OK.value(), "获取营养标准列表成功");
+        List<List<String>> result = DataHelper.objectListToArrayList(nutritionStandardList);
+        return new Response(result, HttpStatus.OK.value(), "获取营养标准列表成功");
     }
 
 
@@ -80,5 +83,14 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
             return new Response(HttpStatus.BAD_REQUEST.value(), "创建营养标准失败");
         }
 
+    }
+
+    public Response createBatchNutritionStandards(DataImportCommand command) {
+
+        String userId = command.getUserId();
+        List<List<String>> dataList = command.getDataList();
+
+
+        return null;
     }
 }

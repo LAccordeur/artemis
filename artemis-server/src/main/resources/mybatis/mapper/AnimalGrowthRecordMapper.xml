@@ -908,6 +908,9 @@
 	  <if test="item.projectId != null">
         #{item.projectId},
       </if>
+      <if test="item.userId != null">
+        #{item.userId},
+      </if>
       <if test="item.initialBw != null">
         #{item.initialBw},
       </if>
