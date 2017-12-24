@@ -1,16 +1,15 @@
 package com.kuo.artemis.server.core.helper;
 
+import com.kuo.artemis.server.core.common.MaterialIndicator;
 import com.kuo.artemis.server.core.common.NutritionIndicator;
-import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.file.ExcelUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.security.InvalidParameterException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -123,7 +122,7 @@ public class DataHelper {
         //添加表头
         List<String> fieldAnnotationValueList = new ArrayList<String>();
         for (Field field : fields) {
-            String value = getNutritionFieldAnnotationValue(field);
+            String value = getFieldAnnotationValue(field);
             if (value != null) {
                 fieldAnnotationValueList.add(value);
             } else {
@@ -132,6 +131,7 @@ public class DataHelper {
         }
         arrayList.add(fieldAnnotationValueList);
 
+        //添加表正文
         for (int i = 0; i < objectList.size(); i++) {
             T object = objectList.get(i);
             List<String> list = new ArrayList<String>();
@@ -146,6 +146,13 @@ public class DataHelper {
                 }
 
                 if (value != null) {
+
+                    //该值是日期型则对其进行格式转换
+                    if (Date.class.equals(value.getClass())) {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        value = dateFormat.format(value);
+                    }
+
                     list.add(String.valueOf(value));
                 } else {
                     list.add("");
@@ -208,12 +215,41 @@ public class DataHelper {
     }
 
 
-    public static String getNutritionFieldAnnotationValue(Field field) {
-        NutritionIndicator annotation = (NutritionIndicator) BeanUtil.getFieldAnnotation(field, NutritionIndicator.class);
-        if (annotation != null) {
-            return annotation.name();
-        } else {
-            return null;
+    public static String getFieldAnnotationValue(Field field) {
+
+        Annotation[] annotations = field.getDeclaredAnnotations();
+        Annotation firstAnnotation = annotations[0];
+
+
+        //TODO  是否转为简单工厂
+        if (NutritionIndicator.class.equals(firstAnnotation.annotationType())) {
+            NutritionIndicator annotation = (NutritionIndicator) BeanUtil.getFieldAnnotation(field, NutritionIndicator.class);
+            if (annotation != null) {
+                return annotation.name();
+            } else {
+                return null;
+            }
+        } else if (MaterialIndicator.class.equals(firstAnnotation.annotationType())) {
+            MaterialIndicator annotation = (MaterialIndicator) BeanUtil.getFieldAnnotation(field, MaterialIndicator.class);
+            if (annotation != null) {
+                return annotation.name();
+            } else {
+                return null;
+            }
         }
+
+        return null;
     }
+
+
+    public static List listNewCreateItems(List items, List identities) {
+
+
+
+
+        return null;
+    }
+
+
+
 }

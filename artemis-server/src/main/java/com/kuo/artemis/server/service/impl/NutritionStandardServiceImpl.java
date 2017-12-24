@@ -25,14 +25,20 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
 
     public Response listNutritionStandards(String userId) {
 
+        if (userId == null || "".equals(userId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
         List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectByUserId(Integer.valueOf(userId));
 
-        List<List<String>> result = DataHelper.objectListToArrayList(nutritionStandardList);
-        return new Response(result, HttpStatus.OK.value(), "获取营养标准列表成功");
+        //List<List<String>> result = DataHelper.objectListToArrayList(nutritionStandardList);
+        return new Response(nutritionStandardList, HttpStatus.OK.value(), "获取营养标准列表成功");
     }
 
 
     public Response getNutritionStandardDetail(String nutritionStandardId) {
+        if (nutritionStandardId == null || "".equals(nutritionStandardId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
 
         NutritionStandard nutritionStandard = nutritionStandardMapper.selectByPrimaryKey(Integer.valueOf(nutritionStandardId));
 
@@ -40,6 +46,9 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
     }
 
     public Response listNutritionStandardsBrief(String userId) {
+        if (userId == null || "".equals(userId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
 
         List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectBriefByUserId(Integer.valueOf(userId));
 
@@ -48,6 +57,9 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
 
     public Response updateNutritionStandardDetail(NutritionStandard nutritionStandard, String userId) {
         //nutritionStandard.setUserId(Integer.valueOf(userId));
+        if (userId == null || "".equals(userId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
 
         int result = nutritionStandardMapper.updateByPrimaryKeySelective(nutritionStandard);
 
@@ -61,6 +73,9 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
     }
 
     public Response deleteNutritionStandard(String nutritionStandardId) {
+        if (nutritionStandardId == null || "".equals(nutritionStandardId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
 
         int result = nutritionStandardMapper.deleteByPrimaryKey(Integer.valueOf(nutritionStandardId));
 
@@ -73,6 +88,9 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
     }
 
     public Response createNewNutritionStandard(NutritionStandard nutritionStandard, String userId) {
+        if (userId == null || "".equals(userId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
 
         nutritionStandard.setUserId(Integer.valueOf(userId));
         int result = nutritionStandardMapper.insertSelective(nutritionStandard);

@@ -182,6 +182,7 @@ public class LinearProgramming {
         result.setStatus(status);
 
         //7.设置返回结果
+        //TODO  decimalFormat改为单例模式
         DecimalFormat decimalFormat = new DecimalFormat("0.000000");
         //目标变量系数
         List<Double> resultVarValueList = new ArrayList<Double>();

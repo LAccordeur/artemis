@@ -24,6 +24,8 @@ public interface NutritionStandardMapper {
 
     NutritionStandard selectByPrimaryKey(Integer id);
 
+    int updateBatch(List<NutritionStandard> nutritionStandardList);
+
     int updateByPrimaryKeySelective(NutritionStandard record);
 
     int updateByPrimaryKey(NutritionStandard record);

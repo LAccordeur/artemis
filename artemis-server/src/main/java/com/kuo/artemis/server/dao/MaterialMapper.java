@@ -26,6 +26,8 @@ public interface MaterialMapper {
 
     Material selectByPrimaryKey(Integer id);
 
+    int updateBatch(List<Material> materialList);
+
     int updateByPrimaryKeySelective(Material record);
 
     int updateByPrimaryKey(Material record);

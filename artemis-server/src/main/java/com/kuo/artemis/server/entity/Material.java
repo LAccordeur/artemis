@@ -8,284 +8,289 @@ import java.math.BigDecimal;
 import java.util.Date;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class Material {
+    @MaterialIndicator(isIndicator = false, name = "原料id", isIdentity = false)
     private Integer id;
 
+    @MaterialIndicator(isIndicator = false, name = "原料创建者id", isIdentity = false)
     private Integer userId;
 
+    @MaterialIndicator(isIndicator = false, name = "原料名称")
     private String materialName;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "价格")
     private BigDecimal materialPrice;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "标准水份(%)")
     private BigDecimal waterContentStandard;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际水份(%)")
     private BigDecimal waterContentActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "电解质平衡值")
     private BigDecimal dietaryElectrolyteBalance;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际电解质平衡值")
     private BigDecimal dietaryElectrolyteBalanceActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "钠Na(%)")
     private BigDecimal natrium;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际钠Na(%)")
     private BigDecimal natriumActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "钾K(%)")
     private BigDecimal kalium;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际钾K(%)")
     private BigDecimal kaliumActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "氯Cl(%)")
     private BigDecimal chlorine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际氯Cl(%)")
     private BigDecimal chlorineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "标准消化能DE kcal/kg")
     private BigDecimal digestiveEnergyStandard;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际消化能DE kcal/kg")
     private BigDecimal digestiveEnergyActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "净能NE kcal/kg")
     private BigDecimal netEnergy;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际净能NE kcal/kg")
     private BigDecimal netEnergyActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "亚油酸(%)")
     private BigDecimal linolicAcid;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际亚油酸(%)")
     private BigDecimal linolicAcidActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗蛋白质CP(%)")
     private BigDecimal crudeProtein;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际粗蛋白质CP(%)")
     private BigDecimal crudeProteinActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗脂肪EE(%)")
     private BigDecimal crudeFat;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际粗脂肪EE(%)")
     private BigDecimal crudeFatActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗纤维CF(%)")
     private BigDecimal crudeFiber;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际粗纤维CF(%)")
     private BigDecimal crudeFiberActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗灰分Ash(%)")
     private BigDecimal crudeAsh;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际粗灰分Ash(%)")
     private BigDecimal crudeAshActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "中性洗涤纤维NDF(%)")
     private BigDecimal nertralDetergentFiber;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际中性洗涤纤维NDF(%)")
     private BigDecimal neutralDetergentFiberActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "酸性洗涤纤维ADF(%)")
     private BigDecimal acidDetergentFiber;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际酸性洗涤纤维ADF(%)")
     private BigDecimal acidDetergentFiberActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "钙Ca(%)")
     private BigDecimal calcium;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际钙Ca(%)")
     private BigDecimal calciumActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "总磷P(%)")
     private BigDecimal totalPhosphor;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际总磷P(%)")
     private BigDecimal totalPhosphorActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "有效磷A-P(%)")
     private BigDecimal availablePhosphor;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际有效磷A-P(%)")
     private BigDecimal availablePhosphorActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "赖氨酸Lys(%)")
     private BigDecimal lysine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际赖氨酸Lys(%)")
     private BigDecimal lysineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "蛋氨酸Met(%)")
     private BigDecimal methionine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际蛋氨酸Met(%)")
     private BigDecimal methionineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "色氨酸Trp(%)")
     private BigDecimal tryptophan;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际色氨酸Trp(%)")
     private BigDecimal tryptophanActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "苏氨酸Thr(%)")
     private BigDecimal threonine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际苏氨酸Thr(%)")
     private BigDecimal threonineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "缬氨酸Val(%)")
     private BigDecimal valine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际缬氨酸Val(%)")
     private BigDecimal valineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "精氨酸Arg(%)")
     private BigDecimal arginine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际精氨酸Arg(%)")
     private BigDecimal arginineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "异亮氨酸Ile(%)")
     private BigDecimal isoleucine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际异亮氨酸Ile(%)")
     private BigDecimal isoleucineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "亮氨酸Leu(%)")
     private BigDecimal leucine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际亮氨酸Leu(%)")
     private BigDecimal leucineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "胱氨酸Cys(%)")
     private BigDecimal cystine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际胱氨酸Cys(%)")
     private BigDecimal cystineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "蛋+胱 (%)")
     private BigDecimal methionineCystine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际蛋+胱 (%)")
     private BigDecimal methionineCystineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化赖氨酸Lys(%)")
     private BigDecimal digestibleLysine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化赖氨酸Lys(%)")
     private BigDecimal digestibleLysineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化蛋氨酸Met(%)")
     private BigDecimal digestibleMethionine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化蛋氨酸Met(%)")
     private BigDecimal digestibleMethionineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化色氨酸Trp(%)")
     private BigDecimal digestibleTryptophan;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化色氨酸Trp(%)")
     private BigDecimal digestibleTryptophanActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化苏氨酸Thr(%)")
     private BigDecimal digestibleThreonine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化苏氨酸Thr(%)")
     private BigDecimal digestibleThreonineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化缬氨酸Val(%)")
     private BigDecimal digestibleValine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化缬氨酸Val(%)")
     private BigDecimal digestibleValineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化精氨酸Arg(%)")
     private BigDecimal digestibleArginine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化精氨酸Arg(%)")
     private BigDecimal digestibleArginineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化异亮氨酸Ile(%)")
     private BigDecimal digestibleIsoleucine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化异亮氨酸Ile(%)")
     private BigDecimal digestibleIsoleucineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化亮氨酸Leu(%)")
     private BigDecimal digestibleLeucine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化亮氨酸Leu(%)")
     private BigDecimal digestibleLeucineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化胱氨酸Cys(%)")
     private BigDecimal digestibleCystine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化胱氨酸Cys(%)")
     private BigDecimal digestibleCystineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "可消化蛋+胱氨酸(%)")
     private BigDecimal digestibleMethionineCystine;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "实际可消化蛋+胱氨酸(%)")
     private BigDecimal digestibleMethionineCystineActual;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "赖氨酸Lys消化率(%)")
     private BigDecimal lysineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "蛋氨酸Met消化率(%)")
     private BigDecimal methionineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "色氨酸Trp消化率(%)")
     private BigDecimal tryptophanDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "苏氨酸Thr消化率(%)")
     private BigDecimal threonineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "缬氨酸Val消化率(%)")
     private BigDecimal valineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "精氨酸Arg消化率(%)")
     private BigDecimal arginineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "异亮氨酸Ile消化率(%)")
     private BigDecimal isoleucineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "亮氨酸Leu消化率(%)")
     private BigDecimal leucineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "胱氨酸Cys消化率(%)")
     private BigDecimal cystineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "蛋+胱消化率(%)")
     private BigDecimal methionineCystineDigestibility;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "水分系数消化率(%)")
     private BigDecimal waterContentCoefficient;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗蛋白系数消化率(%)")
     private BigDecimal crudeProteinCoefficient;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗脂肪系数消化率(%)")
     private BigDecimal crudeFatCoefficient;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗纤维系数消化率(%)")
     private BigDecimal crudeFiberCoefficient;
 
-    @MaterialIndicator
+    @MaterialIndicator(name = "粗灰分系数消化率(%)")
     private BigDecimal crudeAshCoefficient;
 
+    @MaterialIndicator(isIndicator = false, name = "创建日期", isIdentity = false)
     private Date createTime;
 
+    @MaterialIndicator(isIndicator = false, name = "修改日期", isIdentity = false)
     private Date modifiedTime;
 
     @Override
@@ -294,14 +299,17 @@ public class Material {
         Field[] fields = Material.class.getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(MaterialIndicator.class)) {
-                field.setAccessible(true);
-                Object value = null;
-                try {
-                    value = field.get(this);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                MaterialIndicator annotation = field.getAnnotation(MaterialIndicator.class);
+                if (annotation.isIdentity()) {
+                    field.setAccessible(true);
+                    Object value = null;
+                    try {
+                        value = field.get(this);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                    hashCode = hashCode + (null == value ? 0 : value.hashCode());
                 }
-                hashCode = hashCode + (null == value ? 0 : value.hashCode());
 
             }
         }
@@ -331,28 +339,31 @@ public class Material {
         //依次比较它们带有注解的每个字段的值
         for (Field field : fields) {
             if (field.isAnnotationPresent(MaterialIndicator.class)) {
-                field.setAccessible(true);
-                try {
-                    Object value = field.get(this);
-                    Object comparedValue = field.get(comparedMaterial);
+                MaterialIndicator annotation = field.getAnnotation(MaterialIndicator.class);
+                if (annotation.isIdentity()) {
+                    field.setAccessible(true);
+                    try {
+                        Object value = field.get(this);
+                        Object comparedValue = field.get(comparedMaterial);
 
-                    if (value == null) {
-                        if (comparedValue != null) {
-                            return false;
-                        } else {
-                            continue;
+                        if (value == null) {
+                            if (comparedValue != null) {
+                                return false;
+                            } else {
+                                continue;
+                            }
+                        } else if (value != null) {
+                            if (value.equals(comparedValue)) {
+                                continue;
+                            } else {
+                                return false;
+                            }
                         }
-                    } else if (value != null) {
-                        if (value.equals(comparedValue)) {
-                            continue;
-                        } else {
-                            return false;
-                        }
+
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                        return false;
                     }
-
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    return false;
                 }
             }
         }

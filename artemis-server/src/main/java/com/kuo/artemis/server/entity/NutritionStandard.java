@@ -9,12 +9,16 @@ import java.util.Date;
 
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class NutritionStandard {
+    @NutritionIndicator(isIndicator = false, name = "营养标准id", isIdentity = false)
     private Integer id;
 
+    @NutritionIndicator(isIndicator = false, name = "营养标准创建者id", isIdentity = false)
     private Integer userId;
 
+    @NutritionIndicator(isIndicator = false, name = "营养标准编号")
     private String nutritionStandardCode;
 
+    @NutritionIndicator(isIndicator = false, name = "营养标准名称")
     private String nutritionStandardName;
 
     @NutritionIndicator(name = "标准水份(%)")
@@ -134,8 +138,10 @@ public class NutritionStandard {
     @NutritionIndicator(name = "可消化蛋+胱氨酸(%)")
     private BigDecimal digestibleMethionineCystine;
 
+    @NutritionIndicator(isIndicator = false, name = "创建日期", isIdentity = false)
     private Date createTime;
 
+    @NutritionIndicator(isIndicator = false, name = "修改日期", isIdentity = false)
     private Date modifiedTime;
 
 
@@ -144,16 +150,19 @@ public class NutritionStandard {
         int hashCode = 2;
         Field[] fields = NutritionStandard.class.getDeclaredFields();
         for (Field field : fields) {
-            if (field.isAnnotationPresent(NutritionIndicator.class)) {
-                field.setAccessible(true);
-                Object value = null;
-                try {
-                    value = field.get(this);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                hashCode = hashCode + (null == value ? 0 : value.hashCode());
 
+            if (field.isAnnotationPresent(NutritionIndicator.class)) {
+                NutritionIndicator annotation = field.getAnnotation(NutritionIndicator.class);
+                if (annotation.isIdentity()) {  //该字段
+                    field.setAccessible(true);
+                    Object value = null;
+                    try {
+                        value = field.get(this);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                    hashCode = hashCode + (null == value ? 0 : value.hashCode());
+                }
             }
         }
 
@@ -183,28 +192,31 @@ public class NutritionStandard {
         //依次比较它们带有注解的每个字段的值
         for (Field field : fields) {
             if (field.isAnnotationPresent(NutritionIndicator.class)) {
-                field.setAccessible(true);
-                try {
-                    Object value = field.get(this);
-                    Object comparedValue = field.get(comparedNutrition);
+                NutritionIndicator annotation = field.getAnnotation(NutritionIndicator.class);
+                if (annotation.isIdentity()) {  //该字段是营养指标字段
+                    field.setAccessible(true);
+                    try {
+                        Object value = field.get(this);
+                        Object comparedValue = field.get(comparedNutrition);
 
-                    if (value == null) {
-                        if (comparedValue != null) {
-                            return false;
-                        } else {
-                            continue;
+                        if (value == null) {
+                            if (comparedValue != null) {
+                                return false;
+                            } else {
+                                continue;
+                            }
+                        } else if (value != null) {
+                            if (value.equals(comparedValue)) {
+                                continue;
+                            } else {
+                                return false;
+                            }
                         }
-                    } else if (value != null) {
-                        if (value.equals(comparedValue)) {
-                            continue;
-                        } else {
-                            return false;
-                        }
+
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                        return false;
                     }
-
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    return false;
                 }
             }
         }

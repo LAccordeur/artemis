@@ -823,6 +823,150 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <update id="updateBatch" parameterType="List">
+    <foreach collection="list" item="item" index="index" separator=";">
+    update nutrition_standard
+    <set>
+      <if test="userId != null">
+        user_id = #{item.userId},
+      </if>
+      <if test="nutritionStandardCode != null">
+        nutrition_standard_code = #{item.nutritionStandardCode},
+      </if>
+      <if test="nutritionStandardName != null">
+        nutrition_standard_name = #{item.nutritionStandardName},
+      </if>
+      <if test="waterContentStandard != null">
+        water_content_standard = #{item.waterContentStandard},
+      </if>
+      <if test="waterContentActual != null">
+        water_content_actual = #{item.waterContentActual},
+      </if>
+      <if test="dietaryElectrolyteBalance != null">
+        dietary_electrolyte_balance = #{item.dietaryElectrolyteBalance},
+      </if>
+      <if test="natrium != null">
+        natrium = #{item.natrium},
+      </if>
+      <if test="kalium != null">
+        kalium = #{item.kalium},
+      </if>
+      <if test="chlorine != null">
+        chlorine = #{item.chlorine},
+      </if>
+      <if test="digestiveEnergyStandard != null">
+        digestive_energy_standard = #{item.digestiveEnergyStandard},
+      </if>
+      <if test="digestiveEnergyActual != null">
+        digestive_energy_actual = #{item.digestiveEnergyActual},
+      </if>
+      <if test="netEnergy != null">
+        net_energy = #{item.netEnergy},
+      </if>
+      <if test="linolicAcid != null">
+        linolic_acid = #{item.linolicAcid},
+      </if>
+      <if test="crudeProtein != null">
+        crude_protein = #{item.crudeProtein},
+      </if>
+      <if test="crudeFat != null">
+        crude_fat = #{item.crudeFat},
+      </if>
+      <if test="crudeFiber != null">
+        crude_fiber = #{item.crudeFiber},
+      </if>
+      <if test="crudeAsh != null">
+        crude_ash = #{item.crudeAsh},
+      </if>
+      <if test="nertralDetergentFiber != null">
+        nertral_detergent_fiber = #{item.nertralDetergentFiber},
+      </if>
+      <if test="acidDetergentFiber != null">
+        acid_detergent_fiber = #{item.acidDetergentFiber},
+      </if>
+      <if test="calcium != null">
+        calcium = #{item.calcium},
+      </if>
+      <if test="totalPhosphor != null">
+        total_phosphor = #{item.totalPhosphor},
+      </if>
+      <if test="availablePhosphor != null">
+        available_phosphor = #{item.availablePhosphor},
+      </if>
+      <if test="lysine != null">
+        lysine = #{item.lysine},
+      </if>
+      <if test="methionine != null">
+        methionine = #{item.methionine},
+      </if>
+      <if test="tryptophan != null">
+        tryptophan = #{item.tryptophan},
+      </if>
+      <if test="threonine != null">
+        threonine = #{item.threonine},
+      </if>
+      <if test="valine != null">
+        valine = #{item.valine},
+      </if>
+      <if test="arginine != null">
+        arginine = #{item.arginine},
+      </if>
+      <if test="isoleucine != null">
+        isoleucine = #{item.isoleucine},
+      </if>
+      <if test="leucine != null">
+        leucine = #{item.leucine},
+      </if>
+      <if test="cystine != null">
+        cystine = #{item.cystine},
+      </if>
+      <if test="methionineCystine != null">
+        methionine_cystine = #{item.methionineCystine},
+      </if>
+      <if test="digestibleLysine != null">
+        digestible_lysine = #{item.digestibleLysine},
+      </if>
+      <if test="digestibleMethionine != null">
+        digestible_methionine = #{item.digestibleMethionine},
+      </if>
+      <if test="digestibleTryptophan != null">
+        digestible_tryptophan = #{item.digestibleTryptophan},
+      </if>
+      <if test="digestibleThreonine != null">
+        digestible_threonine = #{item.digestibleThreonine},
+      </if>
+      <if test="digestibleValine != null">
+        digestible_valine = #{item.digestibleValine},
+      </if>
+      <if test="digestibleArginine != null">
+        digestible_arginine = #{item.digestibleArginine},
+      </if>
+      <if test="digestibleIsoleucine != null">
+        digestible_isoleucine = #{item.digestibleIsoleucine},
+      </if>
+      <if test="digestibleLeucine != null">
+        digestible_leucine = #{item.digestibleLeucine},
+      </if>
+      <if test="digestibleCystine != null">
+        digestible_cystine = #{item.digestibleCystine},
+      </if>
+      <if test="digestibleMethionineCystine != null">
+        digestible_methionine_cystine = #{item.digestibleMethionineCystine},
+      </if>
+      <if test="createTime != null">
+        create_time = #{item.createTime},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{item.modifiedTime},
+      </if>
+    </set>
+    where id = #{item.id}
+    </foreach>
+  </update>
+  
+  
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.NutritionStandard">
     update nutrition_standard
     set user_id = #{userId,jdbcType=INTEGER},

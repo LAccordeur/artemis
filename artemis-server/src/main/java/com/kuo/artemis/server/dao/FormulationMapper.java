@@ -2,6 +2,7 @@ package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.Formulation;
 import org.apache.ibatis.annotations.Param;
+import sun.misc.FormattedFloatingDecimal;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface FormulationMapper {
 
     Integer selectIdByFormulationName(@Param("formulationName") String formulationName);
 
-    List<String> selectFormulationNamesByProjectId(@Param("projectId") String projectId);
+    List<Formulation> selectFormulationNamesByProjectId(@Param("projectId") Integer projectId);
 
     Formulation selectByPrimaryKey(Integer id);
 

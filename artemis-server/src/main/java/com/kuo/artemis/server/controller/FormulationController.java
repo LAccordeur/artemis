@@ -25,8 +25,14 @@ public class FormulationController {
 
     @Authority(value = PermissionConst.VIEW_DATA_FORMULA)
     @ResponseBody
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Response listFormulations(String projectId) {
+        return formulationService.listFormulations(projectId);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/list/brief", method = RequestMethod.GET)
-    public Response listFormulationsBrief(String projectId) {
+    public Response listFormulationsNames(String projectId) {
         return formulationService.listFormulationNames(projectId);
     }
 

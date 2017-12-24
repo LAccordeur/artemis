@@ -18,6 +18,15 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class ExcelTestMapperTest {
     @Test
+    public void selectMultiObject() throws Exception {
+        List<Integer> ids = new ArrayList<Integer>();
+        ids.add(1);
+        ids.add(2);
+        ids.add(3);
+        System.out.println(excelTestMapper.selectMultiObject(ids).size());
+    }
+
+    @Test
     public void selectSelective() throws Exception {
         List<String> columns = new ArrayList<String>();
         columns.add("name");

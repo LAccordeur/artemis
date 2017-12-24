@@ -24,6 +24,12 @@
     excel_test
   </select>
 
+  <select id="selectMultiObject" parameterType="List" resultType="NutritionStandard">
+    <foreach collection="list" item="item" index="index" separator=";">
+      select * from base_nutrition_standard where id = #{item}
+    </foreach>
+  </select>
+
   <insert id="insertBatch" parameterType="List">
     insert into excel_test (name, score, age, birthday) values
 

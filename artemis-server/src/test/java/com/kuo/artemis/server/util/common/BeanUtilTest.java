@@ -1,8 +1,11 @@
 package com.kuo.artemis.server.util.common;
 
+import com.kuo.artemis.server.core.common.NutritionIndicator;
 import com.kuo.artemis.server.entity.Animal;
+import com.kuo.artemis.server.entity.Material;
 import org.junit.Test;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,6 +18,12 @@ public class BeanUtilTest {
     @Test
     public void isContainChinese() throws Exception {
 
+        System.out.println(NutritionIndicator.class);
+        Material material = new Material();
+        Field[] fields = material.getClass().getDeclaredFields();
+        Annotation[] annotations = fields[0].getAnnotations();
+        System.out.println(annotations[0].getClass());
+        System.out.println(annotations[0].annotationType());
         System.out.println(BeanUtil.isContainChinese("fs人ad"));
     }
 

@@ -27,9 +27,9 @@
     select id from formulation where formulation_name = #{formulationName}
   </select>
 
-  <select id="selectFormulationNamesByProjectId" parameterType="java.lang.Integer" resultType="String">
+  <select id="selectFormulationNamesByProjectId" parameterType="java.lang.Integer" resultType="Formulation">
     select
-    formulation_name
+    id, formulation_name, modified_time
     from formulation
     where
     project_id = #{projectId}

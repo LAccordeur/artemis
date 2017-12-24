@@ -15,7 +15,7 @@ public class NutritionStandardTest {
     public void equalsTest() throws Exception {
         NutritionStandard nutritionStandard = new NutritionStandard();
         nutritionStandard.setCalcium(new BigDecimal("4"));
-        nutritionStandard.setArginine(new BigDecimal("3"));
+        //nutritionStandard.setArginine(new BigDecimal("3"));
         NutritionStandard nutritionStandard1 = new NutritionStandard();
         nutritionStandard1.setCalcium(new BigDecimal("4"));
 
