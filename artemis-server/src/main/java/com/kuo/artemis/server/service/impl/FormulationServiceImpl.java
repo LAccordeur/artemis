@@ -4,6 +4,7 @@ import com.kuo.artemis.server.core.common.NutritionIndicator;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.formulation.FormulationParams;
 import com.kuo.artemis.server.core.dto.formulation.FormulationResult;
+import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.kuo.artemis.server.core.math.LinearProgramming;
 import com.kuo.artemis.server.core.math.LinearProgrammingResult;
 import com.kuo.artemis.server.dao.*;
@@ -231,7 +232,8 @@ public class FormulationServiceImpl implements FormulationService {
         List<Double> resultValue = result.getVariableValueList();
 
         //TODO decimalFormat改为单例模式
-        DecimalFormat decimalFormat = new DecimalFormat("0.000000");
+        //DecimalFormat decimalFormat = new DecimalFormat("0.000000");
+        DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
         for (int i = 0; i < resultValue.size(); i++) {
             FormulationMaterial formulationMaterial = new FormulationMaterial();
             Material material = materialList.get(i);

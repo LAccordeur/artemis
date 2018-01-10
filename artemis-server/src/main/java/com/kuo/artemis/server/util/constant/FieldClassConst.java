@@ -13,19 +13,6 @@ public class FieldClassConst {
 
     static {
 
-
-
-
-        fieldClassMap.put("name", ExcelTest.class);
-        fieldClassMap.put("score", ExcelTest.class);
-        fieldClassMap.put("age", ExcelTest.class);
-        fieldClassMap.put("userName", User.class);
-        fieldClassMap.put("userPhone", User.class);
-        fieldClassMap.put("userEmail", User.class);
-        fieldClassMap.put("university", ExcelTestTwo.class);
-        fieldClassMap.put("school", ExcelTestTwo.class);
-        fieldClassMap.put("grade", ExcelTestTwo.class);
-
         //TODO  剩余指标建表后  需添加到set中
         clazzSet.add(Animal.class);
         clazzSet.add(AnimalGutMicrobiotaRecord.class);

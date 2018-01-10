@@ -18,4 +18,6 @@ public interface AnimalGutMicrobiotaRecordMapper extends BaseMapper {
     int updateByPrimaryKey(AnimalGutMicrobiotaRecord record);
 
     int insertBatch(List rows);
+
+    int updateBatch(List rows);
 }

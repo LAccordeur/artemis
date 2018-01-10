@@ -18,4 +18,6 @@ public interface AnimalMapper extends BaseMapper {
     int updateByPrimaryKey(Animal record);
 
     int insertBatch(List rows);
+
+    int updateBatch(List rows);
 }

@@ -1,7 +1,11 @@
 package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.dao.BaseMapper;
 import com.kuo.artemis.server.entity.UserProjectKey;
+import com.kuo.artemis.server.service.impl.UserInvitationApplicationServiceImpl;
+
+import java.io.Serializable;
 
 public interface UserInvitationApplicationService {
 

@@ -287,4 +287,52 @@
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateBatch" parameterType="List">
+    <foreach collection="list" index="index" item="item" separator=";">
+    update animal
+    <set>
+      <if test="item.animalTypeId != null">
+        animal_type_id = #{item.animalTypeId},
+      </if>
+      <if test="item.userId != null">
+        user_id = #{item.userId},
+      </if>
+      <if test="item.projectId != null">
+        project_id = #{item.projectId},
+      </if>
+      <if test="item.animalSex != null">
+        animal_sex = #{item.animalSex},
+      </if>
+      <if test="item.animalInitWeight != null">
+        animal_init_weight = #{item.animalInitWeight},
+      </if>
+      <if test="item.house != null">
+        house = #{item.house},
+      </if>
+      <if test="item.code != null">
+        code = #{item.code},
+      </if>
+      <if test="item.idNumber != null">
+        id_number = #{item.idNumber},
+      </if>
+      <if test="item.treatment != null">
+        treatment = #{item.treatment},
+      </if>
+      <if test="item.replicate != null">
+        replicate = #{item.replicate},
+      </if>
+      <if test="item.animalBirthday != null">
+        animal_birthday = #{item.animalBirthday},
+      </if>
+      <if test="item.createTime != null">
+        create_time = #{item.createTime},
+      </if>
+      <if test="item.modifiedTime != null">
+        modified_time = #{item.modifiedTime},
+      </if>
+    </set>
+    where id = #{item.id}
+    </foreach>
+  </update>
 </mapper>

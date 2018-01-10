@@ -10,5 +10,7 @@ public interface AnimalIndicatorRecordMapper {
 
     int insertSelective(AnimalIndicatorRecord record);
 
+    int selectLastestVersion(@Param("projectId") String projectId);
+
     List<AnimalIndicatorRecord> selectSelective(@Param("list") List<String> columns, @Param("projectId") String projectId);
 }

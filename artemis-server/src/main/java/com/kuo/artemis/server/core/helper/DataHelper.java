@@ -242,13 +242,6 @@ public class DataHelper {
     }
 
 
-    public static List listNewCreateItems(List items, List identities) {
-
-
-
-
-        return null;
-    }
 
 
 

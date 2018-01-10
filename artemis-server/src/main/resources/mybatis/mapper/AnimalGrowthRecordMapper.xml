@@ -3578,6 +3578,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.AnimalGrowthRecord">
     update animal_growth_record
     set animal_id = #{animalId,jdbcType=VARCHAR},
@@ -3790,5 +3791,641 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateBatch" parameterType="List">
+    <foreach collection="list" item="item" index="index" separator=";">
+    update animal_growth_record
+    <set>
+      <if test="item.animalId != null">
+        animal_id = #{item.animalId},
+      </if>
+      <if test="item.projectId != null">
+        project_id = #{item.projectId},
+      </if>
+      <if test="item.userId != null">
+        user_id = #{item.userId},
+      </if>
+      <if test="item.initialBw != null">
+        initial_bw = #{item.initialBw},
+      </if>
+      <if test="item.bwWeek1 != null">
+        bw_week1 = #{item.bwWeek1},
+      </if>
+      <if test="item.bwWeek2 != null">
+        bw_week2 = #{item.bwWeek2},
+      </if>
+      <if test="item.bwWeek3 != null">
+        bw_week3 = #{item.bwWeek3},
+      </if>
+      <if test="item.bwWeek4 != null">
+        bw_week4 = #{item.bwWeek4},
+      </if>
+      <if test="item.bwWeek5 != null">
+        bw_week5 = #{item.bwWeek5},
+      </if>
+      <if test="item.bwWeek6 != null">
+        bw_week6 = #{item.bwWeek6},
+      </if>
+      <if test="item.bwWeek7 != null">
+        bw_week7 = #{item.bwWeek7},
+      </if>
+      <if test="item.bwWeek8 != null">
+        bw_week8 = #{item.bwWeek8},
+      </if>
+      <if test="item.bwWeek9 != null">
+        bw_week9 = #{item.bwWeek9},
+      </if>
+      <if test="item.bwWeek10 != null">
+        bw_week10 = #{item.bwWeek10},
+      </if>
+      <if test="item.bwWeek11 != null">
+        bw_week11 = #{item.bwWeek11},
+      </if>
+      <if test="item.bwWeek12 != null">
+        bw_week12 = #{item.bwWeek12},
+      </if>
+      <if test="item.bwWeek13 != null">
+        bw_week13 = #{item.bwWeek13},
+      </if>
+      <if test="item.bwWeek14 != null">
+        bw_week14 = #{item.bwWeek14},
+      </if>
+      <if test="item.bwWeek15 != null">
+        bw_week15 = #{item.bwWeek15},
+      </if>
+      <if test="item.bwWeek16 != null">
+        bw_week16 = #{item.bwWeek16},
+      </if>
+      <if test="item.bwWeek17 != null">
+        bw_week17 = #{item.bwWeek17},
+      </if>
+      <if test="item.bwWeek18 != null">
+        bw_week18 = #{item.bwWeek18},
+      </if>
+      <if test="item.bwWeek19 != null">
+        bw_week19 = #{item.bwWeek19},
+      </if>
+      <if test="item.bwWeek20 != null">
+        bw_week20 = #{item.bwWeek20},
+      </if>
+      <if test="item.bwWeek21 != null">
+        bw_week21 = #{item.bwWeek21},
+      </if>
+      <if test="item.bwWeek22 != null">
+        bw_week22 = #{item.bwWeek22},
+      </if>
+      <if test="item.bwWeek23 != null">
+        bw_week23 = #{item.bwWeek23},
+      </if>
+      <if test="item.adgWeek1 != null">
+        adg_week1 = #{item.adgWeek1},
+      </if>
+      <if test="item.phase1Bw != null">
+        phase1_bw = #{item.phase1Bw},
+      </if>
+      <if test="item.phase2Bw != null">
+        phase2_bw = #{item.phase2Bw},
+      </if>
+      <if test="item.phase3Bw != null">
+        phase3_bw = #{item.phase3Bw},
+      </if>
+      <if test="item.phase4Bw != null">
+        phase4_bw = #{item.phase4Bw},
+      </if>
+      <if test="item.phase5Bw != null">
+        phase5_bw = #{item.phase5Bw},
+      </if>
+      <if test="item.bwWeek24 != null">
+        bw_week24 = #{item.bwWeek24},
+      </if>
+      <if test="item.adgWeek2 != null">
+        adg_week2 = #{item.adgWeek2},
+      </if>
+      <if test="item.adgWeek3 != null">
+        adg_week3 = #{item.adgWeek3},
+      </if>
+      <if test="item.adgWeek4 != null">
+        adg_week4 = #{item.adgWeek4},
+      </if>
+      <if test="item.adgWeek5 != null">
+        adg_week5 = #{item.adgWeek5},
+      </if>
+      <if test="item.adgWeek6 != null">
+        adg_week6 = #{item.adgWeek6},
+      </if>
+      <if test="item.adgWeek7 != null">
+        adg_week7 = #{item.adgWeek7},
+      </if>
+      <if test="item.adgWeek8 != null">
+        adg_week8 = #{item.adgWeek8},
+      </if>
+      <if test="item.adgWeek9 != null">
+        adg_week9 = #{item.adgWeek9},
+      </if>
+      <if test="item.adgWeek10 != null">
+        adg_week10 = #{item.adgWeek10},
+      </if>
+      <if test="item.adgWeek11 != null">
+        adg_week11 = #{item.adgWeek11},
+      </if>
+      <if test="item.adgWeek12 != null">
+        adg_week12 = #{item.adgWeek12},
+      </if>
+      <if test="item.adgWeek13 != null">
+        adg_week13 = #{item.adgWeek13},
+      </if>
+      <if test="item.adgWeek14 != null">
+        adg_week14 = #{item.adgWeek14},
+      </if>
+      <if test="item.adgWeek15 != null">
+        adg_week15 = #{item.adgWeek15},
+      </if>
+      <if test="item.adgWeek16 != null">
+        adg_week16 = #{item.adgWeek16},
+      </if>
+      <if test="item.adgWeek17 != null">
+        adg_week17 = #{item.adgWeek17},
+      </if>
+      <if test="item.adgWeek18 != null">
+        adg_week18 = #{item.adgWeek18},
+      </if>
+      <if test="item.adgWeek19 != null">
+        adg_week19 = #{item.adgWeek19},
+      </if>
+      <if test="item.adgWeek20 != null">
+        adg_week20 = #{item.adgWeek20},
+      </if>
+      <if test="item.adgWeek21 != null">
+        adg_week21 = #{item.adgWeek21},
+      </if>
+      <if test="item.adgWeek22 != null">
+        adg_week22 = #{item.adgWeek22},
+      </if>
+      <if test="item.adgWeek23 != null">
+        adg_week23 = #{item.adgWeek23},
+      </if>
+      <if test="item.adgWeek24 != null">
+        adg_week24 = #{item.adgWeek24},
+      </if>
+      <if test="item.phase1Adg != null">
+        phase1_adg = #{item.phase1Adg},
+      </if>
+      <if test="item.phase2Adg != null">
+        phase2_adg = #{item.phase2Adg},
+      </if>
+      <if test="item.phase3Adg != null">
+        phase3_adg = #{item.phase3Adg},
+      </if>
+      <if test="item.phase4Adg != null">
+        phase4_adg = #{item.phase4Adg},
+      </if>
+      <if test="item.phase5Adg != null">
+        phase5_adg = #{item.phase5Adg},
+      </if>
+      <if test="item.feedSuppliedWeek1 != null">
+        feed_supplied_week1 = #{item.feedSuppliedWeek1},
+      </if>
+      <if test="item.residualWeek1 != null">
+        residual_week1 = #{item.residualWeek1},
+      </if>
+      <if test="item.deedLossWeek1 != null">
+        deed_loss_week1 = #{item.deedLossWeek1},
+      </if>
+      <if test="item.adfiWeek1 != null">
+        adfi_week1 = #{item.adfiWeek1},
+      </if>
+      <if test="item.feedSuppliedWeek2 != null">
+        feed_supplied_week2 = #{item.feedSuppliedWeek2},
+      </if>
+      <if test="item.residualWeek2 != null">
+        residual_week2 = #{item.residualWeek2},
+      </if>
+      <if test="item.deedLossWeek2 != null">
+        deed_loss_week2 = #{item.deedLossWeek2},
+      </if>
+      <if test="item.adfiWeek2 != null">
+        adfi_week2 = #{item.adfiWeek2},
+      </if>
+      <if test="item.feedSuppliedWeek3 != null">
+        feed_supplied_week3 = #{item.feedSuppliedWeek3},
+      </if>
+      <if test="item.residualWeek3 != null">
+        residual_week3 = #{item.residualWeek3},
+      </if>
+      <if test="item.deedLossWeek3 != null">
+        deed_loss_week3 = #{item.deedLossWeek3},
+      </if>
+      <if test="item.adfiWeek3 != null">
+        adfi_week3 = #{item.adfiWeek3},
+      </if>
+      <if test="item.feedSuppliedWeek4 != null">
+        feed_supplied_week4 = #{item.feedSuppliedWeek4},
+      </if>
+      <if test="item.residualWeek4 != null">
+        residual_week4 = #{item.residualWeek4},
+      </if>
+      <if test="item.deedLossWeek4 != null">
+        deed_loss_week4 = #{item.deedLossWeek4},
+      </if>
+      <if test="item.adfiWeek4 != null">
+        adfi_week4 = #{item.adfiWeek4},
+      </if>
+      <if test="item.feedSuppliedWeek5 != null">
+        feed_supplied_week5 = #{item.feedSuppliedWeek5},
+      </if>
+      <if test="item.residualWeek5 != null">
+        residual_week5 = #{item.residualWeek5},
+      </if>
+      <if test="item.deedLossWeek5 != null">
+        deed_loss_week5 = #{item.deedLossWeek5},
+      </if>
+      <if test="item.adfiWeek5 != null">
+        adfi_week5 = #{item.adfiWeek5},
+      </if>
+      <if test="item.feedSuppliedWeek6 != null">
+        feed_supplied_week6 = #{item.feedSuppliedWeek6},
+      </if>
+      <if test="item.residualWeek6 != null">
+        residual_week6 = #{item.residualWeek6},
+      </if>
+      <if test="item.deedLossWeek6 != null">
+        deed_loss_week6 = #{item.deedLossWeek6},
+      </if>
+      <if test="item.adfiWeek6 != null">
+        adfi_week6 = #{item.adfiWeek6},
+      </if>
+      <if test="item.feedSuppliedWeek7 != null">
+        feed_supplied_week7 = #{item.feedSuppliedWeek7},
+      </if>
+      <if test="item.residualWeek7 != null">
+        residual_week7 = #{item.residualWeek7},
+      </if>
+      <if test="item.deedLossWeek7 != null">
+        deed_loss_week7 = #{item.deedLossWeek7},
+      </if>
+      <if test="item.adfiWeek7 != null">
+        adfi_week7 = #{item.adfiWeek7},
+      </if>
+      <if test="item.feedSuppliedWeek8 != null">
+        feed_supplied_week8 = #{item.feedSuppliedWeek8},
+      </if>
+      <if test="item.residualWeek8 != null">
+        residual_week8 = #{item.residualWeek8},
+      </if>
+      <if test="item.deedLossWeek8 != null">
+        deed_loss_week8 = #{item.deedLossWeek8},
+      </if>
+      <if test="item.adfiWeek8 != null">
+        adfi_week8 = #{item.adfiWeek8},
+      </if>
+      <if test="item.feedSuppliedWeek9 != null">
+        feed_supplied_week9 = #{item.feedSuppliedWeek9},
+      </if>
+      <if test="item.residualWeek9 != null">
+        residual_week9 = #{item.residualWeek9},
+      </if>
+      <if test="item.deedLossWeek9 != null">
+        deed_loss_week9 = #{item.deedLossWeek9},
+      </if>
+      <if test="item.adfiWeek9 != null">
+        adfi_week9 = #{item.adfiWeek9},
+      </if>
+      <if test="item.feedSuppliedWeek10 != null">
+        feed_supplied_week10 = #{item.feedSuppliedWeek10},
+      </if>
+      <if test="item.residualWeek10 != null">
+        residual_week10 = #{item.residualWeek10},
+      </if>
+      <if test="item.deedLossWeek10 != null">
+        deed_loss_week10 = #{item.deedLossWeek10},
+      </if>
+      <if test="item.adfiWeek10 != null">
+        adfi_week10 = #{item.adfiWeek10},
+      </if>
+      <if test="item.feedSuppliedWeek11 != null">
+        feed_supplied_week11 = #{item.feedSuppliedWeek11},
+      </if>
+      <if test="item.residualWeek11 != null">
+        residual_week11 = #{item.residualWeek11},
+      </if>
+      <if test="item.deedLossWeek11 != null">
+        deed_loss_week11 = #{item.deedLossWeek11},
+      </if>
+      <if test="item.adfiWeek11 != null">
+        adfi_week11 = #{item.adfiWeek11},
+      </if>
+      <if test="item.feedSuppliedWeek12 != null">
+        feed_supplied_week12 = #{item.feedSuppliedWeek12},
+      </if>
+      <if test="item.residualWeek12 != null">
+        residual_week12 = #{item.residualWeek12},
+      </if>
+      <if test="item.deedLossWeek12 != null">
+        deed_loss_week12 = #{item.deedLossWeek12},
+      </if>
+      <if test="item.adfiWeek12 != null">
+        adfi_week12 = #{item.adfiWeek12},
+      </if>
+      <if test="item.feedSuppliedWeek13 != null">
+        feed_supplied_week13 = #{item.feedSuppliedWeek13},
+      </if>
+      <if test="item.residualWeek13 != null">
+        residual_week13 = #{item.residualWeek13},
+      </if>
+      <if test="item.deedLossWeek13 != null">
+        deed_loss_week13 = #{item.deedLossWeek13},
+      </if>
+      <if test="item.adfiWeek13 != null">
+        adfi_week13 = #{item.adfiWeek13},
+      </if>
+      <if test="item.feedSuppliedWeek14 != null">
+        feed_supplied_week14 = #{item.feedSuppliedWeek14},
+      </if>
+      <if test="item.residualWeek14 != null">
+        residual_week14 = #{item.residualWeek14},
+      </if>
+      <if test="item.deedLossWeek14 != null">
+        deed_loss_week14 = #{item.deedLossWeek14},
+      </if>
+      <if test="item.adfiWeek14 != null">
+        adfi_week14 = #{item.adfiWeek14},
+      </if>
+      <if test="item.feedSuppliedWeek15 != null">
+        feed_supplied_week15 = #{item.feedSuppliedWeek15},
+      </if>
+      <if test="item.residualWeek15 != null">
+        residual_week15 = #{item.residualWeek15},
+      </if>
+      <if test="item.deedLossWeek15 != null">
+        deed_loss_week15 = #{item.deedLossWeek15},
+      </if>
+      <if test="item.adfiWeek15 != null">
+        adfi_week15 = #{item.adfiWeek15},
+      </if>
+      <if test="item.feedSuppliedWeek16 != null">
+        feed_supplied_week16 = #{item.feedSuppliedWeek16},
+      </if>
+      <if test="item.residualWeek16 != null">
+        residual_week16 = #{item.residualWeek16},
+      </if>
+      <if test="item.deedLossWeek16 != null">
+        deed_loss_week16 = #{item.deedLossWeek16},
+      </if>
+      <if test="item.adfiWeek16 != null">
+        adfi_week16 = #{item.adfiWeek16},
+      </if>
+      <if test="item.feedSuppliedWeek17 != null">
+        feed_supplied_week17 = #{item.feedSuppliedWeek17},
+      </if>
+      <if test="item.residualWeek17 != null">
+        residual_week17 = #{item.residualWeek17},
+      </if>
+      <if test="item.deedLossWeek17 != null">
+        deed_loss_week17 = #{item.deedLossWeek17},
+      </if>
+      <if test="item.adfiWeek17 != null">
+        adfi_week17 = #{item.adfiWeek17},
+      </if>
+      <if test="item.feedSuppliedWeek18 != null">
+        feed_supplied_week18 = #{item.feedSuppliedWeek18},
+      </if>
+      <if test="item.residualWeek18 != null">
+        residual_week18 = #{item.residualWeek18},
+      </if>
+      <if test="item.deedLossWeek18 != null">
+        deed_loss_week18 = #{item.deedLossWeek18},
+      </if>
+      <if test="item.adfiWeek18 != null">
+        adfi_week18 = #{item.adfiWeek18},
+      </if>
+      <if test="item.feedSuppliedWeek19 != null">
+        feed_supplied_week19 = #{item.feedSuppliedWeek19},
+      </if>
+      <if test="item.residualWeek19 != null">
+        residual_week19 = #{item.residualWeek19},
+      </if>
+      <if test="item.deedLossWeek19 != null">
+        deed_loss_week19 = #{item.deedLossWeek19},
+      </if>
+      <if test="item.adfiWeek19 != null">
+        adfi_week19 = #{item.adfiWeek19},
+      </if>
+      <if test="item.feedSuppliedWeek20 != null">
+        feed_supplied_week20 = #{item.feedSuppliedWeek20},
+      </if>
+      <if test="item.residualWeek20 != null">
+        residual_week20 = #{item.residualWeek20},
+      </if>
+      <if test="item.deedLossWeek20 != null">
+        deed_loss_week20 = #{item.deedLossWeek20},
+      </if>
+      <if test="item.adfiWeek20 != null">
+        adfi_week20 = #{item.adfiWeek20},
+      </if>
+      <if test="item.feedSuppliedWeek21 != null">
+        feed_supplied_week21 = #{item.feedSuppliedWeek21},
+      </if>
+      <if test="item.residualWeek21 != null">
+        residual_week21 = #{item.residualWeek21},
+      </if>
+      <if test="item.deedLossWeek21 != null">
+        deed_loss_week21 = #{item.deedLossWeek21},
+      </if>
+      <if test="item.adfiWeek21 != null">
+        adfi_week21 = #{item.adfiWeek21},
+      </if>
+      <if test="item.feedSuppliedWeek22 != null">
+        feed_supplied_week22 = #{item.feedSuppliedWeek22},
+      </if>
+      <if test="item.residualWeek22 != null">
+        residual_week22 = #{item.residualWeek22},
+      </if>
+      <if test="item.deedLossWeek22 != null">
+        deed_loss_week22 = #{item.deedLossWeek22},
+      </if>
+      <if test="item.adfiWeek22 != null">
+        adfi_week22 = #{item.adfiWeek22},
+      </if>
+      <if test="item.feedSuppliedWeek23 != null">
+        feed_supplied_week23 = #{item.feedSuppliedWeek23},
+      </if>
+      <if test="item.residualWeek23 != null">
+        residual_week23 = #{item.residualWeek23},
+      </if>
+      <if test="item.deedLossWeek23 != null">
+        deed_loss_week23 = #{item.deedLossWeek23},
+      </if>
+      <if test="item.adfiWeek23 != null">
+        adfi_week23 = #{item.adfiWeek23},
+      </if>
+      <if test="item.feedSuppliedWeek24 != null">
+        feed_supplied_week24 = #{item.feedSuppliedWeek24},
+      </if>
+      <if test="item.residualWeek24 != null">
+        residual_week24 = #{item.residualWeek24},
+      </if>
+      <if test="item.deedLossWeek24 != null">
+        deed_loss_week24 = #{item.deedLossWeek24},
+      </if>
+      <if test="item.adfiWeek24 != null">
+        adfi_week24 = #{item.adfiWeek24},
+      </if>
+      <if test="item.phase1FeedSupplied != null">
+        phase1_feed_supplied = #{item.phase1FeedSupplied},
+      </if>
+      <if test="item.phase1Residual != null">
+        phase1_residual = #{item.phase1Residual},
+      </if>
+      <if test="item.phase1FeedLoss != null">
+        phase1_feed_loss = #{item.phase1FeedLoss},
+      </if>
+      <if test="item.phase1Adfi != null">
+        phase1_adfi = #{item.phase1Adfi},
+      </if>
+      <if test="item.phase2FeedSupplied != null">
+        phase2_feed_supplied = #{item.phase2FeedSupplied},
+      </if>
+      <if test="item.phase2Residual != null">
+        phase2_residual = #{item.phase2Residual},
+      </if>
+      <if test="item.phase2FeedLoss != null">
+        phase2_feed_loss = #{item.phase2FeedLoss},
+      </if>
+      <if test="item.phase2Adfi != null">
+        phase2_adfi = #{item.phase2Adfi},
+      </if>
+      <if test="item.phase3FeedSupplied != null">
+        phase3_feed_supplied = #{item.phase3FeedSupplied},
+      </if>
+      <if test="item.phase3Residual != null">
+        phase3_residual = #{item.phase3Residual},
+      </if>
+      <if test="item.phase3FeedLoss != null">
+        phase3_feed_loss = #{item.phase3FeedLoss},
+      </if>
+      <if test="item.phase3Adfi != null">
+        phase3_adfi = #{item.phase3Adfi},
+      </if>
+      <if test="item.phase4FeedSupplied != null">
+        phase4_feed_supplied = #{item.phase4FeedSupplied},
+      </if>
+      <if test="item.phase4Residual != null">
+        phase4_residual = #{item.phase4Residual},
+      </if>
+      <if test="item.phase4FeedLoss != null">
+        phase4_feed_loss = #{item.phase4FeedLoss},
+      </if>
+      <if test="item.phase4Adfi != null">
+        phase4_adfi = #{item.phase4Adfi},
+      </if>
+      <if test="item.phase5FeedSupplied != null">
+        phase5_feed_supplied = #{item.phase5FeedSupplied},
+      </if>
+      <if test="item.phase5Residual != null">
+        phase5_residual = #{item.phase5Residual},
+      </if>
+      <if test="item.phase5FeedLoss != null">
+        phase5_feed_loss = #{item.phase5FeedLoss},
+      </if>
+      <if test="item.phase5Adfi != null">
+        phase5_adfi = #{item.phase5Adfi},
+      </if>
+      <if test="item.fcrWeek1 != null">
+        fcr_week1 = #{item.fcrWeek1},
+      </if>
+      <if test="item.fcrWeek2 != null">
+        fcr_week2 = #{item.fcrWeek2},
+      </if>
+      <if test="item.fcrWeek3 != null">
+        fcr_week3 = #{item.fcrWeek3},
+      </if>
+      <if test="item.fcrWeek4 != null">
+        fcr_week4 = #{item.fcrWeek4},
+      </if>
+      <if test="item.fcrWeek5 != null">
+        fcr_week5 = #{item.fcrWeek5},
+      </if>
+      <if test="item.fcrWeek6 != null">
+        fcr_week6 = #{item.fcrWeek6},
+      </if>
+      <if test="item.fcrWeek7 != null">
+        fcr_week7 = #{item.fcrWeek7},
+      </if>
+      <if test="item.fcrWeek8 != null">
+        fcr_week8 = #{item.fcrWeek8},
+      </if>
+      <if test="item.fcrWeek9 != null">
+        fcr_week9 = #{item.fcrWeek9},
+      </if>
+      <if test="item.fcrWeek10 != null">
+        fcr_week10 = #{item.fcrWeek10},
+      </if>
+      <if test="item.fcrWeek11 != null">
+        fcr_week11 = #{item.fcrWeek11},
+      </if>
+      <if test="item.fcrWeek12 != null">
+        fcr_week12 = #{item.fcrWeek12},
+      </if>
+      <if test="item.fcrWeek13 != null">
+        fcr_week13 = #{item.fcrWeek13},
+      </if>
+      <if test="item.fcrWeek14 != null">
+        fcr_week14 = #{item.fcrWeek14},
+      </if>
+      <if test="item.fcrWeek15 != null">
+        fcr_week15 = #{item.fcrWeek15},
+      </if>
+      <if test="item.fcrWeek16 != null">
+        fcr_week16 = #{item.fcrWeek16},
+      </if>
+      <if test="item.fcrWeek17 != null">
+        fcr_week17 = #{item.fcrWeek17},
+      </if>
+      <if test="item.fcrWeek18 != null">
+        fcr_week18 = #{item.fcrWeek18},
+      </if>
+      <if test="item.fcrWeek19 != null">
+        fcr_week19 = #{item.fcrWeek19},
+      </if>
+      <if test="item.fcrWeek20 != null">
+        fcr_week20 = #{item.fcrWeek20},
+      </if>
+      <if test="item.fcrWeek21 != null">
+        fcr_week21 = #{item.fcrWeek21},
+      </if>
+      <if test="item.fcrWeek22 != null">
+        fcr_week22 = #{item.fcrWeek22},
+      </if>
+      <if test="item.fcrWeek23 != null">
+        fcr_week23 = #{item.fcrWeek23},
+      </if>
+      <if test="item.fcrWeek24 != null">
+        fcr_week24 = #{item.fcrWeek24},
+      </if>
+      <if test="item.phase1Fcr != null">
+        phase1_fcr = #{item.phase1Fcr},
+      </if>
+      <if test="item.phase2Fcr != null">
+        phase2_fcr = #{item.phase2Fcr},
+      </if>
+      <if test="item.phase3Fcr != null">
+        phase3_fcr = #{item.phase3Fcr},
+      </if>
+      <if test="item.phase4Fcr != null">
+        phase4_fcr = #{item.phase4Fcr},
+      </if>
+      <if test="item.phase5Fcr != null">
+        phase5_fcr = #{item.phase5Fcr},
+      </if>
+      <if test="item.createTime != null">
+        create_time = #{item.createTime},
+      </if>
+      <if test="item.modifiedTime != null">
+        modified_time = #{item.modifiedTime},
+      </if>
+    </set>
+    where id = #{item.id}
+    </foreach>
   </update>
 </mapper>
