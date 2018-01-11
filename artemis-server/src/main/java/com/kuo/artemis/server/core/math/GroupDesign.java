@@ -12,14 +12,15 @@ import java.util.*;
  */
 public class GroupDesign {
 
+    private static final Random random = new Random();
 
     /**
-     * 完全随机区组设计，在每个区组内对个试验单元以随机方式实施不同处理  TODO 对数据进行判断看是否满足完全随机区组的要求
+     * 不考虑性别的情况下的完全随机区组设计，在每个区组内对个试验单元以随机方式实施不同处理  TODO 对数据进行判断看是否满足完全随机区组的要求
      * @param animals
      * @param param
      * @return
      */
-    public static GroupDesignResult groupByRandomizedCompleteBlockDesign(List<Animal> animals, GroupDesignParam param) {
+    public static GroupDesignResult groupByRCBWithoutGender(List<Animal> animals, GroupDesignParam param) {
         GroupDesignResult result = new GroupDesignResult();
 
         //1.对动物数据按体重从大到小排序
@@ -53,7 +54,128 @@ public class GroupDesign {
     }
 
     /**
-     * 同一区组内进行随机分配处理组（考虑变异系数的情况）
+     * 在考虑性别的情况下，采用Gender balanced pens方式进行的完全随机区组分组
+     * @param animalList
+     * @param treatmentNum
+     * @param unitMaleNum
+     * @param unitFemaleNum
+     * @param replicationNum
+     * @param coefficientAllowance
+     * @param maximumLoop
+     */
+    public static void groupByRCBWithGenderBalance(List<Animal> animalList, int treatmentNum, int unitMaleNum, int unitFemaleNum, int replicationNum, Double coefficientAllowance, int maximumLoop) {
+
+        randomGroupByGenderBalance(animalList, treatmentNum, unitMaleNum, unitFemaleNum, replicationNum);
+        boolean isSatisfied = checkCoefficientVariation(animalList, unitMaleNum + unitFemaleNum, coefficientAllowance);
+        if (isSatisfied) {
+            return;
+        }
+
+        Collections.sort(animalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o1.getReplicate().compareTo(o2.getReplicate());
+            }
+        });
+
+        int groupCount = treatmentNum * (unitFemaleNum + unitMaleNum);
+        for (int i = 0; i < replicationNum; i++) {
+            List<Animal> animalGroup = animalList.subList(i*groupCount, (i+1)*groupCount);
+            multiRandomInGroupByGender(animalList, treatmentNum, unitMaleNum, unitFemaleNum, i+1, coefficientAllowance, maximumLoop);
+        }
+    }
+
+
+    /**
+     * 考虑性别的情况下，通过Gender as blocking factor的方式来进行完全随机区组分组
+     * @param animalList
+     * @param treatmentNum
+     * @param maleReplicationNum
+     * @param femaleReplicationNum
+     * @param unitNum
+     * @param coefficientAllowance
+     * @param maximumLoop
+     */
+    public static void groupByRCBWithGenderAsBlockingFactor(List<Animal> animalList, int treatmentNum, int maleReplicationNum, int femaleReplicationNum, int unitNum, Double coefficientAllowance, int maximumLoop) {
+        //1.按性别进行排序（雄性在前，雌性在后）
+        Collections.sort(animalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o1.getAnimalSex().compareTo(o2.getAnimalSex());
+            }
+        });
+
+        int maleAnimalNum = unitNum * treatmentNum * maleReplicationNum;
+        int femaleAnimalNum = unitNum * treatmentNum * femaleReplicationNum;
+
+        //2.分别获取雄性雌性动物列表
+        List<Animal> maleAnimalList = animalList.subList(0, maleAnimalNum);
+        List<Animal> femaleAnimalList = animalList.subList(maleAnimalNum, animalList.size());  //TODO 数目写死了
+
+        //3.分别对两个动物集进行分组
+        int groupCount = treatmentNum * unitNum;
+        for (int i = 0; i < maleReplicationNum; i++) {
+            List<Animal> animalGroup = maleAnimalList.subList(i*groupCount, (i+1)*groupCount);
+            multiRandomInGroup(animalGroup, treatmentNum, unitNum, i+1, coefficientAllowance, maximumLoop);
+        }
+
+        for (int i = 0; i < femaleReplicationNum; i++) {
+            List<Animal> animalGroup = femaleAnimalList.subList(i*groupCount, (i+1)*groupCount);
+            multiRandomInGroup(animalGroup, treatmentNum, unitNum, maleReplicationNum+i+1, coefficientAllowance, maximumLoop);
+        }
+
+        for (Animal animal : animalList) {
+            System.out.println(animal);
+        }
+
+    }
+
+
+    /**
+     * 将动物集分成雌雄两部分来进行多个区组下的分组（效果等效于针对每个区组分别进行分组）
+     * @param animalList
+     * @param treatmentNum
+     * @param unitMaleNum
+     * @param unitFemaleNum
+     * @param replicationNum
+     */
+    private static void randomGroupByGenderBalance(List<Animal> animalList, int treatmentNum, int unitMaleNum, int unitFemaleNum, int replicationNum) {
+        //1.按性别进行排序（雄性在前，雌性在后）
+        Collections.sort(animalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o1.getAnimalSex().compareTo(o2.getAnimalSex());
+            }
+        });
+
+        //2.对于雄性动物组和雌性动物组分别进行处理组的随机分配
+        int totalMaleNum = unitMaleNum * treatmentNum;    //每个区组中雄性的总个数
+        int totalFemaleNum = unitFemaleNum * treatmentNum;
+        List<Animal> maleAnimalList = animalList.subList(0,totalMaleNum*replicationNum);
+        Collections.sort(maleAnimalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+            }
+        });
+        List<Animal> femaleAnimalList = animalList.subList(totalMaleNum*replicationNum, animalList.size());
+        Collections.sort(femaleAnimalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+            }
+        });
+
+        for (int i = 0; i < replicationNum; i++) {
+            List<Animal> animalGroup = maleAnimalList.subList(i*totalMaleNum, (i+1)*totalMaleNum);
+            randomInGroup(animalGroup, treatmentNum, unitMaleNum, i+1);
+        }
+
+        for (int i = 0; i < replicationNum; i++) {
+            List<Animal> animalGroup = femaleAnimalList.subList(i*totalFemaleNum, (i+1)*totalFemaleNum);
+            randomInGroup(animalGroup, treatmentNum, unitFemaleNum, i+1);
+        }
+
+    }
+
+
+    /**
+     * 同一区组内进行随机分配处理组（考虑变异系数的情况）（不考虑每个处理组中的性别分布）
      * @param animalList
      * @param treatmentNum
      * @param unitNum
@@ -79,6 +201,31 @@ public class GroupDesign {
     }
 
     /**
+     * 同一区组内进行随机分配处理组（考虑变异系数的情况）（考虑每个处理组中的性别分布）（此方法只针对完全随机区组设计）
+     * @param animalList  需保证该区组内的动物雄雌的个数是符合条件的
+     * @param treatmentNum
+     * @param unitMaleNum
+     * @param unitFemaleNum
+     * @param replication
+     * @param coefficientVariationAllowance
+     * @param maximumLoop
+     */
+    private static void multiRandomInGroupByGender(List<Animal> animalList, int treatmentNum, int unitMaleNum, int unitFemaleNum, int replication, Double coefficientVariationAllowance, int maximumLoop) {
+        int loopCount = 0;
+
+        do {
+            randomInGroupByGender(animalList, treatmentNum, unitMaleNum, unitFemaleNum, replication);
+            boolean isSatisfied = checkCoefficientVariation(animalList, unitFemaleNum + unitMaleNum, coefficientVariationAllowance);
+
+            if (isSatisfied) {
+                break;
+            }
+            loopCount++;
+        } while (loopCount <= maximumLoop);
+        System.out.println("迭代次数：" + loopCount);
+    }
+
+    /**
      * 同一区组里进行随机分配处理组（不考虑每个处理组中动物的性别分布）
      * @param animalGroup
      * @param treatmentNum
@@ -96,15 +243,50 @@ public class GroupDesign {
         }
 
         //2.将分组序列随机打乱
-        Collections.shuffle(groupList, new Random(System.currentTimeMillis()));
+        Collections.shuffle(groupList, new Random(System.currentTimeMillis() + random.nextLong()));
 
-        //3.为改组中的动物分配处理组
+        Collections.sort(animalGroup, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+            }
+        });
+        //3.为该组中的动物分配处理组
         for (int i = 0; i < animalGroup.size(); i++) {
             animalGroup.get(i).setReplicate(String.valueOf(replication));
             animalGroup.get(i).setTreatment(String.valueOf(groupList.get(i)));
         }
 
     }
+
+    /**
+     * 同一区组内进行处理组的随机配方，每个处理组中的动物需要考虑性别分布
+     * @param animalList
+     * @param treatmentNum
+     * @param unitMaleNum 每个处理组中雄性的动物个数
+     * @param unitFemaleNum 每个处理组中雌性的动物个数
+     * @param replication
+     */
+    private static void randomInGroupByGender(List<Animal> animalList, int treatmentNum, int unitMaleNum, int unitFemaleNum, int replication) {
+
+        //1.对动物list按性别进行排序（雄性在前，雌性在后）
+        Collections.sort(animalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o1.getAnimalSex().compareTo(o2.getAnimalSex());
+            }
+        });
+
+        //2.对于雄性动物组和雌性动物组分别进行处理组的随机分配
+        int totalMaleNum = unitMaleNum * treatmentNum;    //一个区组内雄性的总个数
+        List<Animal> maleAnimalList = animalList.subList(0,totalMaleNum);
+        List<Animal> femaleAnimalList = animalList.subList(totalMaleNum, animalList.size());
+
+        randomInGroup(maleAnimalList, treatmentNum, unitMaleNum, replication);
+        randomInGroup(femaleAnimalList, treatmentNum, unitFemaleNum, replication);
+
+
+    }
+
+
 
     /**
      * 判断每个区组的变异系数是否满足条件

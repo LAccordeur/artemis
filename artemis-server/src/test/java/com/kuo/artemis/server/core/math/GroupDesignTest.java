@@ -8,9 +8,119 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
-
 public class GroupDesignTest {
+    @Test
+    public void groupByRCBWithGenderAsBlockingFactor() throws Exception {
+        List<Animal> animals = new ArrayList<Animal>();
+
+        Animal animal = new Animal();
+        animal.setAnimalInitWeight(new BigDecimal(10.86));
+        //animal.setTreatment("4");
+        animal.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal);
+
+        Animal animal1 = new Animal();
+        animal1.setAnimalInitWeight(new BigDecimal(10.88));
+        //animal1.setTreatment("2");
+        animal1.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal1);
+
+        Animal animal2 = new Animal();
+        animal2.setAnimalInitWeight(new BigDecimal(10.92));
+        //animal2.setTreatment("3");
+        animal2.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal2);
+
+        Animal animal3 = new Animal();
+        animal3.setAnimalInitWeight(new BigDecimal(11.36));
+        //animal3.setTreatment("2");
+        animal3.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal3);
+
+        Animal animal4 = new Animal();
+        animal4.setAnimalInitWeight(new BigDecimal(11.56));
+        //animal4.setTreatment("3");
+        animal4.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal4);
+
+        Animal animal5 = new Animal();
+        animal5.setAnimalInitWeight(new BigDecimal(11.58));
+        //animal5.setTreatment("1");
+        animal5.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal5);
+
+        Animal animal6 = new Animal();
+        animal6.setAnimalInitWeight(new BigDecimal(11.72));
+        //animal6.setTreatment("1");
+        animal6.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal6);
+
+        Animal animal7 = new Animal();
+        animal7.setAnimalInitWeight(new BigDecimal(11.88));
+        //animal7.setTreatment("4");
+        animal7.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal7);
+
+        GroupDesign.groupByRCBWithGenderAsBlockingFactor(animals, 2, 1, 1, 2, 5D, 30);
+    }
+
+    @Test
+    public void multiRandomInGroupByGenderBalance() throws Exception {
+
+        List<Animal> animals = new ArrayList<Animal>();
+
+        Animal animal = new Animal();
+        animal.setAnimalInitWeight(new BigDecimal(10.86));
+        //animal.setTreatment("4");
+        animal.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal);
+
+        Animal animal1 = new Animal();
+        animal1.setAnimalInitWeight(new BigDecimal(10.88));
+        //animal1.setTreatment("2");
+        animal1.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal1);
+
+        Animal animal2 = new Animal();
+        animal2.setAnimalInitWeight(new BigDecimal(10.92));
+        //animal2.setTreatment("3");
+        animal2.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal2);
+
+        Animal animal3 = new Animal();
+        animal3.setAnimalInitWeight(new BigDecimal(11.36));
+        //animal3.setTreatment("2");
+        animal3.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal3);
+
+        Animal animal4 = new Animal();
+        animal4.setAnimalInitWeight(new BigDecimal(11.56));
+        //animal4.setTreatment("3");
+        animal4.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal4);
+
+        Animal animal5 = new Animal();
+        animal5.setAnimalInitWeight(new BigDecimal(11.58));
+        //animal5.setTreatment("1");
+        animal5.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal5);
+
+        Animal animal6 = new Animal();
+        animal6.setAnimalInitWeight(new BigDecimal(11.72));
+        //animal6.setTreatment("1");
+        animal6.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal6);
+
+        Animal animal7 = new Animal();
+        animal7.setAnimalInitWeight(new BigDecimal(11.88));
+        //animal7.setTreatment("4");
+        animal7.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal7);
+
+        GroupDesign.groupByRCBWithGenderBalance(animals, 2, 1, 1, 2, 5D,30);
+
+    }
+
     @Test
     public void checkCoefficientVariation() throws Exception {
         List<Animal> animals = new ArrayList<Animal>();
@@ -79,9 +189,63 @@ public class GroupDesignTest {
         param.setCoefficientVariation(5D);
         param.setMaximumRunningFrequency(10);
 
-        GroupDesign.groupByRandomizedCompleteBlockDesign(animals, param);
+        //GroupDesign.groupByRandomizedCompleteBlockDesign(animals, param);
 
     }
 
+    @Test
+    public void randomInGroup() {
+        List<Animal> animals = new ArrayList<Animal>();
+
+        Animal animal = new Animal();
+        animal.setAnimalInitWeight(new BigDecimal(10.86));
+        animal.setTreatment("4");
+        animal.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal);
+
+        Animal animal1 = new Animal();
+        animal1.setAnimalInitWeight(new BigDecimal(10.88));
+        animal1.setTreatment("2");
+        animal1.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal1);
+
+        Animal animal2 = new Animal();
+        animal2.setAnimalInitWeight(new BigDecimal(10.92));
+        animal2.setTreatment("3");
+        animal2.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal2);
+
+        Animal animal3 = new Animal();
+        animal3.setAnimalInitWeight(new BigDecimal(11.36));
+        animal3.setTreatment("2");
+        animal3.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal3);
+
+        Animal animal4 = new Animal();
+        animal4.setAnimalInitWeight(new BigDecimal(11.56));
+        animal4.setTreatment("3");
+        animal4.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal4);
+
+        Animal animal5 = new Animal();
+        animal5.setAnimalInitWeight(new BigDecimal(11.58));
+        animal5.setTreatment("1");
+        animal5.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal5);
+
+        Animal animal6 = new Animal();
+        animal6.setAnimalInitWeight(new BigDecimal(11.72));
+        animal6.setTreatment("1");
+        animal6.setAnimalSex(Byte.valueOf("1"));
+        animals.add(animal6);
+
+        Animal animal7 = new Animal();
+        animal7.setAnimalInitWeight(new BigDecimal(11.88));
+        animal7.setTreatment("4");
+        animal7.setAnimalSex(Byte.valueOf("2"));
+        animals.add(animal7);
+
+        //GroupDesign.randomInGroupByGender(animals, 4, 1, 1, 1);
+    }
 
 }

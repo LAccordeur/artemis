@@ -12,7 +12,7 @@ public class Animal {
 
     private Integer projectId;
 
-    private Short animalSex;
+    private Byte animalSex;
 
     private BigDecimal animalInitWeight;
 
@@ -36,7 +36,14 @@ public class Animal {
     public String toString() {
         return "Animal{" +
                 "id='" + id + '\'' +
+                ", animalTypeId=" + animalTypeId +
+                ", userId=" + userId +
+                ", projectId=" + projectId +
+                ", animalSex=" + animalSex +
                 ", animalInitWeight=" + animalInitWeight +
+                ", house='" + house + '\'' +
+                ", code='" + code + '\'' +
+                ", idNumber='" + idNumber + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", replicate='" + replicate + '\'' +
                 ", animalBirthday=" + animalBirthday +
@@ -44,6 +51,7 @@ public class Animal {
                 ", modifiedTime=" + modifiedTime +
                 '}';
     }
+
 
     public String getId() {
         return id;
@@ -77,11 +85,11 @@ public class Animal {
         this.projectId = projectId;
     }
 
-    public Short getAnimalSex() {
+    public Byte getAnimalSex() {
         return animalSex;
     }
 
-    public void setAnimalSex(Short animalSex) {
+    public void setAnimalSex(Byte animalSex) {
         this.animalSex = animalSex;
     }
 

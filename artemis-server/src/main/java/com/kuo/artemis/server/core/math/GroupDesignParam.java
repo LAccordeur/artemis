@@ -17,11 +17,20 @@ public class GroupDesignParam {
 
     private String designMethod;    //分组方法
 
-    //private boolean isConsiderGender;    //是否考虑性别
+    private boolean isConsiderGender;    //是否考虑性别
 
     private Double coefficientVariation;    //变异系数
 
     private Integer MaximumRunningFrequency;    //最大循环次数
+
+
+    public boolean isConsiderGender() {
+        return isConsiderGender;
+    }
+
+    public void setConsiderGender(boolean considerGender) {
+        isConsiderGender = considerGender;
+    }
 
     public Integer getAnimalNumber() {
         return animalNumber;
