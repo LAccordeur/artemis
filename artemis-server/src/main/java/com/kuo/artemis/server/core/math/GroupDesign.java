@@ -53,6 +53,7 @@ public class GroupDesign {
         return result;
     }
 
+
     /**
      * 在考虑性别的情况下，采用Gender balanced pens方式进行的完全随机区组分组
      * @param animalList
@@ -80,7 +81,11 @@ public class GroupDesign {
         int groupCount = treatmentNum * (unitFemaleNum + unitMaleNum);
         for (int i = 0; i < replicationNum; i++) {
             List<Animal> animalGroup = animalList.subList(i*groupCount, (i+1)*groupCount);
-            multiRandomInGroupByGender(animalList, treatmentNum, unitMaleNum, unitFemaleNum, i+1, coefficientAllowance, maximumLoop);
+            multiRandomInGroupByGender(animalGroup, treatmentNum, unitMaleNum, unitFemaleNum, i+1, coefficientAllowance, maximumLoop);
+        }
+
+        for (Animal animal : animalList) {
+            System.out.println(animal);
         }
     }
 
@@ -130,7 +135,102 @@ public class GroupDesign {
 
 
     /**
-     * 将动物集分成雌雄两部分来进行多个区组下的分组（效果等效于针对每个区组分别进行分组）
+     * (待测试)  考虑性别的情况下，通过Different gender balances across the replications
+     * @param animalList
+     * @param treatmentNum
+     * @param groupGenderParamList
+     * @param coefficientAllowance
+     * @param maximumLoop
+     */
+    public static void groupByRCBWithDifferentGenderBalances(List<Animal> animalList, int treatmentNum, List<GroupGenderParam> groupGenderParamList, Double coefficientAllowance, int maximumLoop) {
+
+        //1.进行重复组的分配
+        //randomGroupByDifferentGenderBalance(animalList, treatmentNum, groupGenderParamList);
+
+        //2.按重复组进行排序
+        Collections.sort(animalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o1.getReplicate().compareTo(o2.getReplicate());
+            }
+        });
+
+        //3.对每个区组进行随机化分配处理组
+        for (int i = 0; i < groupGenderParamList.size(); i++) {
+            GroupGenderParam param = groupGenderParamList.get(i);
+            int replicationBegin = param.getReplicationRangeBegin();
+            int replicationEnd = param.getReplicationRangeEnd();
+            int unitMaleNum = param.getUnitMaleNum();
+            int unitFemaleNum = param.getUnitFemaleNum();
+
+            int groupNum = treatmentNum * (unitFemaleNum + unitMaleNum);
+            for (int j = replicationBegin; j <= replicationEnd; j++) {
+                List<Animal> animalGroup = animalList.subList((j-1)*groupNum, j*groupNum);
+                multiRandomInGroupByGender(animalGroup, treatmentNum, unitMaleNum, unitFemaleNum, j, coefficientAllowance, maximumLoop);
+            }
+
+        }
+
+
+        for (Animal animal : animalList) {
+            System.out.println(animal);
+        }
+
+
+    }
+
+    /**
+     * 在不同重复组的圈舍单元中的动物性别分配不同的情况下 ，为每个动物分配好所在的重复组
+     * @param animalList
+     * @param treatmentNum
+     * @param groupGenderParamList
+     */
+    private static void randomGroupByDifferentGenderBalance(List<Animal> animalList, int treatmentNum, List<GroupGenderParam> groupGenderParamList, int maleAnimalNum, int femaleAnimalNum) {
+        //1.动物按性别进行排序（雄性在前）
+        Collections.sort(animalList, new Comparator<Animal>() {
+            public int compare(Animal o1, Animal o2) {
+                return o1.getAnimalSex().compareTo(o2.getAnimalSex());
+            }
+        });
+
+        //2.获取雄性雌性动物列表
+        List<Animal> maleAnimalList = animalList.subList(0, maleAnimalNum);
+        List<Animal> femaleAnimalList = animalList.subList(maleAnimalNum, maleAnimalNum + femaleAnimalNum);
+
+        //3.对雄性动物进行重复组的分配
+        for (int i = 0; i < groupGenderParamList.size(); i++) {
+            GroupGenderParam param = groupGenderParamList.get(i);
+            int replicationBegin = param.getReplicationRangeBegin();
+            int replicationEnd = param.getReplicationRangeEnd();
+            int unitMaleNum = param.getUnitMaleNum();
+
+            int groupMaleNum = unitMaleNum * treatmentNum;
+
+            for (int j = replicationBegin; j <= replicationEnd; j++) {
+                List<Animal> groupAnimalList = animalList.subList((j-1)*groupMaleNum, j*groupMaleNum);
+                randomInGroup(groupAnimalList, treatmentNum, unitMaleNum, j);
+            }
+
+        }
+
+        //4.对雌性动物进行重复组的分配
+        for (int i = 0; i < groupGenderParamList.size(); i++) {
+            GroupGenderParam param = groupGenderParamList.get(i);
+            int replicationBegin = param.getReplicationRangeBegin();
+            int replicationEnd = param.getReplicationRangeEnd();
+            int unitFemaleNum = param.getUnitFemaleNum();
+
+            int groupFemaleNum = unitFemaleNum * treatmentNum;
+
+            for (int j = replicationBegin; j <= replicationEnd; j++) {
+                List<Animal> groupAnimalList = animalList.subList((j-1)*groupFemaleNum, j*groupFemaleNum);
+                randomInGroup(groupAnimalList, treatmentNum, unitFemaleNum, j);
+            }
+
+        }
+    }
+
+    /**
+     *  进行重复组的分配  //将动物集分成雌雄两部分来进行多个区组下的分组（效果等效于针对每个区组分别进行分组）
      * @param animalList
      * @param treatmentNum
      * @param unitMaleNum
