@@ -8,7 +8,7 @@
     <result column="house" jdbcType="VARCHAR" property="house" />
     <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
     <result column="replicate" jdbcType="CHAR" property="replicate" />
-    <result column="treatment" jdbcType="CHAR" property="treatment" />
+    <result column="treatmentNum" jdbcType="CHAR" property="treatmentNum" />
     <result column="animal_type_id" jdbcType="INTEGER" property="animalTypeId" />
     <result column="initial_bw" jdbcType="DECIMAL" property="initialBw" />
     <result column="bw_week1" jdbcType="DECIMAL" property="bwWeek1" />
@@ -241,7 +241,7 @@
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalIndicatorRecord">
     insert into animal_indicator_record_view (animal_id, project_id, code, 
       house, id_number, replicate, 
-      treatment, animal_type_id, initial_bw, 
+      treatmentNum, animal_type_id, initial_bw,
       bw_week1, bw_week2, bw_week3, 
       bw_week4, bw_week5, bw_week12, 
       bw_week11, bw_week13, bw_week6, 
@@ -315,7 +315,7 @@
       )
     values (#{animalId,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
       #{house,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, #{replicate,jdbcType=CHAR}, 
-      #{treatment,jdbcType=CHAR}, #{animalTypeId,jdbcType=INTEGER}, #{initialBw,jdbcType=DECIMAL}, 
+      #{treatmentNum,jdbcType=CHAR}, #{animalTypeId,jdbcType=INTEGER}, #{initialBw,jdbcType=DECIMAL},
       #{bwWeek1,jdbcType=DECIMAL}, #{bwWeek2,jdbcType=DECIMAL}, #{bwWeek3,jdbcType=DECIMAL}, 
       #{bwWeek4,jdbcType=DECIMAL}, #{bwWeek5,jdbcType=DECIMAL}, #{bwWeek12,jdbcType=DECIMAL}, 
       #{bwWeek11,jdbcType=DECIMAL}, #{bwWeek13,jdbcType=DECIMAL}, #{bwWeek6,jdbcType=DECIMAL}, 
@@ -409,8 +409,8 @@
       <if test="replicate != null">
         replicate,
       </if>
-      <if test="treatment != null">
-        treatment,
+      <if test="treatmentNum != null">
+        treatmentNum,
       </if>
       <if test="animalTypeId != null">
         animal_type_id,
@@ -1068,8 +1068,8 @@
       <if test="replicate != null">
         #{replicate,jdbcType=CHAR},
       </if>
-      <if test="treatment != null">
-        #{treatment,jdbcType=CHAR},
+      <if test="treatmentNum != null">
+        #{treatmentNum,jdbcType=CHAR},
       </if>
       <if test="animalTypeId != null">
         #{animalTypeId,jdbcType=INTEGER},

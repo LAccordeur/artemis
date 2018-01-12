@@ -8,7 +8,7 @@
     <result column="house" jdbcType="VARCHAR" property="house" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
-    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="treatmentNum" jdbcType="VARCHAR" property="treatmentNum" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
     <result column="start_time" jdbcType="DATE" property="startTime" />
     <result column="end_time" jdbcType="DATE" property="endTime" />
@@ -34,13 +34,13 @@
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalHouseBuildingDetail">
     insert into animal_house_building_detail_view (animal_id, user_id, project_id, 
       house, code, id_number, 
-      treatment, replicate, start_time, 
+      treatmentNum, replicate, start_time,
       end_time, house_id, house_code, 
       building_id, building_code, house_number
       )
     values (#{animalId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
       #{house,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, 
-      #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
+      #{treatmentNum,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE},
       #{endTime,jdbcType=DATE}, #{houseId,jdbcType=INTEGER}, #{houseCode,jdbcType=VARCHAR}, 
       #{buildingId,jdbcType=INTEGER}, #{buildingCode,jdbcType=VARCHAR}, #{houseNumber,jdbcType=INTEGER}
       )
@@ -66,8 +66,8 @@
       <if test="idNumber != null">
         id_number,
       </if>
-      <if test="treatment != null">
-        treatment,
+      <if test="treatmentNum != null">
+        treatmentNum,
       </if>
       <if test="replicate != null">
         replicate,
@@ -113,8 +113,8 @@
       <if test="idNumber != null">
         #{idNumber,jdbcType=VARCHAR},
       </if>
-      <if test="treatment != null">
-        #{treatment,jdbcType=VARCHAR},
+      <if test="treatmentNum != null">
+        #{treatmentNum,jdbcType=VARCHAR},
       </if>
       <if test="replicate != null">
         #{replicate,jdbcType=VARCHAR},

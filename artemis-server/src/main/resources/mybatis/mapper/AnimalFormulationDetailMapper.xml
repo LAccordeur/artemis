@@ -9,7 +9,7 @@
     <result column="house" jdbcType="VARCHAR" property="house" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
-    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="treatmentNum" jdbcType="VARCHAR" property="treatmentNum" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
     <result column="start_time" jdbcType="DATE" property="startTime" />
     <result column="end__time" jdbcType="DATE" property="endTime" />
@@ -31,13 +31,13 @@
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalFormulationDetail">
     insert into animal_formulation_detail_view (animal_id, user_id, project_id, 
       animal_init_weight, house, code, 
-      id_number, treatment, replicate, 
+      id_number, treatmentNum, replicate,
       start_time, end__time, formulation_id, 
       formulation_code, formulation_name, formulation_material_cost
       )
     values (#{animalId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
       #{animalInitWeight,jdbcType=DECIMAL}, #{house,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{idNumber,jdbcType=VARCHAR}, #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, 
+      #{idNumber,jdbcType=VARCHAR}, #{treatmentNum,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR},
       #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, #{formulationId,jdbcType=INTEGER}, 
       #{formulationCode,jdbcType=VARCHAR}, #{formulationName,jdbcType=VARCHAR}, #{formulationMaterialCost,jdbcType=DECIMAL}
       )
@@ -66,8 +66,8 @@
       <if test="idNumber != null">
         id_number,
       </if>
-      <if test="treatment != null">
-        treatment,
+      <if test="treatmentNum != null">
+        treatmentNum,
       </if>
       <if test="replicate != null">
         replicate,
@@ -113,8 +113,8 @@
       <if test="idNumber != null">
         #{idNumber,jdbcType=VARCHAR},
       </if>
-      <if test="treatment != null">
-        #{treatment,jdbcType=VARCHAR},
+      <if test="treatmentNum != null">
+        #{treatmentNum,jdbcType=VARCHAR},
       </if>
       <if test="replicate != null">
         #{replicate,jdbcType=VARCHAR},

@@ -11,7 +11,7 @@
     <result column="house" jdbcType="VARCHAR" property="house" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
-    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="treatmentNum" jdbcType="VARCHAR" property="treatmentNum" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
     <result column="animal_birthday" jdbcType="TIMESTAMP" property="animalBirthday" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -19,7 +19,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, animal_type_id, user_id, project_id, animal_sex, animal_init_weight, house, code, 
-    id_number, treatment, replicate, animal_birthday, create_time, modified_time
+    id_number, treatmentNum, replicate, animal_birthday, create_time, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -60,8 +60,8 @@
       <if test="item.idNumber != null">
         id_number,
       </if>
-      <if test="item.treatment != null">
-        treatment,
+      <if test="item.treatmentNum != null">
+        treatmentNum,
       </if>
       <if test="item.replicate != null">
         replicate,
@@ -103,8 +103,8 @@
       <if test="item.idNumber != null">
         #{item.idNumber},
       </if>
-      <if test="item.treatment != null">
-        #{item.treatment},
+      <if test="item.treatmentNum != null">
+        #{item.treatmentNum},
       </if>
       <if test="item.replicate != null">
         #{item.replicate},
@@ -126,12 +126,12 @@
     insert into animal (id, animal_type_id, user_id, 
       project_id, animal_sex, animal_init_weight, 
       house, code, id_number, 
-      treatment, replicate, animal_birthday, 
+      treatmentNum, replicate, animal_birthday,
       create_time, modified_time)
     values (#{id,jdbcType=VARCHAR}, #{animalTypeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{projectId,jdbcType=INTEGER}, #{animalSex,jdbcType=SMALLINT}, #{animalInitWeight,jdbcType=DECIMAL}, 
       #{house,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, 
-      #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{animalBirthday,jdbcType=TIMESTAMP},
+      #{treatmentNum,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{animalBirthday,jdbcType=TIMESTAMP},
       #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Animal">
@@ -164,8 +164,8 @@
       <if test="idNumber != null">
         id_number,
       </if>
-      <if test="treatment != null">
-        treatment,
+      <if test="treatmentNum != null">
+        treatmentNum,
       </if>
       <if test="replicate != null">
         replicate,
@@ -208,8 +208,8 @@
       <if test="idNumber != null">
         #{idNumber,jdbcType=VARCHAR},
       </if>
-      <if test="treatment != null">
-        #{treatment,jdbcType=VARCHAR},
+      <if test="treatmentNum != null">
+        #{treatmentNum,jdbcType=VARCHAR},
       </if>
       <if test="replicate != null">
         #{replicate,jdbcType=VARCHAR},
@@ -252,8 +252,8 @@
       <if test="idNumber != null">
         id_number = #{idNumber,jdbcType=VARCHAR},
       </if>
-      <if test="treatment != null">
-        treatment = #{treatment,jdbcType=VARCHAR},
+      <if test="treatmentNum != null">
+        treatmentNum = #{treatmentNum,jdbcType=VARCHAR},
       </if>
       <if test="replicate != null">
         replicate = #{replicate,jdbcType=VARCHAR},
@@ -280,7 +280,7 @@
       house = #{house,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
       id_number = #{idNumber,jdbcType=VARCHAR},
-      treatment = #{treatment,jdbcType=VARCHAR},
+      treatmentNum = #{treatmentNum,jdbcType=VARCHAR},
       replicate = #{replicate,jdbcType=VARCHAR},
       animal_birthday = #{animalBirthday,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -316,8 +316,8 @@
       <if test="item.idNumber != null">
         id_number = #{item.idNumber},
       </if>
-      <if test="item.treatment != null">
-        treatment = #{item.treatment},
+      <if test="item.treatmentNum != null">
+        treatmentNum = #{item.treatmentNum},
       </if>
       <if test="item.replicate != null">
         replicate = #{item.replicate},

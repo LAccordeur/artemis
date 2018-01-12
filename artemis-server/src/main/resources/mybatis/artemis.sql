@@ -27,7 +27,7 @@ CREATE TABLE `animal` (
   `animal_init_weight` decimal(12,5) NOT NULL COMMENT '动物初始体重',
   `code` varchar(32) DEFAULT '' COMMENT '动物编号',
   `id_number` varchar(32) DEFAULT '' COMMENT '动物耳号',
-  `treatment` char(4) DEFAULT '' COMMENT '动物所在处理组编号',
+  `treatmentNum` char(4) DEFAULT '' COMMENT '动物所在处理组编号',
   `replicate` char(4) DEFAULT '' COMMENT '动物所在重复组编号',
   `animal_birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

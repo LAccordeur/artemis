@@ -28,6 +28,10 @@ public class Animal {
 
     private Date animalBirthday;
 
+    private Double deviationFromMedian; //用于动物分组使用
+
+    private Integer isSuitable = 0;   //用于动物分组,默认为0不合适
+
     private Date createTime;
 
     private Date modifiedTime;
@@ -47,11 +51,28 @@ public class Animal {
                 ", treatment='" + treatment + '\'' +
                 ", replicate='" + replicate + '\'' +
                 ", animalBirthday=" + animalBirthday +
+                ", deviationFromMedian=" + deviationFromMedian +
+                ", isSuitable=" + isSuitable +
                 ", createTime=" + createTime +
                 ", modifiedTime=" + modifiedTime +
                 '}';
     }
 
+    public Integer getSuitable() {
+        return isSuitable;
+    }
+
+    public void setSuitable(int suitable) {
+        isSuitable = suitable;
+    }
+
+    public Double getDeviationFromMedian() {
+        return deviationFromMedian;
+    }
+
+    public void setDeviationFromMedian(Double deviationFromMedian) {
+        this.deviationFromMedian = deviationFromMedian;
+    }
 
     public String getId() {
         return id;
