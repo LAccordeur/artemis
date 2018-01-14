@@ -15,8 +15,10 @@ public class GroupDesign {
 
     private static final Random random = new Random();
 
+    public static boolean groupBy
+
     /**
-     * 不考虑性别的情况下的完全随机区组设计，在每个区组内对个试验单元以随机方式实施不同处理  TODO 对数据进行判断看是否满足完全随机区组的要求
+     * 不考虑性别的情况下的完全随机区组设计，在每个区组内对个试验单元以随机方式实施不同处理
      * @param animals
      * @param param
      * @return
@@ -61,11 +63,12 @@ public class GroupDesign {
 
 
     /**
-     * （待测试）在考虑性别的情况下，采用Gender balanced pens方式进行的完全随机区组分组
+     * 在考虑性别的情况下，采用Gender balanced pens方式进行的完全随机区组分组
      * @param animalList
      * @param param
+     * @return
      */
-    public static void groupByRCBWithGenderBalance(List<Animal> animalList, GroupDesignParam param) {
+    public static boolean groupByRCBWithGenderBalance(List<Animal> animalList, GroupDesignParam param) {
 
         int treatmentNum = param.getTreatmentNum();
         int unitMaleNum = param.getUnitMaleNum();
@@ -76,6 +79,10 @@ public class GroupDesign {
 
         //1.根据对动物集进行检查 并返回合适的实验动物集
         List<Animal> animals = checkAnimalListByRCBWithGenderBalance(animalList, param);
+
+        if (animals == null) {
+            return false;
+        }
 
         //2.为动物分配区组
         randomGroupByGenderBalance(animals, treatmentNum, unitMaleNum, unitFemaleNum, replicationNum);
@@ -97,22 +104,32 @@ public class GroupDesign {
         for (Animal animal : animalList) {
             System.out.println(animal);
         }
+        return true;
     }
 
 
     /**
      * 考虑性别的情况下，通过Gender as blocking factor的方式来进行完全随机区组分组
      * @param animalList
-     * @param treatmentNum
-     * @param maleReplicationNum
-     * @param femaleReplicationNum
-     * @param unitNum
-     * @param coefficientAllowance
-     * @param maximumLoop
+     * @param param
+     * @return
      */
-    public static void groupByRCBWithGenderAsBlockingFactor(List<Animal> animalList, int treatmentNum, int maleReplicationNum, int femaleReplicationNum, int unitNum, Double coefficientAllowance, int maximumLoop) {
+    public static boolean groupByRCBWithGenderAsBlockingFactor(List<Animal> animalList, GroupDesignParam param) {
+
+        int treatmentNum = param.getTreatmentNum();
+        int maleReplicationNum = param.getMaleReplicationNum();
+        int femaleReplicationNum = param.getFemaleReplicationNum();
+        int unitNum = param.getUnitNumber();
+        Double coefficientAllowance = param.getCoefficientAllowance();
+        int maximumLoop = param.getMaximumLoop();
+
+        List<Animal> animals = checkAnimalListByRCBWithGenderAsBlockingFactor(animalList, param);
+        if (animals == null) {
+            return false;
+        }
+
         //1.按性别进行排序（雄性在前，雌性在后）
-        Collections.sort(animalList, new Comparator<Animal>() {
+        Collections.sort(animals, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
                 return o1.getAnimalSex().compareTo(o2.getAnimalSex());
             }
@@ -122,8 +139,8 @@ public class GroupDesign {
         int femaleAnimalNum = unitNum * treatmentNum * femaleReplicationNum;
 
         //2.分别获取雄性雌性动物列表
-        List<Animal> maleAnimalList = animalList.subList(0, maleAnimalNum);
-        List<Animal> femaleAnimalList = animalList.subList(maleAnimalNum, animalList.size());  //TODO 数目写死了
+        List<Animal> maleAnimalList = animals.subList(0, maleAnimalNum);
+        List<Animal> femaleAnimalList = animals.subList(maleAnimalNum, animals.size());
 
         //3.分别对两个动物集进行分组
         int groupCount = treatmentNum * unitNum;
@@ -141,28 +158,37 @@ public class GroupDesign {
             System.out.println(animal);
         }
 
+        return true;
     }
 
 
     /**
      * 考虑性别的情况下，通过Different gender balances across the replications
      * @param animalList
-     * @param treatmentNum
-     * @param groupGenderParamList
-     * @param coefficientAllowance
-     * @param maximumLoop
+     * @param groupDesignParam
+     * @return
      */
-    public static void groupByRCBWithDifferentGenderBalances(List<Animal> animalList, int treatmentNum, List<GroupGenderParam> groupGenderParamList, Double coefficientAllowance, int maximumLoop) {
+    public static boolean groupByRCBWithDifferentGenderBalances(List<Animal> animalList, GroupDesignParam groupDesignParam) {
+
+        int treatmentNum = groupDesignParam.getTreatmentNum();
+        List<GroupGenderParam> groupGenderParamList = groupDesignParam.getDifferentGenderBalancesParamList();
+        Double coefficientAllowance = groupDesignParam.getCoefficientAllowance();
+        int maximumLoop = groupDesignParam.getMaximumLoop();
+
+        List<Animal> animals = checkAnimalListByRCBWithDifferentGenderBalances(animalList, groupDesignParam);
+        if (animals == null) {
+            return false;
+        }
 
         //获取雄性动物数目
-        int maleAnimalNum = computeMaleAnimalNum(animalList);
-        int femaleAnimalNum = animalList.size() - maleAnimalNum;
+        int maleAnimalNum = computeMaleAnimalNum(animals);
+        int femaleAnimalNum = animals.size() - maleAnimalNum;
 
         //1.进行重复组的分配
-        randomGroupByDifferentGenderBalance(animalList, treatmentNum, groupGenderParamList, maleAnimalNum, femaleAnimalNum);
+        randomGroupByDifferentGenderBalance(animals, treatmentNum, groupGenderParamList, maleAnimalNum, femaleAnimalNum);
 
         //2.按重复组进行排序
-        Collections.sort(animalList, new Comparator<Animal>() {
+        Collections.sort(animals, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
                 return o1.getReplicate().compareTo(o2.getReplicate());
             }
@@ -179,7 +205,7 @@ public class GroupDesign {
 
             int groupNum = treatmentNum * (unitFemaleNum + unitMaleNum);
             for (int j = replicationBegin; j <= replicationEnd; j++) {
-                List<Animal> animalGroup = animalList.subList(index, index + groupNum);
+                List<Animal> animalGroup = animals.subList(index, index + groupNum);
                 multiRandomInGroupByGender(animalGroup, treatmentNum, unitMaleNum, unitFemaleNum, j, coefficientAllowance, maximumLoop);
                 index = index + groupNum;
             }
@@ -191,6 +217,7 @@ public class GroupDesign {
             System.out.println(animal);
         }
 
+        return true;
 
     }
 
@@ -230,6 +257,7 @@ public class GroupDesign {
         int treatmentNum = param.getTreatmentNum();
         int unitMaleNum = param.getUnitMaleNum();
         int unitFemaleNum = param.getUnitFemaleNum();
+        int unitNum = param.getUnitNumber();
 
         int requiredMaleAnimalNum = replicationNum * treatmentNum * unitMaleNum;
         int requiredFemaleAnimalNum = replicationNum * treatmentNum * unitFemaleNum;
@@ -238,6 +266,28 @@ public class GroupDesign {
         int actualMaleAnimalNum = computeMaleAnimalNum(animalList);
         int actualFemaleAnimalNum = actualAnimalNum - actualMaleAnimalNum;
 
+        //对输入参数进行一个初步检查
+        if (unitNum != (unitMaleNum + unitFemaleNum)) {
+            return null;
+        }
+
+        return getSuitableAnimals(animalList, requiredMaleAnimalNum, requiredFemaleAnimalNum, requiredAnimalNum, actualAnimalNum, actualMaleAnimalNum, actualFemaleAnimalNum);
+
+
+    }
+
+    /**
+     * 根据性别要求，得到合适的动物list
+     * @param animalList
+     * @param requiredMaleAnimalNum
+     * @param requiredFemaleAnimalNum
+     * @param requiredAnimalNum
+     * @param actualAnimalNum
+     * @param actualMaleAnimalNum
+     * @param actualFemaleAnimalNum
+     * @return
+     */
+    private static List<Animal> getSuitableAnimals(List<Animal> animalList, int requiredMaleAnimalNum, int requiredFemaleAnimalNum, int requiredAnimalNum, int actualAnimalNum, int actualMaleAnimalNum, int actualFemaleAnimalNum) {
         //1.先判断数目够不够
         if (actualAnimalNum < requiredAnimalNum || actualFemaleAnimalNum < requiredFemaleAnimalNum || actualMaleAnimalNum < requiredMaleAnimalNum) {
             return null;
@@ -276,22 +326,75 @@ public class GroupDesign {
 
             return animalList.subList(0, requiredAnimalNum);
         }
+    }
+
+    /**
+     * 根据分组参数判断在考虑性别的情况下，参与RCB-Gender as a blocking factor分组的动物数目是否符合要求
+     * @param animalList
+     * @param param
+     * @return
+     */
+    private static List<Animal> checkAnimalListByRCBWithGenderAsBlockingFactor(List<Animal> animalList, GroupDesignParam param) {
+
+        int unitNum = param.getUnitNumber();
+        int treatmentNum = param.getTreatmentNum();
+        int replicationNum = param.getReplicationNum();
+        int femaleReplicationNum = param.getFemaleReplicationNum();
+        int maleReplicationNum = param.getMaleReplicationNum();
+
+        int requiredAnimalNum = unitNum * treatmentNum * replicationNum;
+        int requiredFemaleAnimalNum = unitNum * treatmentNum * femaleReplicationNum;
+        int requiredMaleAnimalNum = unitNum * treatmentNum * maleReplicationNum;
+        int actualAnimalNum = animalList.size();
+        int actualMaleAnimalNum = computeMaleAnimalNum(animalList);
+        int actualFemaleAnimalNum = actualAnimalNum - actualMaleAnimalNum;
+
+
+        return getSuitableAnimals(animalList, requiredMaleAnimalNum, requiredFemaleAnimalNum, requiredAnimalNum, actualAnimalNum, actualMaleAnimalNum, actualFemaleAnimalNum);
 
     }
 
-    private static List<Animal> checkAnimalListByRCBWithGenderAsBlockingFactor(List<Animal> animalList, GroupDesign param) {
 
-        
+    /**
+     * 根据分组参数判断在考虑性别的情况下，参与RCB-Different balance across the replications分组的动物数目是否符合要求
+     * @param animalList
+     * @param param
+     * @return
+     */
+    private static List<Animal> checkAnimalListByRCBWithDifferentGenderBalances(List<Animal> animalList, GroupDesignParam param) {
 
-        return null;
+        int treatmentNum = param.getTreatmentNum();
+        int replicationNum = param.getReplicationNum();
+        List<GroupGenderParam> differentGenderBalancesParamList = param.getDifferentGenderBalancesParamList();
+
+        int actualAnimalNum = animalList.size();
+        int actualMaleAnimalNum = computeMaleAnimalNum(animalList);
+        int actualFemaleAnimalNum = actualAnimalNum - actualMaleAnimalNum;
+
+        int requiredAnimalNum = 0;
+        int requiredMaleAnimalNum = 0;
+        int requiredFemaleAnimalNum = 0;
+        for (GroupGenderParam genderParam : differentGenderBalancesParamList) {
+            int replicationRangeBegin = genderParam.getReplicationRangeBegin();
+            int replicationRangeEnd = genderParam.getReplicationRangeEnd();
+            int unitFemaleNum = genderParam.getUnitFemaleNum();
+            int unitMaleNum = genderParam.getUnitMaleNum();
+
+            requiredMaleAnimalNum = requiredMaleAnimalNum + (replicationRangeEnd - replicationRangeBegin + 1) * treatmentNum * unitMaleNum;
+            requiredFemaleAnimalNum = requiredFemaleAnimalNum + (replicationRangeEnd - replicationRangeBegin + 1) * treatmentNum * unitFemaleNum;
+        }
+        requiredAnimalNum = requiredFemaleAnimalNum + requiredMaleAnimalNum;
+        return getSuitableAnimals(animalList, requiredMaleAnimalNum, requiredFemaleAnimalNum, requiredAnimalNum, actualAnimalNum, actualMaleAnimalNum, actualFemaleAnimalNum);
+
 
     }
+
 
     /**
      * 按照体重偏离中位数的程度进行排序
      * @param animalList
      */
-    public static void sortedByWeightMedianDiff(List<Animal> animalList) {
+    private static void sortedByWeightMedianDiff(List<Animal> animalList) {
         //1.先按体重排序并找出中位数
         Collections.sort(animalList, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
@@ -575,7 +678,7 @@ public class GroupDesign {
      * @param coefficientVariationAllowance
      * @return
      */
-    public static boolean checkCoefficientVariation(List<Animal> animalList, Integer unitNum, Double coefficientVariationAllowance) {
+    private static boolean checkCoefficientVariation(List<Animal> animalList, Integer unitNum, Double coefficientVariationAllowance) {
 
         //1.对动物按照处理组大小进行从小到大排序
         Collections.sort(animalList, new Comparator<Animal>() {

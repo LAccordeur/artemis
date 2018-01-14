@@ -1,5 +1,7 @@
 package com.kuo.artemis.server.core.math;
 
+import java.util.List;
+
 /**
  * @Author : guoyang
  * @Description :
@@ -23,6 +25,8 @@ public class GroupDesignParam {
 
     private Integer femaleReplicationNum;    //雌性重复组数目
 
+    private List<GroupGenderParam> differentGenderBalancesParamList;    //
+
     private String designMethod;    //分组方法
 
     private boolean isConsiderGender;    //是否考虑性别
@@ -31,6 +35,34 @@ public class GroupDesignParam {
 
     private Integer maximumLoop;    //最大循环次数
 
+    public GroupDesignParam() {
+        this.coefficientAllowance = 5D;
+        this.maximumLoop = 30;
+    }
+
+    public List<GroupGenderParam> getDifferentGenderBalancesParamList() {
+        return differentGenderBalancesParamList;
+    }
+
+    public void setDifferentGenderBalancesParamList(List<GroupGenderParam> differentGenderBalancesParamList) {
+        this.differentGenderBalancesParamList = differentGenderBalancesParamList;
+    }
+
+    public Integer getMaleReplicationNum() {
+        return maleReplicationNum;
+    }
+
+    public void setMaleReplicationNum(Integer maleReplicationNum) {
+        this.maleReplicationNum = maleReplicationNum;
+    }
+
+    public Integer getFemaleReplicationNum() {
+        return femaleReplicationNum;
+    }
+
+    public void setFemaleReplicationNum(Integer femaleReplicationNum) {
+        this.femaleReplicationNum = femaleReplicationNum;
+    }
 
     public Integer getUnitMaleNum() {
         return unitMaleNum;
