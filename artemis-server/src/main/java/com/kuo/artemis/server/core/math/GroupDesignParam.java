@@ -1,5 +1,7 @@
 package com.kuo.artemis.server.core.math;
 
+import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
+
 import java.util.List;
 
 /**

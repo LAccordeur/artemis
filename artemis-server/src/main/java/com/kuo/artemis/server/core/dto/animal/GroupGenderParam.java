@@ -1,4 +1,4 @@
-package com.kuo.artemis.server.core.math;
+package com.kuo.artemis.server.core.dto.animal;
 
 /**
  * @Author : guoyang

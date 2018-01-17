@@ -32,6 +32,14 @@ public class Animal {
 
     private Integer isSuitable = 0;   //用于动物分组,默认为0不合适
 
+    private String oldPen;    //旧的圈舍号  用于动物分组
+
+    private String newPen;    //新的圈舍好 用于动物分组
+
+    private Double weightMean;    //用于动物分组 所在处理组的体重平均数
+
+    private Double CoefficientOfVariation;    //用于动物分组  所在重复组的变异系数
+
     private Date createTime;
 
     private Date modifiedTime;
@@ -53,9 +61,53 @@ public class Animal {
                 ", animalBirthday=" + animalBirthday +
                 ", deviationFromMedian=" + deviationFromMedian +
                 ", isSuitable=" + isSuitable +
+                ", oldPen='" + oldPen + '\'' +
+                ", newPen='" + newPen + '\'' +
+                ", weightMean=" + weightMean +
+                ", CoefficientOfVariation=" + CoefficientOfVariation +
                 ", createTime=" + createTime +
                 ", modifiedTime=" + modifiedTime +
                 '}';
+    }
+
+    public Double getWeightMean() {
+        return weightMean;
+    }
+
+    public void setWeightMean(Double weightMean) {
+        this.weightMean = weightMean;
+    }
+
+    public Double getCoefficientOfVariation() {
+        return CoefficientOfVariation;
+    }
+
+    public void setCoefficientOfVariation(Double coefficientOfVariation) {
+        CoefficientOfVariation = coefficientOfVariation;
+    }
+
+    public Integer getIsSuitable() {
+        return isSuitable;
+    }
+
+    public void setIsSuitable(Integer isSuitable) {
+        this.isSuitable = isSuitable;
+    }
+
+    public String getOldPen() {
+        return oldPen;
+    }
+
+    public void setOldPen(String oldPen) {
+        this.oldPen = oldPen;
+    }
+
+    public String getNewPen() {
+        return newPen;
+    }
+
+    public void setNewPen(String newPen) {
+        this.newPen = newPen;
     }
 
     public Integer getSuitable() {

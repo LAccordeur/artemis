@@ -53,13 +53,37 @@ public class MathUtil {
         return Math.sqrt(result);
     }
 
-    public static double computeCoefficientVariation(Double standardDeviation, Double average) {
+    private static double computeCoefficientVariation(Double standardDeviation, Double average) {
         return standardDeviation / average * 100;
     }
 
+    /**
+     * 计算变异系数
+     * @param data
+     * @return
+     */
     public static double computeCoefficientVariation(List<Double> data) {
         double standardDeviation = computeStandardDeviation(data);
         double average = computeAverage(data);
         return computeCoefficientVariation(standardDeviation, average);
+    }
+
+
+    /**
+     * 计算离均差平方和
+     * @param data
+     * @return
+     */
+    public static double computerSS(List<Double> data) {
+        double result = 0D;
+
+        double averageNum = computeAverage(data);
+
+        for (int i = 0; i < data.size(); i++) {
+            double value = data.get(i);
+            result = result + (value - averageNum) * (value - averageNum);
+        }
+
+        return result;
     }
 }

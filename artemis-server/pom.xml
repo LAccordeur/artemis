@@ -158,6 +158,11 @@
             <artifactId>commons-beanutils-core</artifactId>
             <version>1.8.3</version>
         </dependency>
+        <dependency>
+            <groupId>commons-math</groupId>
+            <artifactId>commons-math</artifactId>
+            <version>LATEST</version>
+        </dependency>
         <!-- Apache common 结束 -->
 
 

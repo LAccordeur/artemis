@@ -1,6 +1,10 @@
 package com.kuo.artemis.server.core.math;
 
+import com.kuo.artemis.server.core.dto.animal.GroupDesignMovingSheet;
+import com.kuo.artemis.server.core.dto.animal.GroupDesignSummary;
+import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
 import com.kuo.artemis.server.entity.Animal;
+import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.util.MathUtil;
 
 import java.math.BigDecimal;
@@ -15,7 +19,47 @@ public class GroupDesign {
 
     private static final Random random = new Random();
 
-    public static boolean groupBy
+
+    /**
+     * 采用完全随机的设计进行动物分组(此时不考虑变异系数)
+     * @param animalList
+     * @return
+     */
+    public static boolean groupByCRD(List<Animal> animalList, GroupDesignParam param) {
+        List<Animal> animals = checkAnimalListWithoutGender(animalList, param);
+
+        if (animals == null) {
+            return false;
+        }
+        markIsSuitableField(animals);
+
+        int treatmentNum = param.getTreatmentNum();
+        int replicationNum = param.getReplicationNum();
+        int unitNum = param.getUnitNumber();
+
+        //1.将动物顺序随机打乱
+        Collections.shuffle(animals);
+
+        //2.依次指定重复组和处理组
+        int groupNum = treatmentNum * unitNum;  //每个重复组中的动物数目
+        for (int i = 0; i < replicationNum; i++) {
+            int replication = i + 1;
+            List<Animal> animalGroup = animals.subList(i*groupNum, (i+1)*groupNum);
+            randomInGroup(animalGroup, treatmentNum, unitNum, replication);
+
+            Collections.sort(animalGroup, new Comparator<Animal>() {
+                public int compare(Animal o1, Animal o2) {
+                    return o1.getTreatment().compareTo(o2.getTreatment());
+                }
+            });
+        }
+
+
+        for (Animal animal : animalList) {
+            System.out.println(animal);
+        }
+        return true;
+    }
 
     /**
      * 不考虑性别的情况下的完全随机区组设计，在每个区组内对个试验单元以随机方式实施不同处理
@@ -25,11 +69,12 @@ public class GroupDesign {
      */
     public static boolean groupByRCBWithoutGender(List<Animal> animals, GroupDesignParam param) {
 
-        List<Animal> animalList = checkAnimalListByRCBWithoutGender(animals, param);
+        List<Animal> animalList = checkAnimalListWithoutGender(animals, param);
 
         if (animalList == null) {
             return false;
         }
+        markIsSuitableField(animalList);
 
         //1.对动物数据按体重从大到小排序
         Collections.sort(animalList, new Comparator<Animal>() {
@@ -222,11 +267,137 @@ public class GroupDesign {
     }
 
     /**
-     * 根据分组参数判断在不考虑性别情况下参与RCB分组的动物数目是否符合要求，数目过少直接返回null, 过多返回合适的动物列表
+     * 分组完成后 根据先前圈舍规划的结果 根据重复组和处理组为每个动物设置新的圈舍号
+     * @param animalList
+     * @param animalHouseList
+     * @param groupStatus
+     */
+    public static void setAnimalGroupNewPen(List<Animal> animalList, List<AnimalHouse> animalHouseList, boolean groupStatus) {
+
+        Map<String, Map<String, String>> map = getHouseCodeByReplicationAndTreatment(animalHouseList);
+
+        if (groupStatus) {
+            for (Animal animal : animalList) {
+                String replication = animal.getReplicate();
+                String treatment = animal.getTreatment();
+                String houseCode = map.get(replication).get(treatment);
+                animal.setNewPen(houseCode);
+                animal.setHouse(houseCode);
+            }
+        }
+    }
+
+    private static Map<String, Map<String, String>> getHouseCodeByReplicationAndTreatment(List<AnimalHouse> animalHouseList) {
+
+        Set<String> replicationSet = new HashSet<String>();
+        for (AnimalHouse animalHouse : animalHouseList) {
+            String replication = animalHouse.getReplicate();
+            if (replication != null) {
+                replicationSet.add(replication);
+            }
+        }
+
+        Map<String, Map<String, String>> resultMap = new HashMap<String, Map<String, String>>();
+        Iterator<String> iterator = replicationSet.iterator();
+        while (iterator.hasNext()) {
+            String replicationKey = iterator.next();
+            Map<String, String> map = new HashMap<String, String>();
+            resultMap.put(replicationKey, map);
+        }
+
+        for (AnimalHouse animalHouse : animalHouseList) {
+            String replication = animalHouse.getReplicate();
+            String treatment = animalHouse.getTreatment();
+            String houseCode = animalHouse.getHouseCode();
+            Map<String, String> map = resultMap.get(replication);
+            map.put(treatment, houseCode);
+        }
+
+        return resultMap;
+    }
+
+    /**
+     * 分组完成后 设置分组总结  TODO 检验动物是否合适
+     * @param animalList
+     * @param result
+     * @param groupStatus
+     */
+    public static void setAnimalGroupSummary(List<Animal> animalList, GroupDesignParam param, GroupDesignResult result, boolean groupStatus) {
+
+        int treatmentNum = param.getTreatmentNum();
+        int replicationNum = param.getReplicationNum();
+
+        GroupDesignSummary summary = null;
+        List<List<Double>> summaryOfAnimalAllotment = null;
+        List<List<Double>> analysisOfVariance = null;
+
+        //初始化数据结构
+        for (int i = 0; i <= treatmentNum + 1; i++) {
+            List<Double> list = new ArrayList<Double>();
+            summaryOfAnimalAllotment.add(list);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            List<Double> list = new ArrayList<Double>();
+            analysisOfVariance.add(list);
+        }
+
+        if (groupStatus) {
+            summary = new GroupDesignSummary();
+
+            Set<Double> meanSet = new HashSet<Double>();
+            Set<Double> cvSet = new HashSet<Double>();
+            for (Animal animal : animalList) {
+
+            }
+
+        }
+
+    }
+
+
+    /**
+     * 分组完成后 设置动物分组结果的moving sheet
+     * @param animalList
+     * @param result
+     * @param groupStatus
+     */
+    public static void setAnimalGroupMovingSheet(List<Animal> animalList, GroupDesignResult result, boolean groupStatus) {
+
+        GroupDesignMovingSheet movingSheet = null;
+        if (groupStatus) {
+            movingSheet = new GroupDesignMovingSheet();
+
+            List<Animal> newAnimalList = new ArrayList<Animal>();
+            Collections.addAll(newAnimalList, new Animal[animalList.size()]);
+            Collections.copy(newAnimalList, animalList);
+
+            //按旧的圈舍号排序
+            Collections.sort(animalList, new Comparator<Animal>() {
+                public int compare(Animal o1, Animal o2) {
+                    return o1.getOldPen().compareTo(o2.getOldPen());
+                }
+            });
+            movingSheet.setAnimalListSortedByOldPenNum(animalList);
+
+            //按新的圈舍号排序
+            Collections.sort(newAnimalList, new Comparator<Animal>() {
+                public int compare(Animal o1, Animal o2) {
+                    return o1.getNewPen().compareTo(o2.getNewPen());
+                }
+            });
+            movingSheet.setAnimalListSortedByNewPenNum(newAnimalList);
+        }
+
+        result.setMovingSheet(movingSheet);
+    }
+
+    /**
+     * 根据分组参数判断在不考虑性别情况下参与分组的动物数目是否符合要求，数目过少直接返回null, 过多返回合适的动物列表
      * @param animalList
      * @param param
      */
-    private static List<Animal> checkAnimalListByRCBWithoutGender(List<Animal> animalList, GroupDesignParam param) {
+    private static List<Animal> checkAnimalListWithoutGender(List<Animal> animalList, GroupDesignParam param) {
         int replicationNum = param.getReplicationNum();
         int treatmentNum = param.getTreatmentNum();
         int unitNum = param.getUnitNumber();
@@ -389,6 +560,12 @@ public class GroupDesign {
 
     }
 
+
+    private static void markIsSuitableField(List<Animal> animalList) {
+        for (Animal animal : animalList) {
+            animal.setSuitable(1);
+        }
+    }
 
     /**
      * 按照体重偏离中位数的程度进行排序
@@ -697,11 +874,19 @@ public class GroupDesign {
                 data.add(value);
             }
             Double averageValue = MathUtil.computeAverage(data);
+            //保存每个圈舍的平均体重
+            for (int j = i*unitNum; j < (i+1)*unitNum; j++) {
+                animalList.get(j).setWeightMean(averageValue);
+            }
             averageList.add(averageValue);
         }
 
         //3.计算每个区组的变异系数
         Double coefficientVariation = MathUtil.computeCoefficientVariation(averageList);
+        //保存变异系数
+        for (Animal animal : animalList) {
+            animal.setCoefficientOfVariation(coefficientVariation);
+        }
         if (coefficientVariation < coefficientVariationAllowance) {
             return true;
         }
