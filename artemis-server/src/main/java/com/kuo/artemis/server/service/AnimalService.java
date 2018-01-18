@@ -26,5 +26,19 @@ public interface AnimalService {
      */
     Response groupAnimal(Object param);
 
+    /**
+     * 获取动物分组结果
+     * @param projectId
+     * @return
+     */
+    Response getAnimalGroupResult(String projectId);
+
+    /**
+     * 提交动物分组结果
+     * @param result
+     * @return
+     */
+    Response commitAnimalGroupResult(Object result);
+
 
 }

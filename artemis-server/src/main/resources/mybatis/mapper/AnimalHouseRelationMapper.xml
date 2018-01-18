@@ -22,6 +22,16 @@
     delete from animal_house_relation
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <insert id="insertBatch" parameterType="List">
+    insert into animal_house_relation (animal_id, house_id, start_time)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.animalId}, #{item.houseId}, #{item.startTime})
+    </foreach>
+  </insert>
+
+
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalHouseRelation">
     insert into animal_house_relation (id, animal_id, house_id, 
       start_time, end_time, create_time

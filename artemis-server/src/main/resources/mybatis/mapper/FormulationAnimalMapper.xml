@@ -29,6 +29,15 @@
     where formulation_id = #{formulationId,jdbcType=INTEGER}
       and animal_id = #{animalId,jdbcType=VARCHAR}
   </delete>
+
+  <insert id="insertBatch" parameterType="List">
+    insert into formulation_animal_relation (formulation_id, animal_id, start_time)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.formulationId}, #{item.animalId}, #{item.startTime})
+    </foreach>
+  </insert>
+
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.FormulationAnimal">
     insert into formulation_animal_relation (formulation_id, animal_id, start_time, 
       end__time, create_time, modified_time

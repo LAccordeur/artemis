@@ -3,6 +3,7 @@ package com.kuo.artemis.server.core.jwt;
 import com.kuo.artemis.server.controller.UserController;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * @Author : guoyang
@@ -24,6 +25,8 @@ public class Test {
             System.out.println(method.getName());
         }
 
+        Date date = new Date();
+        System.out.println(date.toString());
 
     }
 }

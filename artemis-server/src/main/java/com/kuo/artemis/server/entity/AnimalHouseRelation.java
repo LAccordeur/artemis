@@ -9,7 +9,7 @@ public class AnimalHouseRelation {
 
     private Integer houseId;
 
-    private Date startTime;
+    private Date startTime = new Date();
 
     private Date endTime;
 

@@ -8,6 +8,8 @@ import java.util.List;
 public interface AnimalHouseMapper {
     int deleteByPrimaryKey(Integer id);
 
+    int insertBatch(List<AnimalHouse> animalHouseList);
+
     int insert(AnimalHouse record);
 
     int insertSelective(AnimalHouse record);

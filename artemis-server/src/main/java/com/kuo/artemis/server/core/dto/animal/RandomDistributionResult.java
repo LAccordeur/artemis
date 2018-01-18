@@ -1,5 +1,8 @@
 package com.kuo.artemis.server.core.dto.animal;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.kuo.artemis.server.entity.AnimalHouse;
+
 import java.util.List;
 
 /**
@@ -7,6 +10,7 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2018/1/17
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RandomDistributionResult {
 
     private String projectId;    //课题id
@@ -17,6 +21,8 @@ public class RandomDistributionResult {
 
     private List<List> randomResult;
 
+    private List<AnimalHouse> animalHouseList;
+
     private RandomDistributionParam param;
 
     @Override
@@ -26,8 +32,17 @@ public class RandomDistributionResult {
                 ", buildingCode='" + buildingCode + '\'' +
                 ", houseCodeList=" + houseCodeList +
                 ", randomResult=" + randomResult +
+                ", animalHouseList=" + animalHouseList +
                 ", param=" + param +
                 '}';
+    }
+
+    public List<AnimalHouse> getAnimalHouseList() {
+        return animalHouseList;
+    }
+
+    public void setAnimalHouseList(List<AnimalHouse> animalHouseList) {
+        this.animalHouseList = animalHouseList;
     }
 
     public String getProjectId() {

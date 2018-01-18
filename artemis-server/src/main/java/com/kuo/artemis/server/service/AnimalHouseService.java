@@ -22,10 +22,10 @@ public interface AnimalHouseService {
 
     /**
      * 获取圈舍规划的结果，包含每个圈舍里是哪个重复组和处理组
-     * @param project
+     * @param projectId
      * @return
      */
-    Response getHouseProgrammingResult(String project);
+    Response getHouseProgrammingResult(String projectId);
 
     /**
      * 进行圈舍规划（规划完毕后需要建立房间以及圈舍）

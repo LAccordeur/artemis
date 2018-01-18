@@ -5,6 +5,8 @@ import java.util.Date;
 public class AnimalBuilding {
     private Integer id;
 
+    private Integer projectId;
+
     private String buildingCode;
 
     private Integer houseNumber;
@@ -12,6 +14,14 @@ public class AnimalBuilding {
     private Short houseType;
 
     private Date createTime;
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
 
     public Integer getId() {
         return id;

@@ -3,7 +3,7 @@ package com.kuo.artemis.server.entity;
 import java.util.Date;
 
 public class FormulationAnimal extends FormulationAnimalKey {
-    private Date startTime;
+    private Date startTime = new Date();
 
     private Date endTime;
 
