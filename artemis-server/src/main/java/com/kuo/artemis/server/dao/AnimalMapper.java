@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.Animal;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public interface AnimalMapper extends BaseMapper {
     int insert(Animal record);
 
     int insertSelective(Animal record);
+
+    List<Animal> selectByProjectId(@Param("projectId") Integer projectId);
 
     Animal selectByPrimaryKey(String id);
 

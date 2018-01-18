@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class GroupDesignParam {
 
+    private String projectId;
+
     private Integer animalNumber;    //动物数目
 
     private Integer treatmentNum;    //处理组数
@@ -33,6 +35,8 @@ public class GroupDesignParam {
 
     private boolean isConsiderGender;    //是否考虑性别
 
+    private String genderOption;
+
     private Double coefficientAllowance;    //变异系数
 
     private Integer maximumLoop;    //最大循环次数
@@ -40,6 +44,22 @@ public class GroupDesignParam {
     public GroupDesignParam() {
         this.coefficientAllowance = 5D;
         this.maximumLoop = 30;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getGenderOption() {
+        return genderOption;
+    }
+
+    public void setGenderOption(String genderOption) {
+        this.genderOption = genderOption;
     }
 
     public List<GroupGenderParam> getDifferentGenderBalancesParamList() {

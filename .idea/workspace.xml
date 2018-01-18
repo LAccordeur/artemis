@@ -51,11 +51,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GroupDesign.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GroupDesign.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesign.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="460" column="20" lean-forward="true" selection-start-line="460" selection-start-column="20" selection-end-line="460" selection-end-column="20" />
+            <state relative-caret-position="156">
+              <caret line="218" column="63" lean-forward="false" selection-start-line="218" selection-start-column="26" selection-end-line="218" selection-end-column="63" />
               <folding>
                 <element signature="method#groupByRCBWithGenderAsBlockingFactor#0;class#GroupDesign#0" expanded="false" />
                 <element signature="method#groupByRCBWithDifferentGenderBalances#0;class#GroupDesign#0" expanded="false" />
@@ -90,22 +90,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GroupDesignParam.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignParam.java">
+      <file leaf-file-name="CacheRedisDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/redis/CacheRedisDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AnimalService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/AnimalService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="33" column="31" lean-forward="false" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="946">
+              <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,28 +105,47 @@
       <file leaf-file-name="AnimalServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/AnimalServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+            <state relative-caret-position="358">
+              <caret line="89" column="55" lean-forward="true" selection-start-line="89" selection-start-column="55" selection-end-line="89" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#340#341#0" expanded="true" />
-                <element signature="e#367#368#0" expanded="true" />
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#443#444#0" expanded="true" />
-                <element signature="e#505#506#0" expanded="true" />
-                <element signature="e#532#533#0" expanded="true" />
-                <element signature="e#594#595#0" expanded="true" />
-                <element signature="e#621#622#0" expanded="true" />
+                <element signature="e#1337#1338#0" expanded="true" />
+                <element signature="e#1364#1365#0" expanded="true" />
+                <element signature="method#groupAnimal#0;class#AnimalServiceImpl#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GroupDesignResult.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="spring-dao.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/spring/spring-dao.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="382">
+              <caret line="111" column="4" lean-forward="false" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupDesignParam.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignParam.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+              <folding>
+                <element signature="e#1162#1163#0" expanded="true" />
+                <element signature="e#1212#1213#0" expanded="true" />
+                <element signature="e#1254#1255#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupDesignResult.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+            <state relative-caret-position="178">
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -142,8 +153,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GroupDesignMovingSheet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupDesignMovingSheet.java">
+      <file leaf-file-name="GroupDesignSummary.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupDesignSummary.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="186">
               <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
@@ -159,10 +170,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="AnnotationType" />
         <option value="Enum" />
         <option value="JUnit4 Test Class" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -218,17 +229,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/artemis-server/src/main/resources.dev/database.properties" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalGutMicrobiotaRecordMapper.xml" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalGrowthRecordMapper.xml" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalMapper.xml" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalGrowthRecordMapper.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalGutMicrobiotaRecordMapper.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalMapper.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalIndicatorRecordMapper.xml" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalIndicatorRecordMapper.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/DataHelper.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/FieldClassConst.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/file/ExcelUtil.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/AnimalIndicatorRecordService.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/AnimalIndicatorRecordServiceImpl.java" />
@@ -236,14 +236,11 @@
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/FormulationServiceImpl.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/factory/DoubleFormatFactory.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupGenderParam.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignParam.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/GroupDesignStatus.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupGenderParam.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/MathUtil.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/test/java/com/kuo/artemis/server/util/MathUtilTest.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupDesignMovingSheet.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignResult.java" />
-        <option value="$PROJECT_DIR$/artemis-server/pom.xml" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/Animal.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/test/java/com/kuo/artemis/server/core/math/GroupDesignTest.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupDesignSummary.java" />
@@ -261,13 +258,27 @@
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/controller/AnimalHouseController.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/RandomDistributionResult.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/AnimalHouseServiceImpl.java" />
-        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/AnimalService.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/AnimalHouseRelation.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/test/java/com/kuo/artemis/server/core/jwt/Test.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalHouseRelationMapper.xml" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/FormulationAnimal.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/FormulationAnimalMapper.xml" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/FormulationAnimalMapper.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/GroupDesignMethod.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/GenderOption.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/GroupDesignMethodConst.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignResult.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/AnimalGroupHelper.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignParam.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalMapper.xml" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalMapper.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/AnimalService.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/redis/CacheRedis.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/redis/CacheRedis.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/resources/spring/spring-dao.xml" />
+        <option value="$PROJECT_DIR$/artemis-server/pom.xml" />
+        <option value="$PROJECT_DIR$/artemis-server/src/test/java/com/kuo/artemis/server/dao/RedisSpringTest.java" />
+        <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/redis/CacheRedisDao.java" />
         <option value="$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/AnimalServiceImpl.java" />
       </list>
     </option>
@@ -304,10 +315,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-95" />
-    <option name="y" value="4" />
-    <option name="width" value="1382" />
-    <option name="height" value="742" />
+    <option name="x" value="-34" />
+    <option name="y" value="19" />
+    <option name="width" value="829" />
+    <option name="height" value="660" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -382,8 +393,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
@@ -392,38 +402,8 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
-              <item name="animal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="math" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="redis" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
@@ -463,7 +443,23 @@
               <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources.dev" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources.dev" type="462c0819:PsiDirectoryNode" />
+              <item name="props" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
@@ -486,46 +482,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="artemis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="jwt" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="artemis" type="b2602c69:ProjectViewProjectNode" />
@@ -566,6 +522,7 @@
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.kuo.artemis.server.dao" />
       <recent name="com.kuo.artemis.server.core.factory" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -600,32 +557,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Test">
-    <configuration name="GroupDesignTest.groupByCRD" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.kuo.artemis.server.core.dto.animal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="artemis-server" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.kuo.artemis.server.core.math" />
-      <option name="MAIN_CLASS_NAME" value="com.kuo.artemis.server.core.math.GroupDesignTest" />
-      <option name="METHOD_NAME" value="groupByCRD" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
+  <component name="RunManager" selected="JUnit.RedisSpringTest.test">
     <configuration name="GroupDesignTest.groupByRCBWithoutGender" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -689,6 +621,31 @@
       <option name="PACKAGE_NAME" value="com.kuo.artemis.server.core.math" />
       <option name="MAIN_CLASS_NAME" value="com.kuo.artemis.server.core.math.RandomDistributionTest" />
       <option name="METHOD_NAME" value="randomUnitDistribution" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="RedisSpringTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.kuo.artemis.server.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="artemis-server" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.kuo.artemis.server.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.kuo.artemis.server.dao.RedisSpringTest" />
+      <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -877,19 +834,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.tomcat" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.groupByCRD" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.groupByRCBWithoutGender" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.setAnimalGroupSummary" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.RandomDistributionTest.randomUnitDistribution" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Test" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.groupByRCBWithoutGender" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.setAnimalGroupSummary" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.RandomDistributionTest.randomUnitDistribution" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Test" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.RedisSpringTest.test" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Test" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.RandomDistributionTest.randomUnitDistribution" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.setAnimalGroupSummary" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.groupByRCBWithoutGender" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.groupByCRD" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.RedisSpringTest.test" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Test" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.RandomDistributionTest.randomUnitDistribution" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.setAnimalGroupSummary" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.GroupDesignTest.groupByRCBWithoutGender" />
       </list>
     </recent_temporary>
   </component>
@@ -939,20 +896,11 @@
       <workItem from="1515581809136" duration="9238000" />
       <workItem from="1515635156195" duration="59306000" />
       <workItem from="1516000456451" duration="611000" />
-      <workItem from="1516153268920" duration="41863000" />
+      <workItem from="1516153268920" duration="49446000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="GroupDesignTest_setAnimalGroupSummary - 2018.01.18 at 09h 45m 15s.xml">
-      <configuration name="GroupDesignTest.setAnimalGroupSummary" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GroupDesignTest_setAnimalGroupSummary - 2018.01.18 at 09h 49m 46s.xml">
-      <configuration name="GroupDesignTest.setAnimalGroupSummary" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GroupDesignTest_setAnimalGroupSummary - 2018.01.18 at 09h 55m 14s.xml">
-      <configuration name="GroupDesignTest.setAnimalGroupSummary" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="GroupDesignTest_setAnimalGroupSummary - 2018.01.18 at 10h 17m 44s.xml">
       <configuration name="GroupDesignTest.setAnimalGroupSummary" configurationId="JUnit" />
     </history-entry>
@@ -974,9 +922,18 @@
     <history-entry file="RandomDistributionTest_randomUnitDistribution - 2018.01.18 at 10h 58m 16s.xml">
       <configuration name="RandomDistributionTest.randomUnitDistribution" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="RedisSpringTest_test - 2018.01.18 at 20h 50m 55s.xml">
+      <configuration name="RedisSpringTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="RedisSpringTest_test - 2018.01.18 at 20h 52m 54s.xml">
+      <configuration name="RedisSpringTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="RedisSpringTest_test - 2018.01.18 at 20h 53m 15s.xml">
+      <configuration name="RedisSpringTest.test" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="790022000" />
+    <option name="totallyTimeSpent" value="797605000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1001,7 +958,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.49063033" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60477" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.70698464" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48381603" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3982906" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1012,7 +969,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26096824" sideWeight="0.48722318" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27836612" sideWeight="0.48722318" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1050,99 +1007,11 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Tools/Java/jdk/src.zip!/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="1381" column="24" lean-forward="false" selection-start-line="1381" selection-start-column="24" selection-end-line="1381" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Tools/Java/jdk/src.zip!/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="477" column="17" lean-forward="false" selection-start-line="477" selection-start-column="17" selection-end-line="477" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Tools/Java/jdk/src.zip!/java/util/Collections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="174" column="15" lean-forward="true" selection-start-line="174" selection-start-column="15" selection-end-line="174" selection-end-column="15" />
-          <folding>
-            <element signature="e#7284#7285#0" expanded="false" />
-            <element signature="e#7312#7313#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Tools/Java/jdk/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3540">
-          <caret line="151" column="25" lean-forward="true" selection-start-line="151" selection-start-column="25" selection-end-line="151" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Tools/Java/jdk/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="162" column="39" lean-forward="false" selection-start-line="162" selection-start-column="39" selection-end-line="162" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/MathUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="76" column="29" lean-forward="false" selection-start-line="76" selection-start-column="29" selection-end-line="76" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/entity/Animal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#2089#2090#0" expanded="true" />
-            <element signature="e#2133#2134#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/Tools/Java/jdk/src.zip!/java/util/Set.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="559">
           <caret line="189" column="9" lean-forward="true" selection-start-line="189" selection-start-column="9" selection-end-line="189" selection-end-column="9" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupDesignSummary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1196,29 +1065,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/spring/spring-dao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="23" column="49" lean-forward="true" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
-          <folding>
-            <element signature="e#895#914#0" expanded="false" />
-            <element signature="e#952#979#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/props/system.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources.dev/props/database.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1281,16 +1131,6 @@
             <marker date="1516256093304" expanded="true" signature="1559:1870" ph="insert into animal_building... " />
             <marker date="1516256093304" expanded="true" signature="3236:3738" ph="update anima... " />
             <marker date="1516256093304" expanded="true" signature="3851:4127" ph="update anima... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalBuildingMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="7" column="76" lean-forward="false" selection-start-line="7" selection-start-column="76" selection-end-line="7" selection-end-column="76" />
-          <folding>
-            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1484,32 +1324,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/AnimalServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#340#341#0" expanded="true" />
-            <element signature="e#367#368#0" expanded="true" />
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#443#444#0" expanded="true" />
-            <element signature="e#505#506#0" expanded="true" />
-            <element signature="e#532#533#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
-            <element signature="e#621#622#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/AnimalService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="33" column="31" lean-forward="false" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupDesignMovingSheet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -1520,28 +1334,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignResult.java">
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/GroupDesignStatus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+        <state relative-caret-position="44">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/GroupDesignMethodConst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/util/constant/GenderOptionConst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="66" lean-forward="false" selection-start-line="7" selection-start-column="66" selection-end-line="7" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+          <folding>
+            <element signature="e#1162#1163#0" expanded="true" />
+            <element signature="e#1212#1213#0" expanded="true" />
+            <element signature="e#1254#1255#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/mybatis/mapper/AnimalMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="31" />
+          <folding>
+            <marker date="1516277641701" expanded="true" signature="1666:1768" ph="select from animal" />
+            <marker date="1516277641701" expanded="true" signature="1872:1946" ph="select from animal" />
+            <marker date="1516277641701" expanded="true" signature="1872:1971" ph="select from animal" />
+            <marker date="1516277641701" expanded="true" signature="2058:2114" ph="delete from " />
+            <marker date="1516277641701" expanded="true" signature="4545:5240" ph="insert into animal... " />
+            <marker date="1516277641701" expanded="true" signature="7793:9197" ph="update anima... " />
+            <marker date="1516277641701" expanded="true" signature="9302:10027" ph="update anima... " />
+            <marker date="1516277641701" expanded="true" signature="10166:11460" ph="update anima... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="14" column="74" lean-forward="false" selection-start-line="14" selection-start-column="74" selection-end-line="14" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/helper/AnimalGroupHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#assembleResult#0;class#AnimalGroupHelper#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/AnimalService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="42" column="79" lean-forward="false" selection-start-line="42" selection-start-column="79" selection-end-line="42" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/dto/animal/GroupDesignSummary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignParam.java">
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources.dev/props/database.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="-6">
+          <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/AnimalBuildingMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="7" column="76" lean-forward="false" selection-start-line="7" selection-start-column="76" selection-end-line="7" selection-end-column="76" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesign.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="460" column="20" lean-forward="true" selection-start-line="460" selection-start-column="20" selection-end-line="460" selection-end-column="20" />
+        <state relative-caret-position="156">
+          <caret line="218" column="63" lean-forward="false" selection-start-line="218" selection-start-column="26" selection-end-line="218" selection-end-column="63" />
           <folding>
             <element signature="method#groupByRCBWithGenderAsBlockingFactor#0;class#GroupDesign#0" expanded="false" />
             <element signature="method#groupByRCBWithDifferentGenderBalances#0;class#GroupDesign#0" expanded="false" />
@@ -1571,6 +1473,65 @@
             <element signature="method#randomInGroup#0;class#GroupDesign#0" expanded="false" />
             <element signature="method#randomInGroupByGender#0;class#GroupDesign#0" expanded="false" />
             <element signature="method#checkCoefficientVariation#0;class#GroupDesign#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="36" column="34" lean-forward="false" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/test/java/com/kuo/artemis/server/dao/RedisSpringTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="22" column="19" lean-forward="false" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/dao/redis/CacheRedisDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="946">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/resources/spring/spring-dao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="111" column="4" lean-forward="false" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/service/impl/AnimalServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="89" column="55" lean-forward="true" selection-start-line="89" selection-start-column="55" selection-end-line="89" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1337#1338#0" expanded="true" />
+            <element signature="e#1364#1365#0" expanded="true" />
+            <element signature="method#groupAnimal#0;class#AnimalServiceImpl#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/artemis-server/src/main/java/com/kuo/artemis/server/core/math/GroupDesignResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

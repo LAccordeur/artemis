@@ -1,6 +1,8 @@
 package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.math.GroupDesignParam;
+import com.kuo.artemis.server.core.math.GroupDesignResult;
 import com.kuo.artemis.server.entity.Animal;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public interface AnimalService {
      * @param param
      * @return
      */
-    Response groupAnimal(Object param);
+    Response groupAnimal(GroupDesignParam param) throws Exception;
 
     /**
      * 获取动物分组结果
@@ -38,7 +40,7 @@ public interface AnimalService {
      * @param result
      * @return
      */
-    Response commitAnimalGroupResult(Object result);
+    Response commitAnimalGroupResult(GroupDesignResult result) throws Exception;
 
 
 }

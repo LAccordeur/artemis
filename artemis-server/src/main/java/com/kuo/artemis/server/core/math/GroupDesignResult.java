@@ -15,7 +15,7 @@ public class GroupDesignResult {
 
     private GroupDesignMovingSheet movingSheet;   //分组结果movingSheet
 
-    private GroupDesignStatus status;    //分组结果状态
+    private String status;    //分组结果状态
 
     @Override
     public String toString() {
@@ -42,11 +42,11 @@ public class GroupDesignResult {
         this.movingSheet = movingSheet;
     }
 
-    public GroupDesignStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(GroupDesignStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
