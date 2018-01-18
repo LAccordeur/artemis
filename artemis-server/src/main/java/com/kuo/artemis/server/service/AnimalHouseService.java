@@ -2,6 +2,8 @@ package com.kuo.artemis.server.service;
 
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.animal.RandomDistributionParam;
+import com.kuo.artemis.server.core.dto.animal.RandomDistributionResult;
 import com.kuo.artemis.server.entity.AnimalHouse;
 
 /**
@@ -12,11 +14,11 @@ public interface AnimalHouseService {
 
 
     /**
-     *  创建一个圈舍
-     *  @param house
+     *  保存圈舍规划结果
+     *  @param result
      * @return
      */
-    Response createHouse(AnimalHouse house);
+    Response commitHouseProgrammingResult(RandomDistributionResult result);
 
     /**
      * 获取圈舍规划的结果，包含每个圈舍里是哪个重复组和处理组
@@ -30,7 +32,7 @@ public interface AnimalHouseService {
      * @param param
      * @return
      */
-    Response doHouseProgramming(Object param);
+    Response doHouseProgramming(RandomDistributionParam param);
 
 
     /**

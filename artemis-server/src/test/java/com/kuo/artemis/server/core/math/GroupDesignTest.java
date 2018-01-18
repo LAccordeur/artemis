@@ -13,6 +13,155 @@ import java.util.Random;
 
 public class GroupDesignTest {
     @Test
+    public void setAnimalGroupSummary() throws Exception {
+        List<Animal> animals = new ArrayList<Animal>();
+
+        Animal animal = new Animal();
+        animal.setAnimalInitWeight(new BigDecimal(10.86));
+        //animal.setTreatmentNum("4");
+        animal.setAnimalSex(Byte.valueOf("1"));
+        animal.setOldPen("1");
+        animal.setNewPen("2");
+        animals.add(animal);
+
+
+        Animal animal1 = new Animal();
+        animal1.setAnimalInitWeight(new BigDecimal(10.88));
+        //animal1.setTreatmentNum("2");
+        animal1.setAnimalSex(Byte.valueOf("2"));
+        animal1.setOldPen("1");
+        animal1.setNewPen("2");
+        animals.add(animal1);
+
+        Animal animal2 = new Animal();
+        animal2.setAnimalInitWeight(new BigDecimal(10.92));
+        //animal2.setTreatmentNum("3");
+        animal2.setAnimalSex(Byte.valueOf("1"));
+        animal2.setOldPen("1");
+        animal2.setNewPen("2");
+        animals.add(animal2);
+
+        Animal animal3 = new Animal();
+        animal3.setAnimalInitWeight(new BigDecimal(11.36));
+        //animal3.setTreatmentNum("2");
+        animal3.setAnimalSex(Byte.valueOf("1"));
+        animal3.setOldPen("1");
+        animal3.setNewPen("3");
+        animals.add(animal3);
+
+        Animal animal4 = new Animal();
+        animal4.setAnimalInitWeight(new BigDecimal(11.56));
+        //animal4.setTreatmentNum("3");
+        animal4.setAnimalSex(Byte.valueOf("2"));
+        animal4.setOldPen("1");
+        animal4.setNewPen("3");
+        animals.add(animal4);
+
+        Animal animal5 = new Animal();
+        animal5.setAnimalInitWeight(new BigDecimal(11.58));
+        //animal5.setTreatmentNum("1");
+        animal5.setAnimalSex(Byte.valueOf("2"));
+        animal5.setOldPen("2");
+        animal5.setNewPen("3");
+        animals.add(animal5);
+
+        Animal animal6 = new Animal();
+        animal6.setAnimalInitWeight(new BigDecimal(11.72));
+        //animal6.setTreatmentNum("1");
+        animal6.setAnimalSex(Byte.valueOf("1"));
+        animal6.setOldPen("2");
+        animal6.setNewPen("4");
+        animals.add(animal6);
+
+        Animal animal7 = new Animal();
+        animal7.setAnimalInitWeight(new BigDecimal(11.88));
+        //animal7.setTreatmentNum("4");
+        animal7.setAnimalSex(Byte.valueOf("2"));
+        animal7.setOldPen("2");
+        animal7.setNewPen("4");
+        animals.add(animal7);
+
+        Animal animal8 = new Animal();
+        animal8.setAnimalInitWeight(new BigDecimal(12.86));
+        //animal.setTreatmentNum("4");
+        animal8.setAnimalSex(Byte.valueOf("1"));
+        animal8.setOldPen("2");
+        animal8.setNewPen("4");
+        animals.add(animal8);
+
+        Animal animal9 = new Animal();
+        animal9.setAnimalInitWeight(new BigDecimal(10.98));
+        //animal1.setTreatmentNum("2");
+        animal9.setAnimalSex(Byte.valueOf("2"));
+        animal9.setOldPen("3");
+        animal9.setNewPen("5");
+        animals.add(animal9);
+
+        Animal animal10 = new Animal();
+        animal10.setAnimalInitWeight(new BigDecimal(10.52));
+        //animal2.setTreatmentNum("3");
+        animal10.setAnimalSex(Byte.valueOf("1"));
+        animal10.setOldPen("3");
+        animal10.setNewPen("5");
+        animals.add(animal10);
+
+        Animal animal11 = new Animal();
+        animal11.setAnimalInitWeight(new BigDecimal(10.36));
+        //animal3.setTreatmentNum("2");
+        animal11.setAnimalSex(Byte.valueOf("1"));
+        animal11.setOldPen("3");
+        animal11.setNewPen("6");
+        animals.add(animal11);
+
+        Animal animal12 = new Animal();
+        animal12.setAnimalInitWeight(new BigDecimal(11.76));
+        //animal4.setTreatmentNum("3");
+        animal12.setAnimalSex(Byte.valueOf("2"));
+        animal12.setOldPen("3");
+        animal12.setNewPen("6");
+        animals.add(animal12);
+
+        Animal animal13 = new Animal();
+        animal13.setAnimalInitWeight(new BigDecimal(11.28));
+        //animal5.setTreatmentNum("1");
+        animal13.setAnimalSex(Byte.valueOf("2"));
+        animal13.setOldPen("3");
+        animal13.setNewPen("7");
+        animals.add(animal13);
+
+        Animal animal14 = new Animal();
+        animal14.setAnimalInitWeight(new BigDecimal(11.73));
+        //animal6.setTreatmentNum("1");
+        animal14.setAnimalSex(Byte.valueOf("1"));
+        animal14.setOldPen("3");
+        animal14.setNewPen("7");
+        animals.add(animal14);
+
+        Animal animal15 = new Animal();
+        animal15.setAnimalInitWeight(new BigDecimal(10.68));
+        //animal7.setTreatmentNum("4");
+        animal15.setAnimalSex(Byte.valueOf("2"));
+        animal15.setOldPen("4");
+        animal15.setNewPen("7");
+        animals.add(animal15);
+
+        GroupDesignParam param = new GroupDesignParam();
+
+        param.setUnitNumber(2);
+        param.setTreatmentNum(2);
+        param.setReplicationNum(2);
+
+        GroupDesign.groupByRCBWithoutGender(animals, param);
+
+        GroupDesignResult result = new GroupDesignResult();
+        GroupDesign.setAnimalGroupSummary(animals, param, result, true);
+
+        System.out.println(result);
+
+
+    }
+
+    @Test
     public void groupByCRD() throws Exception {
         List<Animal> animals = new ArrayList<Animal>();
 

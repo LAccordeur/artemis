@@ -6,6 +6,9 @@ import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.util.MathUtil;
+import org.apache.commons.math.MathException;
+import org.apache.commons.math.distribution.FDistribution;
+import org.apache.commons.math.distribution.FDistributionImpl;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -278,11 +281,13 @@ public class GroupDesign {
 
         if (groupStatus) {
             for (Animal animal : animalList) {
-                String replication = animal.getReplicate();
-                String treatment = animal.getTreatment();
-                String houseCode = map.get(replication).get(treatment);
-                animal.setNewPen(houseCode);
-                animal.setHouse(houseCode);
+                if (1 == animal.getSuitable()) {
+                    String replication = animal.getReplicate();
+                    String treatment = animal.getTreatment();
+                    String houseCode = map.get(replication).get(treatment);
+                    animal.setNewPen(houseCode);
+                    animal.setHouse(houseCode);
+                }
             }
         }
     }
@@ -322,34 +327,128 @@ public class GroupDesign {
      * @param result
      * @param groupStatus
      */
-    public static void setAnimalGroupSummary(List<Animal> animalList, GroupDesignParam param, GroupDesignResult result, boolean groupStatus) {
+    public static void setAnimalGroupSummary(List<Animal> animalList, GroupDesignParam param, GroupDesignResult result, boolean groupStatus) throws MathException {
 
         int treatmentNum = param.getTreatmentNum();
         int replicationNum = param.getReplicationNum();
-
         GroupDesignSummary summary = null;
-        List<List<Double>> summaryOfAnimalAllotment = null;
-        List<List<Double>> analysisOfVariance = null;
-
-        //初始化数据结构
-        for (int i = 0; i <= treatmentNum + 1; i++) {
-            List<Double> list = new ArrayList<Double>();
-            summaryOfAnimalAllotment.add(list);
-        }
-
-        for (int i = 0; i < 5; i++) {
-            List<Double> list = new ArrayList<Double>();
-            analysisOfVariance.add(list);
-        }
 
         if (groupStatus) {
-            summary = new GroupDesignSummary();
-
-            Set<Double> meanSet = new HashSet<Double>();
-            Set<Double> cvSet = new HashSet<Double>();
-            for (Animal animal : animalList) {
-
+            //初始化数据结构
+            List<List<Double>> summaryOfAnimalAllotment = new ArrayList<List<Double>>();
+            List<List<Double>> analysisOfVariance = new ArrayList<List<Double>>();
+            for (int i = 0; i <= treatmentNum + 1; i++) {
+                List<Double> list = new ArrayList<Double>();
+                summaryOfAnimalAllotment.add(list);
             }
+
+            for (int i = 0; i < 4; i++) {
+                List<Double> list = new ArrayList<Double>();
+                analysisOfVariance.add(list);
+            }
+
+            //设置animal allotment result
+            summary = new GroupDesignSummary();
+            summary.setAnimalAllotmentResult(animalList);
+
+            //组装summary of animal allotment
+            List<Double> meanListForAnalysis = new ArrayList();
+            List<Double> meanList = new ArrayList<Double>();
+            List<Double> cvList = new ArrayList<Double>();
+            for (Animal animal : animalList) {
+                Double mean = animal.getWeightMean();
+                Double cv = animal.getCoefficientOfVariation();
+                if (!meanList.contains(mean)) {
+                    if (mean != null) {
+                        meanList.add(mean);
+                    }
+                }
+                if (!cvList.contains(cv)) {
+                    if (cv != null) {
+                        cvList.add(cv);
+                    }
+                }
+            }
+
+            //将每个处理组的平均数填入表格
+            for (int i = 0; i < meanList.size(); i++) {
+                int rowIndex = i % treatmentNum;
+
+                List<Double> rowData = summaryOfAnimalAllotment.get(rowIndex);
+                rowData.add(meanList.get(i));
+            }
+
+            //计算每一列的平均数
+            List<Double> rowMeanList = summaryOfAnimalAllotment.get(treatmentNum);
+            for (int i = 0; i < replicationNum; i++) {
+                List<Double> groupList = meanList.subList(i*treatmentNum, (i+1)*treatmentNum);
+                Double colMean = MathUtil.computeAverage(groupList);
+                rowMeanList.add(colMean);
+            }
+            //计算每一行的平均数
+            for (int i = 0; i <= treatmentNum; i++) {
+                List<Double> rowData = summaryOfAnimalAllotment.get(i);
+                Double rowMean = MathUtil.computeAverage(rowData);
+                rowData.add(rowMean);
+                if (i != treatmentNum) {
+                    meanListForAnalysis.add(rowMean);
+                }
+            }
+            //设置CV行
+            List<Double> cvRow = summaryOfAnimalAllotment.get(treatmentNum + 1);
+            for (int i = 0; i < cvList.size(); i++) {
+                cvRow.add(cvList.get(i));
+            }
+            cvRow.add(MathUtil.computeCoefficientVariation(meanListForAnalysis));
+
+            //组装Analysis of Variance
+            List<Double> repList = analysisOfVariance.get(0);
+            Double repDf = replicationNum - 1.0;
+            repList.add(repDf);
+            Double repSs = MathUtil.computerSS(summaryOfAnimalAllotment.get(treatmentNum).subList(0, replicationNum));
+            repList.add(repSs);
+            Double repMs = repSs / repDf;
+            repList.add(repMs);
+
+            List<Double> trtList = analysisOfVariance.get(1);
+            Double trtDf = treatmentNum - 1.0;
+            trtList.add(trtDf);
+            Double trtSs = MathUtil.computerSS(meanListForAnalysis);
+            trtList.add(trtSs);
+            Double trtMs = trtSs / trtDf;
+            trtList.add(trtMs);
+
+            List<Double> errorList = analysisOfVariance.get(2);
+            Double errorDf = repDf * trtDf;
+            errorList.add(errorDf);
+
+            List<Double> totalList = analysisOfVariance.get(3);
+            totalList.add(treatmentNum * replicationNum - 1.0);
+            Double totalSs = MathUtil.computerSS(meanList);
+            totalList.add(totalSs);
+
+            Double errorSs = totalSs - trtSs - repSs;
+            errorList.add(errorSs);
+            Double errorMs = errorSs / errorDf;
+            errorList.add(errorMs);
+
+            Double repFValue = repMs / errorMs;
+            repList.add(repFValue);
+            FDistribution fDistributionRep = new FDistributionImpl(repDf, errorDf);
+            Double repPrF = 1 - fDistributionRep.cumulativeProbability(repFValue);
+            repList.add(repPrF);
+
+            Double trtFValue = trtMs / errorMs;
+            trtList.add(trtFValue);
+            FDistribution fDistributionTrt = new FDistributionImpl(trtDf, errorDf);
+            Double trtPrf = 1 - fDistributionTrt.cumulativeProbability(trtFValue);
+            trtList.add(trtPrf);
+
+            summary.setSummaryOfAnimalAllotment(summaryOfAnimalAllotment);
+            summary.setAnalysisOfVariance(analysisOfVariance);
+
+
+            result.setSummary(summary);
 
         }
 
@@ -357,7 +456,7 @@ public class GroupDesign {
 
 
     /**
-     * 分组完成后 设置动物分组结果的moving sheet
+     * 分组完成后 设置动物分组结果的moving sheet  TODO 检测动物是否合适
      * @param animalList
      * @param result
      * @param groupStatus

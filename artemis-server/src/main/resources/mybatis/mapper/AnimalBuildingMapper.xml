@@ -27,7 +27,7 @@
     values (#{id,jdbcType=INTEGER}, #{buildingCode,jdbcType=VARCHAR}, #{houseNumber,jdbcType=INTEGER}, 
       #{houseType,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalBuilding">
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalBuilding" useGeneratedKeys="true" keyProperty="id">
     insert into animal_building
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
