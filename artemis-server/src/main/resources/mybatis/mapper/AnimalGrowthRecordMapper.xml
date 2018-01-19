@@ -210,6 +210,8 @@
     <result column="phase3_fcr" jdbcType="DECIMAL" property="phase3Fcr" />
     <result column="phase4_fcr" jdbcType="DECIMAL" property="phase4Fcr" />
     <result column="phase5_fcr" jdbcType="DECIMAL" property="phase5Fcr" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="file_identifier" jdbcType="VARCHAR" property="fileIdentifier" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
@@ -248,7 +250,7 @@
     fcr_week2, fcr_week3, fcr_week4, fcr_week5, fcr_week6, fcr_week7, fcr_week8, fcr_week9, 
     fcr_week10, fcr_week11, fcr_week12, fcr_week13, fcr_week14, fcr_week15, fcr_week16, 
     fcr_week17, fcr_week18, fcr_week19, fcr_week20, fcr_week21, fcr_week22, fcr_week23, 
-    fcr_week24, phase1_fcr, phase2_fcr, phase3_fcr, phase4_fcr, phase5_fcr, create_time, 
+    fcr_week24, phase1_fcr, phase2_fcr, phase3_fcr, phase4_fcr, phase5_fcr, version, file_identifier, create_time,
     modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -890,6 +892,12 @@
       <if test="item.phase5Fcr != null">
         phase5_fcr,
       </if>
+      <if test="item.version != null">
+        version,
+      </if>
+      <if test="item.fileIdentifier != null">
+        file_identifier,
+      </if>
       <if test="item.createTime != null">
         create_time,
       </if>
@@ -1522,6 +1530,12 @@
       </if>
       <if test="item.phase5Fcr != null">
         #{item.phase5Fcr},
+      </if>
+      <if test="item.version != null">
+        #{item.version},
+      </if>
+      <if test="item.fileIdentifier != null">
+        #{item.fileIdentifier},
       </if>
       <if test="item.createTime != null">
         #{item.createTime},
@@ -2305,6 +2319,12 @@
       <if test="phase5Fcr != null">
         phase5_fcr,
       </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="fileIdentifier != null">
+        file_identifier,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -2937,6 +2957,12 @@
       <if test="phase5Fcr != null">
         #{phase5Fcr,jdbcType=DECIMAL},
       </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fileIdentifier != null">
+        #{fileIdentifier,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -3568,6 +3594,12 @@
       </if>
       <if test="phase5Fcr != null">
         phase5_fcr = #{phase5Fcr,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fileIdentifier != null">
+        file_identifier = #{fileIdentifier,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -4417,6 +4449,12 @@
       </if>
       <if test="item.phase5Fcr != null">
         phase5_fcr = #{item.phase5Fcr},
+      </if>
+      <if test="item.version != null">
+        version = #{item.version},
+      </if>
+      <if test="item.fileIdentifier != null">
+        file_identifier = #{item.fileIdentifier},
       </if>
       <if test="item.createTime != null">
         create_time = #{item.createTime},

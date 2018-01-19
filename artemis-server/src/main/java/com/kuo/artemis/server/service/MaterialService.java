@@ -2,6 +2,7 @@ package com.kuo.artemis.server.service;
 
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.entity.Material;
 
 import java.util.List;
@@ -56,6 +57,14 @@ public interface MaterialService {
      * @return
      */
     Response createNewMaterial(Material material, String userId);
+
+    /**
+     * 批量新增(若修改已有数据被视为新增)
+     * @param dataImportCommand
+     * @return
+     * @throws Exception
+     */
+    Response createNewMaterialBatch(DataImportCommand dataImportCommand) throws Exception;
 
 
 }

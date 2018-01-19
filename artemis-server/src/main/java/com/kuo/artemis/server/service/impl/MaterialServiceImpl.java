@@ -1,6 +1,8 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
+import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.MaterialMapper;
 import com.kuo.artemis.server.entity.Material;
@@ -97,6 +99,36 @@ public class MaterialServiceImpl implements MaterialService {
         } else {
             return new Response(HttpStatus.BAD_REQUEST.value(), "创建新原料失败");
         }
+    }
+
+    public Response createNewMaterialBatch(DataImportCommand dataImportCommand) throws Exception {
+
+        List<List<String>> materialList = dataImportCommand.getDataList();
+        String userId = dataImportCommand.getUserId();
+
+        //将二维数组类型的数据进行转换并组装
+        DataImportDTO dataImportDTO = DataHelper.excelDataToBean(materialList, Material.class, 0, 1);
+        List objectList = dataImportDTO.getCommonList();
+        for (int i = 0; i < objectList.size(); i++) {
+            Material material = (Material) objectList.get(i);
+            material.setUserId(Integer.valueOf(userId));
+        }
+
+        //剔除重复数据并增加新添数据
+        List<Material> dbMaterialList = materialMapper.selectByUserId(Integer.valueOf(userId));
+        Boolean removeResult = objectList.removeAll(dbMaterialList);
+        if (removeResult && objectList != null && objectList.size() == 0) {
+            return new Response(dbMaterialList, HttpStatus.NO_CONTENT.value(), "请勿添加重复数据");
+        }
+
+        int result = materialMapper.insertBatch(objectList);
+
+        if (result > 0) {
+            return new Response(HttpStatus.OK.value(), "新增原料成功");
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "新增原料失败");
+        }
+
     }
 
 

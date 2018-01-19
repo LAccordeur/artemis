@@ -420,9 +420,29 @@ public class AnimalGrowthRecord {
 
     private BigDecimal phase5Fcr;
 
+    private Integer version;
+
+    private String fileIdentifier;
+
     private Date createTime;
 
     private Date modifiedTime;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getFileIdentifier() {
+        return fileIdentifier;
+    }
+
+    public void setFileIdentifier(String fileIdentifier) {
+        this.fileIdentifier = fileIdentifier;
+    }
 
     public Integer getId() {
         return id;

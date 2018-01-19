@@ -2,6 +2,7 @@ package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
+import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.NutritionStandardMapper;
 import com.kuo.artemis.server.entity.NutritionStandard;
@@ -103,12 +104,33 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
 
     }
 
-    public Response createBatchNutritionStandards(DataImportCommand command) {
+    public Response createNutritionStandardsBatch(DataImportCommand command) throws Exception {
 
         String userId = command.getUserId();
         List<List<String>> dataList = command.getDataList();
 
+        //将二维数组类型的数据进行转换并组装
+        DataImportDTO dataImportDTO = DataHelper.excelDataToBean(dataList, NutritionStandard.class, 0, 1);
+        List objectList = dataImportDTO.getCommonList();
+        for (int i = 0; i < objectList.size(); i++) {
+            NutritionStandard nutritionStandard = (NutritionStandard) objectList.get(i);
+            nutritionStandard.setUserId(Integer.valueOf(userId));
+        }
 
-        return null;
+        //剔除重复数据并增加新添数据
+        List<NutritionStandard> dbNutritionStandardList = nutritionStandardMapper.selectByUserId(Integer.valueOf(userId));
+        Boolean removeResult = objectList.removeAll(dbNutritionStandardList);
+        if (removeResult && objectList != null && objectList.size() == 0) {
+            return new Response(dbNutritionStandardList, HttpStatus.NO_CONTENT.value(), "请勿添加重复数据");
+        }
+
+        int insertResult = nutritionStandardMapper.insertBatch(objectList);
+
+        if (insertResult > 0) {
+            return new Response(HttpStatus.OK.value(), "新增营养标准成功");
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "新增营养标准失败");
+        }
+
     }
 }

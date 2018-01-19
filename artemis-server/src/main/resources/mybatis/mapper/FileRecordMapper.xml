@@ -5,14 +5,17 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="filename" jdbcType="VARCHAR" property="filename" />
-    <result column="file_type" jdbcType="TINYINT" property="fileType" />
+    <result column="file_identifier" jdbcType="VARCHAR" property="fileIdentifier" />
+    <result column="file_type" jdbcType="BIT" property="fileType" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
-    <result column="operation_type" jdbcType="TINYINT" property="operationType" />
+    <result column="operation_type" jdbcType="BIT" property="operationType" />
+    <result column="version" jdbcType="INTEGER" property="version" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, filename, file_type, project_id, operation_type, create_time, modified_time
+    id, user_id, filename, file_identifier, file_type, project_id, operation_type, version, create_time,
+    modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,15 +27,31 @@
     delete from file_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <select id="selectIndicatorRecordFiles" parameterType="Integer" resultType="FileRecord">
+    select project_id, filename, file_identifier
+    from file_record
+    where project_id = #{projectId} and file_type = 1
+    group by filename, file_identifier
+  </select>
+
+  <select id="selectIndicatorRecordFileVersions" resultType="FileRecord">
+    select project_id, filename, file_identifier, version, modified_time
+    from file_record
+    where file_identifier = #{fileIdentifier} and project_id = #{projectId}
+  </select>
+
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.FileRecord">
     insert into file_record (id, user_id, filename, 
-      file_type, project_id, operation_type, 
-      create_time, modified_time)
+      file_identifier, file_type, project_id, 
+      operation_type, create_time, modified_time
+      )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{filename,jdbcType=VARCHAR}, 
-      #{fileType,jdbcType=TINYINT}, #{projectId,jdbcType=INTEGER}, #{operationType,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
+      #{fileIdentifier,jdbcType=VARCHAR}, #{fileType,jdbcType=BIT}, #{projectId,jdbcType=INTEGER}, 
+      #{operationType,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord">
     insert into file_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -44,6 +63,9 @@
       <if test="filename != null">
         filename,
       </if>
+      <if test="fileIdentifier != null">
+        file_identifier,
+      </if>
       <if test="fileType != null">
         file_type,
       </if>
@@ -52,6 +74,9 @@
       </if>
       <if test="operationType != null">
         operation_type,
+      </if>
+      <if test="version != null">
+        version,
       </if>
       <if test="createTime != null">
         create_time,
@@ -70,14 +95,20 @@
       <if test="filename != null">
         #{filename,jdbcType=VARCHAR},
       </if>
+      <if test="fileIdentifier != null">
+        #{fileIdentifier,jdbcType=VARCHAR},
+      </if>
       <if test="fileType != null">
-        #{fileType,jdbcType=TINYINT},
+        #{fileType,jdbcType=BIT},
       </if>
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
       </if>
       <if test="operationType != null">
-        #{operationType,jdbcType=TINYINT},
+        #{operationType,jdbcType=BIT},
+      </if>
+      <if test="version != null">
+        #{version, jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -96,14 +127,20 @@
       <if test="filename != null">
         filename = #{filename,jdbcType=VARCHAR},
       </if>
+      <if test="fileIdentifier != null">
+        file_identifier = #{fileIdentifier,jdbcType=VARCHAR},
+      </if>
       <if test="fileType != null">
-        file_type = #{fileType,jdbcType=TINYINT},
+        file_type = #{fileType,jdbcType=BIT},
       </if>
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
       <if test="operationType != null">
-        operation_type = #{operationType,jdbcType=TINYINT},
+        operation_type = #{operationType,jdbcType=BIT},
+      </if>
+      <if test="version != null">
+        version = #{version, jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -118,9 +155,10 @@
     update file_record
     set user_id = #{userId,jdbcType=INTEGER},
       filename = #{filename,jdbcType=VARCHAR},
-      file_type = #{fileType,jdbcType=TINYINT},
+      file_identifier = #{fileIdentifier,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=BIT},
       project_id = #{projectId,jdbcType=INTEGER},
-      operation_type = #{operationType,jdbcType=TINYINT},
+      operation_type = #{operationType,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -6,6 +6,7 @@
     <result column="animal_type_id" jdbcType="INTEGER" property="animalTypeId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="house_id" jdbcType="INTEGER" property="houseId" />
     <result column="animal_sex" jdbcType="SMALLINT" property="animalSex" />
     <result column="animal_init_weight" jdbcType="DECIMAL" property="animalInitWeight" />
     <result column="house" jdbcType="VARCHAR" property="house" />
@@ -14,12 +15,14 @@
     <result column="treatmentNum" jdbcType="VARCHAR" property="treatmentNum" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
     <result column="animal_birthday" jdbcType="TIMESTAMP" property="animalBirthday" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="file_identifier" jdbcType="VARCHAR" property="fileIdentifier" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, animal_type_id, user_id, project_id, animal_sex, animal_init_weight, house, code, 
-    id_number, treatmentNum, replicate, animal_birthday, create_time, modified_time
+    id, animal_type_id, user_id, project_id, house_id, animal_sex, animal_init_weight, house, code,
+    id_number, treatmentNum, replicate, animal_birthday, version, file_identifier, create_time, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -28,7 +31,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
 
-  <select id="selectByProjectId" parameterType="java.lang.String" resultMap="Animal">
+  <select id="selectByProjectId" parameterType="java.lang.String" resultType="Animal">
     select
     <include refid="Base_Column_List" />
     from animal
@@ -57,6 +60,9 @@
       <if test="item.projectId != null">
         project_id,
       </if>
+      <if test="item.houseId != null">
+        house_id,
+      </if>
       <if test="item.animalSex != null">
         animal_sex,
       </if>
@@ -77,6 +83,12 @@
       </if>
       <if test="item.animalBirthday != null">
         animal_birthday,
+      </if>
+      <if test="item.version != null">
+        version,
+      </if>
+      <if test="item.fileIdentifier != null">
+        file_identifier,
       </if>
       <if test="item.createTime != null">
         create_time,
@@ -100,6 +112,9 @@
       <if test="item.projectId != null">
         #{item.projectId},
       </if>
+      <if test="item.houseId != null">
+        #{item.houseId},
+      </if>
       <if test="item.animalSex != null">
         #{item.animalSex},
       </if>
@@ -120,6 +135,12 @@
       </if>
       <if test="item.animalBirthday != null">
         #{item.animalBirthday},
+      </if>
+      <if test="item.version != null">
+        #{item.version},
+      </if>
+      <if test="item.fileIdentifier != null">
+        #{item.fileIdentifier},
       </if>
       <if test="item.createTime != null">
         #{item.createTime},
@@ -158,6 +179,9 @@
       <if test="projectId != null">
         project_id,
       </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
       <if test="animalSex != null">
         animal_sex,
       </if>
@@ -182,6 +206,12 @@
       <if test="animalBirthday != null">
         animal_birthday,
       </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="fileIdentifier != null">
+        file_identifier,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -201,6 +231,9 @@
       </if>
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
       </if>
       <if test="animalSex != null">
         #{animalSex,jdbcType=SMALLINT},
@@ -226,6 +259,12 @@
       <if test="animalBirthday != null">
         #{animalBirthday,jdbcType=TIMESTAMP},
       </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fileIdentifier != null">
+        #{fileIdentifier,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -245,6 +284,9 @@
       </if>
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=INTEGER},
       </if>
       <if test="animalSex != null">
         animal_sex = #{animalSex,jdbcType=SMALLINT},
@@ -269,6 +311,12 @@
       </if>
       <if test="animalBirthday != null">
         animal_birthday = #{animalBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fileIdentifier != null">
+        file_identifier = #{fileIdentifier,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -310,6 +358,9 @@
       <if test="item.projectId != null">
         project_id = #{item.projectId},
       </if>
+      <if test="item.houseId != null">
+        house_id = #{item.houseId},
+      </if>
       <if test="item.animalSex != null">
         animal_sex = #{item.animalSex},
       </if>
@@ -333,6 +384,12 @@
       </if>
       <if test="item.animalBirthday != null">
         animal_birthday = #{item.animalBirthday},
+      </if>
+      <if test="item.version != null">
+        version = #{item.version},
+      </if>
+      <if test="item.fileIdentifier != null">
+        file_identifier = #{item.fileIdentifier},
       </if>
       <if test="item.createTime != null">
         create_time = #{item.createTime},

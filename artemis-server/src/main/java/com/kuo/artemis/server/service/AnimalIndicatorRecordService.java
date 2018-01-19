@@ -14,14 +14,18 @@ public interface AnimalIndicatorRecordService {
 
     /**
      * 获取某个课题下已录入的指标数据
+     *
      * @param projectId
+     * @param fileIdentifier
+     * @param version
      * @return
      */
-    Response listAnimalIndicatorRecord(String projectId);
+    Response getIndicatorRecordDetail(String projectId, String fileIdentifier, String version);
 
 
     /**
      * 创建新的数据版本
+     *
      * @param recordList
      * @return
      */
@@ -29,9 +33,27 @@ public interface AnimalIndicatorRecordService {
 
     /**
      * 保存数据
+     *
      * @param recordList
      * @return
      */
     Response saveRecord(List<List<String>> recordList, String projectId);
+
+    /**
+     * 获取某个课题下已导入的指标文件列表
+     *
+     * @param projectId
+     * @return
+     */
+    Response listIndicatorRecords(String projectId);
+
+    /**
+     * 获取某个文件的所有版本
+     *
+     * @param fileIdentifier
+     * @return
+     */
+    Response listIndicatorRecordVersions(String projectId, String fileIdentifier);
+
 
 }

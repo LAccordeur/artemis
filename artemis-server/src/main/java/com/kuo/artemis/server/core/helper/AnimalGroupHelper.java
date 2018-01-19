@@ -63,7 +63,7 @@ public class AnimalGroupHelper {
         return result;
     }
 
-    private static void assembleResult(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList, GroupDesignResult result, boolean groupStatus) throws MathException {
+    public static void assembleResult(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList, GroupDesignResult result, boolean groupStatus) throws MathException {
         if (groupStatus) {
             GroupDesign.setAnimalGroupNewPen(animalList, animalHouseList, groupStatus);
             GroupDesign.setAnimalGroupSummary(animalList, param, result, groupStatus);

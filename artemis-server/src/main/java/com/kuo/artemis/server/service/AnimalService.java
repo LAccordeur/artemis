@@ -33,7 +33,7 @@ public interface AnimalService {
      * @param projectId
      * @return
      */
-    Response getAnimalGroupResult(String projectId);
+    Response getAnimalGroupResult(String projectId) throws Exception;
 
     /**
      * 提交动物分组结果

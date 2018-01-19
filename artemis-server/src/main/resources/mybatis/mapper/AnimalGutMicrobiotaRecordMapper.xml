@@ -11,10 +11,12 @@
     <result column="lactic_acid_bacteria" jdbcType="DECIMAL" property="lacticAcidBacteria" />
     <result column="total_bacteria" jdbcType="DECIMAL" property="totalBacteria" />
     <result column="live_yeast" jdbcType="DECIMAL" property="liveYeast" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="file_identifier" jdbcType="VARCHAR" property="fileIdentifier" />
   </resultMap>
   <sql id="Base_Column_List">
     id, project_id, user_id, animal_id, e_coli, bifidobacterium, lactic_acid_bacteria, 
-    total_bacteria, live_yeast
+    total_bacteria, live_yeast, version, file_identifier
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -58,6 +60,12 @@
       <if test="item.liveYeast != null">
         live_yeast,
       </if>
+      <if test="item.version != null">
+        version,
+      </if>
+      <if test="item.fileIdentifier != null">
+        file_identifier,
+      </if>
     </trim>
       values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -87,6 +95,12 @@
       </if>
       <if test="item.liveYeast != null">
         #{item.liveYeast},
+      </if>
+      <if test="item.version != null">
+        #{item.version},
+      </if>
+      <if test="item.fileIdentifier != null">
+        #{item.fileIdentifier},
       </if>
     </trim>
     </foreach>
@@ -132,6 +146,12 @@
       <if test="liveYeast != null">
         live_yeast,
       </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="fileIdentifier != null">
+        file_identifier,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -161,6 +181,12 @@
       <if test="liveYeast != null">
         #{liveYeast,jdbcType=DECIMAL},
       </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fileIdentifier != null">
+        #{fileIdentifier,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.AnimalGutMicrobiotaRecord">
@@ -189,6 +215,12 @@
       </if>
       <if test="liveYeast != null">
         live_yeast = #{liveYeast,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fileIdentifier != null">
+        file_identifier = #{fileIdentifier,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -233,6 +265,12 @@
       </if>
       <if test="item.liveYeast != null">
         live_yeast = #{item.liveYeast},
+      </if>
+      <if test="item.version != null">
+        version = #{item.version},
+      </if>
+      <if test="item.fileIdentifier != null">
+        file_identifier = #{item.fileIdentifier},
       </if>
     </set>
     where id = #{item.id}

@@ -21,6 +21,26 @@ public class AnimalGutMicrobiotaRecord {
 
     private BigDecimal liveYeast;
 
+    private Integer version;
+
+    private String fileIdentifier;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getFileIdentifier() {
+        return fileIdentifier;
+    }
+
+    public void setFileIdentifier(String fileIdentifier) {
+        this.fileIdentifier = fileIdentifier;
+    }
+
     public Integer getId() {
         return id;
     }

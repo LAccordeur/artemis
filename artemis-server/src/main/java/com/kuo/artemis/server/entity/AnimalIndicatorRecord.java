@@ -445,6 +445,253 @@ public class AnimalIndicatorRecord {
 
     private BigDecimal liveYeast;
 
+    private Integer version;
+
+    private String fileIdentifier;
+
+    @Override
+    public String toString() {
+        return "AnimalIndicatorRecord{" +
+                "animalId='" + animalId + '\'' +
+                ", projectId=" + projectId +
+                ", code='" + code + '\'' +
+                ", house='" + house + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", replicate='" + replicate + '\'' +
+                ", treatment='" + treatment + '\'' +
+                ", animalTypeId=" + animalTypeId +
+                ", initialBw=" + initialBw +
+                ", bwWeek1=" + bwWeek1 +
+                ", bwWeek2=" + bwWeek2 +
+                ", bwWeek3=" + bwWeek3 +
+                ", bwWeek4=" + bwWeek4 +
+                ", bwWeek5=" + bwWeek5 +
+                ", bwWeek12=" + bwWeek12 +
+                ", bwWeek11=" + bwWeek11 +
+                ", bwWeek13=" + bwWeek13 +
+                ", bwWeek6=" + bwWeek6 +
+                ", bwWeek7=" + bwWeek7 +
+                ", bwWeek8=" + bwWeek8 +
+                ", bwWeek9=" + bwWeek9 +
+                ", bwWeek10=" + bwWeek10 +
+                ", bwWeek14=" + bwWeek14 +
+                ", bwWeek15=" + bwWeek15 +
+                ", bwWeek16=" + bwWeek16 +
+                ", bwWeek17=" + bwWeek17 +
+                ", bwWeek18=" + bwWeek18 +
+                ", bwWeek19=" + bwWeek19 +
+                ", bwWeek20=" + bwWeek20 +
+                ", bwWeek21=" + bwWeek21 +
+                ", bwWeek22=" + bwWeek22 +
+                ", bwWeek23=" + bwWeek23 +
+                ", adgWeek1=" + adgWeek1 +
+                ", phase1Bw=" + phase1Bw +
+                ", phase2Bw=" + phase2Bw +
+                ", phase3Bw=" + phase3Bw +
+                ", phase4Bw=" + phase4Bw +
+                ", phase5Bw=" + phase5Bw +
+                ", bwWeek24=" + bwWeek24 +
+                ", adgWeek2=" + adgWeek2 +
+                ", adgWeek4=" + adgWeek4 +
+                ", adgWeek3=" + adgWeek3 +
+                ", adgWeek5=" + adgWeek5 +
+                ", adgWeek6=" + adgWeek6 +
+                ", adgWeek7=" + adgWeek7 +
+                ", adgWeek8=" + adgWeek8 +
+                ", adgWeek9=" + adgWeek9 +
+                ", adgWeek10=" + adgWeek10 +
+                ", adgWeek11=" + adgWeek11 +
+                ", adgWeek12=" + adgWeek12 +
+                ", adgWeek13=" + adgWeek13 +
+                ", adgWeek14=" + adgWeek14 +
+                ", adgWeek15=" + adgWeek15 +
+                ", adgWeek16=" + adgWeek16 +
+                ", adgWeek17=" + adgWeek17 +
+                ", adgWeek18=" + adgWeek18 +
+                ", adgWeek19=" + adgWeek19 +
+                ", adgWeek20=" + adgWeek20 +
+                ", adgWeek21=" + adgWeek21 +
+                ", adgWeek22=" + adgWeek22 +
+                ", adgWeek23=" + adgWeek23 +
+                ", adgWeek24=" + adgWeek24 +
+                ", phase1Adg=" + phase1Adg +
+                ", phase2Adg=" + phase2Adg +
+                ", phase3Adg=" + phase3Adg +
+                ", phase4Adg=" + phase4Adg +
+                ", phase5Adg=" + phase5Adg +
+                ", feedSuppliedWeek1=" + feedSuppliedWeek1 +
+                ", residualWeek1=" + residualWeek1 +
+                ", deedLossWeek1=" + deedLossWeek1 +
+                ", adfiWeek1=" + adfiWeek1 +
+                ", feedSuppliedWeek2=" + feedSuppliedWeek2 +
+                ", residualWeek2=" + residualWeek2 +
+                ", deedLossWeek2=" + deedLossWeek2 +
+                ", adfiWeek2=" + adfiWeek2 +
+                ", feedSuppliedWeek3=" + feedSuppliedWeek3 +
+                ", residualWeek3=" + residualWeek3 +
+                ", deedLossWeek3=" + deedLossWeek3 +
+                ", adfiWeek3=" + adfiWeek3 +
+                ", feedSuppliedWeek4=" + feedSuppliedWeek4 +
+                ", residualWeek4=" + residualWeek4 +
+                ", deedLossWeek4=" + deedLossWeek4 +
+                ", adfiWeek4=" + adfiWeek4 +
+                ", feedSuppliedWeek5=" + feedSuppliedWeek5 +
+                ", residualWeek5=" + residualWeek5 +
+                ", deedLossWeek5=" + deedLossWeek5 +
+                ", adfiWeek5=" + adfiWeek5 +
+                ", feedSuppliedWeek6=" + feedSuppliedWeek6 +
+                ", residualWeek6=" + residualWeek6 +
+                ", deedLossWeek6=" + deedLossWeek6 +
+                ", adfiWeek6=" + adfiWeek6 +
+                ", feedSuppliedWeek7=" + feedSuppliedWeek7 +
+                ", residualWeek7=" + residualWeek7 +
+                ", deedLossWeek7=" + deedLossWeek7 +
+                ", adfiWeek7=" + adfiWeek7 +
+                ", feedSuppliedWeek8=" + feedSuppliedWeek8 +
+                ", residualWeek8=" + residualWeek8 +
+                ", deedLossWeek8=" + deedLossWeek8 +
+                ", adfiWeek8=" + adfiWeek8 +
+                ", feedSuppliedWeek9=" + feedSuppliedWeek9 +
+                ", residualWeek9=" + residualWeek9 +
+                ", deedLossWeek9=" + deedLossWeek9 +
+                ", adfiWeek9=" + adfiWeek9 +
+                ", feedSuppliedWeek10=" + feedSuppliedWeek10 +
+                ", residualWeek10=" + residualWeek10 +
+                ", deedLossWeek10=" + deedLossWeek10 +
+                ", adfiWeek10=" + adfiWeek10 +
+                ", feedSuppliedWeek11=" + feedSuppliedWeek11 +
+                ", residualWeek11=" + residualWeek11 +
+                ", deedLossWeek11=" + deedLossWeek11 +
+                ", adfiWeek11=" + adfiWeek11 +
+                ", feedSuppliedWeek12=" + feedSuppliedWeek12 +
+                ", residualWeek12=" + residualWeek12 +
+                ", deedLossWeek12=" + deedLossWeek12 +
+                ", adfiWeek12=" + adfiWeek12 +
+                ", feedSuppliedWeek13=" + feedSuppliedWeek13 +
+                ", residualWeek13=" + residualWeek13 +
+                ", deedLossWeek13=" + deedLossWeek13 +
+                ", adfiWeek13=" + adfiWeek13 +
+                ", feedSuppliedWeek14=" + feedSuppliedWeek14 +
+                ", residualWeek14=" + residualWeek14 +
+                ", deedLossWeek14=" + deedLossWeek14 +
+                ", adfiWeek14=" + adfiWeek14 +
+                ", feedSuppliedWeek15=" + feedSuppliedWeek15 +
+                ", residualWeek15=" + residualWeek15 +
+                ", deedLossWeek15=" + deedLossWeek15 +
+                ", adfiWeek15=" + adfiWeek15 +
+                ", feedSuppliedWeek16=" + feedSuppliedWeek16 +
+                ", residualWeek16=" + residualWeek16 +
+                ", deedLossWeek16=" + deedLossWeek16 +
+                ", adfiWeek16=" + adfiWeek16 +
+                ", feedSuppliedWeek17=" + feedSuppliedWeek17 +
+                ", residualWeek17=" + residualWeek17 +
+                ", deedLossWeek17=" + deedLossWeek17 +
+                ", adfiWeek17=" + adfiWeek17 +
+                ", feedSuppliedWeek18=" + feedSuppliedWeek18 +
+                ", residualWeek18=" + residualWeek18 +
+                ", deedLossWeek18=" + deedLossWeek18 +
+                ", adfiWeek18=" + adfiWeek18 +
+                ", feedSuppliedWeek19=" + feedSuppliedWeek19 +
+                ", residualWeek19=" + residualWeek19 +
+                ", deedLossWeek19=" + deedLossWeek19 +
+                ", adfiWeek19=" + adfiWeek19 +
+                ", feedSuppliedWeek20=" + feedSuppliedWeek20 +
+                ", residualWeek20=" + residualWeek20 +
+                ", deedLossWeek20=" + deedLossWeek20 +
+                ", adfiWeek20=" + adfiWeek20 +
+                ", feedSuppliedWeek21=" + feedSuppliedWeek21 +
+                ", residualWeek21=" + residualWeek21 +
+                ", deedLossWeek21=" + deedLossWeek21 +
+                ", adfiWeek21=" + adfiWeek21 +
+                ", feedSuppliedWeek22=" + feedSuppliedWeek22 +
+                ", residualWeek22=" + residualWeek22 +
+                ", deedLossWeek22=" + deedLossWeek22 +
+                ", adfiWeek22=" + adfiWeek22 +
+                ", feedSuppliedWeek23=" + feedSuppliedWeek23 +
+                ", residualWeek23=" + residualWeek23 +
+                ", deedLossWeek23=" + deedLossWeek23 +
+                ", adfiWeek23=" + adfiWeek23 +
+                ", feedSuppliedWeek24=" + feedSuppliedWeek24 +
+                ", residualWeek24=" + residualWeek24 +
+                ", deedLossWeek24=" + deedLossWeek24 +
+                ", adfiWeek24=" + adfiWeek24 +
+                ", phase1FeedSupplied=" + phase1FeedSupplied +
+                ", phase1Residual=" + phase1Residual +
+                ", phase1FeedLoss=" + phase1FeedLoss +
+                ", phase1Adfi=" + phase1Adfi +
+                ", phase2FeedSupplied=" + phase2FeedSupplied +
+                ", phase2Residual=" + phase2Residual +
+                ", phase2FeedLoss=" + phase2FeedLoss +
+                ", phase2Adfi=" + phase2Adfi +
+                ", phase3FeedSupplied=" + phase3FeedSupplied +
+                ", phase3Residual=" + phase3Residual +
+                ", phase3FeedLoss=" + phase3FeedLoss +
+                ", phase3Adfi=" + phase3Adfi +
+                ", phase4FeedSupplied=" + phase4FeedSupplied +
+                ", phase4Residual=" + phase4Residual +
+                ", phase4FeedLoss=" + phase4FeedLoss +
+                ", phase4Adfi=" + phase4Adfi +
+                ", phase5FeedSupplied=" + phase5FeedSupplied +
+                ", phase5Residual=" + phase5Residual +
+                ", phase5FeedLoss=" + phase5FeedLoss +
+                ", phase5Adfi=" + phase5Adfi +
+                ", fcrWeek1=" + fcrWeek1 +
+                ", fcrWeek2=" + fcrWeek2 +
+                ", fcrWeek3=" + fcrWeek3 +
+                ", fcrWeek4=" + fcrWeek4 +
+                ", fcrWeek5=" + fcrWeek5 +
+                ", fcrWeek6=" + fcrWeek6 +
+                ", fcrWeek7=" + fcrWeek7 +
+                ", fcrWeek8=" + fcrWeek8 +
+                ", fcrWeek9=" + fcrWeek9 +
+                ", fcrWeek10=" + fcrWeek10 +
+                ", fcrWeek11=" + fcrWeek11 +
+                ", fcrWeek12=" + fcrWeek12 +
+                ", fcrWeek13=" + fcrWeek13 +
+                ", fcrWeek14=" + fcrWeek14 +
+                ", fcrWeek15=" + fcrWeek15 +
+                ", fcrWeek16=" + fcrWeek16 +
+                ", fcrWeek17=" + fcrWeek17 +
+                ", fcrWeek18=" + fcrWeek18 +
+                ", fcrWeek19=" + fcrWeek19 +
+                ", fcrWeek20=" + fcrWeek20 +
+                ", fcrWeek21=" + fcrWeek21 +
+                ", fcrWeek22=" + fcrWeek22 +
+                ", fcrWeek23=" + fcrWeek23 +
+                ", fcrWeek24=" + fcrWeek24 +
+                ", phase1Fcr=" + phase1Fcr +
+                ", phase2Fcr=" + phase2Fcr +
+                ", phase3Fcr=" + phase3Fcr +
+                ", phase4Fcr=" + phase4Fcr +
+                ", phase5Fcr=" + phase5Fcr +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                ", eColi=" + eColi +
+                ", bifidobacterium=" + bifidobacterium +
+                ", lacticAcidBacteria=" + lacticAcidBacteria +
+                ", totalBacteria=" + totalBacteria +
+                ", liveYeast=" + liveYeast +
+                ", version=" + version +
+                ", fileIdentifier='" + fileIdentifier + '\'' +
+                '}';
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getFileIdentifier() {
+        return fileIdentifier;
+    }
+
+    public void setFileIdentifier(String fileIdentifier) {
+        this.fileIdentifier = fileIdentifier;
+    }
+
     public String getAnimalId() {
         return animalId;
     }

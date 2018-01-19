@@ -220,7 +220,7 @@ public final class ExcelUtil {
             //转为用一个map来表示，便于后期的对象转换
             Map<String, Object> rowMap = new HashMap<String, Object>();
             for (int j = 0; j < rowData.size(); j++) {
-                String initField = initFields.get(i);  //excel表中原始的字段名形式 比如init weight
+                String initField = initFields.get(j);  //excel表中原始的字段名形式 比如init weight
                 String field = fieldFormat(initField);
                 Object value = rowData.get(j);
                 rowMap.put(field, value);

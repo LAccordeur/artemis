@@ -11,6 +11,8 @@ import com.kuo.artemis.server.util.constant.GroupDesignStatus;
  */
 public class GroupDesignResult {
 
+    private String projectId;    //课题id
+
     private GroupDesignSummary summary;   //分组结果总结
 
     private GroupDesignMovingSheet movingSheet;   //分组结果movingSheet
@@ -20,10 +22,19 @@ public class GroupDesignResult {
     @Override
     public String toString() {
         return "GroupDesignResult{" +
-                "summary=" + summary +
+                "projectId='" + projectId + '\'' +
+                ", summary=" + summary +
                 ", movingSheet=" + movingSheet +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 '}';
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public GroupDesignSummary getSummary() {

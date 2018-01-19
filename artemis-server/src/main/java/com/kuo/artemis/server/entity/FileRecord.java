@@ -9,15 +9,43 @@ public class FileRecord {
 
     private String filename;
 
+    private String fileIdentifier;
+
     private Byte fileType;
 
     private Integer projectId;
 
     private Byte operationType;
 
+    private Integer version;
+
     private Date createTime;
 
     private Date modifiedTime;
+
+    @Override
+    public String toString() {
+        return "FileRecord{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", filename='" + filename + '\'' +
+                ", fileIdentifier='" + fileIdentifier + '\'' +
+                ", fileType=" + fileType +
+                ", projectId=" + projectId +
+                ", operationType=" + operationType +
+                ", version=" + version +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public Integer getId() {
         return id;
@@ -41,6 +69,14 @@ public class FileRecord {
 
     public void setFilename(String filename) {
         this.filename = filename == null ? null : filename.trim();
+    }
+
+    public String getFileIdentifier() {
+        return fileIdentifier;
+    }
+
+    public void setFileIdentifier(String fileIdentifier) {
+        this.fileIdentifier = fileIdentifier == null ? null : fileIdentifier.trim();
     }
 
     public Byte getFileType() {

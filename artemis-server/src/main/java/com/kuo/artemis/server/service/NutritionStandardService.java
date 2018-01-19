@@ -59,5 +59,5 @@ public interface NutritionStandardService {
      * @param command
      * @return
      */
-    Response createBatchNutritionStandards(DataImportCommand command);
+    Response createNutritionStandardsBatch(DataImportCommand command) throws Exception;
 }

@@ -21,9 +21,6 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
     @Inject
     private AnimalIndicatorRecordMapper animalIndicatorRecordMapper;
 
-    public Response listAnimalIndicatorRecord(String projectId) {
-        return null;
-    }
 
     public Response createNewRecordVersion(List<List<String>> recordList, String projectId) throws Exception {
         //1.获取当前文件的最新版本号
@@ -36,13 +33,25 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
 
         //2.对数据进行转换
         DataImportDTO result = DataHelper.excelIndicatorDataToBean(recordList, 0, 1);
-
+        Map<Class, List> objectMap = result.getObjectList();
 
 
         return null;
     }
 
     public Response saveRecord(List<List<String>> recordList, String projectId) {
+        return null;
+    }
+
+    public Response getIndicatorRecordDetail(String projectId, String fileIdentifier, String version) {
+        return null;
+    }
+
+    public Response listIndicatorRecords(String projectId) {
+        return null;
+    }
+
+    public Response listIndicatorRecordVersions(String projectId, String fileIdentifier) {
         return null;
     }
 }

@@ -12,6 +12,8 @@ public class Animal {
 
     private Integer projectId;
 
+    private Integer houseId;
+
     private Byte animalSex;
 
     private BigDecimal animalInitWeight;
@@ -40,6 +42,10 @@ public class Animal {
 
     private Double CoefficientOfVariation;    //用于动物分组  所在重复组的变异系数
 
+    private Integer version;
+
+    private String fileIdentifier;
+
     private Date createTime;
 
     private Date modifiedTime;
@@ -51,6 +57,7 @@ public class Animal {
                 ", animalTypeId=" + animalTypeId +
                 ", userId=" + userId +
                 ", projectId=" + projectId +
+                ", houseId=" + houseId +
                 ", animalSex=" + animalSex +
                 ", animalInitWeight=" + animalInitWeight +
                 ", house='" + house + '\'' +
@@ -65,9 +72,35 @@ public class Animal {
                 ", newPen='" + newPen + '\'' +
                 ", weightMean=" + weightMean +
                 ", CoefficientOfVariation=" + CoefficientOfVariation +
+                ", version=" + version +
+                ", fileIdentifier='" + fileIdentifier + '\'' +
                 ", createTime=" + createTime +
                 ", modifiedTime=" + modifiedTime +
                 '}';
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getFileIdentifier() {
+        return fileIdentifier;
+    }
+
+    public void setFileIdentifier(String fileIdentifier) {
+        this.fileIdentifier = fileIdentifier;
+    }
+
+    public Integer getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(Integer houseId) {
+        this.houseId = houseId;
     }
 
     public Double getWeightMean() {

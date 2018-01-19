@@ -7,9 +7,11 @@ import com.kuo.artemis.server.core.math.GroupDesignParam;
 import com.kuo.artemis.server.core.math.GroupDesignResult;
 import com.kuo.artemis.server.dao.AnimalHouseMapper;
 import com.kuo.artemis.server.dao.AnimalMapper;
+import com.kuo.artemis.server.dao.ProjectDetailMapper;
 import com.kuo.artemis.server.dao.redis.CacheRedisDao;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.AnimalHouse;
+import com.kuo.artemis.server.entity.ProjectDetail;
 import com.kuo.artemis.server.service.AnimalService;
 import com.kuo.artemis.server.util.constant.GenderOptionConst;
 import com.kuo.artemis.server.util.constant.GroupDesignMethodConst;
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author : guoyang
@@ -32,6 +34,9 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Inject
     private AnimalMapper animalMapper;
+
+    @Inject
+    private ProjectDetailMapper projectDetailMapper;
 
     @Inject
     private CacheRedisDao cacheRedisDao;
@@ -79,23 +84,77 @@ public class AnimalServiceImpl implements AnimalService {
         return new Response(HttpStatus.BAD_REQUEST.value(), "缺少参数");
     }
 
-    public Response getAnimalGroupResult(String projectId) {
+    public Response getAnimalGroupResult(String projectId) throws Exception {
+        //先从缓存中查看是否已有数据
+        String key = "animal_group_" + projectId;
+        String cacheResult = cacheRedisDao.getFromCache(key);
+        if (cacheResult != null) {
+            return new Response(cacheResult, HttpStatus.OK.value(), "分组结果");
+        }
+
+        //缓存中没有则重新组装
+        List<Animal> animalList = animalMapper.selectByProjectId(Integer.valueOf(projectId));
+        List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
+        ProjectDetail projectDetail = projectDetailMapper.selectByProjectId(Integer.valueOf(projectId));
+
+        GroupDesignParam param = new GroupDesignParam();
+        param.setTreatmentNum(projectDetail.getTreatmentNum());
+        param.setReplicationNum(projectDetail.getReplicationNum());
+        GroupDesignResult result = new GroupDesignResult();
+        AnimalGroupHelper.assembleResult(animalList, param, animalHouseList, result, true);
 
 
-
-        return null;
+        return new Response(result, HttpStatus.OK.value(), "分组结果");
     }
 
     @Transactional(rollbackFor = Exception.class)
     public Response commitAnimalGroupResult(GroupDesignResult result) throws Exception {
 
+        String projectId = result.getProjectId();
         List<Animal> animalList = result.getSummary().getAnimalAllotmentResult();
+        List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
+        Map<String, Map<String, Integer>> map = getHouseIdByReplicationAndTreatment(animalHouseList);
+
+        for (Animal animal : animalList) {
+            String treatment = animal.getTreatment();
+            String replication = animal.getReplicate();
+            Integer houseId = map.get(replication).get(treatment);
+            animal.setHouseId(houseId);
+        }
+
         animalMapper.updateBatch(animalList);
 
         //将分组结果放入缓存
-        //String key =
-        //cacheRedisDao.saveToCache();
 
         return new Response(HttpStatus.OK.value(), "提交成功");
+    }
+
+    private Map<String, Map<String, Integer>> getHouseIdByReplicationAndTreatment(List<AnimalHouse> animalHouseList) {
+
+        Set<String> replicationSet = new HashSet<String>();
+        for (AnimalHouse animalHouse : animalHouseList) {
+            String replication = animalHouse.getReplicate();
+            if (replication != null) {
+                replicationSet.add(replication);
+            }
+        }
+
+        Map<String, Map<String, Integer>> resultMap = new HashMap<String, Map<String, Integer>>();
+        Iterator<String> iterator = replicationSet.iterator();
+        while (iterator.hasNext()) {
+            String replicationKey = iterator.next();
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            resultMap.put(replicationKey, map);
+        }
+
+        for (AnimalHouse animalHouse : animalHouseList) {
+            String replication = animalHouse.getReplicate();
+            String treatment = animalHouse.getTreatment();
+            Integer houseId = animalHouse.getId();
+            Map<String, Integer> map = resultMap.get(replication);
+            map.put(treatment, houseId);
+        }
+
+        return resultMap;
     }
 }

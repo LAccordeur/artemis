@@ -13,4 +13,6 @@ public interface AnimalIndicatorRecordMapper {
     int selectLastestVersion(@Param("projectId") String projectId);
 
     List<AnimalIndicatorRecord> selectSelective(@Param("list") List<String> columns, @Param("projectId") String projectId);
+
+    List<AnimalIndicatorRecord> selectRecordsDetail(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifer, @Param("version") Integer version);
 }

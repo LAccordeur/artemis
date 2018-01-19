@@ -1,6 +1,10 @@
 package com.kuo.artemis.server.dao;
 
 import com.kuo.artemis.server.entity.FileRecord;
+import org.apache.ibatis.annotations.Param;
+
+import java.io.File;
+import java.util.List;
 
 public interface FileRecordMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +18,8 @@ public interface FileRecordMapper {
     int updateByPrimaryKeySelective(FileRecord record);
 
     int updateByPrimaryKey(FileRecord record);
+
+    List<FileRecord> selectIndicatorRecordFiles(@Param("projectId") Integer projectId);
+
+    List<FileRecord> selectIndicatorRecordFileVersions(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier);
 }
