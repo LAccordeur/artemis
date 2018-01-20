@@ -29,6 +29,11 @@
     )
   </select>
 
+  <select id="selectNameByFileRecordId" resultType="String">
+    select indicator_name_english from animal_indicator
+    where file_record_id = #{fileRecordId}
+  </select>
+
   <select id="selectByPrimaryKeys" parameterType="List" resultType="AnimalIndicator">
     select id, indicator_name, indicator_name_english, indicator_type
     from animal_indicator

@@ -28,6 +28,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <select id="selectIdByFileIdentifierAndVersion" resultType="Integer">
+    select id from file_record
+    where file_identifier = #{fileIdentifier} and version = #{version}
+  </select>
+
   <select id="selectIndicatorRecordFiles" parameterType="Integer" resultType="FileRecord">
     select project_id, filename, file_identifier
     from file_record
@@ -51,7 +56,13 @@
       #{operationType,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord">
+
+  <select id="selectLastestVersion">
+    select max(version) from file_record
+    where project_id = #{project_id} and file_identifier = #{fileIdentifier}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord" useGeneratedKeys="true" keyProperty="id">
     insert into file_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

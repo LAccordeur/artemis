@@ -240,7 +240,7 @@
     </foreach>
     from
     animal_indicator_record_view
-    where project_id = #{projectId}
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
 
   </select>
 

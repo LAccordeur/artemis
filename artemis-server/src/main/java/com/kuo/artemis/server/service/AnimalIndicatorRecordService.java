@@ -27,9 +27,12 @@ public interface AnimalIndicatorRecordService {
      * 创建新的数据版本
      *
      * @param recordList
+     * @param projectId
+     * @param userId
+     * @param filename
      * @return
      */
-    Response createNewRecordVersion(List<List<String>> recordList, String projectId) throws Exception;
+    Response createNewRecordVersion(List<List<String>> recordList, String projectId, String userId, String filename) throws Exception;
 
     /**
      * 保存数据
@@ -37,7 +40,7 @@ public interface AnimalIndicatorRecordService {
      * @param recordList
      * @return
      */
-    Response saveRecord(List<List<String>> recordList, String projectId);
+    Response saveRecord(List<List<String>> recordList, String projectId, String userId, String fileId) throws Exception;
 
     /**
      * 获取某个课题下已导入的指标文件列表

@@ -29,6 +29,10 @@ public final class StringUtil {
         return !isEmpty(string);
     }
 
+    public static String getHashSubCode(String string) {
+        return String.valueOf(string.hashCode()).substring(0,6);
+    }
+
     public static String[] splitString(String source, String reg) {
         return StringUtils.split(source, reg);
     }

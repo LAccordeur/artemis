@@ -370,7 +370,7 @@ public class FileServiceImpl implements FileService {
             String underlineField = BeanUtil.spaceFieldToUnderline(spaceField);
             underlineFields.add(underlineField);
         }
-        List<AnimalIndicatorRecord> animalIndicatorRecords = animalIndicatorRecordMapper.selectSelective(underlineFields, command.getProjectId());
+        //List<AnimalIndicatorRecord> animalIndicatorRecords = animalIndicatorRecordMapper.selectSelective(underlineFields, command.getProjectId());
 
         /*//5.将bean list转化为map list以便给Excel进行处理
         List<Map<String, Object>> indicatorMaps = new ArrayList<Map<String, Object>>();
@@ -390,7 +390,7 @@ public class FileServiceImpl implements FileService {
         IndicatorExcelExportDataDTO dataDTO = new IndicatorExcelExportDataDTO();
         dataDTO.setChineseFields(chineseName);
         dataDTO.setEnglishFields(englishName);
-        dataDTO.setDataList(animalIndicatorRecords);
+        //dataDTO.setDataList(animalIndicatorRecords);
         response.setData(dataDTO);
 
 

@@ -21,4 +21,6 @@ public interface AnimalIndicatorMapper {
     int updateByPrimaryKeySelective(AnimalIndicator record);
 
     int updateByPrimaryKey(AnimalIndicator record);
+
+    List<String> selectNameByFileRecordId(@Param("fileRecordId") Integer fileRecordId);
 }
