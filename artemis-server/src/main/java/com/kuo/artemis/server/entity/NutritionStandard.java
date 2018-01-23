@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
+//@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class NutritionStandard {
     @NutritionIndicator(isIndicator = false, name = "营养标准id", isIdentity = false)
     private Integer id;

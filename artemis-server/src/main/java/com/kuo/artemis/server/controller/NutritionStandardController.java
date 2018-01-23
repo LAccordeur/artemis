@@ -2,6 +2,7 @@ package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.service.NutritionStandardService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,12 @@ public class NutritionStandardController {
         return nutritionStandardService.listNutritionStandards(userId);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Response addNutritionStandards(@RequestBody DataImportCommand command) throws Exception {
+        return nutritionStandardService.createNutritionStandardsBatch(command);
+    }
+
     @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)
     @ResponseBody
     @RequestMapping(value = "/list/brief", method = RequestMethod.GET)
@@ -42,4 +49,6 @@ public class NutritionStandardController {
     public Response getNutritionStandard(@PathVariable("nutritionStandardId") String nutritionId) {
         return nutritionStandardService.getNutritionStandardDetail(nutritionId);
     }
+
+
 }

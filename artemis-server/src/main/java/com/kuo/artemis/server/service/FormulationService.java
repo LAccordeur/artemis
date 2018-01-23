@@ -42,6 +42,20 @@ public interface FormulationService {
     Response getFormulationDetail(String formulationId);
 
     /**
+     * 获取配方原料信息
+     * @param formulationId
+     * @return
+     */
+    Response getFormulationMaterialDetail(String formulationId);
+
+    /**
+     * 获取配方指标信息
+     * @param formulationId
+     * @return
+     */
+    Response getFormulationNutritionDetail(String formulationId);
+
+    /**
      * 更新配方基本信息
      * @param formulation
      * @return
@@ -75,4 +89,11 @@ public interface FormulationService {
      * @return
      */
     Response createNewFormulation(FormulationResult result);
+
+    /**
+     * 新建一个配方简略信息
+     * @param formulation
+     * @return
+     */
+    Response createFormulationBrief(Formulation formulation);
 }

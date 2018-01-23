@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.aop;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.math.GroupDesignResult;
 import com.kuo.artemis.server.dao.redis.CacheRedisDao;
@@ -9,6 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 /**
@@ -35,15 +37,21 @@ public class CacheAspect {
      */
     @AfterReturning(value = "cacheAspect()", returning = "result")
     public void afterReturn(JoinPoint point, Object result) {
-        String method = point.getSignature().getDeclaringTypeName();
+        String method = point.getSignature().getName();
         Object[] args = point.getArgs();
 
-        GroupDesignResult groupDesignResult = (GroupDesignResult) args[0];
-        Response response = (Response) result;
-
         if (method.equals("commitAnimalGroupResult")) {
-            String key = "animal_group_" + groupDesignResult.getProjectId();
-            cacheRedisDao.saveToCache(key, response.getData());
+            GroupDesignResult groupDesignResult = (GroupDesignResult) args[0];
+            Response response = (Response) result;
+            if (HttpStatus.OK.value() == response.getCode()) {
+                String key = "animal_group_" + groupDesignResult.getParam().getProjectId();
+                Object object = response.getData();
+                try {
+                    cacheRedisDao.saveToCache(key, object);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

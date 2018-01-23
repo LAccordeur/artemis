@@ -2,11 +2,13 @@ package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
 
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.AnimalIndicatorRecordService;
+import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.common.StringUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
 import com.kuo.artemis.server.util.constant.FileTypeConst;
@@ -50,13 +52,27 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
     private AnimalGutMicrobiotaRecordMapper animalGutMicrobiotaRecordMapper;
 
     @Transactional(rollbackFor = Exception.class)
-    public Response createNewRecordVersion(List<List<String>> recordList, String projectId, String userId, String filename) throws Exception {
+    public Response createNewRecordVersion(DataImportCommand command) throws Exception {
 
-        int currentVersion;
+        try {
+            ValidationUtil.getInstance().validateParams(command);
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        List<List<String>> recordList = command.getDataList();
+        String projectId = command.getProjectId();
+        String userId = command.getUserId();
+        String filename = command.getFilename();
+
+        Integer currentVersion;
         synchronized (this) {
             //1.获取当前文件的最新版本号
             String fileIdentifier = StringUtil.getHashSubCode(filename);
             currentVersion = fileRecordMapper.selectLastestVersion(Integer.valueOf(projectId), fileIdentifier);
+            if (currentVersion == null) {
+                currentVersion = 0;
+            }
             int newVersion = currentVersion + 1;
             //2.新增文件记录表
             FileRecord fileRecord = new FileRecord();
@@ -93,35 +109,42 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
             for (int i = 0; i < animalList.size(); i++) {
                 animalIds.add(UUIDUtil.get32UUIDLowerCase());
             }
-            for (int i = 0; i < animalList.size(); i++) {
-                Animal animal = (Animal) animalList.get(i);
-                animal.setId(animalIds.get(i));
-                animal.setFileIdentifier(fileIdentifier);
-                animal.setUserId(Integer.valueOf(userId));
-                animal.setProjectId(Integer.valueOf(projectId));
-                animal.setVersion(newVersion);
+            if (animalList != null) {
+                for (int i = 0; i < animalList.size(); i++) {
+                    Animal animal = (Animal) animalList.get(i);
+                    animal.setId(animalIds.get(i));
+                    animal.setFileIdentifier(fileIdentifier);
+                    animal.setUserId(Integer.valueOf(userId));
+                    animal.setProjectId(Integer.valueOf(projectId));
+                    animal.setVersion(newVersion);
+                }
+                animalMapper.insertBatch(animalList);
             }
-            animalMapper.insertBatch(animalList);
 
             List animalGrowthList = objectMap.get(AnimalGrowthRecord.class);
-            for (int i = 0; i < animalGrowthList.size(); i++) {
-                AnimalGrowthRecord animalGrowthRecord = (AnimalGrowthRecord) animalGrowthList.get(i);
-                animalGrowthRecord.setAnimalId(animalIds.get(i));
-                animalGrowthRecord.setFileIdentifier(fileIdentifier);
-                animalGrowthRecord.setUserId(Integer.valueOf(userId));
-                animalGrowthRecord.setProjectId(Integer.valueOf(projectId));
-                animalGrowthRecord.setVersion(newVersion);
+            if (animalGrowthList != null) {
+                for (int i = 0; i < animalGrowthList.size(); i++) {
+                    AnimalGrowthRecord animalGrowthRecord = (AnimalGrowthRecord) animalGrowthList.get(i);
+                    animalGrowthRecord.setAnimalId(animalIds.get(i));
+                    animalGrowthRecord.setFileIdentifier(fileIdentifier);
+                    animalGrowthRecord.setUserId(Integer.valueOf(userId));
+                    animalGrowthRecord.setProjectId(Integer.valueOf(projectId));
+                    animalGrowthRecord.setVersion(newVersion);
+                }
+                animalGrowthRecordMapper.insertBatch(animalGrowthList);
             }
-            animalGrowthRecordMapper.insertBatch(animalGrowthList);
 
             List animalGutList = objectMap.get(AnimalGutMicrobiotaRecord.class);
-            for (int i = 0; i < animalGutList.size(); i++) {
-                AnimalGutMicrobiotaRecord gutMicrobiotaRecord = (AnimalGutMicrobiotaRecord) animalGutList.get(i);
-                gutMicrobiotaRecord.setAnimalId(animalIds.get(i));
-                gutMicrobiotaRecord.setFileIdentifier(fileIdentifier);
-                gutMicrobiotaRecord.setUserId(Integer.valueOf(userId));
-                gutMicrobiotaRecord.setProjectId(Integer.valueOf(projectId));
-                gutMicrobiotaRecord.setVersion(newVersion);
+            if (animalGutList != null) {
+                for (int i = 0; i < animalGutList.size(); i++) {
+                    AnimalGutMicrobiotaRecord gutMicrobiotaRecord = (AnimalGutMicrobiotaRecord) animalGutList.get(i);
+                    gutMicrobiotaRecord.setAnimalId(animalIds.get(i));
+                    gutMicrobiotaRecord.setFileIdentifier(fileIdentifier);
+                    gutMicrobiotaRecord.setUserId(Integer.valueOf(userId));
+                    gutMicrobiotaRecord.setProjectId(Integer.valueOf(projectId));
+                    gutMicrobiotaRecord.setVersion(newVersion);
+                }
+                animalGutMicrobiotaRecordMapper.insertBatch(animalGutList);
             }
 
         }
@@ -129,12 +152,19 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Response saveRecord(List<List<String>> recordList, String projectId, String userId, String fileId) throws Exception {
+    public Response saveRecord(DataImportCommand command) throws Exception {
+
+        List<List<String>> recordList = command.getDataList();
+        String projectId = command.getProjectId();
+        String userId = command.getUserId();
+        String fileId = command.getFileId();
 
         //1.更新文件记录
         FileRecord fileRecord = new FileRecord();
         fileRecord.setId(Integer.valueOf(fileId));
         fileRecordMapper.updateByPrimaryKeySelective(fileRecord);
+
+        //TODO 相关id信息的加入
 
         //2.更新各个动物表
         DataImportDTO result = DataHelper.excelIndicatorDataToBean(recordList, 0, 1);
@@ -142,6 +172,8 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
 
         List animalList = objectMap.get(Animal.class);
         animalMapper.updateBatch(animalList);
+
+
         List animalGrowthList = objectMap.get(AnimalGrowthRecord.class);
         animalGrowthRecordMapper.updateBatch(animalGrowthList);
         List animalGutList = objectMap.get(AnimalGutMicrobiotaRecord.class);

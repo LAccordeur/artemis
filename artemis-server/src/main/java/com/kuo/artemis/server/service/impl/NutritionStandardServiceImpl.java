@@ -7,6 +7,7 @@ import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.NutritionStandardMapper;
 import com.kuo.artemis.server.entity.NutritionStandard;
 import com.kuo.artemis.server.service.NutritionStandardService;
+import com.kuo.artemis.server.util.ValidationUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,9 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
         }
         List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectByUserId(Integer.valueOf(userId));
 
+        if (nutritionStandardList == null || nutritionStandardList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "列表为空");
+        }
         //List<List<String>> result = DataHelper.objectListToArrayList(nutritionStandardList);
         return new Response(nutritionStandardList, HttpStatus.OK.value(), "获取营养标准列表成功");
     }
@@ -52,6 +56,9 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
         }
 
         List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectBriefByUserId(Integer.valueOf(userId));
+        if (nutritionStandardList == null || nutritionStandardList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "列表为空");
+        }
 
         return new Response(nutritionStandardList, HttpStatus.OK.value(), "获取营养标准简略表成功");
     }
@@ -108,6 +115,12 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
 
         String userId = command.getUserId();
         List<List<String>> dataList = command.getDataList();
+
+        try {
+            ValidationUtil.getInstance().validateParams(command);
+        } catch (Exception e) {
+            return new Response(e);
+        }
 
         //将二维数组类型的数据进行转换并组装
         DataImportDTO dataImportDTO = DataHelper.excelDataToBean(dataList, NutritionStandard.class, 0, 1);

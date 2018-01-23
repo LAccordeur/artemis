@@ -2,6 +2,7 @@ package com.kuo.artemis.server.core.math;
 
 import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -15,10 +16,13 @@ public class GroupDesignParam {
 
     private Integer animalNumber;    //动物数目
 
+    @NotNull
     private Integer treatmentNum;    //处理组数
 
+    @NotNull
     private Integer replicationNum;    //重复数
 
+    @NotNull
     private Integer unitNumber;    //每个组的动物数
 
     private Integer unitMaleNum;    //考虑性别的情况下每个组的雄性动物数
@@ -31,9 +35,11 @@ public class GroupDesignParam {
 
     private List<GroupGenderParam> differentGenderBalancesParamList;    //
 
+    @NotNull
     private String designMethod;    //分组方法
 
-    private boolean isConsiderGender;    //是否考虑性别
+    @NotNull
+    private String considerGender;    //是否考虑性别
 
     private String genderOption;
 
@@ -102,12 +108,12 @@ public class GroupDesignParam {
         this.unitFemaleNum = unitFemaleNum;
     }
 
-    public boolean isConsiderGender() {
-        return isConsiderGender;
+    public String getConsiderGender() {
+        return considerGender;
     }
 
-    public void setConsiderGender(boolean considerGender) {
-        isConsiderGender = considerGender;
+    public void setConsiderGender(String considerGender) {
+        this.considerGender = considerGender;
     }
 
     public Integer getAnimalNumber() {

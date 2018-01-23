@@ -32,7 +32,7 @@ public class Animal {
 
     private Double deviationFromMedian; //用于动物分组使用
 
-    private Integer isSuitable = 0;   //用于动物分组,默认为0不合适
+    private Integer suitable = 0;   //用于动物分组,默认为0不合适
 
     private String oldPen;    //旧的圈舍号  用于动物分组
 
@@ -67,7 +67,7 @@ public class Animal {
                 ", replicate='" + replicate + '\'' +
                 ", animalBirthday=" + animalBirthday +
                 ", deviationFromMedian=" + deviationFromMedian +
-                ", isSuitable=" + isSuitable +
+                ", suitable=" + suitable +
                 ", oldPen='" + oldPen + '\'' +
                 ", newPen='" + newPen + '\'' +
                 ", weightMean=" + weightMean +
@@ -119,13 +119,7 @@ public class Animal {
         CoefficientOfVariation = coefficientOfVariation;
     }
 
-    public Integer getIsSuitable() {
-        return isSuitable;
-    }
 
-    public void setIsSuitable(Integer isSuitable) {
-        this.isSuitable = isSuitable;
-    }
 
     public String getOldPen() {
         return oldPen;
@@ -144,11 +138,11 @@ public class Animal {
     }
 
     public Integer getSuitable() {
-        return isSuitable;
+        return suitable;
     }
 
     public void setSuitable(int suitable) {
-        isSuitable = suitable;
+        this.suitable = suitable;
     }
 
     public Double getDeviationFromMedian() {

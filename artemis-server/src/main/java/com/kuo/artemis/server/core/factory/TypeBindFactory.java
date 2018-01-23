@@ -30,6 +30,12 @@ public class TypeBindFactory {
         } else if ("java.lang.Float".equals(clazzName) || "float".equals(clazzName)) {
             if ((String)value != null && !"".equals((String) value))
                 return (T) new Float((String) value);
+        } else if ("java.lang.Byte".equals(clazzName) || "byte".equals(clazzName)) {
+            if ((String)value != null && !"".equals((String) value))
+                return (T) new Byte((String) value);
+        } else if ("java.lang.Short".equals(clazzName) || "short".equals(clazzName)) {
+            if ((String)value != null && !"".equals((String) value))
+                return (T) new Short((String) value);
         } else if ("java.lang.Double".equals(clazzName) || "double".equals(clazzName)) {
             if ((String)value != null && !"".equals((String) value))
                 return (T) new Double((String) value);

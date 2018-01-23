@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.service.impl;
 
+import com.kuo.artemis.server.core.math.GroupDesignParam;
 import com.kuo.artemis.server.dao.UserProjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,4 +24,24 @@ public class UserProjectImplTest {
         System.out.println(userProjectMapper.selectProjectsByUserId(1));
     }
 
+    @Test
+    public void test() {
+        TestHH testHH = new TestHH();
+        int a = testHH.getA();
+        System.out.println(a);
+    }
+
+
+}
+
+class TestHH {
+    private int a;
+
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
 }

@@ -21,7 +21,11 @@ public class AnimalGroupHelper {
 
         GroupDesignResult result = new GroupDesignResult();
 
+
         boolean groupStatus = GroupDesign.groupByCRD(animalList, param);
+        if (!groupStatus) {
+            return null;
+        }
         assembleResult(animalList, param, animalHouseList, result, groupStatus);
 
         return result;
@@ -31,6 +35,9 @@ public class AnimalGroupHelper {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithoutGender(animalList, param);
+        if (!groupStatus) {
+            return null;
+        }
         assembleResult(animalList, param, animalHouseList, result, groupStatus);
 
         return result;
@@ -40,6 +47,9 @@ public class AnimalGroupHelper {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithGenderBalance(animalList, param);
+        if (!groupStatus) {
+            return null;
+        }
         assembleResult(animalList, param, animalHouseList, result, groupStatus);
 
         return result;
@@ -49,6 +59,9 @@ public class AnimalGroupHelper {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithGenderAsBlockingFactor(animalList, param);
+        if (!groupStatus) {
+            return null;
+        }
         assembleResult(animalList, param, animalHouseList, result, groupStatus);
 
         return result;
@@ -58,12 +71,16 @@ public class AnimalGroupHelper {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithDifferentGenderBalances(animalList, param);
+        if (!groupStatus) {
+            return null;
+        }
         assembleResult(animalList, param, animalHouseList, result, groupStatus);
 
         return result;
     }
 
     public static void assembleResult(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList, GroupDesignResult result, boolean groupStatus) throws MathException {
+        Integer animalNumber = param.getAnimalNumber();
         if (groupStatus) {
             GroupDesign.setAnimalGroupNewPen(animalList, animalHouseList, groupStatus);
             GroupDesign.setAnimalGroupSummary(animalList, param, result, groupStatus);

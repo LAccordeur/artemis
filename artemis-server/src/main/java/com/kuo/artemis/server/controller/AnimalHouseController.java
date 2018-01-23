@@ -38,4 +38,10 @@ public class AnimalHouseController {
     public Response commitAnimalHouseProgrammingResult(@RequestBody RandomDistributionResult result, @RequestParam String projectId, @RequestParam String userId) {
         return animalHouseService.commitHouseProgrammingResult(result);
     }
+
+    @RequestMapping(value = "/result", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Response deleteHouseProgrammingResult(@RequestParam String projectId, @RequestParam String userId) {
+        return animalHouseService.deleteHouseProgrammingResult(projectId);
+    }
 }

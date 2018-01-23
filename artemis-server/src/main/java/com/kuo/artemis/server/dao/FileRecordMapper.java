@@ -23,7 +23,7 @@ public interface FileRecordMapper {
 
     List<FileRecord> selectIndicatorRecordFileVersions(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier);
 
-    int selectLastestVersion(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier);
+    Integer selectLastestVersion(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier);
 
     int selectIdByFileIdentifierAndVersion(@Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version);
 }

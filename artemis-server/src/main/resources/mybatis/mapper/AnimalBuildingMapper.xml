@@ -30,6 +30,12 @@
     delete from animal_building
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByProjectId" parameterType="java.lang.Integer">
+    delete from animal_building
+    where project_id = #{projectId}
+  </delete>
+
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.AnimalBuilding">
     insert into animal_building (id, project_id, building_code, house_number,
       house_type, create_time)

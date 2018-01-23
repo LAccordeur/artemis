@@ -31,7 +31,9 @@ public class MaterialServiceImpl implements MaterialService {
 
         List<Material> materialList = materialMapper.selectByUserId(Integer.valueOf(userId));
         //List<List<String>> data = DataHelper.objectListToArrayList(materialList);
-
+        if (materialList == null || materialList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "原料列表为空");
+        }
         return new Response(materialList, HttpStatus.OK.value(), "获取原料列表成功");
     }
 
@@ -41,6 +43,9 @@ public class MaterialServiceImpl implements MaterialService {
         }
 
         List<Material> materialList = materialMapper.selectBriefByUserId(Integer.valueOf(userId));
+        if (materialList == null || materialList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "原料列表为空");
+        }
 
         return new Response(materialList, HttpStatus.OK.value(), "获取原料简略列表成功");
     }

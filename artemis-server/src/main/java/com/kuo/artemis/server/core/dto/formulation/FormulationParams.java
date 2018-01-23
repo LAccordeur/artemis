@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.dto.formulation;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -11,22 +12,31 @@ public class FormulationParams {
 
     private String formulationCode;    //配方编号
 
+    @NotNull
     private String formulationName;    //配方名称
 
+    @NotNull
     private List<Integer> materialIdList;    //选取的配方id集合
 
+    @NotNull
     private String nutritionStandardId;    //营养标准id
 
+    @NotNull
     private String userId;    //生成该配方的用户id
 
+    @NotNull
     private String projectId;
 
+    @NotNull
     private List<Double> materialLeftBoundList;
 
+    @NotNull
     private List<Double> materialRightBoundList;
 
+    @NotNull
     private List<Double> nutritionStandardLeftBoundList;
 
+    @NotNull
     private List<Double> nutritionStandardRightBoundList;
 
     @Override

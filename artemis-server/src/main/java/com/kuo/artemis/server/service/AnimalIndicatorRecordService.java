@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.entity.Animal;
 
 import java.util.List;
@@ -26,21 +27,18 @@ public interface AnimalIndicatorRecordService {
     /**
      * 创建新的数据版本
      *
-     * @param recordList
-     * @param projectId
-     * @param userId
-     * @param filename
+     * @param command
      * @return
      */
-    Response createNewRecordVersion(List<List<String>> recordList, String projectId, String userId, String filename) throws Exception;
+    Response createNewRecordVersion(DataImportCommand command) throws Exception;
 
     /**
      * 保存数据
      *
-     * @param recordList
+     * @param command
      * @return
      */
-    Response saveRecord(List<List<String>> recordList, String projectId, String userId, String fileId) throws Exception;
+    Response saveRecord(DataImportCommand command) throws Exception;
 
     /**
      * 获取某个课题下已导入的指标文件列表

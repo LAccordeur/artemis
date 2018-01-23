@@ -4,6 +4,7 @@ import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.formulation.FormulationParams;
 import com.kuo.artemis.server.core.dto.formulation.FormulationResult;
+import com.kuo.artemis.server.entity.Formulation;
 import com.kuo.artemis.server.service.FormulationService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class FormulationController {
     @Authority(value = PermissionConst.VIEW_DATA_FORMULA)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Response listFormulations(String projectId) {
+    public Response listFormulations(String projectId, String userId) {
         return formulationService.listFormulations(projectId);
     }
 
@@ -55,6 +56,18 @@ public class FormulationController {
         return formulationService.getFormulationDetail(formulationId);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/{formulationId}/material", method = RequestMethod.GET)
+    public Response getFormulationMaterialDetail(@PathVariable String formulationId) {
+        return formulationService.getFormulationMaterialDetail(formulationId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/{formulationId}/nutrition", method = RequestMethod.GET)
+    public Response getFormulationNutritionDetail(@PathVariable String formulationId) {
+        return formulationService.getFormulationNutritionDetail(formulationId);
+    }
+
     @Authority(value = PermissionConst.DELETE_DATA_FORMULA)
     @ResponseBody
     @RequestMapping(value = "/{formulationId}", method = RequestMethod.DELETE)
@@ -76,6 +89,11 @@ public class FormulationController {
         return formulationService.createNewFormulation(result);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/intro", method = RequestMethod.POST)
+    public Response createFormulationBrief(@RequestBody Formulation formulation) {
+        return formulationService.createFormulationBrief(formulation);
+    }
 
 
 }

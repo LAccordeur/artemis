@@ -26,7 +26,7 @@ public class RedisSpringTest {
     public void test() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         User user = new User();
-        user.setUserEmail("34234");
+        user.setUserEmail("1111");
         template.opsForValue().set("testjson", objectMapper.writeValueAsString(user));
 
         System.out.println(template.opsForValue().get("testjson"));

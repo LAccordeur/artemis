@@ -2,6 +2,7 @@ package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.entity.Material;
 import com.kuo.artemis.server.service.MaterialService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
@@ -34,6 +35,12 @@ public class MaterialController {
     @RequestMapping(value = "/list/brief", method = RequestMethod.GET)
     public Response listMaterialsBrief(String userId) {
         return materialService.listMaterialsBrief(userId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Response addMaterials(@RequestBody DataImportCommand command) throws Exception {
+        return materialService.createNewMaterialBatch(command);
     }
 
     @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)

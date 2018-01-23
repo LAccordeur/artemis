@@ -3,6 +3,7 @@ package com.kuo.artemis.server.core.dto.animal;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kuo.artemis.server.entity.AnimalHouse;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -13,16 +14,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RandomDistributionResult {
 
+    @NotNull
     private String projectId;    //课题id
 
     private String buildingCode;    //圈舍所在房间的编号
 
+    @NotNull
     private List<List<String>> houseCodeList;
 
+    @NotNull
     private List<List> randomResult;
 
     private List<AnimalHouse> animalHouseList;
 
+    @NotNull
     private RandomDistributionParam param;
 
     @Override

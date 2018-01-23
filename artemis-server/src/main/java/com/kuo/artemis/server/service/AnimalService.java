@@ -42,5 +42,12 @@ public interface AnimalService {
      */
     Response commitAnimalGroupResult(GroupDesignResult result) throws Exception;
 
+    /**
+     * 删除
+     * @param projectId
+     * @return
+     */
+    Response deleteAnimalGroupResult(String projectId);
+
 
 }

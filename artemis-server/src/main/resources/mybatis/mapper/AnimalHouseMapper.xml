@@ -33,6 +33,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <delete id="deleteByProjectId" parameterType="java.lang.Integer">
+    delete from animal_house
+    where project_id = #{projectId}
+  </delete>
+
   <insert id="insertBatch" parameterType="List">
     insert into animal_house (building_id, project_id,
     house_code, treatment, replicate)

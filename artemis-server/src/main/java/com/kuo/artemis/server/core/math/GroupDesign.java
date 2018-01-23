@@ -48,7 +48,7 @@ public class GroupDesign {
         for (int i = 0; i < replicationNum; i++) {
             int replication = i + 1;
             List<Animal> animalGroup = animals.subList(i*groupNum, (i+1)*groupNum);
-            randomInGroup(animalGroup, treatmentNum, unitNum, replication);
+            multiRandomInGroup(animalGroup, treatmentNum, unitNum, replication, 20D, 5);
 
             Collections.sort(animalGroup, new Comparator<Animal>() {
                 public int compare(Animal o1, Animal o2) {
@@ -119,8 +119,8 @@ public class GroupDesign {
     public static boolean groupByRCBWithGenderBalance(List<Animal> animalList, GroupDesignParam param) {
 
         int treatmentNum = param.getTreatmentNum();
-        int unitMaleNum = param.getUnitMaleNum();
-        int unitFemaleNum = param.getUnitFemaleNum();
+        Integer unitMaleNum = param.getUnitMaleNum();
+        Integer unitFemaleNum = param.getUnitFemaleNum();
         int replicationNum = param.getReplicationNum();
         Double coefficientAllowance = param.getCoefficientAllowance();
         int maximumLoop = param.getMaximumLoop();
@@ -281,10 +281,11 @@ public class GroupDesign {
 
         if (groupStatus) {
             for (Animal animal : animalList) {
-                if (1 == animal.getSuitable()) {
+                if (1 == animal.getSuitable() || (animal.getReplicate() != null && animal.getTreatment() != null && !"".equals(animal.getReplicate()) && !"".equals(animal.getTreatment()))) {
                     String replication = animal.getReplicate();
                     String treatment = animal.getTreatment();
                     String houseCode = map.get(replication).get(treatment);
+                    animal.setOldPen(animal.getHouse());
                     animal.setNewPen(houseCode);
                     animal.setHouse(houseCode);
                 }
@@ -356,16 +357,18 @@ public class GroupDesign {
             List<Double> meanList = new ArrayList<Double>();
             List<Double> cvList = new ArrayList<Double>();
             for (Animal animal : animalList) {
-                Double mean = animal.getWeightMean();
-                Double cv = animal.getCoefficientOfVariation();
-                if (!meanList.contains(mean)) {
-                    if (mean != null) {
-                        meanList.add(mean);
+                if (animal.getSuitable() == 1  || (animal.getReplicate() != null && animal.getTreatment() != null && !"".equals(animal.getReplicate()) && !"".equals(animal.getTreatment()))) {
+                    Double mean = animal.getWeightMean();
+                    Double cv = animal.getCoefficientOfVariation();
+                    if (!meanList.contains(mean)) {
+                        if (mean != null) {
+                            meanList.add(mean);
+                        }
                     }
-                }
-                if (!cvList.contains(cv)) {
-                    if (cv != null) {
-                        cvList.add(cv);
+                    if (!cvList.contains(cv)) {
+                        if (cv != null) {
+                            cvList.add(cv);
+                        }
                     }
                 }
             }
@@ -471,17 +474,27 @@ public class GroupDesign {
             Collections.addAll(newAnimalList, new Animal[animalList.size()]);
             Collections.copy(newAnimalList, animalList);
 
+            List<Animal> oldAnimalList = new ArrayList<Animal>();
+            Collections.addAll(oldAnimalList, new Animal[animalList.size()]);
+            Collections.copy(oldAnimalList, animalList);
+
             //按旧的圈舍号排序
-            Collections.sort(animalList, new Comparator<Animal>() {
+            Collections.sort(oldAnimalList, new Comparator<Animal>() {
                 public int compare(Animal o1, Animal o2) {
+                    if (o1.getOldPen() == null) {
+                        return 1;
+                    }
                     return o1.getOldPen().compareTo(o2.getOldPen());
                 }
             });
-            movingSheet.setAnimalListSortedByOldPenNum(animalList);
+            movingSheet.setAnimalListSortedByOldPenNum(oldAnimalList);
 
             //按新的圈舍号排序
             Collections.sort(newAnimalList, new Comparator<Animal>() {
                 public int compare(Animal o1, Animal o2) {
+                    if (o1.getNewPen() == null) {
+                        return 1;
+                    }
                     return o1.getNewPen().compareTo(o2.getNewPen());
                 }
             });
@@ -525,9 +538,12 @@ public class GroupDesign {
     private static List<Animal> checkAnimalListByRCBWithGenderBalance(List<Animal> animalList, GroupDesignParam param) {
         int replicationNum = param.getReplicationNum();
         int treatmentNum = param.getTreatmentNum();
-        int unitMaleNum = param.getUnitMaleNum();
-        int unitFemaleNum = param.getUnitFemaleNum();
+        Integer unitMaleNum = param.getUnitMaleNum();
+        Integer unitFemaleNum = param.getUnitFemaleNum();
         int unitNum = param.getUnitNumber();
+        if (unitFemaleNum == null || unitMaleNum == null) {
+            return null;
+        }
 
         int requiredMaleAnimalNum = replicationNum * treatmentNum * unitMaleNum;
         int requiredFemaleAnimalNum = replicationNum * treatmentNum * unitFemaleNum;
@@ -609,8 +625,11 @@ public class GroupDesign {
         int unitNum = param.getUnitNumber();
         int treatmentNum = param.getTreatmentNum();
         int replicationNum = param.getReplicationNum();
-        int femaleReplicationNum = param.getFemaleReplicationNum();
-        int maleReplicationNum = param.getMaleReplicationNum();
+        Integer femaleReplicationNum = param.getFemaleReplicationNum();
+        Integer maleReplicationNum = param.getMaleReplicationNum();
+        if (femaleReplicationNum == null || maleReplicationNum == null) {
+            return null;
+        }
 
         int requiredAnimalNum = unitNum * treatmentNum * replicationNum;
         int requiredFemaleAnimalNum = unitNum * treatmentNum * femaleReplicationNum;
@@ -618,6 +637,7 @@ public class GroupDesign {
         int actualAnimalNum = animalList.size();
         int actualMaleAnimalNum = computeMaleAnimalNum(animalList);
         int actualFemaleAnimalNum = actualAnimalNum - actualMaleAnimalNum;
+
 
 
         return getSuitableAnimals(animalList, requiredMaleAnimalNum, requiredFemaleAnimalNum, requiredAnimalNum, actualAnimalNum, actualMaleAnimalNum, actualFemaleAnimalNum);
@@ -636,6 +656,9 @@ public class GroupDesign {
         int treatmentNum = param.getTreatmentNum();
         int replicationNum = param.getReplicationNum();
         List<GroupGenderParam> differentGenderBalancesParamList = param.getDifferentGenderBalancesParamList();
+        if (differentGenderBalancesParamList == null || differentGenderBalancesParamList.size() == 0) {
+            return null;
+        }
 
         int actualAnimalNum = animalList.size();
         int actualMaleAnimalNum = computeMaleAnimalNum(animalList);

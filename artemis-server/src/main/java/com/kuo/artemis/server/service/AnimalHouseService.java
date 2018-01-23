@@ -34,6 +34,12 @@ public interface AnimalHouseService {
      */
     Response doHouseProgramming(RandomDistributionParam param);
 
+    /**
+     * 删除某个课题下的圈舍规划（若以完成动物分组试验步骤则不能删除）
+     * @param projectId
+     * @return
+     */
+    Response deleteHouseProgrammingResult(String projectId);
 
     /**
      * 获取某个课题下所有的动物圈舍关系

@@ -17,4 +17,6 @@ public interface ProjectDetailMapper {
     int updateByPrimaryKeySelective(ProjectDetail record);
 
     int updateByPrimaryKey(ProjectDetail record);
+
+    int deleteByProjectId(@Param("projectId") Integer projectId);
 }

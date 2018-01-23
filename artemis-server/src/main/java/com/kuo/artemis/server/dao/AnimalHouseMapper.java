@@ -21,4 +21,6 @@ public interface AnimalHouseMapper {
     int updateByPrimaryKeySelective(AnimalHouse record);
 
     int updateByPrimaryKey(AnimalHouse record);
+
+    int deleteByProjectId(@Param("projectId") Integer projectId);
 }

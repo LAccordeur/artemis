@@ -10,6 +10,7 @@ import com.kuo.artemis.server.core.math.LinearProgrammingResult;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.FormulationService;
+import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +62,9 @@ public class FormulationServiceImpl implements FormulationService {
 
         List<Formulation> formulationList = formulationMapper.selectByProjectId(Integer.valueOf(projectId));
 
+        if (formulationList == null || formulationList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "配方列表为空");
+        }
         response.setData(formulationList);
         response.setCode(HttpStatus.OK.value());
         response.setMsg("获取配方列表成功");
@@ -83,6 +88,9 @@ public class FormulationServiceImpl implements FormulationService {
         }
 
         List<Formulation> formulationNameList = formulationMapper.selectFormulationNamesByProjectId(Integer.valueOf(projectId));
+        if (formulationNameList == null || formulationNameList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "配方列表为空");
+        }
 
         return new Response(formulationNameList, HttpStatus.OK.value(), "获取配方名称列表成功");
     }
@@ -98,12 +106,42 @@ public class FormulationServiceImpl implements FormulationService {
         Formulation formulation = formulationMapper.selectByPrimaryKey(Integer.valueOf(formulationId));
         result.setFormulation(formulation);
 
+        if (formulation == null) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "没有该配方信息");
+        }
+
         List<FormulationMaterial> formulationMaterialList = formulationMaterialMapper.selectByFormulationId(Integer.valueOf(formulationId));
         result.setFormulationMaterials(formulationMaterialList);
 
         List<FormulationNutrition> formulationNutritionList = formulationNutritionMapper.selectByFormulationId(Integer.valueOf(formulationId));
         result.setFormulationNutritions(formulationNutritionList);
         return new Response(result, HttpStatus.OK.value(), "获取配方信息成功");
+    }
+
+    public Response getFormulationMaterialDetail(String formulationId) {
+        if (formulationId == null || "".equals(formulationId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+
+        List<FormulationMaterial> formulationMaterialList = formulationMaterialMapper.selectByFormulationId(Integer.valueOf(formulationId));
+
+        if (formulationMaterialList == null || formulationMaterialList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "无原料信息");
+        }
+        return new Response(formulationMaterialList, HttpStatus.OK.value(), "配方原料信息");
+    }
+
+    public Response getFormulationNutritionDetail(String formulationId) {
+        if (formulationId == null || "".equals(formulationId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+
+        List<FormulationNutrition> formulationNutritionList = formulationNutritionMapper.selectByFormulationId(Integer.valueOf(formulationId));
+
+        if (formulationNutritionList == null || formulationNutritionList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "无营养指标信息");
+        }
+        return new Response(formulationNutritionList, HttpStatus.OK.value(), "配方营养指标信息");
     }
 
     public Response updateFormulationBasic(Formulation formulation) {
@@ -132,11 +170,17 @@ public class FormulationServiceImpl implements FormulationService {
     }
 
     /**
-     * TODO  ##BUG##  需保证原料营养指标的顺序符合Excel文件中 “营养指标设定” 那一页的顺序
+     * TODO  ##BUG##  需保证原料营养指标的顺序即（NutritionStandardLeftBoundList的顺序）符合Excel文件中 “营养指标设定” 那一页的顺序
      * @param params
      * @return
      */
     public Response programNewFormulation(FormulationParams params) {
+
+        try {
+            ValidationUtil.getInstance().validateParams(params);
+        } catch (Exception e) {
+            return new Response(e);
+        }
 
         //1.获取参数
         List<Integer> materialIdList = params.getMaterialIdList();
@@ -155,6 +199,7 @@ public class FormulationServiceImpl implements FormulationService {
         } else {
             return new Response(HttpStatus.BAD_REQUEST.value(),"原料或指标数据无效");
         }
+
 
         //3.构建线性规划的参数
         //目标函数系数  即为各个原料的价格
@@ -185,7 +230,7 @@ public class FormulationServiceImpl implements FormulationService {
         formulationResult.setFormulationMaterialCost(result.getResultValue());
         formulationResult.setProgrammingStatus(result.getStatus().toString());
         //构造配方原料关系
-        List<FormulationMaterial> formulationMaterialList = getFormulationMaterials(materialList, result);
+        List<FormulationMaterial> formulationMaterialList = getFormulationMaterials(materialLeftBoundList, materialRightBoundList, materialList, result);
         formulationResult.setFormulationMaterials(formulationMaterialList);
         //构造配方营养关系
         List<FormulationNutrition> formulationNutritionList = getFormulationNutritions(nutritionStandardLeftBoundList, nutritionStandardRightBoundList, nutritionStandard, fields, result);
@@ -227,12 +272,11 @@ public class FormulationServiceImpl implements FormulationService {
         }
     }
 
-    private List<FormulationMaterial> getFormulationMaterials(List<Material> materialList, LinearProgrammingResult result) {
+    private List<FormulationMaterial> getFormulationMaterials(List<Double> materialLeftBoundList, List<Double> materialRightBoundList, List<Material> materialList, LinearProgrammingResult result) {
         List<FormulationMaterial> formulationMaterialList = new ArrayList<FormulationMaterial>();
         List<Double> resultValue = result.getVariableValueList();
 
-        //TODO decimalFormat改为单例模式
-        //DecimalFormat decimalFormat = new DecimalFormat("0.000000");
+
         DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
         for (int i = 0; i < resultValue.size(); i++) {
             FormulationMaterial formulationMaterial = new FormulationMaterial();
@@ -241,6 +285,8 @@ public class FormulationServiceImpl implements FormulationService {
             formulationMaterial.setOptimalRatio(BigDecimal.valueOf(resultValue.get(i)));
             formulationMaterial.setMaterialName(material.getMaterialName());
             formulationMaterial.setMaterialPrice(material.getMaterialPrice());
+            formulationMaterial.setMaterialRatioLowBound(BigDecimal.valueOf(materialLeftBoundList.get(i)));
+            formulationMaterial.setMaterialRatioHighBound(BigDecimal.valueOf(materialRightBoundList.get(i)));
             String ponderanceTon = decimalFormat.format(resultValue.get(i) * 100 * 10);
             formulationMaterial.setPonderanceTon(new BigDecimal(ponderanceTon));
             formulationMaterialList.add(formulationMaterial);
@@ -290,17 +336,31 @@ public class FormulationServiceImpl implements FormulationService {
     @Transactional(rollbackFor = Exception.class)
     public Response createNewFormulation(FormulationResult result) {
 
-        //1.新建配方信息
-        Formulation formulation = new Formulation();
-        formulation.setUserId(Integer.valueOf(result.getUserId()));
-        formulation.setProjectId(Integer.valueOf(result.getProjectId()));
-        formulation.setFormulationCode(result.getFormulationCode());
-        formulation.setFormulationName(result.getFormulationName());
-        formulation.setFormulationMaterialCost(BigDecimal.valueOf(result.getFormulationMaterialCost()));
-        int resultFormulation = formulationMapper.insertSelective(formulation);
+        try {
+            ValidationUtil.getInstance().validateParams(result);
+        } catch (Exception e) {
+            return new Response(e);
+        }
+        int resultFormulation = 0;
+        Integer formulationId;
+        if (result.getFormulationId() == null) {
+            //1.新建配方信息
+            Formulation formulation = new Formulation();
+            formulation.setUserId(Integer.valueOf(result.getUserId()));
+            formulation.setProjectId(Integer.valueOf(result.getProjectId()));
+            formulation.setFormulationCode(result.getFormulationCode());
+            formulation.setFormulationName(result.getFormulationName());
+            formulation.setFormulationMaterialCost(BigDecimal.valueOf(result.getFormulationMaterialCost()));
+            resultFormulation = formulationMapper.insertSelective(formulation);
+            formulationId = formulation.getId();
+        } else {
+            formulationId = Integer.valueOf(result.getFormulationId());
+            Formulation formulation = new Formulation();
+            formulation.setFormulationMaterialCost(BigDecimal.valueOf(result.getFormulationMaterialCost()));
+            resultFormulation = formulationMapper.updateByPrimaryKeySelective(formulation);
+        }
 
         //2.更新配方原料关系
-        Integer formulationId = formulation.getId();
         List<FormulationMaterial> formulationMaterialList = result.getFormulationMaterials();
 
         for (int i = 0; i < formulationMaterialList.size(); i++) {
@@ -325,5 +385,23 @@ public class FormulationServiceImpl implements FormulationService {
         } else {
             return new Response(HttpStatus.BAD_REQUEST.value(), "新增配方失败");
         }
+    }
+
+
+    public Response createFormulationBrief(Formulation formulation) {
+
+        try {
+            ValidationUtil.getInstance().validateParams(formulation);
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        int result = formulationMapper.insertSelective(formulation);
+        Formulation newRecord = formulationMapper.selectByPrimaryKey(formulation.getId());
+        if (result > 0) {
+            return new Response(newRecord, HttpStatus.OK.value(), "新增配方简介成功");
+        }
+
+        return new Response(HttpStatus.BAD_REQUEST.value(), "新建配方简介失败");
     }
 }

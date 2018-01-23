@@ -19,11 +19,31 @@ public class FormulationMaterial {
 
     private BigDecimal optimalRatio;
 
+    private BigDecimal materialRatioLowBound;
+
+    private BigDecimal materialRatioHighBound;
+
     private BigDecimal ponderanceTon;
 
     private Date createTime;
 
     private Date modifiedTime;
+
+    public BigDecimal getMaterialRatioLowBound() {
+        return materialRatioLowBound;
+    }
+
+    public void setMaterialRatioLowBound(BigDecimal materialRatioLowBound) {
+        this.materialRatioLowBound = materialRatioLowBound;
+    }
+
+    public BigDecimal getMaterialRatioHighBound() {
+        return materialRatioHighBound;
+    }
+
+    public void setMaterialRatioHighBound(BigDecimal materialRatioHighBound) {
+        this.materialRatioHighBound = materialRatioHighBound;
+    }
 
     public String getId() {
         return id;

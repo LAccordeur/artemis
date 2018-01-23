@@ -2,19 +2,24 @@ package com.kuo.artemis.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Formulation {
     private Integer id;
 
+    @NotNull
     private Integer userId;
 
+    @NotNull
     private Integer projectId;
 
+    @NotNull
     private String formulationCode;
 
+    @NotNull
     private String formulationName;
 
     private BigDecimal formulationMaterialCost;

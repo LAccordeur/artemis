@@ -12,7 +12,7 @@
     <result column="house" jdbcType="VARCHAR" property="house" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
-    <result column="treatmentNum" jdbcType="VARCHAR" property="treatmentNum" />
+    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
     <result column="animal_birthday" jdbcType="TIMESTAMP" property="animalBirthday" />
     <result column="version" jdbcType="INTEGER" property="version" />
@@ -22,7 +22,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, animal_type_id, user_id, project_id, house_id, animal_sex, animal_init_weight, house, code,
-    id_number, treatmentNum, replicate, animal_birthday, version, file_identifier, create_time, modified_time
+    id_number, treatment, replicate, animal_birthday, version, file_identifier, create_time, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -31,19 +31,96 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
 
-  <select id="selectByProjectId" parameterType="java.lang.String" resultType="Animal">
+  <select id="selectByProjectId" parameterType="java.lang.Integer" resultType="Animal">
     select
     <include refid="Base_Column_List" />
     from animal
     where project_id = #{projectId}
+    order by replicate, treatment
   </select>
+
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from animal
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  
+
+  <select id="selectAnimalGroupDetailList" resultType="Animal">
+    select animal.id, animal.animal_sex, animal.animal_init_weight, animal.house, animal.id_number, animal.treatment, animal.replicate,
+     animal_group_detail.suitable, animal_group_detail.old_pen, animal_group_detail.new_pen, animal_group_detail.weight_mean, animal_group_detail.coefficient_of_variation
+    from animal
+    left join animal_group_detail on animal.id = animal_group_detail.id
+    where animal.project_id = #{projectId}
+    order by suitable desc, replicate, treatment
+  </select>
+
+  <select id="selectAnimalGroupStatus" resultType="Integer">
+    select count(*) from animal_group_detail
+    where project_id = #{projectId}
+  </select>
+
+  <delete id="deleteAnimalGroupByProjectId">
+    delete from animal_group_detail
+    where project_id = #{projectId}
+  </delete>
+
+  <insert id="insertAnimalGroupDetailBatch" parameterType="List">
+    <foreach collection="list" item="item" index="index" separator=";">
+      insert into animal_group_detail
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          id,
+        </if>
+        <if test="item.projectId != null">
+          project_id,
+        </if>
+        <if test="item.suitable != null">
+          suitable,
+        </if>
+        <if test="item.oldPen != null">
+          old_pen,
+        </if>
+        <if test="item.newPen != null">
+          new_pen,
+        </if>
+        <if test="item.weightMean != null">
+          weight_mean,
+        </if>
+        <if test="item.coefficientOfVariation != null">
+          coefficient_of_variation,
+        </if>
+      </trim>
+      values
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+
+        <if test="item.id != null">
+          #{item.id},
+        </if>
+        <if test="item.projectId != null">
+          #{item.projectId},
+        </if>
+        <if test="item.suitable != null">
+          #{item.suitable},
+        </if>
+        <if test="item.oldPen != null">
+          #{item.oldPen},
+        </if>
+        <if test="item.newPen != null">
+          #{item.newPen},
+        </if>
+        <if test="item.weightMean != null">
+          #{item.weightMean},
+        </if>
+        <if test="item.coefficientOfVariation != null">
+          #{item.coefficientOfVariation},
+        </if>
+
+      </trim>
+    </foreach>
+  </insert>
+
+
   <insert id="insertBatch" parameterType="List">
     <foreach collection="list" item="item" index="index" separator=";">
       insert into animal
@@ -75,8 +152,8 @@
       <if test="item.idNumber != null">
         id_number,
       </if>
-      <if test="item.treatmentNum != null">
-        treatmentNum,
+      <if test="item.treatment != null">
+        treatment,
       </if>
       <if test="item.replicate != null">
         replicate,
@@ -127,8 +204,8 @@
       <if test="item.idNumber != null">
         #{item.idNumber},
       </if>
-      <if test="item.treatmentNum != null">
-        #{item.treatmentNum},
+      <if test="item.treatment != null">
+        #{item.treatment},
       </if>
       <if test="item.replicate != null">
         #{item.replicate},
@@ -156,12 +233,12 @@
     insert into animal (id, animal_type_id, user_id, 
       project_id, animal_sex, animal_init_weight, 
       house, code, id_number, 
-      treatmentNum, replicate, animal_birthday,
+      treatment, replicate, animal_birthday,
       create_time, modified_time)
     values (#{id,jdbcType=VARCHAR}, #{animalTypeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{projectId,jdbcType=INTEGER}, #{animalSex,jdbcType=SMALLINT}, #{animalInitWeight,jdbcType=DECIMAL}, 
       #{house,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, 
-      #{treatmentNum,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{animalBirthday,jdbcType=TIMESTAMP},
+      #{treatment,jdbcType=VARCHAR}, #{replicate,jdbcType=VARCHAR}, #{animalBirthday,jdbcType=TIMESTAMP},
       #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.Animal">
@@ -197,8 +274,8 @@
       <if test="idNumber != null">
         id_number,
       </if>
-      <if test="treatmentNum != null">
-        treatmentNum,
+      <if test="treatment != null">
+        treatment,
       </if>
       <if test="replicate != null">
         replicate,
@@ -250,8 +327,8 @@
       <if test="idNumber != null">
         #{idNumber,jdbcType=VARCHAR},
       </if>
-      <if test="treatmentNum != null">
-        #{treatmentNum,jdbcType=VARCHAR},
+      <if test="treatment != null">
+        #{treatment,jdbcType=VARCHAR},
       </if>
       <if test="replicate != null">
         #{replicate,jdbcType=VARCHAR},
@@ -303,8 +380,8 @@
       <if test="idNumber != null">
         id_number = #{idNumber,jdbcType=VARCHAR},
       </if>
-      <if test="treatmentNum != null">
-        treatmentNum = #{treatmentNum,jdbcType=VARCHAR},
+      <if test="treatment != null">
+        treatment = #{treatment,jdbcType=VARCHAR},
       </if>
       <if test="replicate != null">
         replicate = #{replicate,jdbcType=VARCHAR},
@@ -337,7 +414,7 @@
       house = #{house,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
       id_number = #{idNumber,jdbcType=VARCHAR},
-      treatmentNum = #{treatmentNum,jdbcType=VARCHAR},
+      treatment = #{treatment,jdbcType=VARCHAR},
       replicate = #{replicate,jdbcType=VARCHAR},
       animal_birthday = #{animalBirthday,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -376,8 +453,8 @@
       <if test="item.idNumber != null">
         id_number = #{item.idNumber},
       </if>
-      <if test="item.treatmentNum != null">
-        treatmentNum = #{item.treatmentNum},
+      <if test="item.treatment != null">
+        treatment = #{item.treatment},
       </if>
       <if test="item.replicate != null">
         replicate = #{item.replicate},

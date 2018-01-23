@@ -17,6 +17,8 @@ public class GroupDesignResult {
 
     private GroupDesignMovingSheet movingSheet;   //分组结果movingSheet
 
+    private GroupDesignParam param;
+
     private String status;    //分组结果状态
 
     @Override
@@ -25,8 +27,17 @@ public class GroupDesignResult {
                 "projectId='" + projectId + '\'' +
                 ", summary=" + summary +
                 ", movingSheet=" + movingSheet +
+                ", param=" + param +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public GroupDesignParam getParam() {
+        return param;
+    }
+
+    public void setParam(GroupDesignParam param) {
+        this.param = param;
     }
 
     public String getProjectId() {

@@ -18,4 +18,6 @@ public interface AnimalBuildingMapper {
     int updateByPrimaryKeySelective(AnimalBuilding record);
 
     int updateByPrimaryKey(AnimalBuilding record);
+
+    int deleteByProjectId(@Param("projectId") Integer projectId);
 }

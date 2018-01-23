@@ -57,9 +57,9 @@
       )
   </insert>
 
-  <select id="selectLastestVersion">
+  <select id="selectLastestVersion" resultType="Integer">
     select max(version) from file_record
-    where project_id = #{project_id} and file_identifier = #{fileIdentifier}
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier}
   </select>
 
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.FileRecord" useGeneratedKeys="true" keyProperty="id">

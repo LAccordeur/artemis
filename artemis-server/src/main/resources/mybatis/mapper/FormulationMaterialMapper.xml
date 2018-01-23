@@ -8,12 +8,14 @@
     <result column="material_name" jdbcType="VARCHAR" property="materialName" />
     <result column="material_price" jdbcType="DECIMAL" property="materialPrice" />
     <result column="optimal_ratio" jdbcType="DECIMAL" property="optimalRatio" />
+    <result column="material_ratio_low_bound" jdbcType="DECIMAL" property="materialRatioLowBound" />
+    <result column="material_ratio_high_bound" jdbcType="DECIMAL" property="materialRatioHighBound" />
     <result column="ponderance_ton" jdbcType="DECIMAL" property="ponderanceTon" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, formulation_id, material_id, material_name, material_price, optimal_ratio, ponderance_ton, 
+    id, formulation_id, material_id, material_name, material_price, optimal_ratio, material_ratio_low_bound, material_ratio_high_bound, ponderance_ton,
     create_time, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -46,6 +48,12 @@
       <if test="item.optimalRatio != null">
         optimal_ratio,
       </if>
+      <if test="item.materialRatioLowBound != null">
+        material_ratio_low_bound,
+      </if>
+      <if test="item.materialRatioHighBound != null">
+        material_ratio_high_bound,
+      </if>
       <if test="item.ponderanceTon != null">
         ponderance_ton,
       </if>
@@ -74,6 +82,12 @@
       </if>
       <if test="item.optimalRatio != null">
         #{item.optimalRatio},
+      </if>
+      <if test="item.materialRatioLowBound != null">
+        #{item.materialRatioLowBound},
+      </if>
+      <if test="item.materialRatioHighBound != null">
+        #{item.materialRatioHighBound},
       </if>
       <if test="item.ponderanceTon != null">
         #{item.ponderanceTon},
@@ -136,6 +150,12 @@
       <if test="optimalRatio != null">
         optimal_ratio,
       </if>
+      <if test="materialRatioLowBound != null">
+        material_ratio_low_bound,
+      </if>
+      <if test="materialRatioHighBound != null">
+        material_ratio_high_bound,
+      </if>
       <if test="ponderanceTon != null">
         ponderance_ton,
       </if>
@@ -164,6 +184,12 @@
       </if>
       <if test="optimalRatio != null">
         #{optimalRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="materialRatioLowBound != null">
+        #{materialRatioLowBound,jdbcType=DECIMAL},
+      </if>
+      <if test="materialRatioHighBound != null">
+        #{materialRatioHighBound,jdbcType=DECIMAL},
       </if>
       <if test="ponderanceTon != null">
         #{ponderanceTon,jdbcType=DECIMAL},
@@ -203,6 +229,12 @@
       </if>
       <if test="optimalRatio != null">
         optimal_ratio = #{optimalRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="materialRatioLowBound != null">
+        material_ratio_low_bound = #{materialRatioLowBound,jdbcType=DECIMAL},
+      </if>
+      <if test="materialRatioHighBound != null">
+        material_ratio_high_bound = #{materialRatioHighBound,jdbcType=DECIMAL},
       </if>
       <if test="ponderanceTon != null">
         ponderance_ton = #{ponderanceTon,jdbcType=DECIMAL},

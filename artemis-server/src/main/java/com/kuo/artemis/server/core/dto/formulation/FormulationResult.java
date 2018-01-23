@@ -5,6 +5,7 @@ import com.kuo.artemis.server.entity.Formulation;
 import com.kuo.artemis.server.entity.FormulationMaterial;
 import com.kuo.artemis.server.entity.FormulationNutrition;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -12,17 +13,23 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2017/12/21
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormulationResult {
 
+    @NotNull
     private String userId;
 
+    @NotNull
     private String projectId;
+
+    private String formulationId;
 
     private String formulationCode;
 
+    @NotNull
     private String formulationName;
 
+    @NotNull
     private Double formulationMaterialCost;   //配方价格
 
     private String programmingStatus;  //规划状态
@@ -31,8 +38,10 @@ public class FormulationResult {
 
     private Formulation formulation;
 
+    @NotNull
     private List<FormulationMaterial> formulationMaterials;
 
+    @NotNull
     private List<FormulationNutrition> formulationNutritions;
 
     @Override
@@ -40,6 +49,7 @@ public class FormulationResult {
         return "FormulationResult{" +
                 "userId='" + userId + '\'' +
                 ", projectId='" + projectId + '\'' +
+                ", formulationId='" + formulationId + '\'' +
                 ", formulationCode='" + formulationCode + '\'' +
                 ", formulationName='" + formulationName + '\'' +
                 ", formulationMaterialCost=" + formulationMaterialCost +
@@ -48,6 +58,14 @@ public class FormulationResult {
                 ", formulationMaterials=" + formulationMaterials +
                 ", formulationNutritions=" + formulationNutritions +
                 '}';
+    }
+
+    public String getFormulationId() {
+        return formulationId;
+    }
+
+    public void setFormulationId(String formulationId) {
+        this.formulationId = formulationId;
     }
 
     public List<FormulationNutrition> getFormulationNutritions() {

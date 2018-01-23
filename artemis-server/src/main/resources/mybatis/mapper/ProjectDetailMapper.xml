@@ -33,6 +33,12 @@
     delete from project_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByProjectId" parameterType="java.lang.Integer">
+    delete from project_detail
+    where project_id = #{projectId}
+  </delete>
+
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.ProjectDetail">
     insert into project_detail (id, project_id, treatment_num, 
       replication_num, house_style, group_method, 
