@@ -6,9 +6,10 @@ import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.util.MathUtil;
-import org.apache.commons.math.MathException;
-import org.apache.commons.math.distribution.FDistribution;
-import org.apache.commons.math.distribution.FDistributionImpl;
+import org.apache.commons.math3.distribution.FDistribution;
+//import org.apache.commons.math.MathException;
+//import org.apache.commons.math.distribution.FDistribution;
+//import org.apache.commons.math.distribution.FDistributionImpl;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -328,7 +329,7 @@ public class GroupDesign {
      * @param result
      * @param groupStatus
      */
-    public static void setAnimalGroupSummary(List<Animal> animalList, GroupDesignParam param, GroupDesignResult result, boolean groupStatus) throws MathException {
+    public static void setAnimalGroupSummary(List<Animal> animalList, GroupDesignParam param, GroupDesignResult result, boolean groupStatus)  {
 
         int treatmentNum = param.getTreatmentNum();
         int replicationNum = param.getReplicationNum();
@@ -437,13 +438,14 @@ public class GroupDesign {
 
             Double repFValue = repMs / errorMs;
             repList.add(repFValue);
-            FDistribution fDistributionRep = new FDistributionImpl(repDf, errorDf);
+            FDistribution fDistributionRep = new FDistribution(repDf, errorDf);
             Double repPrF = 1 - fDistributionRep.cumulativeProbability(repFValue);
             repList.add(repPrF);
 
             Double trtFValue = trtMs / errorMs;
             trtList.add(trtFValue);
-            FDistribution fDistributionTrt = new FDistributionImpl(trtDf, errorDf);
+
+            FDistribution fDistributionTrt = new FDistribution(trtDf, errorDf);
             Double trtPrf = 1 - fDistributionTrt.cumulativeProbability(trtFValue);
             trtList.add(trtPrf);
 

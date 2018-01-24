@@ -1,0 +1,169 @@
+package com.kuo.artemis.server.core.math;
+
+import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
+import com.quantego.clp.CLP;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+import org.apache.commons.math3.optim.PointValuePair;
+import org.apache.commons.math3.optim.SimpleBounds;
+import org.apache.commons.math3.optim.linear.*;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * @Author : guoyang
+ * @Description :
+ * @Date : Created on 2018/1/24
+ */
+public class NewLinearProgramming {
+
+    /**
+     *
+     * @param objectFunctionCoefficientList
+     * @param constraintFunctionCoefficientList
+     * @param constraintFunctionLeftValueBoundList
+     * @param constraintFunctionRightValueBoundList
+     * @param variableLeftBoundList
+     * @param variableRightBoundList
+     * @return
+     */
+    public static LinearProgrammingResult getMinimize(List<Double> objectFunctionCoefficientList, List<List<Double>> constraintFunctionCoefficientList, List<Double> constraintFunctionLeftValueBoundList, List<Double> constraintFunctionRightValueBoundList, List<Double> variableLeftBoundList, List<Double> variableRightBoundList) {
+
+        //先对传入参数进行判断是否合法
+        if (objectFunctionCoefficientList.size() == variableLeftBoundList.size() && objectFunctionCoefficientList.size() == variableRightBoundList.size()) {
+            //do nothing
+        } else {
+            return null;
+        }
+
+        if (constraintFunctionCoefficientList.size() == constraintFunctionLeftValueBoundList.size() && constraintFunctionCoefficientList.size() == constraintFunctionRightValueBoundList.size()) {
+            //do nothing
+        } else {
+            return null;
+        }
+
+        LinearProgrammingResult result = new LinearProgrammingResult();
+
+        //1.从参数中提取必要的信息
+        int variableSize = objectFunctionCoefficientList.size();  //模型中的所有变量数
+
+        List<LinearConstraint> linearConstraintList = new ArrayList<LinearConstraint>();
+
+        //2.设置每个变量的范围(单纯性法不支持SimpleBounds)
+        //SimpleBounds simpleBounds = new SimpleBounds(listToArray(variableLeftBoundList, 0.01), listToArray(variableRightBoundList, 0.01));
+        for (int i = 0; i < variableSize; i++) {
+            double[] coefficients = setOneAtIndex(i, variableSize);
+            LinearConstraint linearConstraintLeft = new LinearConstraint(coefficients, Relationship.GEQ, variableLeftBoundList.get(i) * 0.01);
+            LinearConstraint linearConstraintRight = new LinearConstraint(coefficients, Relationship.LEQ, variableRightBoundList.get(i) * 0.01);
+            linearConstraintList.add(linearConstraintLeft);
+            linearConstraintList.add(linearConstraintRight);
+        }
+
+        //3.创建目标函数
+        LinearObjectiveFunction linearObjectiveFunction = new LinearObjectiveFunction(listToArray(objectFunctionCoefficientList, null), 0);
+
+        //4.设置下界、上界约束函数
+        for (int i = 0; i < constraintFunctionCoefficientList.size(); i++) {
+            List<Double> constraintFunctionCoefficient = constraintFunctionCoefficientList.get(i);
+            Double leftBound = constraintFunctionLeftValueBoundList.get(i);
+            Double rightBound = constraintFunctionRightValueBoundList.get(i);
+            LinearConstraint linearConstraintLeft = new LinearConstraint(listToArray(constraintFunctionCoefficient, null), Relationship.GEQ, leftBound);
+            LinearConstraint linearConstraintRight = new LinearConstraint(listToArray(constraintFunctionCoefficient, null), Relationship.LEQ, rightBound);
+            linearConstraintList.add(linearConstraintLeft);
+            linearConstraintList.add(linearConstraintRight);
+        }
+        //约束函数
+
+        LinearConstraintSet linearConstraintSet = new LinearConstraintSet(linearConstraintList);
+
+
+        //5.求解线性规划
+        SimplexSolver simplexSolver = new SimplexSolver();
+        PointValuePair pointValuePair = null;
+        SolutionCallback solutionCallback = new SolutionCallback();
+        try {
+            pointValuePair = simplexSolver.optimize(linearObjectiveFunction, linearConstraintSet, new NonNegativeConstraint(true), solutionCallback);
+            //pointValuePair = simplexSolver.doOptimize();
+        } catch (NoFeasibleSolutionException e) {
+            e.printStackTrace();
+            pointValuePair = solutionCallback.getSolution();
+        }
+
+
+        //6.设置返回结果
+        DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
+        Double objectValue = pointValuePair.getValue();
+        double[] variableValues = pointValuePair.getPoint();
+        //设置目标变量系数
+        result.setVariableValueList(arrayToList(variableValues));
+        //目标变量系数下限
+        result.setVariableValueLeftBoundList(variableLeftBoundList);
+        result.setVariableValueRightBoundList(variableRightBoundList);
+        //约束方程函数值下限与上限
+        result.setConstraintValueLeftBoundList(constraintFunctionLeftValueBoundList);
+        result.setConstraintValueRightBoundList(constraintFunctionRightValueBoundList);
+        //约束方程函数值
+        List<Double> constraintFunctionValueList = new ArrayList<Double>();
+        for (int i = 0; i < constraintFunctionCoefficientList.size(); i++) {
+            Double functionValue = 0D;
+            List<Double> functionCoefficientList = constraintFunctionCoefficientList.get(i);
+            for (int j = 0; j < functionCoefficientList.size(); j++) {
+                functionValue = functionValue + functionCoefficientList.get(j) * variableValues[j];
+            }
+            constraintFunctionValueList.add(Double.valueOf(decimalFormat.format(functionValue)));
+        }
+        result.setConstraintFunctionValueList(constraintFunctionValueList);
+        //设置线性规划结果值
+        result.setResultValue(objectValue);
+        result.setStatus(CLP.STATUS.OPTIMAL);
+
+        return result;
+    }
+
+    private static double[] listToArray(List<Double> doubleList, Double coefficient) {
+        int length = doubleList.size();
+        double[] result = new double[length];
+
+        if (coefficient == null) {
+            for (int i = 0; i < length; i++) {
+                result[i] = doubleList.get(i);
+            }
+        } else {
+            for (int i = 0; i < length; i++) {
+                result[i] = doubleList.get(i) * coefficient;
+            }
+        }
+
+        return result;
+    }
+
+    private static List<Double> arrayToList(double[] doubles) {
+
+        List<Double> doubleList = new ArrayList<Double>();
+
+        for (int i = 0; i < doubles.length; i++) {
+            doubleList.add(new Double(doubles[i]));
+        }
+
+
+        return doubleList;
+    }
+
+    private static double[] setOneAtIndex(int index, int length) {
+        double[] doubles = new double[length];
+        for (int i = 0; i < length; i++) {
+            if (i != index) {
+                doubles[i] = 0;
+            } else {
+                doubles[i] = 1;
+            }
+        }
+        return doubles;
+    }
+
+
+}

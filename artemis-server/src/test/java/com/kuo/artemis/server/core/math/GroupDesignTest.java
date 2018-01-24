@@ -2,8 +2,8 @@ package com.kuo.artemis.server.core.math;
 
 import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
 import com.kuo.artemis.server.entity.Animal;
-import org.apache.commons.math.distribution.FDistribution;
-import org.apache.commons.math.distribution.FDistributionImpl;
+
+import org.apache.commons.math3.distribution.FDistribution;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -307,7 +307,7 @@ public class GroupDesignTest {
         GroupDesign.setAnimalGroupMovingSheet(animals, result, true);
         System.out.println(result);
 
-        FDistribution fDistribution = new FDistributionImpl(3D, 12D);
+        FDistribution fDistribution = new FDistribution(3D, 12D);
         System.out.println(1 - fDistribution.cumulativeProbability(0.65));
     }
 

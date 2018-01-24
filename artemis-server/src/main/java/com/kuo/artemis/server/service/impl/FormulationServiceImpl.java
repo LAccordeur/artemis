@@ -7,6 +7,7 @@ import com.kuo.artemis.server.core.dto.formulation.FormulationResult;
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.kuo.artemis.server.core.math.LinearProgramming;
 import com.kuo.artemis.server.core.math.LinearProgrammingResult;
+import com.kuo.artemis.server.core.math.NewLinearProgramming;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.FormulationService;
@@ -192,9 +193,11 @@ public class FormulationServiceImpl implements FormulationService {
 
         //2.获取线性规划所需要的内容
         List<Material> materialList =  materialMapper.selectMaterialIndicators(materialIdList);
-        NutritionStandard nutritionStandard = nutritionStandardMapper.selectByPrimaryKey(Integer.valueOf(nutritionStandardId));
-
-        if (materialIdList != null && nutritionStandard != null) {
+        NutritionStandard nutritionStandard = null;
+        if (nutritionStandardId != null) {
+            nutritionStandard = nutritionStandardMapper.selectByPrimaryKey(Integer.valueOf(nutritionStandardId));
+        }
+        if (materialIdList != null) {
             //do nothing continue
         } else {
             return new Response(HttpStatus.BAD_REQUEST.value(),"原料或指标数据无效");
@@ -209,13 +212,18 @@ public class FormulationServiceImpl implements FormulationService {
             objectFunctionCoefficient.add(material.getMaterialPrice().doubleValue());
         }
 
-        Field[] fields = nutritionStandard.getClass().getDeclaredFields();  //TODO  可能存在field随机改变而产生的BUG
+        Field[] fields;
+        if (nutritionStandard != null) {
+            fields = nutritionStandard.getClass().getDeclaredFields();  //TODO  可能存在field随机改变而产生的BUG
+        } else {
+            fields = NutritionStandard.class.getDeclaredFields();
+        }
         //约束函数的系数
         List<List<Double>> constraintLists = new ArrayList<List<Double>>();
         getConstraintLists(materialList, fields, constraintLists);
 
         //4.执行规划
-        LinearProgrammingResult result = LinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
+        LinearProgrammingResult result = NewLinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
         if (result == null) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "线性规划参数不全");
         }
@@ -282,7 +290,7 @@ public class FormulationServiceImpl implements FormulationService {
             FormulationMaterial formulationMaterial = new FormulationMaterial();
             Material material = materialList.get(i);
             formulationMaterial.setMaterialId(material.getId());
-            formulationMaterial.setOptimalRatio(BigDecimal.valueOf(resultValue.get(i)));
+            formulationMaterial.setOptimalRatio(BigDecimal.valueOf(resultValue.get(i) * 100));
             formulationMaterial.setMaterialName(material.getMaterialName());
             formulationMaterial.setMaterialPrice(material.getMaterialPrice());
             formulationMaterial.setMaterialRatioLowBound(BigDecimal.valueOf(materialLeftBoundList.get(i)));

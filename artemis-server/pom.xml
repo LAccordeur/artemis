@@ -26,6 +26,11 @@
             <id>clp-repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public</url>
         </repository>
+        <repository>
+            <id>apache-repository</id>
+            <url>http://central.maven.org/maven2/</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
@@ -171,10 +176,11 @@
             <version>1.8.3</version>
         </dependency>
         <dependency>
-            <groupId>commons-math</groupId>
-            <artifactId>commons-math</artifactId>
-            <version>LATEST</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
         </dependency>
+
         <!-- Apache common 结束 -->
 
 

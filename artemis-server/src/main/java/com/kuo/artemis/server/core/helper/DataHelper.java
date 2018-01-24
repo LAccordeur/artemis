@@ -31,7 +31,7 @@ public class DataHelper {
     public static DataImportDTO excelIndicatorDataToBean(List<List<String>> dataList, Integer fieldIndex, Integer contextStartIndex) throws Exception {
         DataImportDTO dataImportDTO = new DataImportDTO();
 
-        //获取表头和表正文
+        //获取原始表头和表正文
         List<String> field = dataList.get(fieldIndex);
         List<List<String>> contents = dataList.subList(contextStartIndex, dataList.size());
 

@@ -4,6 +4,10 @@ import com.quantego.clp.CLP;
 import com.quantego.clp.CLPExpression;
 import com.quantego.clp.CLPVariable;
 import com.quantego.clp.CLPVariableSet;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+import org.apache.commons.math3.optim.PointValuePair;
+import org.apache.commons.math3.optim.linear.*;
 import org.junit.Test;
 
 import java.util.*;
@@ -14,6 +18,28 @@ import java.util.*;
  * @Date : Created on 2017/12/18
  */
 public class LinearProgramTest {
+
+    @Test
+    public void test11() {
+        double[] doubles = new double[]{3.2,4.2,22.4};
+        LinearObjectiveFunction function = new LinearObjectiveFunction(doubles, 0D);
+
+        double[] constraints = new double[]{1,1,2};
+        double[] constraints1 = new double[]{1,2,1};
+
+        RealVector realVector = new ArrayRealVector(constraints1);
+        RealVector realVector1 = new ArrayRealVector(constraints);
+        LinearConstraint linearConstraint = new LinearConstraint(realVector, Relationship.LEQ, 4);
+        LinearConstraint linearConstraint1 = new LinearConstraint(realVector1,Relationship.LEQ, 3);
+
+        LinearConstraintSet linearConstraintSet = new LinearConstraintSet(linearConstraint, linearConstraint1);
+
+        SimplexSolver simplexSolver = new SimplexSolver();
+        PointValuePair pointValuePair = simplexSolver.optimize(function,linearConstraintSet, new NonNegativeConstraint(true));
+
+        System.out.println(pointValuePair.getValue());
+    }
+
     @Test
     public void test() {
         CLP model = new CLP();
@@ -48,6 +74,7 @@ public class LinearProgramTest {
         CLPVariableSet variableSet = model.addVariables(varSize);
 
     }
+
 
     @Test
     public void test3() {

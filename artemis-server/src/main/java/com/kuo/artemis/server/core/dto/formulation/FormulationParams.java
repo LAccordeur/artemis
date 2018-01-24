@@ -10,21 +10,19 @@ import java.util.List;
  */
 public class FormulationParams {
 
+    private String formulationId;
+
     private String formulationCode;    //配方编号
 
-    @NotNull
     private String formulationName;    //配方名称
 
     @NotNull
     private List<Integer> materialIdList;    //选取的配方id集合
 
-    @NotNull
     private String nutritionStandardId;    //营养标准id
 
-    @NotNull
     private String userId;    //生成该配方的用户id
 
-    @NotNull
     private String projectId;
 
     @NotNull
@@ -42,15 +40,26 @@ public class FormulationParams {
     @Override
     public String toString() {
         return "FormulationParams{" +
-                "materialIdList=" + materialIdList +
+                "formulationId='" + formulationId + '\'' +
+                ", formulationCode='" + formulationCode + '\'' +
+                ", formulationName='" + formulationName + '\'' +
+                ", materialIdList=" + materialIdList +
                 ", nutritionStandardId='" + nutritionStandardId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", projectId='" + projectId + '\'' +
                 ", materialLeftBoundList=" + materialLeftBoundList +
                 ", materialRightBoundList=" + materialRightBoundList +
-                ", nutritionStandardRightBoundList=" + nutritionStandardRightBoundList +
                 ", nutritionStandardLeftBoundList=" + nutritionStandardLeftBoundList +
+                ", nutritionStandardRightBoundList=" + nutritionStandardRightBoundList +
                 '}';
+    }
+
+    public String getFormulationId() {
+        return formulationId;
+    }
+
+    public void setFormulationId(String formulationId) {
+        this.formulationId = formulationId;
     }
 
     public String getFormulationCode() {

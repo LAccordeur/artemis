@@ -6,7 +6,7 @@ import com.kuo.artemis.server.core.math.GroupDesignResult;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.util.constant.GroupDesignStatus;
-import org.apache.commons.math.MathException;
+//import org.apache.commons.math.MathException;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class AnimalGroupHelper {
 
-    public static GroupDesignResult groupByCRD(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws MathException {
+    public static GroupDesignResult groupByCRD(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws Exception {
 
         GroupDesignResult result = new GroupDesignResult();
 
@@ -31,7 +31,7 @@ public class AnimalGroupHelper {
         return result;
     }
 
-    public static GroupDesignResult groupByRCBWithoutGender(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws MathException {
+    public static GroupDesignResult groupByRCBWithoutGender(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws Exception {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithoutGender(animalList, param);
@@ -43,7 +43,7 @@ public class AnimalGroupHelper {
         return result;
     }
 
-    public static GroupDesignResult groupByRCBWithGenderBalance(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws MathException {
+    public static GroupDesignResult groupByRCBWithGenderBalance(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws Exception {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithGenderBalance(animalList, param);
@@ -55,7 +55,7 @@ public class AnimalGroupHelper {
         return result;
     }
 
-    public static GroupDesignResult groupByRCBWithGenderAsBlockingFactor(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws MathException {
+    public static GroupDesignResult groupByRCBWithGenderAsBlockingFactor(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws Exception {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithGenderAsBlockingFactor(animalList, param);
@@ -67,7 +67,7 @@ public class AnimalGroupHelper {
         return result;
     }
 
-    public static GroupDesignResult groupByRCBWithDifferentGenderBalances(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws MathException {
+    public static GroupDesignResult groupByRCBWithDifferentGenderBalances(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList) throws Exception {
         GroupDesignResult result = new GroupDesignResult();
 
         boolean groupStatus = GroupDesign.groupByRCBWithDifferentGenderBalances(animalList, param);
@@ -79,7 +79,7 @@ public class AnimalGroupHelper {
         return result;
     }
 
-    public static void assembleResult(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList, GroupDesignResult result, boolean groupStatus) throws MathException {
+    public static void assembleResult(List<Animal> animalList, GroupDesignParam param, List<AnimalHouse> animalHouseList, GroupDesignResult result, boolean groupStatus) throws Exception {
         Integer animalNumber = param.getAnimalNumber();
         if (groupStatus) {
             GroupDesign.setAnimalGroupNewPen(animalList, animalHouseList, groupStatus);
