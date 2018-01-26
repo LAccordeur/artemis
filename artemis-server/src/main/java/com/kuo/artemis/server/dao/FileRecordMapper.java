@@ -25,5 +25,5 @@ public interface FileRecordMapper {
 
     Integer selectLastestVersion(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier);
 
-    int selectIdByFileIdentifierAndVersion(@Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version);
+    Integer selectIdByProjectIdAndFileIdentifierAndVersion(@Param("projectId") String projectId, @Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version);
 }

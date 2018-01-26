@@ -20,6 +20,12 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
+
+  <resultMap id="animalIdMap" type="com.kuo.artemis.server.entity.Animal">
+    <result column="id" property="id" />
+    <result column="id_number" property="idNumber" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, animal_type_id, user_id, project_id, house_id, animal_sex, animal_init_weight, house, code,
     id_number, treatment, replicate, animal_birthday, version, file_identifier, create_time, modified_time
@@ -39,19 +45,33 @@
     order by replicate, treatment
   </select>
 
-
+  <delete id="deleteByProjectIdAndFileIdentifierAndVersion">
+    delete from animal
+    where project_id = #{projectId} and file_identifier = #{file_identifier} and version = #{version}
+  </delete>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from animal
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
+  <select id="selectIdMap" resultMap="animalIdMap">
+    select id_number, id from animal
+    where id_number in
+    (
+    <foreach collection="list" item="item" index="index" separator=",">
+      #{item}
+    </foreach>
+    )
+    and project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
+  </select>
+
   <select id="selectAnimalGroupDetailList" resultType="Animal">
     select animal.id, animal.animal_sex, animal.animal_init_weight, animal.house, animal.id_number, animal.treatment, animal.replicate,
      animal_group_detail.suitable, animal_group_detail.old_pen, animal_group_detail.new_pen, animal_group_detail.weight_mean, animal_group_detail.coefficient_of_variation
-    from animal
-    left join animal_group_detail on animal.id = animal_group_detail.id
-    where animal.project_id = #{projectId}
+    from animal_group_detail
+    left join animal on animal.id = animal_group_detail.id
+    where animal_group_detail.project_id = #{projectId}
     order by suitable desc, replicate, treatment
   </select>
 
@@ -119,6 +139,7 @@
       </trim>
     </foreach>
   </insert>
+
 
 
   <insert id="insertBatch" parameterType="List">

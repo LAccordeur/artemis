@@ -1,6 +1,8 @@
 package com.kuo.artemis.server.util.common;
 
 import com.kuo.artemis.server.core.factory.TypeBindFactory;
+import com.kuo.artemis.server.util.constant.FieldFormatConst;
+import com.kuo.artemis.server.util.constant.FieldUnderlineMapperConst;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
@@ -161,12 +163,14 @@ public final class BeanUtil {
      * @return
      */
     public static String spaceFieldToUnderline(String value) {
-        if ("E.Coli".equals(value)) {
+        /*if ("E.Coli".equals(value)) {
             value = "e_coli";
 
+        }*/
+
+        if (FieldUnderlineMapperConst.map.containsKey(value.trim())) {
+            return FieldUnderlineMapperConst.map.get(value.trim());
         }
-
-
 
         if (value.contains(" ")) {
             String[] words = value.trim().split(" ");

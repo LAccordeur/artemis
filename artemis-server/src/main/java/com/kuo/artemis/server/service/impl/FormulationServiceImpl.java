@@ -115,6 +115,11 @@ public class FormulationServiceImpl implements FormulationService {
         result.setFormulationMaterials(formulationMaterialList);
 
         List<FormulationNutrition> formulationNutritionList = formulationNutritionMapper.selectByFormulationId(Integer.valueOf(formulationId));
+
+        if (formulationMaterialList == null || formulationMaterialList.size() == 0 || formulationNutritionList == null || formulationNutritionList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "没有该配方消息");
+        }
+
         result.setFormulationNutritions(formulationNutritionList);
         return new Response(result, HttpStatus.OK.value(), "获取配方信息成功");
     }
@@ -230,12 +235,13 @@ public class FormulationServiceImpl implements FormulationService {
 
         //5.构造返回结果
         //构造基本参数
+        DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
         FormulationResult formulationResult = new FormulationResult();
         formulationResult.setUserId(params.getUserId());
         formulationResult.setProjectId(params.getProjectId());
         formulationResult.setFormulationCode(params.getFormulationCode());
         formulationResult.setFormulationName(params.getFormulationName());
-        formulationResult.setFormulationMaterialCost(result.getResultValue());
+        formulationResult.setFormulationMaterialCost(Double.valueOf(decimalFormat.format(result.getResultValue())));
         formulationResult.setProgrammingStatus(result.getStatus().toString());
         //构造配方原料关系
         List<FormulationMaterial> formulationMaterialList = getFormulationMaterials(materialLeftBoundList, materialRightBoundList, materialList, result);
@@ -290,7 +296,7 @@ public class FormulationServiceImpl implements FormulationService {
             FormulationMaterial formulationMaterial = new FormulationMaterial();
             Material material = materialList.get(i);
             formulationMaterial.setMaterialId(material.getId());
-            formulationMaterial.setOptimalRatio(BigDecimal.valueOf(resultValue.get(i) * 100));
+            formulationMaterial.setOptimalRatio(BigDecimal.valueOf(Double.valueOf(decimalFormat.format(resultValue.get(i) * 100))));
             formulationMaterial.setMaterialName(material.getMaterialName());
             formulationMaterial.setMaterialPrice(material.getMaterialPrice());
             formulationMaterial.setMaterialRatioLowBound(BigDecimal.valueOf(materialLeftBoundList.get(i)));
@@ -364,8 +370,16 @@ public class FormulationServiceImpl implements FormulationService {
         } else {
             formulationId = Integer.valueOf(result.getFormulationId());
             Formulation formulation = new Formulation();
+            formulation.setId(formulationId);
             formulation.setFormulationMaterialCost(BigDecimal.valueOf(result.getFormulationMaterialCost()));
             resultFormulation = formulationMapper.updateByPrimaryKeySelective(formulation);
+        }
+
+        // 防止多次提交
+        List<FormulationNutrition> formulationNutritionListFromDB = formulationNutritionMapper.selectByFormulationId(formulationId);
+        List<FormulationMaterial> formulationMaterialListFromDB = formulationMaterialMapper.selectByFormulationId(formulationId);
+        if (formulationMaterialListFromDB != null && formulationMaterialListFromDB.size() > 0 && formulationNutritionListFromDB != null && formulationNutritionListFromDB.size() > 0) {
+            return new Response(HttpStatus.CONFLICT.value(), "请勿重复提交");
         }
 
         //2.更新配方原料关系
@@ -374,7 +388,7 @@ public class FormulationServiceImpl implements FormulationService {
         for (int i = 0; i < formulationMaterialList.size(); i++) {
             FormulationMaterial formulationMaterial = formulationMaterialList.get(i);
 
-            formulationMaterial.setId(UUIDUtil.get32UUIDLowerCase());
+            //formulationMaterial.setId(UUIDUtil.get32UUIDLowerCase());
             formulationMaterial.setFormulationId(formulationId);
         }
         int resultMaterial = formulationMaterialMapper.insertBatch(formulationMaterialList);
@@ -384,7 +398,7 @@ public class FormulationServiceImpl implements FormulationService {
         for (int i = 0; i < formulationNutritionList.size(); i++) {
             FormulationNutrition formulationNutrition = formulationNutritionList.get(i);
 
-            formulationNutrition.setId(UUIDUtil.get32UUIDLowerCase());
+            //formulationNutrition.setId(UUIDUtil.get32UUIDLowerCase());
             formulationNutrition.setFormulationId(formulationId);
         }
         int resultNutrition = formulationNutritionMapper.insertBatch(formulationNutritionList);

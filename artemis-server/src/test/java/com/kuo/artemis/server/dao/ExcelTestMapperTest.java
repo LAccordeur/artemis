@@ -18,6 +18,12 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class ExcelTestMapperTest {
     @Test
+    public void selectTest() throws Exception {
+
+        System.out.println(excelTestMapper.selectTest(2));
+    }
+
+    @Test
     public void selectMultiObject() throws Exception {
         List<Integer> ids = new ArrayList<Integer>();
         ids.add(1);

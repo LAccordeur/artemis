@@ -118,6 +118,10 @@ public final class ExcelUtil {
             }
             return FieldFormatConst.map.get(field.trim());
         }
+
+        if (FieldFormatConst.map.containsKey(field.trim())) {
+            return FieldFormatConst.map.get(field.trim());
+        }
         return BeanUtil.spaceFieldToCamel(field.trim());
     }
 

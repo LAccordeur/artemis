@@ -28,10 +28,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <select id="selectIdByFileIdentifierAndVersion" resultType="Integer">
+  <select id="selectIdByProjectIdAndFileIdentifierAndVersion" resultType="Integer">
     select id from file_record
-    where file_identifier = #{fileIdentifier} and version = #{version}
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
   </select>
+
 
   <select id="selectIndicatorRecordFiles" parameterType="Integer" resultType="FileRecord">
     select project_id, filename, file_identifier

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface FormulationMaterialMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Integer id);
 
     int deleteByFormulationId(@Param("formulationId") Integer formulationId);
 
@@ -18,7 +18,7 @@ public interface FormulationMaterialMapper {
 
     int insertBatch(List<FormulationMaterial> formulationMaterials);
 
-    FormulationMaterial selectByPrimaryKey(String id);
+    FormulationMaterial selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(FormulationMaterial record);
 

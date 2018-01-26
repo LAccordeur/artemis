@@ -8,7 +8,7 @@ import java.util.List;
 public interface FormulationNutritionMapper {
     int deleteByFormulationId(@Param("formulationId") Integer formulationId);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(FormulationNutrition record);
 
@@ -16,7 +16,7 @@ public interface FormulationNutritionMapper {
 
     int insertBatch(List<FormulationNutrition> formulationNutritionList);
 
-    FormulationNutrition selectByPrimaryKey(String id);
+    FormulationNutrition selectByPrimaryKey(Integer id);
 
     List<FormulationNutrition> selectByFormulationId(@Param("formulationId") Integer formulationId);
 

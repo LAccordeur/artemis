@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="indicator_name" jdbcType="VARCHAR" property="indicatorName" />
     <result column="indicator_name_english" jdbcType="VARCHAR" property="indicatorNameEnglish" />
-    <result column="indicator_type" jdbcType="BIT" property="indicatorType" />
+    <result column="indicator_type" jdbcType="SMALLINT" property="indicatorType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -27,11 +27,22 @@
       #{item}
     </foreach>
     )
+    order by id
   </select>
 
-  <select id="selectNameByFileRecordId" resultType="String">
-    select indicator_name_english from animal_indicator
-    where file_record_id = #{fileRecordId}
+  <select id="selectAllIndicators" resultType="AnimalIndicator">
+    select id, indicator_name, indicator_name_english, indicator_type
+    from animal_indicator
+  </select>
+  
+  <select id="selectIndicatorTypes" resultType="Integer">
+    select indicator_type from animal_indicator GROUP by indicator_type
+  </select>
+
+  <select id="selectIndicatorsByType" parameterType="Integer" resultType="AnimalIndicator">
+    select id, indicator_name, indicator_name_english, indicator_type
+    from animal_indicator
+    where indicator_type = #{indicatorType}
   </select>
 
   <select id="selectByPrimaryKeys" parameterType="List" resultType="AnimalIndicator">
@@ -43,6 +54,7 @@
       #{item}
     </foreach>
     )
+    order by id
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -53,7 +65,7 @@
     insert into animal_indicator (id, indicator_name, indicator_name_english, 
       indicator_type, create_time)
     values (#{id,jdbcType=INTEGER}, #{indicatorName,jdbcType=VARCHAR}, #{indicatorNameEnglish,jdbcType=VARCHAR}, 
-      #{indicatorType,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
+      #{indicatorType,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalIndicator">
     insert into animal_indicator
@@ -85,7 +97,7 @@
         #{indicatorNameEnglish,jdbcType=VARCHAR},
       </if>
       <if test="indicatorType != null">
-        #{indicatorType,jdbcType=BIT},
+        #{indicatorType,jdbcType=SMALLINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -102,7 +114,7 @@
         indicator_name_english = #{indicatorNameEnglish,jdbcType=VARCHAR},
       </if>
       <if test="indicatorType != null">
-        indicator_type = #{indicatorType,jdbcType=BIT},
+        indicator_type = #{indicatorType,jdbcType=SMALLINT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -114,7 +126,7 @@
     update animal_indicator
     set indicator_name = #{indicatorName,jdbcType=VARCHAR},
       indicator_name_english = #{indicatorNameEnglish,jdbcType=VARCHAR},
-      indicator_type = #{indicatorType,jdbcType=BIT},
+      indicator_type = #{indicatorType,jdbcType=SMALLINT},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

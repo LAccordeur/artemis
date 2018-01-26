@@ -22,5 +22,9 @@ public interface AnimalIndicatorMapper {
 
     int updateByPrimaryKey(AnimalIndicator record);
 
-    List<String> selectNameByFileRecordId(@Param("fileRecordId") Integer fileRecordId);
+    List<AnimalIndicator> selectAllIndicators();
+
+    List<Integer> selectIndicatorTypes();
+
+    List<AnimalIndicator> selectIndicatorsByType(@Param("indicatorType") Integer indicatorType);
 }

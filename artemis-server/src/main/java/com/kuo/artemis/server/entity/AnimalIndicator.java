@@ -9,7 +9,7 @@ public class AnimalIndicator {
 
     private String indicatorNameEnglish;
 
-    private Byte indicatorType;
+    private Short indicatorType;
 
     private Date createTime;
 
@@ -37,11 +37,11 @@ public class AnimalIndicator {
         this.indicatorNameEnglish = indicatorNameEnglish == null ? null : indicatorNameEnglish.trim();
     }
 
-    public Byte getIndicatorType() {
+    public Short getIndicatorType() {
         return indicatorType;
     }
 
-    public void setIndicatorType(Byte indicatorType) {
+    public void setIndicatorType(Short indicatorType) {
         this.indicatorType = indicatorType;
     }
 

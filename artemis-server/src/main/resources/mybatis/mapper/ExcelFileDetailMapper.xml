@@ -23,6 +23,17 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <delete id="deleteByFileRecordId">
+    delete from excel_file_detail
+    where file_record_id = #{fileRecordId}
+  </delete>
+
+  <select id="selectNameByFileRecordId" resultType="String">
+    select indicator_name from excel_file_detail
+    where file_record_id = #{fileRecordId}
+    order by id
+  </select>
+
   <insert id="insertBatch" parameterType="List">
     insert into excel_file_detail
     (file_record_id, indicator_id, indicator_name, table_name)

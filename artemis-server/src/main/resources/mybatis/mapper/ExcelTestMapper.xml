@@ -8,12 +8,18 @@
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.ExcelTest">
     insert into excel_test (name, score, age, 
       birthday, create_time)
     values (#{name,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL}, #{age,jdbcType=INTEGER}, 
       #{birthday,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
+
+  <select id="selectTest" resultType="ExcelTestThree">
+    select id, name, score, age from excel_test where id = #{id};
+    select university, school, grade from excel_test_two where excel_test_id = #{id};
+  </select>
 
   <select id="selectSelective" parameterType="List" resultType="ExcelTest">
     select

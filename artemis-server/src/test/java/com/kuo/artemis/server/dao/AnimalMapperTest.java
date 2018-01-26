@@ -16,6 +16,13 @@ import static org.junit.Assert.*;
 //告诉junit spring的配置文件
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class AnimalMapperTest {
+    @Test
+    public void selectIdMap() throws Exception {
+        List<String> ids = new ArrayList<String>();
+        ids.add("T1");
+        ids.add("T2");
+        System.out.println(animalMapper.selectIdMap(ids, 20, "df", 2));
+    }
 
     @Resource
     private AnimalMapper animalMapper;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuo.artemis.server.dao.FormulationNutritionMapper">
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.FormulationNutrition">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="formulation_id" jdbcType="INTEGER" property="formulationId" />
     <result column="nutrition_indicator_name" jdbcType="VARCHAR" property="nutritionIndicatorName" />
     <result column="nutrition_content_actual" jdbcType="DECIMAL" property="nutritionContentActual" />
@@ -18,21 +18,22 @@
     nutrition_content_low_bound, nutrition_content_high_bound, shadow_price, create_time, 
     modified_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from formulation_nutrition_relation
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByFormulationId" parameterType="java.lang.Integer" resultType="FormulationNutrition">
     select
     <include refid="Base_Column_List" />
     from formulation_nutrition_relation
     where formulation_id = #{formulationId}
+    order by id
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from formulation_nutrition_relation
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
 
   <delete id="deleteByFormulationId" parameterType="java.lang.Integer">
@@ -45,7 +46,7 @@
       nutrition_content_low_bound, nutrition_content_high_bound, 
       shadow_price, create_time, modified_time
       )
-    values (#{id,jdbcType=VARCHAR}, #{formulationId,jdbcType=INTEGER}, #{nutritionIndicatorName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{formulationId,jdbcType=INTEGER}, #{nutritionIndicatorName,jdbcType=VARCHAR},
       #{nutritionContentActual,jdbcType=DECIMAL}, #{nutritionContentIdeal,jdbcType=DECIMAL}, 
       #{nutritionContentLowBound,jdbcType=DECIMAL}, #{nutritionContentHighBound,jdbcType=DECIMAL}, 
       #{shadowPrice,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
@@ -158,7 +159,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="formulationId != null">
         #{formulationId,jdbcType=INTEGER},
@@ -220,7 +221,7 @@
         modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.FormulationNutrition">
     update formulation_nutrition_relation
@@ -233,6 +234,6 @@
       shadow_price = #{shadowPrice,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

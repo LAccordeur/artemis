@@ -7,6 +7,7 @@ import com.kuo.artemis.server.core.math.GroupDesign;
 import com.kuo.artemis.server.core.math.GroupDesignParam;
 import com.kuo.artemis.server.core.math.GroupDesignResult;
 import com.kuo.artemis.server.dao.AnimalHouseMapper;
+import com.kuo.artemis.server.dao.AnimalIndicatorMapper;
 import com.kuo.artemis.server.dao.AnimalMapper;
 import com.kuo.artemis.server.dao.ProjectDetailMapper;
 import com.kuo.artemis.server.dao.redis.CacheRedisDao;
@@ -39,6 +40,9 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Inject
     private ProjectDetailMapper projectDetailMapper;
+
+    @Inject
+    private AnimalIndicatorMapper animalIndicatorMapper;
 
     @Inject
     private CacheRedisDao cacheRedisDao;
@@ -210,6 +214,7 @@ public class AnimalServiceImpl implements AnimalService {
         }
         return new Response(HttpStatus.BAD_REQUEST.value(), "删除失败");
     }
+
 
     private Map<String, Map<String, Integer>> getHouseIdByReplicationAndTreatment(List<AnimalHouse> animalHouseList) {
 

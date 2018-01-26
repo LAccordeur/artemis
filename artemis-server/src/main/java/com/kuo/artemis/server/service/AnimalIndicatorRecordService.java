@@ -33,6 +33,23 @@ public interface AnimalIndicatorRecordService {
     Response createNewRecordVersion(DataImportCommand command) throws Exception;
 
     /**
+     * v2
+     * @param command
+     * @return
+     * @throws Exception
+     */
+    Response createRecordVersion(DataImportCommand command) throws Exception;
+
+    /**
+     * v2
+     * @param projectId
+     * @param fileIdentifier
+     * @param version
+     * @return
+     */
+    Response listAnimalRecords(String projectId, String fileIdentifier, String version);
+
+    /**
      * 保存数据
      *
      * @param command
@@ -57,4 +74,9 @@ public interface AnimalIndicatorRecordService {
     Response listIndicatorRecordVersions(String projectId, String fileIdentifier);
 
 
+    Response listAllIndicators();
+
+    Response listAllIndicatorTypes();
+
+    Response listIndicatorsByType(String type);
 }

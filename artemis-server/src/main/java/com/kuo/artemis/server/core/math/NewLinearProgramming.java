@@ -62,6 +62,10 @@ public class NewLinearProgramming {
             linearConstraintList.add(linearConstraintLeft);
             linearConstraintList.add(linearConstraintRight);
         }
+        double[] basicCoefficients = setOneList(variableSize, 1);
+        LinearConstraint linearConstraint = new LinearConstraint(basicCoefficients, Relationship.EQ, 1);
+        linearConstraintList.add(linearConstraint);
+
 
         //3.创建目标函数
         LinearObjectiveFunction linearObjectiveFunction = new LinearObjectiveFunction(listToArray(objectFunctionCoefficientList, null), 0);
@@ -87,10 +91,12 @@ public class NewLinearProgramming {
         SolutionCallback solutionCallback = new SolutionCallback();
         try {
             pointValuePair = simplexSolver.optimize(linearObjectiveFunction, linearConstraintSet, new NonNegativeConstraint(true), solutionCallback);
-            //pointValuePair = simplexSolver.doOptimize();
-        } catch (NoFeasibleSolutionException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
-            pointValuePair = solutionCallback.getSolution();
+            result.setStatus(CLP.STATUS.INFEASIBLE);
+            setFailureResult(result, objectFunctionCoefficientList, constraintFunctionCoefficientList, constraintFunctionLeftValueBoundList, constraintFunctionRightValueBoundList, variableLeftBoundList, variableRightBoundList);
+            return result;
         }
 
 
@@ -98,9 +104,9 @@ public class NewLinearProgramming {
         DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
         Double objectValue = pointValuePair.getValue();
         double[] variableValues = pointValuePair.getPoint();
-        //设置目标变量系数
+        //设置目标变量
         result.setVariableValueList(arrayToList(variableValues));
-        //目标变量系数下限
+        //目标变量系数下限与上限
         result.setVariableValueLeftBoundList(variableLeftBoundList);
         result.setVariableValueRightBoundList(variableRightBoundList);
         //约束方程函数值下限与上限
@@ -122,6 +128,42 @@ public class NewLinearProgramming {
         result.setStatus(CLP.STATUS.OPTIMAL);
 
         return result;
+    }
+
+    private static void setFailureResult(LinearProgrammingResult result, List<Double> objectFunctionCoefficientList, List<List<Double>> constraintFunctionCoefficientList, List<Double> constraintFunctionLeftValueBoundList, List<Double> constraintFunctionRightValueBoundList, List<Double> variableLeftBoundList, List<Double> variableRightBoundList) {
+
+        int variableSize = variableLeftBoundList.size();
+        result.setStatus(CLP.STATUS.INFEASIBLE);
+        //设置目标变量上限与下限
+        result.setVariableValueLeftBoundList(variableLeftBoundList);
+        result.setVariableValueRightBoundList(variableRightBoundList);
+        //设置目标变量的值
+        double[] values = setOneList(variableSize, 1.0 / variableSize);
+        result.setVariableValueList(arrayToList(values));
+        //设置约束方程的上下限
+        result.setConstraintValueLeftBoundList(constraintFunctionLeftValueBoundList);
+        result.setConstraintValueRightBoundList(constraintFunctionRightValueBoundList);
+
+        DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
+        //约束方程函数值
+        List<Double> constraintFunctionValueList = new ArrayList<Double>();
+        for (int i = 0; i < constraintFunctionCoefficientList.size(); i++) {
+            Double functionValue = 0D;
+            List<Double> functionCoefficientList = constraintFunctionCoefficientList.get(i);
+            for (int j = 0; j < functionCoefficientList.size(); j++) {
+                functionValue = functionValue + functionCoefficientList.get(j) * values[j];
+            }
+            constraintFunctionValueList.add(Double.valueOf(decimalFormat.format(functionValue)));
+        }
+        result.setConstraintFunctionValueList(constraintFunctionValueList);
+
+        //设置结果
+        double resultValue = 0;
+        for (int i = 0; i < variableSize; i++) {
+            resultValue = resultValue + values[i] * objectFunctionCoefficientList.get(i);
+        }
+        result.setResultValue(resultValue);
+
     }
 
     private static double[] listToArray(List<Double> doubleList, Double coefficient) {
@@ -146,7 +188,7 @@ public class NewLinearProgramming {
         List<Double> doubleList = new ArrayList<Double>();
 
         for (int i = 0; i < doubles.length; i++) {
-            doubleList.add(new Double(doubles[i]));
+            doubleList.add((doubles[i]));
         }
 
 
@@ -162,6 +204,15 @@ public class NewLinearProgramming {
                 doubles[i] = 1;
             }
         }
+        return doubles;
+    }
+
+    private static double[] setOneList(int length, double value) {
+        double[] doubles = new double[length];
+        for (int i = 0; i < length; i++) {
+            doubles[i] = value;
+        }
+
         return doubles;
     }
 

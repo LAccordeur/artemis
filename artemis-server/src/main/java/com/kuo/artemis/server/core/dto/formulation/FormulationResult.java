@@ -26,7 +26,6 @@ public class FormulationResult {
 
     private String formulationCode;
 
-    @NotNull
     private String formulationName;
 
     @NotNull

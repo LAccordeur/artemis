@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuo.artemis.server.dao.FormulationMaterialMapper">
   <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.FormulationMaterial">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="formulation_id" jdbcType="INTEGER" property="formulationId" />
     <result column="material_id" jdbcType="INTEGER" property="materialId" />
     <result column="material_name" jdbcType="VARCHAR" property="materialName" />
@@ -18,11 +18,11 @@
     id, formulation_id, material_id, material_name, material_price, optimal_ratio, material_ratio_low_bound, material_ratio_high_bound, ponderance_ton,
     create_time, modified_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from formulation_material_relation
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
 
   
@@ -108,6 +108,7 @@
     <include refid="Base_Column_List" />
     from formulation_material_relation
     where formulation_id = #{formulationId}
+    order by id
   </select>
 
   <delete id="deleteByFormulationId" parameterType="java.lang.Integer">
@@ -115,16 +116,16 @@
     where formulation_id = #{formulationId}
   </delete>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from formulation_material_relation
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.FormulationMaterial">
     insert into formulation_material_relation (id, formulation_id, material_id, 
       material_name, material_price, optimal_ratio, 
       ponderance_ton, create_time, modified_time
       )
-    values (#{id,jdbcType=VARCHAR}, #{formulationId,jdbcType=INTEGER}, #{materialId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{formulationId,jdbcType=INTEGER}, #{materialId,jdbcType=INTEGER},
       #{materialName,jdbcType=VARCHAR}, #{materialPrice,jdbcType=DECIMAL}, #{optimalRatio,jdbcType=DECIMAL}, 
       #{ponderanceTon,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
       )
@@ -168,7 +169,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="formulationId != null">
         #{formulationId,jdbcType=INTEGER},
@@ -246,7 +247,7 @@
         modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.FormulationMaterial">
     update formulation_material_relation
@@ -258,6 +259,6 @@
       ponderance_ton = #{ponderanceTon,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

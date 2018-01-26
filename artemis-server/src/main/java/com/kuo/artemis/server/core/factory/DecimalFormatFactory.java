@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 public class DecimalFormatFactory {
 
     private static class SingletonHolder {
-        private static DecimalFormat decimalFormat = new DecimalFormat("0.000000");
+        private static DecimalFormat decimalFormat = new DecimalFormat("0.00000");
     }
 
     public static DecimalFormat getDecimalFormatInstance() {

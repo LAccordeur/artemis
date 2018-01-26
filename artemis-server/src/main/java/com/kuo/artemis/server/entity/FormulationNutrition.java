@@ -7,7 +7,7 @@ import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormulationNutrition {
-    private String id;
+    private Integer id;
 
     private Integer formulationId;
 
@@ -27,12 +27,12 @@ public class FormulationNutrition {
 
     private Date modifiedTime;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getFormulationId() {
