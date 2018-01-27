@@ -2,16 +2,11 @@ package com.kuo.artemis.server.core.math;
 
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.quantego.clp.CLP;
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.optim.PointValuePair;
-import org.apache.commons.math3.optim.SimpleBounds;
 import org.apache.commons.math3.optim.linear.*;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -86,7 +81,7 @@ public class NewLinearProgramming {
 
 
         //5.求解线性规划
-        SimplexSolver simplexSolver = new SimplexSolver();
+        SimplexSolver simplexSolver = new SimplexSolver(0.01, 10, 0.0001);
         PointValuePair pointValuePair = null;
         SolutionCallback solutionCallback = new SolutionCallback();
         try {
@@ -95,7 +90,7 @@ public class NewLinearProgramming {
         } catch (Exception e) {
             e.printStackTrace();
             result.setStatus(CLP.STATUS.INFEASIBLE);
-            setFailureResult(result, objectFunctionCoefficientList, constraintFunctionCoefficientList, constraintFunctionLeftValueBoundList, constraintFunctionRightValueBoundList, variableLeftBoundList, variableRightBoundList);
+            setDefaultResult(result, objectFunctionCoefficientList, constraintFunctionCoefficientList, constraintFunctionLeftValueBoundList, constraintFunctionRightValueBoundList, variableLeftBoundList, variableRightBoundList);
             return result;
         }
 
@@ -130,7 +125,7 @@ public class NewLinearProgramming {
         return result;
     }
 
-    private static void setFailureResult(LinearProgrammingResult result, List<Double> objectFunctionCoefficientList, List<List<Double>> constraintFunctionCoefficientList, List<Double> constraintFunctionLeftValueBoundList, List<Double> constraintFunctionRightValueBoundList, List<Double> variableLeftBoundList, List<Double> variableRightBoundList) {
+    private static void setDefaultResult(LinearProgrammingResult result, List<Double> objectFunctionCoefficientList, List<List<Double>> constraintFunctionCoefficientList, List<Double> constraintFunctionLeftValueBoundList, List<Double> constraintFunctionRightValueBoundList, List<Double> variableLeftBoundList, List<Double> variableRightBoundList) {
 
         int variableSize = variableLeftBoundList.size();
         result.setStatus(CLP.STATUS.INFEASIBLE);

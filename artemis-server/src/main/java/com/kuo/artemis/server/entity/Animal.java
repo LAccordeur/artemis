@@ -1,8 +1,11 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@JsonIgnoreProperties({"houseId","animalBirthday"})
 public class Animal {
     private String id;
 
@@ -17,6 +20,8 @@ public class Animal {
     private Byte animalSex;
 
     private BigDecimal animalInitWeight;
+
+    private BigDecimal initialBw;
 
     private String house;
 
@@ -42,6 +47,8 @@ public class Animal {
 
     private Double CoefficientOfVariation;    //用于动物分组  所在重复组的变异系数
 
+    private Integer sequence;
+
     private Integer version;
 
     private String fileIdentifier;
@@ -60,6 +67,7 @@ public class Animal {
                 ", houseId=" + houseId +
                 ", animalSex=" + animalSex +
                 ", animalInitWeight=" + animalInitWeight +
+                ", initialBw=" + initialBw +
                 ", house='" + house + '\'' +
                 ", code='" + code + '\'' +
                 ", idNumber='" + idNumber + '\'' +
@@ -72,11 +80,33 @@ public class Animal {
                 ", newPen='" + newPen + '\'' +
                 ", weightMean=" + weightMean +
                 ", CoefficientOfVariation=" + CoefficientOfVariation +
+                ", sequence=" + sequence +
                 ", version=" + version +
                 ", fileIdentifier='" + fileIdentifier + '\'' +
                 ", createTime=" + createTime +
                 ", modifiedTime=" + modifiedTime +
                 '}';
+    }
+
+
+    public BigDecimal getInitialBw() {
+        return initialBw;
+    }
+
+    public void setInitialBw(BigDecimal initialBw) {
+        this.initialBw = initialBw;
+    }
+
+    public void setSuitable(Integer suitable) {
+        this.suitable = suitable;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public Integer getVersion() {

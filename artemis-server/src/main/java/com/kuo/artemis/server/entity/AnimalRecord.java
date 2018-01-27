@@ -1,8 +1,12 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder
 public class AnimalRecord {
     private String id;
 
@@ -13,6 +17,8 @@ public class AnimalRecord {
     private Integer houseId;
 
     private Short animalSex;
+
+    private Integer parity;
 
     private String house;
 
@@ -3584,6 +3590,14 @@ public class AnimalRecord {
 
     public void seteColi(BigDecimal eColi) {
         this.eColi = eColi;
+    }
+
+    public Integer getParity() {
+        return parity;
+    }
+
+    public void setParity(Integer parity) {
+        this.parity = parity;
     }
 
     public BigDecimal getBifidobacterium() {

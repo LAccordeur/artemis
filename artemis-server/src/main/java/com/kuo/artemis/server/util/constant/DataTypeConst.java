@@ -6,4 +6,6 @@ public interface DataTypeConst {
     String MATERIAL = "material";
 
     String NUTRITION = "nutrition";
+
+    String ANIMAL = "animal";
 }

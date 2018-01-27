@@ -1,12 +1,16 @@
 package com.kuo.artemis.server.util.common;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.kuo.artemis.server.core.common.NutritionIndicator;
 import com.kuo.artemis.server.entity.Animal;
+import com.kuo.artemis.server.entity.AnimalRecord;
 import com.kuo.artemis.server.entity.Material;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +29,14 @@ public class BeanUtilTest {
         System.out.println(annotations[0].getClass());
         System.out.println(annotations[0].annotationType());
         System.out.println(BeanUtil.isContainChinese("fs人ad"));
+    }
+
+    @Test
+    public void annotationTest() {
+        JsonPropertyOrder annotation = AnimalRecord.class.getAnnotation(JsonPropertyOrder.class);
+        //InvocationHandler handler = Proxy.getInvocationHandler(annotation);
+        //Class clazz = handler.getClass();
+        String[] value = annotation.value();
     }
 
     @Test

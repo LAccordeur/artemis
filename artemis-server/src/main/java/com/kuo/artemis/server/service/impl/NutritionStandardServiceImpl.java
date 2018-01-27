@@ -10,6 +10,7 @@ import com.kuo.artemis.server.service.NutritionStandardService;
 import com.kuo.artemis.server.util.ValidationUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -111,6 +112,7 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Response createNutritionStandardsBatch(DataImportCommand command) throws Exception {
 
         String userId = command.getUserId();

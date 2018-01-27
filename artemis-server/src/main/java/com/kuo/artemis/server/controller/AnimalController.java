@@ -23,8 +23,6 @@ public class AnimalController {
     @Inject
     private AnimalService animalService;
 
-    @Inject
-    private AnimalIndicatorRecordService animalIndicatorRecordService;
 
     @ResponseBody
     @RequestMapping(value = "/group", method = RequestMethod.POST)
@@ -50,31 +48,5 @@ public class AnimalController {
         return animalService.deleteAnimalGroupResult(projectId);
     }
 
-
-    @ResponseBody
-    @RequestMapping(value = "/data/import", method = RequestMethod.POST)
-    public Response importAnimalRecordData(@RequestBody DataImportCommand command) throws Exception {
-        //return animalIndicatorRecordService.createNewRecordVersion(command);
-        return animalIndicatorRecordService.createRecordVersion(command);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/data/files", method = RequestMethod.GET)
-    public Response getDataFileList(String projectId) {
-        return animalIndicatorRecordService.listIndicatorRecords(projectId);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/data/file/version", method = RequestMethod.GET)
-    public Response getDataFileVersions(String projectId, String fileIdentifier) {
-        return animalIndicatorRecordService.listIndicatorRecordVersions(projectId, fileIdentifier);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/data/file/detail", method = RequestMethod.GET)
-    public Response getDataFileDetail(String projectId, String fileIdentifier, String version) {
-        //return animalIndicatorRecordService.getIndicatorRecordDetail(projectId, fileIdentifier, version);
-        return animalIndicatorRecordService.listAnimalRecords(projectId, fileIdentifier, version);
-    }
 
 }

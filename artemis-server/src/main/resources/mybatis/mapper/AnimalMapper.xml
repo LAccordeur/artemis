@@ -15,6 +15,7 @@
     <result column="treatment" jdbcType="VARCHAR" property="treatment" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
     <result column="animal_birthday" jdbcType="TIMESTAMP" property="animalBirthday" />
+    <result column="sequence" jdbcType="INTEGER" property="sequence" />
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="file_identifier" jdbcType="VARCHAR" property="fileIdentifier" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -47,7 +48,7 @@
 
   <delete id="deleteByProjectIdAndFileIdentifierAndVersion">
     delete from animal
-    where project_id = #{projectId} and file_identifier = #{file_identifier} and version = #{version}
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
   </delete>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -55,7 +56,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <select id="selectIdMap" resultMap="animalIdMap">
+  <select id="selectIdMap" resultType="Animal">
     select id_number, id from animal
     where id_number in
     (
@@ -66,21 +67,27 @@
     and project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
   </select>
 
-  <select id="selectAnimalGroupDetailList" resultType="Animal">
+  <!--<select id="selectAnimalGroupDetailList" resultType="Animal">
     select animal.id, animal.animal_sex, animal.animal_init_weight, animal.house, animal.id_number, animal.treatment, animal.replicate,
      animal_group_detail.suitable, animal_group_detail.old_pen, animal_group_detail.new_pen, animal_group_detail.weight_mean, animal_group_detail.coefficient_of_variation
     from animal_group_detail
     left join animal on animal.id = animal_group_detail.id
     where animal_group_detail.project_id = #{projectId}
     order by suitable desc, replicate, treatment
-  </select>
+  </select>-->
 
-  <select id="selectAnimalGroupStatus" resultType="Integer">
+  <select id="selectAnimalGroupDetailStatus" resultType="Integer">
     select count(*) from animal_group_detail
     where project_id = #{projectId}
   </select>
 
-  <delete id="deleteAnimalGroupByProjectId">
+  <select id="selectAnimalGroupDetailList" resultType="Animal">
+    select * from animal_group_detail
+    where project_id = #{projectId}
+    order by suitable desc, replicate, treatment
+  </select>
+
+  <delete id="deleteAnimalGroupDetailByProjectId">
     delete from animal_group_detail
     where project_id = #{projectId}
   </delete>
@@ -94,6 +101,30 @@
         </if>
         <if test="item.projectId != null">
           project_id,
+        </if>
+        <if test="item.houseId != null">
+          house_id,
+        </if>
+        <if test="item.animalSex != null">
+          animal_sex,
+        </if>
+        <if test="item.initialBw != null">
+          initial_bw,
+        </if>
+        <if test="item.house != null">
+          house,
+        </if>
+        <if test="item.code != null">
+          code,
+        </if>
+        <if test="item.idNumber != null">
+          id_number,
+        </if>
+        <if test="item.treatment != null">
+          treatment,
+        </if>
+        <if test="item.replicate != null">
+          replicate,
         </if>
         <if test="item.suitable != null">
           suitable,
@@ -110,6 +141,9 @@
         <if test="item.coefficientOfVariation != null">
           coefficient_of_variation,
         </if>
+        <if test="item.sequence != null">
+          sequence,
+        </if>
       </trim>
       values
       <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -119,6 +153,30 @@
         </if>
         <if test="item.projectId != null">
           #{item.projectId},
+        </if>
+        <if test="item.houseId != null">
+          #{item.houseId},
+        </if>
+        <if test="item.animalSex != null">
+          #{item.animalSex},
+        </if>
+        <if test="item.initialBw != null">
+          #{item.initialBw},
+        </if>
+        <if test="item.house != null">
+          #{item.house},
+        </if>
+        <if test="item.code != null">
+          #{item.code},
+        </if>
+        <if test="item.idNumber != null">
+          #{item.idNumber},
+        </if>
+        <if test="item.treatment != null">
+          #{item.treatment},
+        </if>
+        <if test="item.replicate != null">
+          #{item.replicate},
         </if>
         <if test="item.suitable != null">
           #{item.suitable},
@@ -135,11 +193,64 @@
         <if test="item.coefficientOfVariation != null">
           #{item.coefficientOfVariation},
         </if>
+        <if test="item.sequence != null">
+          #{item.sequence},
+        </if>
 
       </trim>
     </foreach>
   </insert>
 
+  <update id="updateAnimalGroupDetailBatch" parameterType="List">
+    <foreach collection="list" index="index" item="item" separator=";">
+      update animal_group_detail
+      <set>
+        <if test="item.projectId != null">
+          project_id = #{item.projectId},
+        </if>
+        <if test="item.houseId != null">
+          house_id = #{item.houseId},
+        </if>
+        <if test="item.animalSex != null">
+          animal_sex = #{item.animalSex},
+        </if>
+        <if test="item.initialBw != null">
+          animal_init_weight = #{item.animalInitWeight},
+        </if>
+        <if test="item.house != null">
+          house = #{item.house},
+        </if>
+        <if test="item.code != null">
+          code = #{item.code},
+        </if>
+        <if test="item.idNumber != null">
+          id_number = #{item.idNumber},
+        </if>
+        <if test="item.treatment != null">
+          treatment = #{item.treatment},
+        </if>
+        <if test="item.replicate != null">
+          replicate = #{item.replicate},
+        </if>
+        <if test="item.suitable != null">
+          suitable = #{item.suitable},
+        </if>
+        <if test="item.oldPen != null">
+          old_pen = #{item.oldPen},
+        </if>
+        <if test="item.newPen != null">
+          new_pen = #{item.newPen},
+        </if>
+        <if test="item.weightMean != null">
+          weight_mean = #{item.weightMean},
+        </if>
+        <if test="item.coefficientOfVariation != null">
+          coefficient_of_variation = #{item.coefficientOfVariation},
+        </if>
+      </set>
+      where id_number = #{item.idNumber}
+    </foreach>
+  </update>
 
 
   <insert id="insertBatch" parameterType="List">
@@ -167,6 +278,9 @@
       <if test="item.animalInitWeight != null">
         animal_init_weight,
       </if>
+      <if test="item.house != null">
+        house,
+      </if>
       <if test="item.code != null">
         code,
       </if>
@@ -181,6 +295,9 @@
       </if>
       <if test="item.animalBirthday != null">
         animal_birthday,
+      </if>
+      <if test="item.sequence != null">
+        sequence,
       </if>
       <if test="item.version != null">
         version,
@@ -219,6 +336,9 @@
       <if test="item.animalInitWeight != null">
         #{item.animalInitWeight},
       </if>
+      <if test="item.house != null">
+        #{item.house},
+      </if>
       <if test="item.code != null">
         #{item.code},
       </if>
@@ -233,6 +353,9 @@
       </if>
       <if test="item.animalBirthday != null">
         #{item.animalBirthday},
+      </if>
+      <if test="item.sequence != null">
+        #{item.sequence},
       </if>
       <if test="item.version != null">
         #{item.version},

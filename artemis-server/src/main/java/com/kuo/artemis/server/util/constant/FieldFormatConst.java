@@ -106,6 +106,27 @@ public class FieldFormatConst {
         map.put("粗纤维系数", "crudeFiberCoefficient");
         map.put("粗灰分系数", "crudeAshCoefficient");
 
+        map.put("villi-crypt ratio", "villiCryptRatio");
+        map.put("d-lactate", "dLactate");
+        map.put("i-fabp", "iFabp");
+        map.put("e.coli", "eColi");
+        map.put("nfκb1", "nfKappaB1");
+        map.put("nfκb2", "nfKappaB2");
+        map.put("il1β", "il1Beta");
+        map.put("β actin", "betaActin");
+        map.put("γgt", "gammaGt");
+        map.put("cd3+", "cd3plus");
+        map.put("cd3+cd4+", "cd3pluscd4plus");
+        map.put("cd3+cd8+", "cd3pluscd8plus");
+        map.put("cd4+/cd8+", "cd4plusCd8plus");
+        map.put("pig-map", "pigMar");
+        map.put("apo-i", "apoI");
+        map.put("apo-a", "apoA");
+        map.put("il1β", "il1Beta");
+        map.put("tnfα", "tnfAlpha");
+        map.put("infgama", "infGama");
+        map.put("weaning-estrus interval", "weaningEstrusInterval");
+        map.put("16srna", "sixteenSrna");
         //TODO  添加对应关系
     }
 }

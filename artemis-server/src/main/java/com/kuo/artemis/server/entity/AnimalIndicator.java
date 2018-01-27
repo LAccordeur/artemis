@@ -25,6 +25,17 @@ public class AnimalIndicator {
         return indicatorName;
     }
 
+    @Override
+    public String toString() {
+        return "AnimalIndicator{" +
+                "id=" + id +
+                ", indicatorName='" + indicatorName + '\'' +
+                ", indicatorNameEnglish='" + indicatorNameEnglish + '\'' +
+                ", indicatorType=" + indicatorType +
+                ", createTime=" + createTime +
+                '}';
+    }
+
     public void setIndicatorName(String indicatorName) {
         this.indicatorName = indicatorName == null ? null : indicatorName.trim();
     }

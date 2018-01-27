@@ -12,6 +12,8 @@ public class AnimalBreedingIndicatorRecord {
 
     private String animalId;
 
+    private Integer parity;
+
     private BigDecimal bodyScoreAtD1;
 
     private BigDecimal bodyScoreAtD30;
@@ -3094,6 +3096,14 @@ public class AnimalBreedingIndicatorRecord {
 
     public BigDecimal getRightOviductLength() {
         return rightOviductLength;
+    }
+
+    public Integer getParity() {
+        return parity;
+    }
+
+    public void setParity(Integer parity) {
+        this.parity = parity;
     }
 
     public void setRightOviductLength(BigDecimal rightOviductLength) {

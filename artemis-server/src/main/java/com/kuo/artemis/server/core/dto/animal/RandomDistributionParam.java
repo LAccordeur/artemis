@@ -12,6 +12,8 @@ public class RandomDistributionParam {
     @NotNull
     private Short houseStyle;    //圈舍风格
 
+    private Integer houseNumber;  //圈舍总数目
+
     @NotNull
     private Integer replicationNum;   //重复数
 
@@ -21,10 +23,19 @@ public class RandomDistributionParam {
     @Override
     public String toString() {
         return "RandomDistributionParam{" +
-                "houseStyle='" + houseStyle + '\'' +
+                "houseStyle=" + houseStyle +
+                ", houseNumber=" + houseNumber +
                 ", replicationNum=" + replicationNum +
                 ", treatmentNum=" + treatmentNum +
                 '}';
+    }
+
+    public Integer getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(Integer houseNumber) {
+        this.houseNumber = houseNumber;
     }
 
     public Short getHouseStyle() {

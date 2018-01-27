@@ -83,7 +83,7 @@ public class GroupDesign {
         //1.对动物数据按体重从大到小排序
         Collections.sort(animalList, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
-                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+                return o2.getInitialBw().compareTo(o1.getInitialBw());
             }
         });
 
@@ -286,7 +286,9 @@ public class GroupDesign {
                     String replication = animal.getReplicate();
                     String treatment = animal.getTreatment();
                     String houseCode = map.get(replication).get(treatment);
-                    animal.setOldPen(animal.getHouse());
+                    if (animal.getOldPen() == null) {
+                        animal.setOldPen(animal.getHouse());
+                    }
                     animal.setNewPen(houseCode);
                     animal.setHouse(houseCode);
                 }
@@ -699,22 +701,22 @@ public class GroupDesign {
         //1.先按体重排序并找出中位数
         Collections.sort(animalList, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
-                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+                return o2.getInitialBw().compareTo(o1.getInitialBw());
             }
         });
         Double median = 0D;
         int animalNum = animalList.size();
         if (animalNum % 2 == 0) {
-            BigDecimal weightLeft = animalList.get(animalNum / 2 - 1).getAnimalInitWeight();
-            BigDecimal weightRight = animalList.get(animalNum / 2).getAnimalInitWeight();
+            BigDecimal weightLeft = animalList.get(animalNum / 2 - 1).getInitialBw();
+            BigDecimal weightRight = animalList.get(animalNum / 2).getInitialBw();
             median = weightLeft.add(weightRight).doubleValue() / 2;
         } else {
-            median = animalList.get(animalNum / 2).getAnimalInitWeight().doubleValue();
+            median = animalList.get(animalNum / 2).getInitialBw().doubleValue();
         }
 
         //2.计算每个动物的体重偏离中位数的程度
         for (Animal animal : animalList) {
-            BigDecimal weight = animal.getAnimalInitWeight();
+            BigDecimal weight = animal.getInitialBw();
             Double deviationFromMedian = weight.doubleValue() - median;
             animal.setDeviationFromMedian(Math.abs(deviationFromMedian));
         }
@@ -767,12 +769,12 @@ public class GroupDesign {
         //按体重排序
         Collections.sort(maleAnimalList, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
-                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+                return o2.getInitialBw().compareTo(o1.getInitialBw());
             }
         });
         Collections.sort(femaleAnimalList, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
-                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+                return o2.getInitialBw().compareTo(o1.getInitialBw());
             }
         });
 
@@ -835,13 +837,13 @@ public class GroupDesign {
         List<Animal> maleAnimalList = animalList.subList(0,groupMaleNum*replicationNum);
         Collections.sort(maleAnimalList, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
-                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+                return o2.getInitialBw().compareTo(o1.getInitialBw());
             }
         });
         List<Animal> femaleAnimalList = animalList.subList(groupMaleNum*replicationNum, animalList.size());
         Collections.sort(femaleAnimalList, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
-                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+                return o2.getInitialBw().compareTo(o1.getInitialBw());
             }
         });
 
@@ -931,7 +933,7 @@ public class GroupDesign {
 
         Collections.sort(animalGroup, new Comparator<Animal>() {
             public int compare(Animal o1, Animal o2) {
-                return o2.getAnimalInitWeight().compareTo(o1.getAnimalInitWeight());
+                return o2.getInitialBw().compareTo(o1.getInitialBw());
             }
         });
         //3.为该组中的动物分配处理组
@@ -994,7 +996,7 @@ public class GroupDesign {
         for (int i = 0; i < treatment; i++) {
             List<Double> data = new ArrayList<Double>();
             for (int j = i*unitNum; j < (i+1)*unitNum; j++) {
-                Double value = animalList.get(j).getAnimalInitWeight().doubleValue();
+                Double value = animalList.get(j).getInitialBw().doubleValue();
                 data.add(value);
             }
             Double averageValue = MathUtil.computeAverage(data);

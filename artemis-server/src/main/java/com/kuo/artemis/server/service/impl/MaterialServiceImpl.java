@@ -9,6 +9,7 @@ import com.kuo.artemis.server.entity.Material;
 import com.kuo.artemis.server.service.MaterialService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -106,6 +107,7 @@ public class MaterialServiceImpl implements MaterialService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Response createNewMaterialBatch(DataImportCommand dataImportCommand) throws Exception {
 
         List<List<String>> materialList = dataImportCommand.getDataList();

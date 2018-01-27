@@ -422,6 +422,9 @@
         <if test="item.animalId != null">
           animal_id,
         </if>
+        <if test="item.parity != null">
+          parity,
+        </if>
         <if test="item.bodyScoreAtD1 != null">
           body_score_at_d1,
         </if>
@@ -1407,6 +1410,9 @@
         </if>
         <if test="item.animalId != null">
           #{item.animalId,jdbcType=VARCHAR},
+        </if>
+        <if test="item.parity != null">
+          #{item.parity,jdbcType=INTEGER},
         </if>
         <if test="item.bodyScoreAtD1 != null">
           #{item.bodyScoreAtD1,jdbcType=DECIMAL},
@@ -2397,6 +2403,9 @@
         <if test="item.animalId != null">
           animal_id = #{item.animalId,jdbcType=VARCHAR},
         </if>
+        <if test="item.parity != null">
+          parity = #{item.parity,jdbcType=INTEGER},
+        </if>
         <if test="item.bodyScoreAtD1 != null">
           body_score_at_d1 = #{item.bodyScoreAtD1,jdbcType=DECIMAL},
         </if>
@@ -3376,7 +3385,7 @@
 
   <delete id="deleteByProjectIdAndFileIdentifierAndVersion">
     delete from animal_breeding_indicator_record
-    where project_id = #{projectId} and file_identifier = #{file_identifier} and version = #{version}
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
   </delete>
 
 

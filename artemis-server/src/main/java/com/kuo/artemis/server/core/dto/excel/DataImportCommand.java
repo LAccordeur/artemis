@@ -10,16 +10,14 @@ import java.util.List;
  */
 public class DataImportCommand {
 
-    @NotNull
+
     private String userId;   //导入数据的用户id
 
-
+    @NotNull
     private String projectId;   //课题id
 
 
     private String filename;   //文件名
-
-    private String fileId;
 
     @NotNull
     private List<List<String>> dataList;    //二维数组形式的Excel数据
@@ -30,18 +28,10 @@ public class DataImportCommand {
                 "userId='" + userId + '\'' +
                 ", projectId='" + projectId + '\'' +
                 ", filename='" + filename + '\'' +
-                ", fileId='" + fileId + '\'' +
                 ", dataList=" + dataList +
                 '}';
     }
 
-    public String getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
-    }
 
     public String getProjectId() {
         return projectId;

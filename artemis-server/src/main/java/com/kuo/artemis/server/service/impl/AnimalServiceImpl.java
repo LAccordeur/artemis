@@ -2,7 +2,11 @@ package com.kuo.artemis.server.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
+import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.core.helper.AnimalGroupHelper;
+import com.kuo.artemis.server.core.helper.DataHelper;
+import com.kuo.artemis.server.core.helper.ExcelHelper;
 import com.kuo.artemis.server.core.math.GroupDesign;
 import com.kuo.artemis.server.core.math.GroupDesignParam;
 import com.kuo.artemis.server.core.math.GroupDesignResult;
@@ -16,6 +20,7 @@ import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.entity.ProjectDetail;
 import com.kuo.artemis.server.service.AnimalService;
 import com.kuo.artemis.server.util.ValidationUtil;
+import com.kuo.artemis.server.util.common.UUIDUtil;
 import com.kuo.artemis.server.util.constant.GenderOptionConst;
 import com.kuo.artemis.server.util.constant.GroupDesignMethodConst;
 import org.springframework.http.HttpStatus;
@@ -51,6 +56,56 @@ public class AnimalServiceImpl implements AnimalService {
         return null;
     }
 
+
+    /**
+     * v2
+     * @param command
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public Response importAnimalBasicList(DataImportCommand command) {
+        try {
+            ValidationUtil.getInstance().validateParams(command);
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        String projectId = command.getProjectId();
+        List<List<String>> recordList = command.getDataList();
+        DataImportDTO animalDTO;
+        try {
+            animalDTO = DataHelper.excelDataToBean(recordList, Animal.class, 0, 1);
+        } catch (Exception e) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "数据解析错误");
+        }
+
+        List animalList = animalDTO.getCommonList();
+
+
+        for (int i = 0; i < animalList.size(); i++) {
+            Animal animal = (Animal) animalList.get(i);
+            animal.setProjectId(Integer.valueOf(projectId));
+            animal.setSequence(i + 1);
+            animal.setId(UUIDUtil.get32UUIDLowerCase());
+            //检测动物数据适合合法
+            if (animal.getIdNumber() == null || animal.getInitialBw() == null || animal.getAnimalSex() == null || animal.getOldPen() == null) {
+                return new Response(HttpStatus.BAD_REQUEST.value(), "缺少指标");
+            }
+        }
+
+        List<Animal> animalListFromDB = animalMapper.selectAnimalGroupDetailList(Integer.valueOf(projectId));
+        if (animalListFromDB != null && animalListFromDB.size() > 0) {
+            return new Response(HttpStatus.CONFLICT.value(), "请勿重复导入");
+        }
+        int result = animalMapper.insertAnimalGroupDetailBatch(animalList);
+        if (result <= 0) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "导入数据失败");
+        }
+
+        return new Response(HttpStatus.OK.value(), "导入成功");
+    }
+
+
     public Response groupAnimal(GroupDesignParam param) throws Exception {
         //基本分组参数不能为空
         try {
@@ -62,7 +117,7 @@ public class AnimalServiceImpl implements AnimalService {
         String designMethod = param.getDesignMethod();
         String projectId = param.getProjectId();
         List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
-        List<Animal> animalList = animalMapper.selectByProjectId(Integer.valueOf(projectId));
+        List<Animal> animalList = animalMapper.selectAnimalGroupDetailList(Integer.valueOf(projectId));
         if (animalHouseList == null || animalList == null) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "前置操作未完成");
         }
@@ -121,6 +176,7 @@ public class AnimalServiceImpl implements AnimalService {
         return new Response(HttpStatus.BAD_REQUEST.value(), "缺少参数");
     }
 
+
     public Response getAnimalGroupResult(String projectId) throws Exception {
         //先从缓存中查看是否已有数据
         String key = "animal_group_" + projectId;
@@ -138,7 +194,7 @@ public class AnimalServiceImpl implements AnimalService {
         List<Animal> animalList = animalMapper.selectAnimalGroupDetailList(Integer.valueOf(projectId));
         List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
         ProjectDetail projectDetail = projectDetailMapper.selectByProjectId(Integer.valueOf(projectId));
-        int groupStatus = animalMapper.selectAnimalGroupStatus(Integer.valueOf(projectId));
+        int groupStatus = animalMapper.selectAnimalGroupDetailStatus(Integer.valueOf(projectId));
         if (animalList == null || animalHouseList == null || projectDetail == null || groupStatus < 1) {
             return new Response(HttpStatus.NO_CONTENT.value(), "无分组结果");
         }
@@ -178,9 +234,9 @@ public class AnimalServiceImpl implements AnimalService {
             }
         }
 
-        animalMapper.updateBatch(animalList);
-        animalMapper.insertAnimalGroupDetailBatch(animalList);
+        animalMapper.updateAnimalGroupDetailBatch(animalList);
 
+        //更新相关课题信息
         ProjectDetail oldProjectDetail = projectDetailMapper.selectByProjectId(Integer.valueOf(projectId));
         if (oldProjectDetail == null) {
             ProjectDetail projectDetail = new ProjectDetail();
@@ -206,7 +262,7 @@ public class AnimalServiceImpl implements AnimalService {
             return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
         }
 
-        int deleteStatus = animalMapper.deleteAnimalGroupByProjectId(Integer.valueOf(projectId));
+        int deleteStatus = animalMapper.deleteAnimalGroupDetailByProjectId(Integer.valueOf(projectId));
         if (deleteStatus > 0) {
             String key = "animal_group_" + projectId;
             cacheRedisDao.removeFromCache(key);

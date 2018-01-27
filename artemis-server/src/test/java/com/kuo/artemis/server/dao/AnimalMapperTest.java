@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,7 +22,8 @@ public class AnimalMapperTest {
         List<String> ids = new ArrayList<String>();
         ids.add("T1");
         ids.add("T2");
-        System.out.println(animalMapper.selectIdMap(ids, 20, "df", 2));
+        Map<String, Animal> result = animalMapper.selectIdMap(ids, 27, "-17837", 1);
+        System.out.println(result);
     }
 
     @Resource

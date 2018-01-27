@@ -3,10 +3,13 @@ package com.kuo.artemis.server.controller;
 import com.kuo.artemis.server.core.dto.ArrayTest;
 import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.ExcelImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
-import com.kuo.artemis.server.service.FileService;
+import com.kuo.artemis.server.core.helper.ExcelHelper;
+import com.kuo.artemis.server.service.*;
 import com.kuo.artemis.server.util.constant.DataTypeConst;
+import com.kuo.artemis.server.util.file.ExcelUtil;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -32,17 +35,24 @@ public class FileController {
     @Inject
     private FileService fileService;
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    @ResponseBody
-    @Deprecated
-    public Response test(@RequestBody ArrayTest arrayList) {
-        System.out.println(arrayList);
-        return new Response(HttpStatus.OK.value(), "ce");
-    }
+    @Inject
+    private AnimalIndicatorRecordService animalIndicatorRecordService;
+
+    @Inject
+    private AnimalService animalService;
+
+    @Inject
+    private NutritionStandardService nutritionStandardService;
+
+    @Inject
+    private MaterialService materialService;
+
+
 
     @RequestMapping(value = "/excel/upload", method = RequestMethod.POST)
     @ResponseBody
     public Response receiveExcelFile(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId, @RequestParam("type") String type) {
+
 
 
         if (!file.isEmpty()) {
@@ -54,14 +64,21 @@ public class FileController {
             }
             try {
                 if ((DataTypeConst.INDICATOR).equals(type)) {
-                    ExcelImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
-                    return fileService.parseAndSaveIndicatorExcel(command);
+                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
+                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                    return animalIndicatorRecordService.createRecordVersion(dataImportCommand);
                 } else if ((DataTypeConst.MATERIAL).equals(type)) {
-                    ExcelImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.MATERIAL);
-                    return fileService.parseAndSaveMaterialExcel(command);
+                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.MATERIAL);
+                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                    return materialService.createNewMaterialBatch(dataImportCommand);
                 } else if ((DataTypeConst.NUTRITION).equals(type)) {
-                    ExcelImportCommand command = new ExcelImportCommand(file, projectId, userId, DataTypeConst.NUTRITION);
-                    return fileService.parseAndSaveNutritionStandardExcel(command);
+                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.NUTRITION);
+                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                    return nutritionStandardService.createNutritionStandardsBatch(dataImportCommand);
+                } else if ((DataTypeConst.ANIMAL).equals(type)) {
+                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.ANIMAL);
+                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                    return animalService.importAnimalBasicList(dataImportCommand);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

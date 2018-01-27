@@ -31,12 +31,16 @@ public interface AnimalMapper extends BaseMapper {
 
     int insertAnimalGroupDetailBatch(List<Animal> rows);
 
-    List<Animal> selectAnimalGroupDetailList(@Param("projectId") Integer projectId);
+    //List<Animal> selectAnimalGroupDetailList(@Param("projectId") Integer projectId);
 
-    @MapKey("id_number")
+    @MapKey("idNumber")
     Map<String, Animal> selectIdMap(@Param("list") List<String> idNumbers, @Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version);
 
-    int deleteAnimalGroupByProjectId(@Param("projectId") Integer projectId);
+    int deleteAnimalGroupDetailByProjectId(@Param("projectId") Integer projectId);
 
-    int selectAnimalGroupStatus(@Param("projectId") Integer projectId);
+    int selectAnimalGroupDetailStatus(@Param("projectId") Integer projectId);
+
+    List<Animal> selectAnimalGroupDetailList(@Param("projectId") Integer projectId);
+
+    Integer updateAnimalGroupDetailBatch(List<Animal> rows);
 }

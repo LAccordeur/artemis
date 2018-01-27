@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.core.helper;
 
 import com.kuo.artemis.server.core.dto.FileImportCommand;
+import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelImportDTO;
 import com.kuo.artemis.server.core.dto.excel.ExcelImportDTO;
@@ -20,6 +21,37 @@ import java.util.*;
  * @Date : Created on 2017/11/25
  */
 public class ExcelHelper {
+
+    /**
+     * 解析excel文件
+     * @param command
+     * @return
+     * @throws Exception
+     */
+    public static DataImportCommand parseExcelFile(FileImportCommand command) throws Exception {
+        MultipartFile file = command.getFile();
+        String projectId = command.getProjectId();
+        String userId = command.getUserId();
+
+        DataImportCommand dataImportCommand = new DataImportCommand();
+        String filename = file.getOriginalFilename();
+        InputStream inputStream = file.getInputStream();
+        dataImportCommand.setFilename(filename);
+        dataImportCommand.setUserId(userId);
+        dataImportCommand.setProjectId(projectId);
+
+        //解析开始
+        //1.创建workbook对象
+        Workbook workbook = ExcelUtil.createExcelObject(inputStream, filename);
+        if (workbook == null) {
+            throw new Exception("workbook is null!");
+        }
+        //2.解析
+        List<List<String>> dataList = ExcelUtil.parseExcelFile(workbook, 0, 0, 1, 0);
+        dataImportCommand.setDataList(dataList);
+
+        return dataImportCommand;
+    }
 
     /**
      * 解析indicator excel文件

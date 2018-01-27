@@ -7,12 +7,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class AnimalIndicatorMapperTest {
+    @Test
+    public void selectByFields() throws Exception {
+
+        List<String> stringList = new ArrayList<String>();
+        stringList.add("bw week2");
+        stringList.add("id number");
+        stringList.add("treatment");
+
+
+        System.out.println(animalIndicatorMapper.selectByFields(stringList));
+    }
 
     @Resource
     private AnimalIndicatorMapper animalIndicatorMapper;

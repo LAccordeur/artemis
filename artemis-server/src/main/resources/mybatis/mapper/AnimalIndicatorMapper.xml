@@ -27,7 +27,11 @@
       #{item}
     </foreach>
     )
-    order by id
+    order by field(indicator_name_english,
+    <foreach collection="list" item="item" index="index" separator=",">
+      #{item}
+    </foreach>
+    )
   </select>
 
   <select id="selectAllIndicators" resultType="AnimalIndicator">
@@ -54,7 +58,11 @@
       #{item}
     </foreach>
     )
-    order by id
+    order by field(id,
+    <foreach collection="list" item="item" index="index" separator=",">
+      #{item}
+    </foreach>
+    )
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

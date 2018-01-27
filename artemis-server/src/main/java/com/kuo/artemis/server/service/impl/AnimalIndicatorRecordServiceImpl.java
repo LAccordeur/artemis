@@ -1,5 +1,7 @@
 package com.kuo.artemis.server.service.impl;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.kuo.artemis.server.core.dto.Response;
 
 import com.kuo.artemis.server.core.dto.excel.DataExportDTO;
@@ -17,11 +19,16 @@ import com.kuo.artemis.server.util.common.UUIDUtil;
 import com.kuo.artemis.server.util.constant.FileTypeConst;
 import com.kuo.artemis.server.util.constant.OperationTypeConst;
 import javafx.scene.chart.PieChart;
+import net.minidev.json.JSONUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.*;
 
 /**
@@ -63,6 +70,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
     private AnimalRecordMapper animalRecordMapper;
 
     @Transactional(rollbackFor = Exception.class)
+    @Deprecated
     public Response createNewRecordVersion(DataImportCommand command) throws Exception {
 
         try {
@@ -253,6 +261,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
                 animal.setUserId(Integer.valueOf(userId));
                 animal.setProjectId(Integer.valueOf(projectId));
                 animal.setVersion(newVersion);
+                animal.setSequence(i+1);
             }
             animalMapper.insertBatch(animalDataList);
 
@@ -310,27 +319,17 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
         }
         FileRecord fileRecord = new FileRecord();
         fileRecord.setId(fileRecordId);
+        fileRecord.setModifiedTime(new Date());
         fileRecordMapper.updateByPrimaryKeySelective(fileRecord);
 
-        //2.更新文件详细记录中记录的字段值
-        /*excelFileDetailMapper.deleteByFileRecordId(fileRecordId);
-        List<String> initFields = recordList.get(0);
-        List<AnimalIndicator> animalIndicatorList = animalIndicatorMapper.selectByFields(initFields);
-        List<ExcelFileDetail> excelFileDetailList = new ArrayList<ExcelFileDetail>();
-        for (int i = 0; i < animalIndicatorList.size(); i++) {
-            AnimalIndicator indicator = animalIndicatorList.get(i);
-
-            ExcelFileDetail excelFileDetail = new ExcelFileDetail();
-            excelFileDetail.setFileRecordId(fileRecordId);
-            excelFileDetail.setIndicatorName(indicator.getIndicatorNameEnglish());
-            excelFileDetail.setIndicatorId(indicator.getId());
-            excelFileDetail.setTableName(String.valueOf(indicator.getIndicatorType()));
-            excelFileDetailList.add(excelFileDetail);
+        //检测是否新增指标
+        List<String> indicators =  excelFileDetailMapper.selectNameByFileRecordId(fileRecordId);
+        if (recordList.get(0).size() > indicators.size()) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "新增指标后请保存为新版本");
         }
-        excelFileDetailMapper.insertBatch(excelFileDetailList);*/
 
-        //3.更新各个动物记录表 后期规定一个必须的标识符
-        //animalMapper.deleteByProjectIdAndFileIdentifierAndVersion(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
+
+        //2.更新各个动物记录表 规定一个必须的标识符为id number
         DataImportDTO animalDataDTO = DataHelper.excelDataToBean(recordList, Animal.class, 0, 1);
         DataImportDTO growthDataDTO = DataHelper.excelDataToBean(recordList, AnimalGrowthIndicatorRecord.class, 0, 1);
         DataImportDTO breedingDataDTO = DataHelper.excelDataToBean(recordList, AnimalBreedingIndicatorRecord.class, 0, 1);
@@ -339,7 +338,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
         List growthList = growthDataDTO.getCommonList();
         List breedingList = breedingDataDTO.getCommonList();
 
-        //4.获取id_number
+        //3.获取id_number
         List<String> idNumberList = new ArrayList<String>();
         for (Object object : animalList) {
             Animal animal = (Animal) object;
@@ -349,19 +348,32 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
             idNumberList.add(animal.getIdNumber());
         }
         Map<String, Animal> idNumberMap = animalMapper.selectIdMap(idNumberList, Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
-
-        //为动物设置id并更新
-        for (int i = 0; i < animalList.size(); i++) {
-            Animal animal = (Animal) animalList.get(i);
-            String idNumber = animal.getIdNumber();
-            animal.setId(idNumberMap.get(idNumber).getId());
+        //检测是否新增记录
+        if ((recordList.size() - 1) > idNumberMap.size()) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "新增动物记录后请保存为新版本");
         }
 
 
+        //4.为动物设置id并更新
+        for (int i = 0; i < animalList.size(); i++) {
+            Animal animal = (Animal) animalList.get(i);
+            AnimalGrowthIndicatorRecord growthIndicatorRecord = (AnimalGrowthIndicatorRecord) growthList.get(i);
+            AnimalBreedingIndicatorRecord animalBreedingIndicatorRecord = (AnimalBreedingIndicatorRecord) breedingList.get(i);
 
+            String idNumber = animal.getIdNumber();
+            String dbId = idNumberMap.get(idNumber).getId();
+            animal.setId(dbId);
+            growthIndicatorRecord.setAnimalId(dbId);
+            animalBreedingIndicatorRecord.setAnimalId(dbId);
+        }
+        int animalStatus = animalMapper.updateBatch(animalList);
+        int growthStatus = animalGrowthIndicatorRecordMapper.updateBatch(growthList);
+        int breedingStatus = animalBreedingIndicatorRecordMapper.updateBatch(breedingList);
 
-
-        return null;
+        if (animalStatus <= 0 && growthStatus <= 0 && breedingStatus <= 0) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "更新失败");
+        }
+        return new Response(HttpStatus.OK.value(), "更新成功");
     }
 
     /**
@@ -373,7 +385,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
      */
     public Response listAnimalRecords(String projectId, String fileIdentifier, String version) {
         if (projectId == null || "".equals(projectId) || fileIdentifier == null || "".equals(fileIdentifier) || version == null || "".equals(version)) {
-            return new Response(HttpStatus.BAD_REQUEST.value(),"参数不能为空");
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
         }
 
         Integer fileRecordId = fileRecordMapper.selectIdByProjectIdAndFileIdentifierAndVersion(projectId, fileIdentifier, Integer.valueOf(version));
@@ -393,14 +405,41 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
         //2.获取数据
         List<AnimalRecord> animalIndicatorRecordList = animalRecordMapper.selectSelective(indicatorList, Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
 
-        //3.组装返回对象
-        DataExportDTO dataExportDTO = new DataExportDTO();
-        dataExportDTO.setProjectId(projectId);
-        dataExportDTO.setFileIdentifier(fileIdentifier);
-        dataExportDTO.setVersion(version);
-        dataExportDTO.setDataList(animalIndicatorRecordList);
+        synchronized (this) {
+            //3.设置返回字段的顺序
+            setFieldSequence(indicatorList);  //注解设置存在互斥
 
-        return new Response(dataExportDTO, HttpStatus.OK.value(), "获取数据成功");
+            //4.组装返回对象
+            DataExportDTO dataExportDTO = new DataExportDTO();
+            dataExportDTO.setProjectId(projectId);
+            dataExportDTO.setFileIdentifier(fileIdentifier);
+            dataExportDTO.setVersion(version);
+            dataExportDTO.setDataList(animalIndicatorRecordList);
+
+            return new Response(dataExportDTO, HttpStatus.OK.value(), "获取数据成功");
+        }
+    }
+
+    private void setFieldSequence(List<String> indicatorList) {
+        try {
+            //获取注解示例
+            JsonPropertyOrder annotation = AnimalRecord.class.getAnnotation(JsonPropertyOrder.class);
+            //获取注解的handler，注解的值存在该handler对象中
+            InvocationHandler handler = Proxy.getInvocationHandler(annotation);
+            //获取存储注解值的字段对象
+            Field handleField = handler.getClass().getDeclaredField("memberValues");
+            handleField.setAccessible(true);
+            Map memberValues = (Map) handleField.get(handler);
+
+            //设置新值
+            String[] newValues = new String[indicatorList.size()];
+            for (int i = 0; i < indicatorList.size(); i++) {
+                newValues[i] = StringUtil.underlineToCamel(indicatorList.get(i));
+            }
+            memberValues.put("value", newValues);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -436,37 +475,9 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
-    public Response saveRecord(DataImportCommand command) throws Exception {
-
-        List<List<String>> recordList = command.getDataList();
-        String projectId = command.getProjectId();
-        String userId = command.getUserId();
-        String fileId = command.getFileId();
-
-        //1.更新文件记录
-        FileRecord fileRecord = new FileRecord();
-        fileRecord.setId(Integer.valueOf(fileId));
-        fileRecordMapper.updateByPrimaryKeySelective(fileRecord);
-
-        //TODO 相关id信息的加入
-
-        //2.更新各个动物表
-        DataImportDTO result = DataHelper.excelIndicatorDataToBean(recordList, 0, 1);
-        Map<Class, List> objectMap = result.getObjectList();
-
-        List animalList = objectMap.get(Animal.class);
-        animalMapper.updateBatch(animalList);
 
 
-        List animalGrowthList = objectMap.get(AnimalGrowthRecord.class);
-        animalGrowthRecordMapper.updateBatch(animalGrowthList);
-        List animalGutList = objectMap.get(AnimalGutMicrobiotaRecord.class);
-        animalGutMicrobiotaRecordMapper.updateBatch(animalGutList);
-
-        return new Response(HttpStatus.OK.value(), "更新数据成功");
-    }
-
+    @Deprecated
     public Response getIndicatorRecordDetail(String projectId, String fileIdentifier, String version) {
 
         if (projectId == null || "".equals(projectId) || fileIdentifier == null || "".equals(fileIdentifier) || version == null || "".equals(version)) {
@@ -510,6 +521,9 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
 
 
         List<FileRecord> fileRecordList = fileRecordMapper.selectIndicatorRecordFileVersions(Integer.valueOf(projectId), fileIdentifier);
+        if (fileRecordList == null || fileRecordList.size() == 0) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "没有文件");
+        }
         return new Response(fileRecordList, HttpStatus.OK.value(), "文件版本列表");
     }
 

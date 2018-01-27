@@ -119,8 +119,8 @@ public final class ExcelUtil {
             return FieldFormatConst.map.get(field.trim());
         }
 
-        if (FieldFormatConst.map.containsKey(field.trim())) {
-            return FieldFormatConst.map.get(field.trim());
+        if (FieldFormatConst.map.containsKey(field.trim().toLowerCase())) {
+            return FieldFormatConst.map.get(field.trim().toLowerCase());
         }
         return BeanUtil.spaceFieldToCamel(field.trim());
     }
@@ -192,7 +192,7 @@ public final class ExcelUtil {
         int columnCount = sheet.getRow(titleRow).getPhysicalNumberOfCells();
 
         //excel每一列的字段名
-        List<String> fields = parseExcelFields(workbook, sheetIndex, titleRow, columnIndex);
+        List<String> fields = getExcelInitFields(workbook, sheetIndex, titleRow, columnIndex);
         //依次解析正文
         for (int i = rowIndex; i <= rowCount; i++) {
             row = sheet.getRow(i);
@@ -206,6 +206,48 @@ public final class ExcelUtil {
 
         return rowList;
     }
+
+    /**
+     * 将原始excel文件解析为原始二维数组
+     * @param workbook
+     * @param sheetIndex
+     * @param titleRow
+     * @param rowIndex
+     * @param columnIndex
+     * @return
+     * @throws Exception
+     */
+    public static List<List<String>> parseExcelFile(Workbook workbook, Integer sheetIndex, Integer titleRow, Integer rowIndex, Integer columnIndex) throws Exception {
+        if (workbook == null) {
+            throw new Exception();
+        }
+
+        Row row = null;
+        List<List<String>> rowList = new ArrayList<List<String>>();
+
+        Sheet sheet = workbook.getSheetAt(sheetIndex);
+        //总行数
+        int rowCount = sheet.getLastRowNum();
+        //总列数
+        int columnCount = sheet.getRow(titleRow).getPhysicalNumberOfCells();
+
+        //excel每一列的字段名
+        List<String> fields = getExcelInitFields(workbook, sheetIndex, titleRow, columnIndex);
+        rowList.add(fields);
+        //依次解析正文
+        for (int i = rowIndex; i <= rowCount; i++) {
+            row = sheet.getRow(i);
+            List<String> rowItem = new ArrayList<String>();
+            for (int j = columnIndex; j < columnCount; j++) {
+                String item = (String) getCellFormatValue(row.getCell(j));
+                rowItem.add(item);
+            }
+            rowList.add(rowItem);
+        }
+
+        return rowList;
+    }
+
 
     /**
      * 将二维数组形式的Excel数据转换为返回类型

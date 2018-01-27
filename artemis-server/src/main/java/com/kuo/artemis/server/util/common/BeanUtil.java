@@ -3,6 +3,7 @@ package com.kuo.artemis.server.util.common;
 import com.kuo.artemis.server.core.factory.TypeBindFactory;
 import com.kuo.artemis.server.util.constant.FieldFormatConst;
 import com.kuo.artemis.server.util.constant.FieldUnderlineMapperConst;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
@@ -38,6 +39,10 @@ public final class BeanUtil {
         } else {
             return null;
         }
+    }
+
+    public static Boolean changeAnnotationValue(Class clazz) {
+        return null;
     }
 
     /**
@@ -168,8 +173,8 @@ public final class BeanUtil {
 
         }*/
 
-        if (FieldUnderlineMapperConst.map.containsKey(value.trim())) {
-            return FieldUnderlineMapperConst.map.get(value.trim());
+        if (FieldUnderlineMapperConst.map.containsKey(value.trim().toLowerCase())) {
+            return FieldUnderlineMapperConst.map.get(value.trim().toLowerCase());
         }
 
         if (value.contains(" ")) {
