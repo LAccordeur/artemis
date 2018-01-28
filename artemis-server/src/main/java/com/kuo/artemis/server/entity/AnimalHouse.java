@@ -1,7 +1,11 @@
 package com.kuo.artemis.server.entity;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Date;
+@JsonIgnoreProperties({"id","buildingId","projectId"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AnimalHouse {
     private Integer id;
 
@@ -15,9 +19,34 @@ public class AnimalHouse {
 
     private String replicate;
 
+    private Integer sequence;
+
     private Date createTime;
 
     private Date modifiedTime;
+
+    @Override
+    public String toString() {
+        return "AnimalHouse{" +
+                "id=" + id +
+                ", buildingId=" + buildingId +
+                ", projectId=" + projectId +
+                ", houseCode='" + houseCode + '\'' +
+                ", treatment='" + treatment + '\'' +
+                ", replicate='" + replicate + '\'' +
+                ", sequence=" + sequence +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
 
     public Integer getId() {
         return id;

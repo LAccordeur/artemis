@@ -1,11 +1,13 @@
 package com.kuo.artemis.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@JsonIgnoreProperties({"houseId","animalBirthday"})
+@JsonIgnoreProperties({"id","houseId","animalBirthday","sequence","projectId"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Animal {
     private String id;
 

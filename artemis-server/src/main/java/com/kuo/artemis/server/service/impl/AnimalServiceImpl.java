@@ -173,7 +173,7 @@ public class AnimalServiceImpl implements AnimalService {
             }
         }
 
-        return new Response(HttpStatus.BAD_REQUEST.value(), "缺少参数");
+        return new Response(HttpStatus.BAD_REQUEST.value(), "缺少参数或参数无效");
     }
 
 

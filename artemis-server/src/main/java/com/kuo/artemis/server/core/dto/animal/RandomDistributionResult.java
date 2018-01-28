@@ -20,11 +20,6 @@ public class RandomDistributionResult {
     private String buildingCode;    //圈舍所在房间的编号
 
     @NotNull
-    private List<List<String>> houseCodeList;
-
-    @NotNull
-    private List<List> randomResult;
-
     private List<AnimalHouse> animalHouseList;
 
     @NotNull
@@ -35,8 +30,6 @@ public class RandomDistributionResult {
         return "RandomDistributionResult{" +
                 "projectId='" + projectId + '\'' +
                 ", buildingCode='" + buildingCode + '\'' +
-                ", houseCodeList=" + houseCodeList +
-                ", randomResult=" + randomResult +
                 ", animalHouseList=" + animalHouseList +
                 ", param=" + param +
                 '}';
@@ -66,14 +59,6 @@ public class RandomDistributionResult {
         this.buildingCode = buildingCode;
     }
 
-    public List<List<String>> getHouseCodeList() {
-        return houseCodeList;
-    }
-
-    public void setHouseCodeList(List<List<String>> houseCodeList) {
-        this.houseCodeList = houseCodeList;
-    }
-
     public RandomDistributionParam getParam() {
         return param;
     }
@@ -82,11 +67,5 @@ public class RandomDistributionResult {
         this.param = param;
     }
 
-    public List<List> getRandomResult() {
-        return randomResult;
-    }
 
-    public void setRandomResult(List<List> randomResult) {
-        this.randomResult = randomResult;
-    }
 }

@@ -12,7 +12,7 @@
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, building_id, project_id, house_code, treatment, replicate, create_time, modified_time
+    id, building_id, project_id, house_code, treatment, replicate, create_time
   </sql>
 
   <select id="selectByProjectId" parameterType="Integer" resultType="AnimalHouse">
@@ -20,6 +20,7 @@
     <include refid="Base_Column_List" />
     from animal_house
     where project_id = #{projectId}
+    order by id
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

@@ -3,6 +3,7 @@ package com.kuo.artemis.server.core.math;
 import com.kuo.artemis.server.core.dto.animal.GroupDesignMovingSheet;
 import com.kuo.artemis.server.core.dto.animal.GroupDesignSummary;
 import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
+import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.util.MathUtil;
@@ -12,6 +13,7 @@ import org.apache.commons.math3.distribution.FDistribution;
 //import org.apache.commons.math.distribution.FDistributionImpl;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -23,6 +25,7 @@ public class GroupDesign {
 
     private static final Random random = new Random();
 
+    private static final DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
 
     /**
      * 采用完全随机的设计进行动物分组(此时不考虑变异系数)
@@ -365,12 +368,12 @@ public class GroupDesign {
                     Double cv = animal.getCoefficientOfVariation();
                     if (!meanList.contains(mean)) {
                         if (mean != null) {
-                            meanList.add(mean);
+                            meanList.add(MathUtil.setFiveScale(mean));
                         }
                     }
                     if (!cvList.contains(cv)) {
                         if (cv != null) {
-                            cvList.add(cv);
+                            cvList.add(MathUtil.setFiveScale(cv));
                         }
                     }
                 }
@@ -381,7 +384,7 @@ public class GroupDesign {
                 int rowIndex = i % treatmentNum;
 
                 List<Double> rowData = summaryOfAnimalAllotment.get(rowIndex);
-                rowData.add(meanList.get(i));
+                rowData.add(MathUtil.setFiveScale(meanList.get(i)));
             }
 
             //计算每一列的平均数
@@ -389,7 +392,7 @@ public class GroupDesign {
             for (int i = 0; i < replicationNum; i++) {
                 List<Double> groupList = meanList.subList(i*treatmentNum, (i+1)*treatmentNum);
                 Double colMean = MathUtil.computeAverage(groupList);
-                rowMeanList.add(colMean);
+                rowMeanList.add(MathUtil.setFiveScale(colMean));
             }
             //计算每一行的平均数
             for (int i = 0; i <= treatmentNum; i++) {
@@ -397,59 +400,59 @@ public class GroupDesign {
                 Double rowMean = MathUtil.computeAverage(rowData);
                 rowData.add(rowMean);
                 if (i != treatmentNum) {
-                    meanListForAnalysis.add(rowMean);
+                    meanListForAnalysis.add(MathUtil.setFiveScale(rowMean));
                 }
             }
             //设置CV行
             List<Double> cvRow = summaryOfAnimalAllotment.get(treatmentNum + 1);
             for (int i = 0; i < cvList.size(); i++) {
-                cvRow.add(cvList.get(i));
+                cvRow.add(MathUtil.setFiveScale(cvList.get(i)));
             }
-            cvRow.add(MathUtil.computeCoefficientVariation(meanListForAnalysis));
+            cvRow.add(MathUtil.setFiveScale(MathUtil.computeCoefficientVariation(meanListForAnalysis)));
 
             //组装Analysis of Variance
             List<Double> repList = analysisOfVariance.get(0);
             Double repDf = replicationNum - 1.0;
-            repList.add(repDf);
+            repList.add(MathUtil.setFiveScale(repDf));
             Double repSs = MathUtil.computerSS(summaryOfAnimalAllotment.get(treatmentNum).subList(0, replicationNum));
-            repList.add(repSs);
+            repList.add(MathUtil.setFiveScale(repSs));
             Double repMs = repSs / repDf;
-            repList.add(repMs);
+            repList.add(MathUtil.setFiveScale(repMs));
 
             List<Double> trtList = analysisOfVariance.get(1);
             Double trtDf = treatmentNum - 1.0;
-            trtList.add(trtDf);
+            trtList.add(MathUtil.setFiveScale(trtDf));
             Double trtSs = MathUtil.computerSS(meanListForAnalysis);
-            trtList.add(trtSs);
+            trtList.add(MathUtil.setFiveScale(trtSs));
             Double trtMs = trtSs / trtDf;
-            trtList.add(trtMs);
+            trtList.add(MathUtil.setFiveScale(trtMs));
 
             List<Double> errorList = analysisOfVariance.get(2);
             Double errorDf = repDf * trtDf;
-            errorList.add(errorDf);
+            errorList.add(MathUtil.setFiveScale(errorDf));
 
             List<Double> totalList = analysisOfVariance.get(3);
-            totalList.add(treatmentNum * replicationNum - 1.0);
+            totalList.add(MathUtil.setFiveScale(treatmentNum * replicationNum - 1.0));
             Double totalSs = MathUtil.computerSS(meanList);
-            totalList.add(totalSs);
+            totalList.add(MathUtil.setFiveScale(totalSs));
 
             Double errorSs = totalSs - trtSs - repSs;
-            errorList.add(errorSs);
+            errorList.add(MathUtil.setFiveScale(errorSs));
             Double errorMs = errorSs / errorDf;
-            errorList.add(errorMs);
+            errorList.add(MathUtil.setFiveScale(errorMs));
 
             Double repFValue = repMs / errorMs;
-            repList.add(repFValue);
+            repList.add(MathUtil.setFiveScale(repFValue));
             FDistribution fDistributionRep = new FDistribution(repDf, errorDf);
             Double repPrF = 1 - fDistributionRep.cumulativeProbability(repFValue);
-            repList.add(repPrF);
+            repList.add(MathUtil.setFiveScale(repPrF));
 
             Double trtFValue = trtMs / errorMs;
-            trtList.add(trtFValue);
+            trtList.add(MathUtil.setFiveScale(trtFValue));
 
             FDistribution fDistributionTrt = new FDistribution(trtDf, errorDf);
             Double trtPrf = 1 - fDistributionTrt.cumulativeProbability(trtFValue);
-            trtList.add(trtPrf);
+            trtList.add(MathUtil.setFiveScale(trtPrf));
 
             summary.setSummaryOfAnimalAllotment(summaryOfAnimalAllotment);
             summary.setAnalysisOfVariance(analysisOfVariance);
@@ -718,7 +721,7 @@ public class GroupDesign {
         for (Animal animal : animalList) {
             BigDecimal weight = animal.getInitialBw();
             Double deviationFromMedian = weight.doubleValue() - median;
-            animal.setDeviationFromMedian(Math.abs(deviationFromMedian));
+            animal.setDeviationFromMedian(MathUtil.setFiveScale(Math.abs(deviationFromMedian)));
         }
 
         //3.将动物按照偏离中位数的程度从小到大排序
@@ -997,21 +1000,21 @@ public class GroupDesign {
             List<Double> data = new ArrayList<Double>();
             for (int j = i*unitNum; j < (i+1)*unitNum; j++) {
                 Double value = animalList.get(j).getInitialBw().doubleValue();
-                data.add(value);
+                data.add(MathUtil.setFiveScale(value));
             }
             Double averageValue = MathUtil.computeAverage(data);
             //保存每个圈舍的平均体重
             for (int j = i*unitNum; j < (i+1)*unitNum; j++) {
-                animalList.get(j).setWeightMean(averageValue);
+                animalList.get(j).setWeightMean(MathUtil.setFiveScale(averageValue));
             }
-            averageList.add(averageValue);
+            averageList.add(MathUtil.setFiveScale(averageValue));
         }
 
         //3.计算每个区组的变异系数
         Double coefficientVariation = MathUtil.computeCoefficientVariation(averageList);
         //保存变异系数
         for (Animal animal : animalList) {
-            animal.setCoefficientOfVariation(coefficientVariation);
+            animal.setCoefficientOfVariation(MathUtil.setFiveScale(coefficientVariation));
         }
         if (coefficientVariation < coefficientVariationAllowance) {
             return true;

@@ -33,6 +33,11 @@ public class MathUtil {
 
     }
 
+    public static Double setFiveScale(Double value) {
+        DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
+        return Double.valueOf(decimalFormat.format(value));
+    }
+
     /**
      * 计算样本标准差
      * @param data
