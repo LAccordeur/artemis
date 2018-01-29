@@ -18,8 +18,8 @@ public class FieldClassConst {
 
         //TODO  剩余指标建表后  需添加到set中
         clazzSet.add(Animal.class);
-        clazzSet.add(AnimalGutMicrobiotaRecord.class);
-        clazzSet.add(AnimalGrowthRecord.class);
+        clazzSet.add(AnimalBreedingIndicatorRecord.class);
+        clazzSet.add(AnimalGrowthIndicatorRecord.class);
 
         Class<?> clazz = null;
         Iterator<Class> iterator = clazzSet.iterator();

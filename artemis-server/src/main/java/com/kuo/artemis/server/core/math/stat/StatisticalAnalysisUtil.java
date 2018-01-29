@@ -7,5 +7,5 @@ package com.kuo.artemis.server.core.math.stat;
  */
 public class StatisticalAnalysisUtil {
 
-    
+
 }

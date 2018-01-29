@@ -103,6 +103,10 @@ public class Animal {
         this.suitable = suitable;
     }
 
+    public Integer getSuitable() {
+        return suitable;
+    }
+
     public Integer getSequence() {
         return sequence;
     }
@@ -167,14 +171,6 @@ public class Animal {
 
     public void setNewPen(String newPen) {
         this.newPen = newPen;
-    }
-
-    public Integer getSuitable() {
-        return suitable;
-    }
-
-    public void setSuitable(int suitable) {
-        this.suitable = suitable;
     }
 
     public Double getDeviationFromMedian() {

@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.math;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kuo.artemis.server.core.dto.animal.GroupGenderParam;
 
 import javax.validation.constraints.NotNull;
@@ -10,8 +11,10 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2017/12/20
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GroupDesignParam {
 
+    @NotNull
     private String projectId;
 
     private Integer animalNumber;    //动物数目

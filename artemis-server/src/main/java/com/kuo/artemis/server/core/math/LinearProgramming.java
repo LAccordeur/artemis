@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.math;
 
+import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.quantego.clp.CLP;
 import com.quantego.clp.CLPExpression;
 import com.quantego.clp.CLPVariable;
@@ -182,8 +183,7 @@ public class LinearProgramming {
         result.setStatus(status);
 
         //7.设置返回结果
-        //TODO  decimalFormat改为单例模式
-        DecimalFormat decimalFormat = new DecimalFormat("0.000000");
+        DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
         //目标变量系数
         List<Double> resultVarValueList = new ArrayList<Double>();
         for (int i = 0; i < variableSize; i++) {

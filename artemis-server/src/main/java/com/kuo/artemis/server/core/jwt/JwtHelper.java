@@ -66,6 +66,9 @@ public class JwtHelper {
                 JSONObject jsonOBj = payload.toJSONObject();
                 // token校验成功（此时没有校验是否过期）
                 resultMap.put("state", TokenState.VALID.toString());
+                if (jsonOBj.containsKey("uid")) {
+                    resultMap.put("uid", jsonOBj.get("uid"));
+                }
                 // 若payload包含ext字段，则校验是否过期
                 if (jsonOBj.containsKey("ext")) {
                     long extTime = Long.valueOf(jsonOBj.get("ext").toString());

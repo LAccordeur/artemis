@@ -2,6 +2,7 @@ package com.kuo.artemis.server.core.Interceptor;
 
 import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.common.AuthorityType;
+import com.kuo.artemis.server.core.jwt.JwtHelper;
 import com.kuo.artemis.server.dao.UserPermissionMapper;
 import com.kuo.artemis.server.entity.UserPermission;
 import com.kuo.artemis.server.util.common.PropertiesHandler;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author : guoyang
@@ -58,6 +60,15 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
                     //1.获取用户id和课题id来查询该用户的权限列表
                     String userId = request.getParameter(AUTH_PARAM_USER_ID);
                     String projectId = request.getParameter(AUTH_PARAM_PROJECT_ID);
+
+                    String token = request.getHeader("Authorization");
+                    Map<String, Object> map = JwtHelper.validToken(token);
+                    String realUid = (String) map.get("uid");
+                    if (realUid != null && realUid == userId) {
+                        //do nothing
+                    } else {
+                        return false;
+                    }
 
                     //2.从注解中获取需要验证的权限名id
                     String permissionId = annotation.value();

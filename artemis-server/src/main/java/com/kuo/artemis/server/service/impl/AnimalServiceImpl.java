@@ -118,7 +118,7 @@ public class AnimalServiceImpl implements AnimalService {
         String projectId = param.getProjectId();
         List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
         List<Animal> animalList = animalMapper.selectAnimalGroupDetailList(Integer.valueOf(projectId));
-        if (animalHouseList == null || animalList == null) {
+        if (animalHouseList == null || animalList == null || animalHouseList.size() == 0 || animalList.size() == 0) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "前置操作未完成");
         }
 
@@ -178,6 +178,11 @@ public class AnimalServiceImpl implements AnimalService {
 
 
     public Response getAnimalGroupResult(String projectId) throws Exception {
+
+        if (projectId == null || "".equals(projectId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+
         //先从缓存中查看是否已有数据
         String key = "animal_group_" + projectId;
         String cacheResult = cacheRedisDao.getFromCache(key);
@@ -195,7 +200,7 @@ public class AnimalServiceImpl implements AnimalService {
         List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
         ProjectDetail projectDetail = projectDetailMapper.selectByProjectId(Integer.valueOf(projectId));
         int groupStatus = animalMapper.selectAnimalGroupDetailStatus(Integer.valueOf(projectId));
-        if (animalList == null || animalHouseList == null || projectDetail == null || groupStatus < 1) {
+        if (animalList == null || animalList.size() == 0 || animalHouseList == null || animalHouseList.size() == 0 || projectDetail == null || projectDetail.getGroupMethod() == 0 || projectDetail.getGenderMethod() == 0 || groupStatus < 1) {
             return new Response(HttpStatus.NO_CONTENT.value(), "无分组结果");
         }
 
@@ -206,12 +211,19 @@ public class AnimalServiceImpl implements AnimalService {
         GroupDesign.setAnimalGroupSummary(animalList, param, result, true);
         GroupDesign.setAnimalGroupMovingSheet(animalList, result, true);
         result.setParam(param);
+        result.setProjectId(projectId);
 
         return new Response(result, HttpStatus.OK.value(), "分组结果");
     }
 
     @Transactional(rollbackFor = Exception.class)
     public Response commitAnimalGroupResult(GroupDesignResult result) throws Exception {
+
+        try {
+            ValidationUtil.getInstance().validateParams(result);
+        } catch (Exception e) {
+            return new Response(e);
+        }
 
         String projectId = result.getProjectId();
         List<Animal> animalListFromDB = animalMapper.selectAnimalGroupDetailList(Integer.valueOf(projectId));
@@ -220,11 +232,15 @@ public class AnimalServiceImpl implements AnimalService {
                 return new Response(HttpStatus.CONFLICT.value(), "请勿重复分组");
             }
         }
+        if (animalListFromDB != null && animalListFromDB.size() <= 0) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "提交失败");
+        }
 
+        //更新动物的house id
         List<Animal> animalList = result.getSummary().getAnimalAllotmentResult();
+        GroupDesignParam param = result.getParam();
         List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
         Map<String, Map<String, Integer>> map = getHouseIdByReplicationAndTreatment(animalHouseList);
-
         for (Animal animal : animalList) {
             String treatment = animal.getTreatment();
             String replication = animal.getReplicate();
@@ -233,7 +249,6 @@ public class AnimalServiceImpl implements AnimalService {
                 animal.setHouseId(houseId);
             }
         }
-
         animalMapper.updateAnimalGroupDetailBatch(animalList);
 
         //更新相关课题信息
@@ -241,18 +256,20 @@ public class AnimalServiceImpl implements AnimalService {
         if (oldProjectDetail == null) {
             ProjectDetail projectDetail = new ProjectDetail();
             projectDetail.setProjectId(Integer.valueOf(result.getProjectId()));
-            projectDetail.setReplicationNum(result.getParam().getReplicationNum());
-            projectDetail.setTreatmentNum(result.getParam().getTreatmentNum());
-            projectDetail.setGroupMethod(Short.valueOf(result.getParam().getDesignMethod()));
-            projectDetail.setGenderMethod(Short.valueOf(result.getParam().getGenderOption()));
+            projectDetail.setReplicationNum(param.getReplicationNum());
+            projectDetail.setTreatmentNum(param.getTreatmentNum());
+            projectDetail.setGroupMethod(Short.valueOf(param.getDesignMethod()));
+            projectDetail.setGenderMethod(Short.valueOf(param.getGenderOption()));
             projectDetailMapper.insertSelective(projectDetail);
         } else {
-            oldProjectDetail.setGroupMethod(Short.valueOf(result.getParam().getDesignMethod()));
-            oldProjectDetail.setGenderMethod(Short.valueOf(result.getParam().getGenderOption()));
+            oldProjectDetail.setGroupMethod(Short.valueOf(param.getDesignMethod()));
+            oldProjectDetail.setGenderMethod(Short.valueOf(param.getGenderOption()));
             projectDetailMapper.updateByPrimaryKeySelective(oldProjectDetail);
         }
-        //切面将分组结果放入缓存
 
+
+        GroupDesign.setAnimalGroupSummary(animalList, param, result, true);
+        GroupDesign.setAnimalGroupMovingSheet(animalList, result, true);
         return new Response(result, HttpStatus.OK.value(), "提交成功");
     }
 
@@ -263,6 +280,12 @@ public class AnimalServiceImpl implements AnimalService {
         }
 
         int deleteStatus = animalMapper.deleteAnimalGroupDetailByProjectId(Integer.valueOf(projectId));
+        ProjectDetail oldProjectDetail = projectDetailMapper.selectByProjectId(Integer.valueOf(projectId));
+        if (oldProjectDetail != null) {
+            oldProjectDetail.setGroupMethod(Short.valueOf("0"));
+            oldProjectDetail.setGenderMethod(Short.valueOf("0"));
+            projectDetailMapper.updateByPrimaryKeySelective(oldProjectDetail);
+        }
         if (deleteStatus > 0) {
             String key = "animal_group_" + projectId;
             cacheRedisDao.removeFromCache(key);

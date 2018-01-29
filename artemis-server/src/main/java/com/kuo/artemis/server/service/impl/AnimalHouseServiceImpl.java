@@ -13,6 +13,8 @@ import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.entity.ProjectDetail;
 import com.kuo.artemis.server.service.AnimalHouseService;
 import com.kuo.artemis.server.util.ValidationUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,8 @@ import java.util.*;
  */
 @Service
 public class AnimalHouseServiceImpl implements AnimalHouseService {
+
+    private static Logger logger = LoggerFactory.getLogger(AnimalHouseService.class);
 
     @Inject
     private AnimalHouseMapper animalHouseMapper;
@@ -85,7 +89,6 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
         Integer buildingId = animalBuilding.getId();
 
         //2.创建圈舍
-
         for (AnimalHouse animalHouse : animalHouseList) {
             animalHouse.setBuildingId(buildingId);
             animalHouse.setProjectId(projectId);
@@ -143,6 +146,7 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
         //检测参数
         if ((treatmentNum * replicationNum > houseNumber) || animalHouseList.size() != houseNumber) {
             //首先看圈舍数目是否正确
+            logger.info("---------------house number is wrong------------------");
             return false;
         } else {
             //再看每个圈舍单元信息是否正确
@@ -150,6 +154,7 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
             Map<String, Integer> replicationMap = new HashMap<String, Integer>();
             for (AnimalHouse animalHouse : animalHouseList) {
                 if (animalHouse.getHouseCode() == null || "".equals(animalHouse.getHouseCode())) {
+                    logger.info("----------------house code id wrong-------------------");
                     return false;
                 }
                 houseSet.add(animalHouse.getHouseCode().trim());
@@ -165,8 +170,10 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
 
             //编号是否正确
             if (houseSet.contains(null) || houseSet.contains("") || houseSet.size() < animalHouseList.size()) {
+                logger.info("--------------missing code-------------");
                 return false;
             } else if (replicationMap.size() != replicationNum) {
+                logger.info("--------------wrong replicationNum-------------");
                 return false;
             } else {
                 Set<String> keySet = replicationMap.keySet();
@@ -174,6 +181,7 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
                 while (iterator.hasNext()) {
                     String key = iterator.next();
                     if (replicationMap.get(key) != treatmentNum) {
+                        logger.info("------------------wrong treatmentNum----------------------");
                         return false;
                     }
                 }
@@ -221,6 +229,7 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
      * @param param
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     public Response doHouseProgramming(RandomDistributionParam param) {
 
         try {
@@ -229,14 +238,25 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
             return new Response(e);
         }
 
+        logger.info("---------------group param-------------");
+        logger.info(param.toString());
         //核查参数
         Integer houseNumber = param.getHouseNumber();
         Integer treatmentNum = param.getTreatmentNum();
         Integer replicationNum = param.getReplicationNum();
+        Integer projectId = Integer.valueOf(param.getProjectId());
+        Short houseStyle = param.getHouseStyle();
+        String buildingCode = param.getBuildingCode();
         List<AnimalHouse> animalHouseList = param.getAnimalHouseList();
         Boolean checkResult = checkAnimalHouse(animalHouseList, replicationNum, treatmentNum, houseNumber);
         if (!checkResult) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "圈舍信息有误");
+        }
+
+        //检测是否已存在
+        AnimalBuilding building = animalBuildingMapper.selectByProjectId(projectId);
+        if (building != null) {
+            return new Response(HttpStatus.CONFLICT.value(), "请勿重复提交规划结果");
         }
 
         //设置序号防止失序
@@ -248,7 +268,35 @@ public class AnimalHouseServiceImpl implements AnimalHouseService {
         }
         RandomDistributionResult result = RandomDistribution.randomTreatmentDistribution(param);
 
-        return new Response(result, HttpStatus.OK.value(), "圈舍规划成功");
+        //1.创建building
+        AnimalBuilding animalBuilding = new AnimalBuilding();
+        animalBuilding.setProjectId(projectId);
+        animalBuilding.setHouseType(houseStyle);
+        animalBuilding.setBuildingCode(buildingCode);
+        animalBuilding.setHouseNumber(houseNumber);
+        animalBuildingMapper.insertSelective(animalBuilding);
+        Integer buildingId = animalBuilding.getId();
+
+        //2.创建圈舍
+        for (AnimalHouse animalHouse : animalHouseList) {
+            animalHouse.setBuildingId(buildingId);
+            animalHouse.setProjectId(projectId);
+        }
+        int insertResult = animalHouseMapper.insertBatch(animalHouseList);
+
+        //3.保存参数信息
+        ProjectDetail projectDetail = new ProjectDetail();
+        projectDetail.setProjectId(projectId);
+        projectDetail.setTreatmentNum(treatmentNum);
+        projectDetail.setReplicationNum(replicationNum);
+        projectDetail.setHouseStyle(houseStyle);
+        projectDetailMapper.insertSelective(projectDetail);
+        if (insertResult > 0) {
+            return new Response(result, HttpStatus.OK.value(), "保存圈舍规划成功");
+        }
+
+        return new Response(HttpStatus.NO_CONTENT.value(), "圈舍规划数据无效");
+
     }
 
     /**

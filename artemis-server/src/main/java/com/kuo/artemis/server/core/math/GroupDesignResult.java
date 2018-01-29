@@ -4,6 +4,8 @@ import com.kuo.artemis.server.core.dto.animal.GroupDesignMovingSheet;
 import com.kuo.artemis.server.core.dto.animal.GroupDesignSummary;
 import com.kuo.artemis.server.util.constant.GroupDesignStatus;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @Author : guoyang
  * @Description :
@@ -11,12 +13,15 @@ import com.kuo.artemis.server.util.constant.GroupDesignStatus;
  */
 public class GroupDesignResult {
 
+    @NotNull
     private String projectId;    //课题id
 
+    @NotNull
     private GroupDesignSummary summary;   //分组结果总结
 
     private GroupDesignMovingSheet movingSheet;   //分组结果movingSheet
 
+    @NotNull
     private GroupDesignParam param;
 
     private String status;    //分组结果状态

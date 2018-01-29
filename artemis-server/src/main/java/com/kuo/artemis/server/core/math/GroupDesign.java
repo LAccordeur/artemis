@@ -8,6 +8,8 @@ import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.util.MathUtil;
 import org.apache.commons.math3.distribution.FDistribution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.apache.commons.math.MathException;
 //import org.apache.commons.math.distribution.FDistribution;
 //import org.apache.commons.math.distribution.FDistributionImpl;
@@ -22,6 +24,8 @@ import java.util.*;
  * @Date : Created on 2017/12/19
  */
 public class GroupDesign {
+
+    private static Logger logger = LoggerFactory.getLogger(GroupDesign.class);
 
     private static final Random random = new Random();
 
@@ -362,20 +366,28 @@ public class GroupDesign {
             List<Double> meanListForAnalysis = new ArrayList();
             List<Double> meanList = new ArrayList<Double>();
             List<Double> cvList = new ArrayList<Double>();
+            Set<String> meanSet = new HashSet<String>();
+            Set<String> cvSet = new HashSet<String>();
             for (Animal animal : animalList) {
                 if (animal.getSuitable() == 1  || (animal.getReplicate() != null && animal.getTreatment() != null && !"".equals(animal.getReplicate()) && !"".equals(animal.getTreatment()))) {
                     Double mean = animal.getWeightMean();
                     Double cv = animal.getCoefficientOfVariation();
-                    if (!meanList.contains(mean)) {
+                    //if (!meanList.contains(mean)) { //TODO 可能存在两个处理组的重复数相同的情况BUG
+                    if (meanSet.contains(animal.getReplicate()+animal.getTreatment())) {
                         if (mean != null) {
                             meanList.add(MathUtil.setFiveScale(mean));
                         }
                     }
-                    if (!cvList.contains(cv)) {
+                    //}
+                    //if (!cvList.contains(cv)) {
+                    if (cvSet.contains(animal.getReplicate())) {
                         if (cv != null) {
                             cvList.add(MathUtil.setFiveScale(cv));
                         }
                     }
+                    //}
+                    meanSet.add(animal.getReplicate()+animal.getTreatment());
+                    cvSet.add(animal.getReplicate());
                 }
             }
 
@@ -389,6 +401,10 @@ public class GroupDesign {
 
             //计算每一列的平均数
             List<Double> rowMeanList = summaryOfAnimalAllotment.get(treatmentNum);
+            logger.info("--------------------------------------------------------");
+            logger.info("replicationNum:" + replicationNum);
+            logger.info("treatmentNum:" + treatmentNum);
+            logger.info("meanList Size:" + meanList.size());
             for (int i = 0; i < replicationNum; i++) {
                 List<Double> groupList = meanList.subList(i*treatmentNum, (i+1)*treatmentNum);
                 Double colMean = MathUtil.computeAverage(groupList);
@@ -398,7 +414,7 @@ public class GroupDesign {
             for (int i = 0; i <= treatmentNum; i++) {
                 List<Double> rowData = summaryOfAnimalAllotment.get(i);
                 Double rowMean = MathUtil.computeAverage(rowData);
-                rowData.add(rowMean);
+                rowData.add(MathUtil.setFiveScale(rowMean));
                 if (i != treatmentNum) {
                     meanListForAnalysis.add(MathUtil.setFiveScale(rowMean));
                 }

@@ -215,7 +215,7 @@
           animal_sex = #{item.animalSex},
         </if>
         <if test="item.initialBw != null">
-          animal_init_weight = #{item.animalInitWeight},
+          initial_bw = #{item.initialBw},
         </if>
         <if test="item.house != null">
           house = #{item.house},

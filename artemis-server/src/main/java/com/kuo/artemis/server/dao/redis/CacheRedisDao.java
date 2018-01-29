@@ -28,7 +28,7 @@ public class CacheRedisDao {
             ObjectMapper objectMapper = new ObjectMapper();
 
             //if (operations.get(key) == null) {
-                operations.set(key, objectMapper.writeValueAsString(object));
+                operations.set(key, objectMapper.writeValueAsString(object), 1000*60*24);
             //}
         } catch (JsonProcessingException e) {
             e.getMessage();

@@ -98,7 +98,7 @@ public final class ExcelUtil {
      */
     private static String fieldFormat(String field) {
 
-        //TODO  导入文件中的数据包含指标数据和原料数据，对原料数据字段的解析还未添加
+        //TODO  指标数据和原料数据以及营养标准字段已加入 未来可能会新增
         //如果含有中文，则改用另一种方法转换
         if (BeanUtil.isContainChinese(field)) {
             if (field.trim().contains("（%）")) {
@@ -409,9 +409,10 @@ public final class ExcelUtil {
     }
 
     /**
-     * 导出Excel文件模板   TODO 未来可增加样式的美化
+     * 导出Excel文件模板
      * @param
      */
+    @Deprecated
     public static Workbook exportExcelTemplate(List<String> englishFields, List<String> chineseFields) {
 
         //1.创建一个Workbook对象对应一个Excel文件

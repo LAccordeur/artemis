@@ -15,6 +15,11 @@ import java.util.List;
 public class RandomDistributionParam {
 
     @NotNull
+    private String projectId;
+
+    private String buildingCode;
+
+    @NotNull
     private Short houseStyle;    //圈舍风格
 
     @NotNull
@@ -32,11 +37,30 @@ public class RandomDistributionParam {
     @Override
     public String toString() {
         return "RandomDistributionParam{" +
-                "houseStyle=" + houseStyle +
+                "projectId='" + projectId + '\'' +
+                ", buildingCode='" + buildingCode + '\'' +
+                ", houseStyle=" + houseStyle +
                 ", houseNumber=" + houseNumber +
                 ", replicationNum=" + replicationNum +
                 ", treatmentNum=" + treatmentNum +
+                ", animalHouseList=" + animalHouseList +
                 '}';
+    }
+
+    public String getBuildingCode() {
+        return buildingCode;
+    }
+
+    public void setBuildingCode(String buildingCode) {
+        this.buildingCode = buildingCode;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public List<AnimalHouse> getAnimalHouseList() {

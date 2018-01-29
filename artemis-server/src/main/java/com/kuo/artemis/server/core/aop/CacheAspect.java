@@ -31,11 +31,11 @@ public class CacheAspect {
 
 
     /**
-     * 将分组数据放入缓存
+     * 将分组数据放入缓存  TODO 解析BUG
      * @param point
      * @param result
      */
-    @AfterReturning(value = "cacheAspect()", returning = "result")
+    //@AfterReturning(value = "cacheAspect()", returning = "result")
     public void afterReturn(JoinPoint point, Object result) {
         String method = point.getSignature().getName();
         Object[] args = point.getArgs();
