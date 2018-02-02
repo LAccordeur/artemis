@@ -7,6 +7,7 @@ import java.util.Date;
  * @Description :
  * @Date : Created on 2018/1/26
  */
+@Deprecated
 public class ExcelTestThree {
 
     private String id;

@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class DataExportDTO {
 
+    private String filename;
+
     private String projectId;
 
     private String userId;
@@ -18,6 +20,14 @@ public class DataExportDTO {
     private String version;
 
     private List dataList;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public String getVersion() {
         return version;

@@ -98,6 +98,9 @@ public final class ExcelUtil {
      */
     private static String fieldFormat(String field) {
 
+        if (field == null) {
+            return null;
+        }
         //TODO  指标数据和原料数据以及营养标准字段已加入 未来可能会新增
         //如果含有中文，则改用另一种方法转换
         if (BeanUtil.isContainChinese(field)) {
@@ -269,11 +272,14 @@ public final class ExcelUtil {
                 String initField = initFields.get(j);  //excel表中原始的字段名形式 比如init weight
                 String field = fieldFormat(initField);
                 Object value = rowData.get(j);
-                rowMap.put(field, value);
+                if (field != null) {
+                    rowMap.put(field, value);
+                }
             }
 
             resultList.add(rowMap);
         }
+
 
         return resultList;
     }

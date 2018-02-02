@@ -373,14 +373,14 @@ public class GroupDesign {
                     Double mean = animal.getWeightMean();
                     Double cv = animal.getCoefficientOfVariation();
                     //if (!meanList.contains(mean)) { //TODO 可能存在两个处理组的重复数相同的情况BUG
-                    if (meanSet.contains(animal.getReplicate()+animal.getTreatment())) {
+                    if (!meanSet.contains(animal.getReplicate()+animal.getTreatment())) {
                         if (mean != null) {
                             meanList.add(MathUtil.setFiveScale(mean));
                         }
                     }
                     //}
                     //if (!cvList.contains(cv)) {
-                    if (cvSet.contains(animal.getReplicate())) {
+                    if (!cvSet.contains(animal.getReplicate())) {
                         if (cv != null) {
                             cvList.add(MathUtil.setFiveScale(cv));
                         }

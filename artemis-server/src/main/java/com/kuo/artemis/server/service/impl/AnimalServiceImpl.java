@@ -23,6 +23,8 @@ import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
 import com.kuo.artemis.server.util.constant.GenderOptionConst;
 import com.kuo.artemis.server.util.constant.GroupDesignMethodConst;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,9 @@ import java.util.*;
  */
 @Service
 public class AnimalServiceImpl implements AnimalService {
+
+    private static Logger logger = LoggerFactory.getLogger(AnimalService.class);
+
     @Inject
     private AnimalHouseMapper animalHouseMapper;
 
@@ -200,18 +205,21 @@ public class AnimalServiceImpl implements AnimalService {
         List<AnimalHouse> animalHouseList = animalHouseMapper.selectByProjectId(Integer.valueOf(projectId));
         ProjectDetail projectDetail = projectDetailMapper.selectByProjectId(Integer.valueOf(projectId));
         int groupStatus = animalMapper.selectAnimalGroupDetailStatus(Integer.valueOf(projectId));
-        if (animalList == null || animalList.size() == 0 || animalHouseList == null || animalHouseList.size() == 0 || projectDetail == null || projectDetail.getGroupMethod() == 0 || projectDetail.getGenderMethod() == 0 || groupStatus < 1) {
+        if (animalList == null || animalList.size() == 0 || animalHouseList == null || animalHouseList.size() == 0 || projectDetail == null || projectDetail.getGroupMethod() == 0 || groupStatus < 1) {
             return new Response(HttpStatus.NO_CONTENT.value(), "无分组结果");
         }
 
         GroupDesignParam param = new GroupDesignParam();
         param.setTreatmentNum(projectDetail.getTreatmentNum());
         param.setReplicationNum(projectDetail.getReplicationNum());
+        param.setGenderOption(String.valueOf(projectDetail.getGenderMethod()));
+        param.setDesignMethod(String.valueOf(projectDetail.getGroupMethod()));
         GroupDesignResult result = new GroupDesignResult();
         GroupDesign.setAnimalGroupSummary(animalList, param, result, true);
         GroupDesign.setAnimalGroupMovingSheet(animalList, result, true);
         result.setParam(param);
         result.setProjectId(projectId);
+        result.setStatus("success");
 
         return new Response(result, HttpStatus.OK.value(), "分组结果");
     }
@@ -259,17 +267,34 @@ public class AnimalServiceImpl implements AnimalService {
             projectDetail.setReplicationNum(param.getReplicationNum());
             projectDetail.setTreatmentNum(param.getTreatmentNum());
             projectDetail.setGroupMethod(Short.valueOf(param.getDesignMethod()));
-            projectDetail.setGenderMethod(Short.valueOf(param.getGenderOption()));
+            String genderOption;
+            if (param.getGenderOption() == null || "".equals(param.getGenderOption())) {
+                genderOption = "0";
+            } else {
+                genderOption = param.getGenderOption();
+            }
+            projectDetail.setGenderMethod(Short.valueOf(genderOption));
             projectDetailMapper.insertSelective(projectDetail);
         } else {
+            logger.info("------------------------------------------------------");
+            logger.info("design method:"  + param.getDesignMethod());
+            logger.info("genderOption:" + param.getGenderOption());
+            String genderOption;
+            if (param.getGenderOption() == null || "".equals(param.getGenderOption())) {
+                genderOption = "0";
+            } else {
+                genderOption = param.getGenderOption();
+            }
+
             oldProjectDetail.setGroupMethod(Short.valueOf(param.getDesignMethod()));
-            oldProjectDetail.setGenderMethod(Short.valueOf(param.getGenderOption()));
+            oldProjectDetail.setGenderMethod(Short.valueOf(genderOption));
             projectDetailMapper.updateByPrimaryKeySelective(oldProjectDetail);
         }
 
 
         GroupDesign.setAnimalGroupSummary(animalList, param, result, true);
         GroupDesign.setAnimalGroupMovingSheet(animalList, result, true);
+        result.setStatus("success");
         return new Response(result, HttpStatus.OK.value(), "提交成功");
     }
 

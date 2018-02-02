@@ -1,11 +1,13 @@
 package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.entity.ExcelTest;
 import com.kuo.artemis.server.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +35,8 @@ public class ErrorController {
     @RequestMapping(value = "/test")
     @ResponseBody
     public Response test() {
-         return new Response(HttpStatus.OK.value(), "test");
+        ExcelTest test  = new ExcelTest();
+        test.setBirthday(new Date());
+        return new Response(test,HttpStatus.OK.value(), "test");
     }
 }

@@ -404,6 +404,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
 
         //2.获取数据
         List<AnimalRecord> animalIndicatorRecordList = animalRecordMapper.selectSelective(indicatorList, Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
+        FileRecord fileRecord = fileRecordMapper.selectByPrimaryKey(fileRecordId);
 
         synchronized (this) {
             //3.设置返回字段的顺序
@@ -415,6 +416,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
             dataExportDTO.setFileIdentifier(fileIdentifier);
             dataExportDTO.setVersion(version);
             dataExportDTO.setDataList(animalIndicatorRecordList);
+            dataExportDTO.setFilename(fileRecord.getFilename());
 
             return new Response(dataExportDTO, HttpStatus.OK.value(), "获取数据成功");
         }

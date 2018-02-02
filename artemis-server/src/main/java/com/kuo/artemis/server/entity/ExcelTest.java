@@ -1,5 +1,7 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 @Deprecated
 public class ExcelTest {
@@ -11,6 +13,7 @@ public class ExcelTest {
 
     private Date birthday;
 
+    @JsonProperty(value = "create time")
     private Date createTime;
 
     @Override

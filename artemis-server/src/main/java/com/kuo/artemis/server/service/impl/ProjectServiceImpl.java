@@ -93,20 +93,27 @@ public class ProjectServiceImpl implements ProjectService {
 
 
         //5.创建用户初始的原料库和指标库
-        List<Material> materialList = materialMapper.selectBaseMaterial();
-        for (Material material : materialList) {
-            material.setId(null);
-            material.setUserId(userId);
+        List<Material> materialListFromDB = materialMapper.selectByUserId(userId);
+        if (materialListFromDB == null || materialListFromDB.size() == 0) {
+            List<Material> materialList = materialMapper.selectBaseMaterial();
+            for (Material material : materialList) {
+                material.setId(null);
+                material.setUserId(userId);
+            }
+            materialMapper.insertBatch(materialList);
         }
-        materialMapper.insertBatch(materialList);
 
-        List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectBaseNutritionStandards();
-        for (NutritionStandard nutritionStandard : nutritionStandardList) {
-            nutritionStandard.setId(null);
-            nutritionStandard.setUserId(userId);
+
+        List<NutritionStandard> nutritionStandardListFromDB = nutritionStandardMapper.selectByUserId(userId);
+        if (nutritionStandardListFromDB == null || nutritionStandardListFromDB.size() ==0) {
+            List<NutritionStandard> nutritionStandardList = nutritionStandardMapper.selectBaseNutritionStandards();
+            for (NutritionStandard nutritionStandard : nutritionStandardList) {
+                nutritionStandard.setId(null);
+                nutritionStandard.setUserId(userId);
+            }
+            nutritionStandardMapper.insertBatch(nutritionStandardList);
+
         }
-        nutritionStandardMapper.insertBatch(nutritionStandardList);
-
 
         rolePermissionMapper.insertBatch(rolePermissionList);
         //6.创建用户角色关系
