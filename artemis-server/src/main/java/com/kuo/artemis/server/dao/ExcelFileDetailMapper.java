@@ -23,4 +23,6 @@ public interface ExcelFileDetailMapper {
     int updateByPrimaryKey(ExcelFileDetail record);
 
     List<String> selectNameByFileRecordId(@Param("fileRecordId") Integer fileRecordId);
+
+    List<ExcelFileDetail> selectByFileRecordId(@Param("fileRecordId") Integer fileRecordId);
 }

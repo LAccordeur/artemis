@@ -3,6 +3,7 @@ package com.kuo.artemis.server.dao;
 import com.kuo.artemis.server.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -40,4 +41,20 @@ public class UserMapperTest {
         System.out.println(userMapper.selectByEntity(user));
     }
 
+    @Bean
+    public User userOne() {
+        return new User();
+    }
+
+
+    public UserTwo test() {
+        return new UserTwo(userOne());
+    }
+
+}
+
+class UserTwo {
+    public UserTwo(User user) {
+
+    }
 }

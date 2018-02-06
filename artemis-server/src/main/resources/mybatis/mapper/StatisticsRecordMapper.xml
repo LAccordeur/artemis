@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.artemis.server.dao.StatisticsRecordMapper">
+  <resultMap id="BaseResultMap" type="com.kuo.artemis.server.entity.StatisticsRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="statistics_method" jdbcType="SMALLINT" property="statisticsMethod" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+
+  </resultMap>
+  
+  <resultMap id="StatisticsRecordDetail" type="com.kuo.artemis.server.entity.StatisticsRecord">
+
+    <!-- 配置统计记录的基本信息 -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="statistics_method" jdbcType="SMALLINT" property="statisticsMethod" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+
+    <!-- 配置每行记录 -->
+    <collection property="statisticsDetailRecordList" ofType="com.kuo.artemis.server.entity.StatisticsDetailRecord">
+      <id column="detail_id" jdbcType="INTEGER" property="id" />
+      <result column="statistics_record_id" jdbcType="INTEGER" property="statisticsRecordId" />
+      <result column="statistics_indicator_id" jdbcType="INTEGER" property="statisticsIndicatorId" />
+      <result column="statistics_indicator_name" jdbcType="VARCHAR" property="statisticsIndicatorName" />
+      <result column="p_value" jdbcType="DECIMAL" property="pValue" />
+      <result column="p_value_factor_a" jdbcType="DECIMAL" property="pValueFactorA" />
+      <result column="p_value_factor_b" jdbcType="DECIMAL" property="pValueFactorB" />
+      <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+
+      <!-- 配置每行记录里的每个单元格 -->
+      <collection property="statisticsDetailItemList" ofType="com.kuo.artemis.server.entity.StatisticsDetailItem">
+        <id column="item_id" jdbcType="INTEGER" property="id" />
+        <result column="statistics_detail_record_id" jdbcType="INTEGER" property="statisticsDetailRecordId" />
+        <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
+        <result column="item_mean" jdbcType="DECIMAL" property="itemMean" />
+        <result column="item_stderr" jdbcType="DECIMAL" property="itemStderr" />
+        <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+      </collection>
+    </collection>
+  </resultMap>
+
+
+  
+  <sql id="Base_Column_List">
+    id, project_id, user_id, statistics_method, modified_time, create_time
+  </sql>
+
+  <delete id="deleteRecordById" parameterType="java.lang.Integer">
+    update statistics_record set display = 0 where id = #{recordId}
+  </delete>
+
+  <select id="selectStatisticsRecordByProjectId" parameterType="java.lang.Integer" resultType="StatisticsRecord">
+    select statistics_record.id, statistics_record.statistics_method, user.user_name, statistics_record.create_time
+    from statistics_record
+    left join user on statistics_record.user_id = user.id
+    where statistics_record.project_id = #{projectId} and statistics_record.display = 1
+  </select>
+
+  <select id="selectStatisticsRecordDetailByRecordId" parameterType="java.lang.Integer" resultMap="StatisticsRecordDetail">
+    select
+    statistics_record.id as id,
+    statistics_record.statistics_method,
+    statistics_record.modified_time,
+    statistics_record.create_time,
+    statistics_detail_record.id as detail_id,
+    statistics_detail_record.statistics_indicator_name,
+    statistics_detail_record.p_value,
+    statistics_detail_record.p_value_factor_a,
+    statistics_detail_record.p_value_factor_b,
+    statistics_detail_item.id as item_id,
+    statistics_detail_item.item_code,
+    statistics_detail_item.item_mean,
+    statistics_detail_item.item_stderr
+    from statistics_record
+    left join statistics_detail_record on statistics_record.id = statistics_detail_record.statistics_record_id
+    left join statistics_detail_item on statistics_detail_item.statistics_detail_record_id = statistics_detail_record.id
+    where statistics_record.id = #{statisticsRecordId} and statistics_record.display = 1
+
+    <!--from statistics_record, statistics_detail_record, statistics_detail_item
+    where statistics_detail_record.statistics_record_id = statistics_record.id and statistics_detail_item.statistics_detail_record_id = statistics_detail_record.id
+    -->
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from statistics_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from statistics_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kuo.artemis.server.entity.StatisticsRecord">
+    insert into statistics_record (id, project_id, user_id, 
+      statistics_method, modified_time, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{statisticsMethod,jdbcType=SMALLINT}, #{modifiedTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.StatisticsRecord" useGeneratedKeys="true" keyProperty="id">
+    insert into statistics_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="statisticsMethod != null">
+        statistics_method,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsMethod != null">
+        #{statisticsMethod,jdbcType=SMALLINT},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.StatisticsRecord">
+    update statistics_record
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsMethod != null">
+        statistics_method = #{statisticsMethod,jdbcType=SMALLINT},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kuo.artemis.server.entity.StatisticsRecord">
+    update statistics_record
+    set project_id = #{projectId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      statistics_method = #{statisticsMethod,jdbcType=SMALLINT},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
