@@ -7,6 +7,14 @@
           <element id="module-output" name="artemis-server" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.datumbox:datumbox-framework:0.5.1" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.0" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:17.0" />
+          <element id="library" level="project" name="Maven: tw.edu.ntu.csie:libsvm:3.17" />
+          <element id="library" level="project" name="Maven: com.datumbox:lpsolve:5.5.2.0" />
+          <element id="library" level="project" name="Maven: com.github.mongoutils:mongo-collections:1.4" />
+          <element id="library" level="project" name="Maven: org.mongodb.morphia:morphia:0.107" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongo-java-driver:2.12.0-rc3" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-redis:1.8.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-keyvalue:1.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.13.3.RELEASE" />

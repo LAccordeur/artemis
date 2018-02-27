@@ -8,6 +8,18 @@ import java.util.List;
 
 public class MathUtilTest {
     @Test
+    public void calculateStandardError() throws Exception {
+        List<Double> doubles = new ArrayList<Double>();
+        doubles.add(10.96);
+        doubles.add(10.43);
+        doubles.add(10.00);
+        doubles.add(9.72);
+        doubles.add(9.27);
+
+        System.out.println(MathUtil.calculateStandardError(doubles));
+    }
+
+    @Test
     public void computerSS() throws Exception {
 
         List<Double> doubles = new ArrayList<Double>();

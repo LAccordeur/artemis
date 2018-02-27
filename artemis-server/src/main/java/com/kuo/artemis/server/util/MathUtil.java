@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.util;
 
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -88,6 +89,34 @@ public class MathUtil {
             double value = data.get(i);
             result = result + (value - averageNum) * (value - averageNum);
         }
+
+        return result;
+    }
+
+
+    /**
+     * 定义参见wiki https://zh.wikipedia.org/wiki/%E6%A0%87%E5%87%86%E8%AF%AF
+     * @param data
+     * @return
+     */
+    public static double calculateStandardError(List<Double> data) {
+        double result = 0D;
+
+        StandardDeviation standardDeviation = new StandardDeviation();
+        double standardDeviationValue = standardDeviation.evaluate(listToArray(data));
+        result = standardDeviationValue / Math.sqrt(data.size());
+
+        return result;
+    }
+
+    private static double[] listToArray(List<Double> doubleList) {
+        int length = doubleList.size();
+        double[] result = new double[length];
+
+        for (int i = 0; i < length; i++) {
+            result[i] = doubleList.get(i);
+        }
+
 
         return result;
     }

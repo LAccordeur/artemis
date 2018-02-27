@@ -35,6 +35,14 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/com.datumbox/datumbox-framework 方差分析-->
+        <dependency>
+            <groupId>com.datumbox</groupId>
+            <artifactId>datumbox-framework</artifactId>
+            <version>0.5.1</version>
+        </dependency>
+
+
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.data</groupId>

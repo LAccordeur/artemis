@@ -16,6 +16,10 @@ import java.util.List;
  */
 public class StatisticsHelper {
 
+
+
+
+
     /**
      * 一个指标的分析流程：进行分析的时候根据用户提交的参数做如下操作
      * 1.构建好一个统计记录的对象（包含三个层次的）
@@ -50,4 +54,11 @@ public class StatisticsHelper {
         detailRecord.setpValue(BigDecimal.valueOf(22));
         detailRecord.setStatisticsIndicatorName(indicatorName);
     }
+
+    //多因素分析的流程（单个指标）
+    //1.根据处理组依次获取数据（包含两个因素的各自水平也要连同获取），这样每个item对象包含该指标的某个处理组的数据，以及该处理组对应的因素A的水平和因素B的水平
+    //2.对每个item对象计算均值和标准误
+    //3.将这个指标的item list进行分类处理按因素A的水平放在两个map中
+    //4.依次对每个map中的数据根据因素B的水平放入TransposeDataCollection
+    //5.将上述的TransposeDataCollection放入TransposeDataCollection2D对象
 }
