@@ -35,6 +35,10 @@ public class Animal {
 
     private String replicate;
 
+    private String factorA;  //用于双因素方差分析
+
+    private String factorB;  //用于双因素方差分析
+
     private Date animalBirthday;
 
     private Double deviationFromMedian; //用于动物分组使用
@@ -59,6 +63,7 @@ public class Animal {
 
     private Date modifiedTime;
 
+
     @Override
     public String toString() {
         return "Animal{" +
@@ -75,6 +80,8 @@ public class Animal {
                 ", idNumber='" + idNumber + '\'' +
                 ", treatment='" + treatment + '\'' +
                 ", replicate='" + replicate + '\'' +
+                ", factorA='" + factorA + '\'' +
+                ", factorB='" + factorB + '\'' +
                 ", animalBirthday=" + animalBirthday +
                 ", deviationFromMedian=" + deviationFromMedian +
                 ", suitable=" + suitable +
@@ -90,6 +97,21 @@ public class Animal {
                 '}';
     }
 
+    public String getFactorA() {
+        return factorA;
+    }
+
+    public void setFactorA(String factorA) {
+        this.factorA = factorA;
+    }
+
+    public String getFactorB() {
+        return factorB;
+    }
+
+    public void setFactorB(String factorB) {
+        this.factorB = factorB;
+    }
 
     public BigDecimal getInitialBw() {
         return initialBw;

@@ -18,6 +18,8 @@ public class StatisticsRecord {
 
     private Date createTime;
 
+    private List<StatisticsDetailRecord> statisticsDetailRecordList;
+
     @Override
     public String toString() {
         return "StatisticsRecord{" +
@@ -31,8 +33,6 @@ public class StatisticsRecord {
                 ", statisticsDetailRecordList=" + statisticsDetailRecordList +
                 '}';
     }
-
-    private List<StatisticsDetailRecord> statisticsDetailRecordList;
 
     public List<StatisticsDetailRecord> getStatisticsDetailRecordList() {
         return statisticsDetailRecordList;

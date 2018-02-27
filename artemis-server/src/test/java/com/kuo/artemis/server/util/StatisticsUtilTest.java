@@ -54,15 +54,15 @@ public class StatisticsUtilTest {
 
         List<Double> sample1 = new ArrayList<Double>();
         sample1.add(8D);
-        sample1.add(16D);
-        sample1.add(12D);
-        sample1.add(17D);
+        //sample1.add(16D);
+        //sample1.add(12D);
+        //sample1.add(17D);
 
         List<Double> sample2 = new ArrayList<Double>();
         sample2.add(8D);
-        sample2.add(16D);
-        sample2.add(12D);
-        sample2.add(17D);
+        //sample2.add(16D);
+        //sample2.add(12D);
+        //sample2.add(17D);
 
         Double pValue = StatisticsUtil.independentSampleTTest(sample1, sample2);
         System.out.println(pValue);

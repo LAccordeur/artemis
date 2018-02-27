@@ -40,6 +40,25 @@
     group by treatment
   </select>
 
+  <select id="selectFactorsByTreatmentCode" resultType="Animal">
+    select treatment, factor_a, factor_b
+    from animal
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version} and treatment = #{treatmentCode}
+    group by treatment, factor_a, factor_b
+  </select>
+
+  <select id="selectFactorALevels" resultType="String">
+    select factor_a from animal
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
+    group by factor_a
+  </select>
+
+  <select id="selectFactorBLevels" resultType="String">
+    select factor_b from animal
+    where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
+    group by factor_b
+  </select>
+
   <select id="selectTreatmentData" resultType="java.lang.Double">
     select ${indicatorName} from animal_record_view
     where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version} and treatment = #{treatmentCode}

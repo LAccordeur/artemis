@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.dao;
 
+import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.StatisticsDetailItem;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,9 @@ public interface StatisticsDetailItemMapper {
 
     List<Double> selectTreatmentData(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version, @Param("treatmentCode") String treatmentCode, @Param("indicatorName") String indicatorName);
 
+    Animal selectFactorsByTreatmentCode(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version, @Param("treatmentCode") String treatmentCode);
+
+    List<String> selectFactorALevels(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version);
+
+    List<String> selectFactorBLevels(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version);
 }

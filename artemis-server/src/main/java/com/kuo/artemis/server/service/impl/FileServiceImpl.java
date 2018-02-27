@@ -68,6 +68,7 @@ public class FileServiceImpl implements FileService {
      * @return
      * @throws Exception
      */
+    @Deprecated
     @Transactional(rollbackFor = Exception.class)
     public Response parseAndSaveIndicatorExcel(ExcelImportCommand command) throws Exception {
 
@@ -175,6 +176,7 @@ public class FileServiceImpl implements FileService {
         return new Response(indicatorExcelImportDTO.getItems(), HttpStatus.OK.value(), "upload success");
     }
 
+    @Deprecated
     public Response parseAndSaveMaterialExcel(ExcelImportCommand command) throws Exception {
 
         ExcelImportDTO excelImportDTO = null;
@@ -218,6 +220,7 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    @Deprecated
     public Response parseAndSaveNutritionStandardExcel(ExcelImportCommand command) throws Exception {
         ExcelImportDTO excelImportDTO = null;
         //1.解析文件

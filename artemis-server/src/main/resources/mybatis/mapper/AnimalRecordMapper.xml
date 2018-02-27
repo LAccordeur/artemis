@@ -733,6 +733,8 @@
     <result column="file_identifier" jdbcType="VARCHAR" property="fileIdentifier" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="factor_a" jdbcType="VARCHAR" property="factorA" />
+    <result column="factor_b" jdbcType="VARCHAR" property="factorB" />
   </resultMap>
 
   <select id="selectSelective" resultType="AnimalRecord">

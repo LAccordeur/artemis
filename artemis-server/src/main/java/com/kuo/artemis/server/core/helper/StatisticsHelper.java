@@ -14,6 +14,7 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2018/2/6
  */
+@Deprecated
 public class StatisticsHelper {
 
 
