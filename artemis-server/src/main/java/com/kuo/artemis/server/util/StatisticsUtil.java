@@ -48,7 +48,7 @@ public class StatisticsUtil {
      * @return 返回p值
      */
     public static AssociativeArray2D twoWayAnalysisOfVariance(Map<String, Map<String, List<Object>>> dataMap) {
-        //Anova.twoWayTestEqualCellsEqualVars()
+
         TransposeDataCollection2D twoFactorDataCollection = new TransposeDataCollection2D();
 
         Set<String> factorAKeySet = dataMap.keySet();

@@ -20,6 +20,41 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-*.xml"})
 public class StatisticsServiceImplTest {
     @Test
+    public void oneWayAnalysisOfVariance() throws Exception {
+
+        StatisticsParam param = new StatisticsParam();
+        param.setProjectId("20");
+        param.setUserId("6");
+        param.setVersion("1");
+        param.setFileIdentifier("-11242");
+        param.setAnalysisMethod("1");
+        List<String> indicatorIds = new ArrayList<String>();
+        indicatorIds.add("181");
+        indicatorIds.add("182");
+        param.setIndicatorIdList(indicatorIds);
+
+        System.out.println(statisticsService.oneWayAnalysisOfVariance(param));
+
+    }
+
+    @Test
+    public void twoWayAnalysisOfVariance() throws Exception {
+        StatisticsParam param = new StatisticsParam();
+        param.setProjectId("20");
+        param.setUserId("7");
+        param.setVersion("1");
+        param.setFileIdentifier("-10548");
+        param.setAnalysisMethod("1");
+        List<String> indicatorIds = new ArrayList<String>();
+        indicatorIds.add("7");
+        indicatorIds.add("181");
+        param.setIndicatorIdList(indicatorIds);
+
+        System.out.println(statisticsService.twoWayAnalysisOfVariance(param));
+
+    }
+
+    @Test
     public void listStatisticsRecords() throws Exception {
 
         System.out.println(statisticsService.listStatisticsRecords("20"));

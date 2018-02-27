@@ -236,16 +236,13 @@ public class StatisticsServiceImpl implements StatisticsService {
             //组装放入分析函数的数据结构
             Map<String, Map<String, List<Object>>> dataMap = new HashMap<String, Map<String, List<Object>>>();
             List<String> factorALevels = statisticsDetailItemMapper.selectFactorALevels(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
-            //List<String> factorBLevels = statisticsDetailItemMapper.selectFactorBLevels(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
+            if (factorALevels == null || factorALevels.size() == 0 || factorALevels.get(0) == null) {
+                return new Response(HttpStatus.BAD_REQUEST.value(), "数据错误");
+            }
             for (int m = 0; m < factorALevels.size(); m++) {
                 String aLevel = factorALevels.get(m);
                 Map<String, List<Object>> map = new HashMap<String, List<Object>>();
                 dataMap.put(aLevel, map);
-                /*for (int n = 0; n < factorBLevels.size(); n++) {
-                    String bLevel = factorBLevels.get(n);
-                    map.put(bLevel, null);
-
-                }*/
             }
 
             //依次获取每个指标下每个处理组的数据
@@ -254,7 +251,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                 StatisticsItem item = new StatisticsItem();
                 statisticsDetailItemList.add(item);
 
-                List<Double> treatmentData = statisticsDetailItemMapper.selectTreatmentData(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version), treatmentCode, formatIndicatorName);
+                List treatmentData = statisticsDetailItemMapper.selectTreatmentData(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version), treatmentCode, formatIndicatorName);
                 item.setInitialData(treatmentData);
                 item.setItemCode(treatmentCode);
                 //计算每个处理组的均值和标准差
@@ -268,16 +265,24 @@ public class StatisticsServiceImpl implements StatisticsService {
                 Animal animal = statisticsDetailItemMapper.selectFactorsByTreatmentCode(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version), treatmentCode);
                 String factorA = animal.getFactorA();
                 String factorB = animal.getFactorB();
-                //dataMap.get(factorA).put(factorB, treatmentData);
+                dataMap.get(factorA).put(factorB, treatmentData);
             }
 
 
             //获取每个指标的双因素分析结果
             AssociativeArray2D outputTable = StatisticsUtil.twoWayAnalysisOfVariance(dataMap);
+            Object aFactorP = outputTable.get2d("AFactor", "p");
+            Object bFactorP = outputTable.get2d("BFactor", "p");
+            Object abFactorP = outputTable.get2d("A*BFactor", "p");
+            statisticsDetailRecord.setpValueFactorA(new BigDecimal(String.valueOf(aFactorP)));
+            statisticsDetailRecord.setpValueFactorB(new BigDecimal(String.valueOf(bFactorP)));
+            statisticsDetailRecord.setpValue(new BigDecimal(String.valueOf(abFactorP)));
+            statisticsDetailRecord.setStatisticsIndicatorName(indicatorName);
         }
 
+        saveRecord(projectId, userId, StatisticsMethodConst.TWO_WAY_ANOVA, statisticsRecord);
 
-        return null;
+        return new Response(statisticsRecord, HttpStatus.OK.value(), "双因素方差分析");
     }
 
     public Response listStatisticsRecords(String projectId) {
