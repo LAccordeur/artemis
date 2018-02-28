@@ -13,7 +13,7 @@ public class StatisticsItem extends StatisticsDetailItem {
 
     private List<Double> initialData; //某个指标的某个处理组的原始数据
 
-    private String factorA;   //用于双因素方差分析
+    private String factorA;   //用于双因素方差分析（因素A的水平值）
 
     private String factorB;   //用于双因素方差分析
 

@@ -1,7 +1,10 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExcelFileDetail {
     private Integer id;
 
@@ -14,6 +17,18 @@ public class ExcelFileDetail {
     private String tableName;
 
     private Date createTime;
+
+    @Override
+    public String toString() {
+        return "ExcelFileDetail{" +
+                "id=" + id +
+                ", fileRecordId=" + fileRecordId +
+                ", indicatorId=" + indicatorId +
+                ", indicatorName='" + indicatorName + '\'' +
+                ", tableName='" + tableName + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
 
     public Integer getId() {
         return id;

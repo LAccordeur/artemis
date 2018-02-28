@@ -5,10 +5,7 @@ import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.statistics.StatisticsItem;
 import com.kuo.artemis.server.core.dto.statistics.StatisticsParam;
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
-import com.kuo.artemis.server.dao.AnimalIndicatorMapper;
-import com.kuo.artemis.server.dao.StatisticsDetailItemMapper;
-import com.kuo.artemis.server.dao.StatisticsDetailRecordMapper;
-import com.kuo.artemis.server.dao.StatisticsRecordMapper;
+import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.StatisticsService;
 import com.kuo.artemis.server.util.StatisticsUtil;
@@ -45,6 +42,11 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Inject
     private AnimalIndicatorMapper animalIndicatorMapper;
 
+    @Inject
+    private FileRecordMapper fileRecordMapper;
+
+    @Inject
+    private ExcelFileDetailMapper excelFileDetailMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public Response independentSampleTTest(StatisticsParam param) {
@@ -53,6 +55,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         String version = param.getVersion();
         String userId = param.getUserId();
         List<String> indicatorIdList = param.getIndicatorIdList();
+        String statisticsCode = param.getStatisticsCode();
 
         //获取处理组编号
         List<String> treatmentCodeList = statisticsDetailItemMapper.selectTreatmentCodes(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
@@ -64,6 +67,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
         //一次分析对应一个record
         StatisticsRecord statisticsRecord = new StatisticsRecord();
+        statisticsRecord.setStatisticsCode(statisticsCode);
         List<StatisticsDetailRecord> statisticsDetailRecordList = new ArrayList<StatisticsDetailRecord>();
         statisticsRecord.setStatisticsDetailRecordList(statisticsDetailRecordList);
         //依次对每个指标进行分析
@@ -147,6 +151,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         String version = param.getVersion();
         String userId = param.getUserId();
         List<String> indicatorIdList = param.getIndicatorIdList();
+        String statisticsCode = param.getStatisticsCode();
 
         //获取处理组编号
         List<String> treatmentCodeList = statisticsDetailItemMapper.selectTreatmentCodes(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
@@ -155,6 +160,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
         //一次分析对应一个record
         StatisticsRecord statisticsRecord = new StatisticsRecord();
+        statisticsRecord.setStatisticsCode(statisticsCode);
         List<StatisticsDetailRecord> statisticsDetailRecordList = new ArrayList<StatisticsDetailRecord>();
         statisticsRecord.setStatisticsDetailRecordList(statisticsDetailRecordList);
         //依次对每个指标进行分析
@@ -210,7 +216,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         String version = param.getVersion();
         String userId = param.getUserId();
         List<String> indicatorIdList = param.getIndicatorIdList();
-
+        String statisticsCode = param.getStatisticsCode();
 
         //获取处理组编号
         List<String> treatmentCodeList = statisticsDetailItemMapper.selectTreatmentCodes(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
@@ -219,6 +225,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
         //一次分析对应一个record
         StatisticsRecord statisticsRecord = new StatisticsRecord();
+        statisticsRecord.setStatisticsCode(statisticsCode);
         List<StatisticsDetailRecord> statisticsDetailRecordList = new ArrayList<StatisticsDetailRecord>();
         statisticsRecord.setStatisticsDetailRecordList(statisticsDetailRecordList);
         for (int i = 0; i < animalIndicatorList.size(); i++) {
@@ -265,6 +272,8 @@ public class StatisticsServiceImpl implements StatisticsService {
                 Animal animal = statisticsDetailItemMapper.selectFactorsByTreatmentCode(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version), treatmentCode);
                 String factorA = animal.getFactorA();
                 String factorB = animal.getFactorB();
+                //item.setFactorA(factorA);
+                //item.setFactorB(factorB);
                 dataMap.get(factorA).put(factorB, treatmentData);
             }
 
@@ -319,5 +328,13 @@ public class StatisticsServiceImpl implements StatisticsService {
         } else {
             return new Response(HttpStatus.OK.value(), "删除成功");
         }
+    }
+
+    public Response selectIndicatorSet(String projectId, String fileIdentifier, String version) {
+
+        Integer fileRecordId = fileRecordMapper.selectIdByProjectIdAndFileIdentifierAndVersion(projectId, fileIdentifier, Integer.valueOf(version));
+        List<ExcelFileDetail> excelFileDetailList = excelFileDetailMapper.selectByFileRecordId(fileRecordId);
+
+        return new Response(excelFileDetailList, HttpStatus.OK.value(), "指标集合");
     }
 }

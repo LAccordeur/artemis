@@ -1,11 +1,14 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * 对应每个指标中的每个处理组的数据
  */
+@JsonIgnoreProperties({"modifiedTime", "createTime", "id", "statisticsDetailRecordId"})
 public class StatisticsDetailItem {
     private Integer id;
 

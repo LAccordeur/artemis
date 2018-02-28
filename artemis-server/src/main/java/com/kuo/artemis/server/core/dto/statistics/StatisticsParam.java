@@ -19,7 +19,9 @@ public class StatisticsParam {
 
     private List<String> indicatorIdList;
 
-    private String analysisMethod;
+    private String statisticsCode;
+
+    private String statisticsMethod;
 
     @Override
     public String toString() {
@@ -29,8 +31,17 @@ public class StatisticsParam {
                 ", fileIdentifier='" + fileIdentifier + '\'' +
                 ", version='" + version + '\'' +
                 ", indicatorIdList=" + indicatorIdList +
-                ", analysisMethod='" + analysisMethod + '\'' +
+                ", statisticsCode='" + statisticsCode + '\'' +
+                ", statisticsMethod='" + statisticsMethod + '\'' +
                 '}';
+    }
+
+    public String getStatisticsCode() {
+        return statisticsCode;
+    }
+
+    public void setStatisticsCode(String statisticsCode) {
+        this.statisticsCode = statisticsCode;
     }
 
     public String getUserId() {
@@ -73,11 +84,11 @@ public class StatisticsParam {
         this.indicatorIdList = indicatorIdList;
     }
 
-    public String getAnalysisMethod() {
-        return analysisMethod;
+    public String getStatisticsMethod() {
+        return statisticsMethod;
     }
 
-    public void setAnalysisMethod(String analysisMethod) {
-        this.analysisMethod = analysisMethod;
+    public void setStatisticsMethod(String statisticsMethod) {
+        this.statisticsMethod = statisticsMethod;
     }
 }

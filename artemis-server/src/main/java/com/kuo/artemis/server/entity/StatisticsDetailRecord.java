@@ -1,9 +1,12 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreProperties({"modifiedTime", "createTime", "id", "statisticsRecordId", "statisticsIndicatorId"})
 public class StatisticsDetailRecord {
     private Integer id;
 

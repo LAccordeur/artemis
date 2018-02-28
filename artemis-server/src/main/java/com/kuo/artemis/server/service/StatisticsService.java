@@ -21,4 +21,6 @@ public interface StatisticsService {
     Response getStatisticsRecordDetail(String recordId);
 
     Response deleteStatisticsRecord(String recordId);
+
+    Response selectIndicatorSet(String projectId, String fileIdentifier, String version);
 }

@@ -13,12 +13,17 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 //告诉junit spring的配置文件
 @ContextConfiguration({"classpath:spring/spring-*.xml"})
 public class StatisticsServiceImplTest {
+    @Test
+    public void selectIndicatorSet() throws Exception {
+
+        System.out.println(statisticsService.selectIndicatorSet("20", "-10548", "1"));
+
+    }
+
     @Test
     public void oneWayAnalysisOfVariance() throws Exception {
 
@@ -27,7 +32,7 @@ public class StatisticsServiceImplTest {
         param.setUserId("6");
         param.setVersion("1");
         param.setFileIdentifier("-11242");
-        param.setAnalysisMethod("1");
+        param.setStatisticsMethod("1");
         List<String> indicatorIds = new ArrayList<String>();
         indicatorIds.add("181");
         indicatorIds.add("182");
@@ -44,7 +49,7 @@ public class StatisticsServiceImplTest {
         param.setUserId("7");
         param.setVersion("1");
         param.setFileIdentifier("-10548");
-        param.setAnalysisMethod("1");
+        param.setStatisticsMethod("1");
         List<String> indicatorIds = new ArrayList<String>();
         indicatorIds.add("7");
         indicatorIds.add("181");
@@ -80,7 +85,7 @@ public class StatisticsServiceImplTest {
         param.setUserId("6");
         param.setVersion("1");
         param.setFileIdentifier("-11242");
-        param.setAnalysisMethod("1");
+        param.setStatisticsMethod("1");
         List<String> indicatorIds = new ArrayList<String>();
         indicatorIds.add("181");
         indicatorIds.add("182");

@@ -1,8 +1,12 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreProperties({"projectId", "userId"})
 public class StatisticsRecord {
     private Integer id;
 
@@ -12,6 +16,8 @@ public class StatisticsRecord {
 
     private String userName;
 
+    private String statisticsCode;
+
     private Short statisticsMethod;
 
     private Date modifiedTime;
@@ -20,6 +26,10 @@ public class StatisticsRecord {
 
     private List<StatisticsDetailRecord> statisticsDetailRecordList;
 
+    public List<StatisticsDetailRecord> getStatisticsDetailRecordList() {
+        return statisticsDetailRecordList;
+    }
+
     @Override
     public String toString() {
         return "StatisticsRecord{" +
@@ -27,6 +37,7 @@ public class StatisticsRecord {
                 ", projectId=" + projectId +
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
+                ", statisticsCode='" + statisticsCode + '\'' +
                 ", statisticsMethod=" + statisticsMethod +
                 ", modifiedTime=" + modifiedTime +
                 ", createTime=" + createTime +
@@ -34,8 +45,12 @@ public class StatisticsRecord {
                 '}';
     }
 
-    public List<StatisticsDetailRecord> getStatisticsDetailRecordList() {
-        return statisticsDetailRecordList;
+    public String getStatisticsCode() {
+        return statisticsCode;
+    }
+
+    public void setStatisticsCode(String statisticsCode) {
+        this.statisticsCode = statisticsCode;
     }
 
     public void setStatisticsDetailRecordList(List<StatisticsDetailRecord> statisticsDetailRecordList) {
