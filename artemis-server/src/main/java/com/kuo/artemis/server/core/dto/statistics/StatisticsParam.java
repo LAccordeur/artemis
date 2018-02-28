@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.dto.statistics;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -9,18 +10,24 @@ import java.util.List;
  */
 public class StatisticsParam {
 
+    @NotNull
     private String projectId;
 
+    @NotNull
     private String userId;
 
+    @NotNull
     private String fileIdentifier;
 
+    @NotNull
     private String version;
 
+    @NotNull
     private List<String> indicatorIdList;
 
     private String statisticsCode;
 
+    @NotNull
     private String statisticsMethod;
 
     @Override

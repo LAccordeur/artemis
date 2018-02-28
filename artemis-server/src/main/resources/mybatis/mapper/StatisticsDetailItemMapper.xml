@@ -38,7 +38,7 @@
     select treatment from animal
     where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version}
     group by treatment
-    order by id
+    order by treatment
   </select>
 
   <select id="selectFactorsByTreatmentCode" resultType="Animal">

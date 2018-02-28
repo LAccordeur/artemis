@@ -31,11 +31,11 @@ public class StatisticsServiceImplTest {
         param.setProjectId("20");
         param.setUserId("6");
         param.setVersion("1");
-        param.setFileIdentifier("-11242");
+        param.setFileIdentifier("141415");
         param.setStatisticsMethod("1");
         List<String> indicatorIds = new ArrayList<String>();
-        indicatorIds.add("181");
-        indicatorIds.add("182");
+        indicatorIds.add("333");
+        indicatorIds.add("332");
         param.setIndicatorIdList(indicatorIds);
 
         System.out.println(statisticsService.oneWayAnalysisOfVariance(param));
@@ -46,13 +46,14 @@ public class StatisticsServiceImplTest {
     public void twoWayAnalysisOfVariance() throws Exception {
         StatisticsParam param = new StatisticsParam();
         param.setProjectId("20");
-        param.setUserId("7");
-        param.setVersion("1");
-        param.setFileIdentifier("-10548");
-        param.setStatisticsMethod("1");
+        param.setUserId("6");
+        param.setVersion("4");
+        param.setFileIdentifier("110174");
+        param.setStatisticsMethod("3");
+        param.setStatisticsCode("FCR的双因素方差分析");
         List<String> indicatorIds = new ArrayList<String>();
-        indicatorIds.add("7");
         indicatorIds.add("181");
+        indicatorIds.add("182");
         param.setIndicatorIdList(indicatorIds);
 
         System.out.println(statisticsService.twoWayAnalysisOfVariance(param));
@@ -84,11 +85,11 @@ public class StatisticsServiceImplTest {
         param.setProjectId("20");
         param.setUserId("6");
         param.setVersion("1");
-        param.setFileIdentifier("-11242");
+        param.setFileIdentifier("-11092");
         param.setStatisticsMethod("1");
         List<String> indicatorIds = new ArrayList<String>();
-        indicatorIds.add("181");
-        indicatorIds.add("182");
+        indicatorIds.add("36");
+        indicatorIds.add("37");
         param.setIndicatorIdList(indicatorIds);
 
         Response response = statisticsService.independentSampleTTest(param);

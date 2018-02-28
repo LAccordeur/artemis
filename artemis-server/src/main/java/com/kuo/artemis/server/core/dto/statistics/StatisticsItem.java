@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.dto.statistics;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kuo.artemis.server.entity.StatisticsDetailItem;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * @Description :
  * @Date : Created on 2018/2/6
  */
+@JsonIgnoreProperties(value = {"modifiedTime", "createTime", "id", "statisticsDetailRecordId", "initialData"})
 public class StatisticsItem extends StatisticsDetailItem {
 
     private List<Double> initialData; //某个指标的某个处理组的原始数据

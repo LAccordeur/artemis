@@ -48,6 +48,8 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Inject
     private ExcelFileDetailMapper excelFileDetailMapper;
 
+    private DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
+
     @Transactional(rollbackFor = Exception.class)
     public Response independentSampleTTest(StatisticsParam param) {
         String projectId = param.getProjectId();
@@ -111,7 +113,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             //计算该指标下各个处理组之间的p值
             Double pValue = StatisticsUtil.independentSampleTTest(sample1, sample2);
-            statisticsDetailRecord.setpValue(BigDecimal.valueOf(pValue));
+            statisticsDetailRecord.setpValue(new BigDecimal(decimalFormat.format(pValue)));
             statisticsDetailRecord.setStatisticsIndicatorName(indicatorName);
 
         }
@@ -155,6 +157,9 @@ public class StatisticsServiceImpl implements StatisticsService {
 
         //获取处理组编号
         List<String> treatmentCodeList = statisticsDetailItemMapper.selectTreatmentCodes(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
+        if (treatmentCodeList.size() < 2) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "数据缺失");
+        }
         //获取指标名称
         List<AnimalIndicator> animalIndicatorList = animalIndicatorMapper.selectByPrimaryKeys(indicatorIdList);
 
@@ -198,7 +203,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             //计算该指标下各个处理组之间的p值
             Double pValue = StatisticsUtil.oneWayAnalysisOfVariance(dataList);
-            statisticsDetailRecord.setpValue(BigDecimal.valueOf(pValue));
+            statisticsDetailRecord.setpValue(new BigDecimal(decimalFormat.format(pValue)));
             statisticsDetailRecord.setStatisticsIndicatorName(indicatorName);
 
         }
@@ -208,6 +213,11 @@ public class StatisticsServiceImpl implements StatisticsService {
         return new Response(statisticsRecord, HttpStatus.OK.value(), "单因素方差分析");
     }
 
+    /**
+     * TODO 检测有没有处理组
+     * @param param
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public Response twoWayAnalysisOfVariance(StatisticsParam param) {
 
@@ -220,6 +230,9 @@ public class StatisticsServiceImpl implements StatisticsService {
 
         //获取处理组编号
         List<String> treatmentCodeList = statisticsDetailItemMapper.selectTreatmentCodes(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
+        if (treatmentCodeList.size() < 2) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "数据缺失");
+        }
         //获取指标名称
         List<AnimalIndicator> animalIndicatorList = animalIndicatorMapper.selectByPrimaryKeys(indicatorIdList);
 
@@ -283,9 +296,9 @@ public class StatisticsServiceImpl implements StatisticsService {
             Object aFactorP = outputTable.get2d("AFactor", "p");
             Object bFactorP = outputTable.get2d("BFactor", "p");
             Object abFactorP = outputTable.get2d("A*BFactor", "p");
-            statisticsDetailRecord.setpValueFactorA(new BigDecimal(String.valueOf(aFactorP)));
-            statisticsDetailRecord.setpValueFactorB(new BigDecimal(String.valueOf(bFactorP)));
-            statisticsDetailRecord.setpValue(new BigDecimal(String.valueOf(abFactorP)));
+            statisticsDetailRecord.setpValueFactorA(new BigDecimal(decimalFormat.format(aFactorP)));
+            statisticsDetailRecord.setpValueFactorB(new BigDecimal(decimalFormat.format(bFactorP)));
+            statisticsDetailRecord.setpValue(new BigDecimal(decimalFormat.format(abFactorP)));
             statisticsDetailRecord.setStatisticsIndicatorName(indicatorName);
         }
 
@@ -330,11 +343,45 @@ public class StatisticsServiceImpl implements StatisticsService {
         }
     }
 
+    /**
+     * 选择当前版本文件下可进行分析的指标集
+     * @param projectId
+     * @param fileIdentifier
+     * @param version
+     * @return
+     */
     public Response selectIndicatorSet(String projectId, String fileIdentifier, String version) {
 
         Integer fileRecordId = fileRecordMapper.selectIdByProjectIdAndFileIdentifierAndVersion(projectId, fileIdentifier, Integer.valueOf(version));
+        if (fileRecordId == null) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数无效");
+        }
         List<ExcelFileDetail> excelFileDetailList = excelFileDetailMapper.selectByFileRecordId(fileRecordId);
 
+        //剔除不能进行分析的指标
+        List<AnimalIndicator> animalIndicatorList = animalIndicatorMapper.selectIndicatorsByType(1); //类型为1的指标需要剔除
+        filterIndicators(excelFileDetailList, animalIndicatorList);
+
         return new Response(excelFileDetailList, HttpStatus.OK.value(), "指标集合");
+    }
+
+    private void filterIndicators(List<ExcelFileDetail> excelFileDetailList, List<AnimalIndicator> animalIndicatorList) {
+        for (int i = 0; i < excelFileDetailList.size(); i++) {
+            ExcelFileDetail excelFileDetail = excelFileDetailList.get(i);
+
+            Integer indicatorId = excelFileDetail.getIndicatorId();
+            String indicatorName = excelFileDetail.getIndicatorName();
+            for (AnimalIndicator animalIndicator : animalIndicatorList) {
+                if (indicatorId.equals(animalIndicator.getId()) || indicatorName.toLowerCase().equals(animalIndicator.getIndicatorNameEnglish().toLowerCase())) {
+                    excelFileDetailList.set(i, null);
+                }
+            }
+        }
+
+        List nullList = new ArrayList();
+        nullList.add(null);
+        if (excelFileDetailList.contains(null)) {
+            excelFileDetailList.removeAll(nullList);
+        }
     }
 }
