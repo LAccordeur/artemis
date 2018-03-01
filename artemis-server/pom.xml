@@ -35,12 +35,28 @@
 
     <dependencies>
 
-        <!-- https://mvnrepository.com/artifact/com.datumbox/datumbox-framework 方差分析-->
+        <!-- https://mvnrepository.com/artifact/com.datumbox/datumbox-framework 双因素方差分析-->
         <dependency>
             <groupId>com.datumbox</groupId>
             <artifactId>datumbox-framework</artifactId>
             <version>0.5.1</version>
         </dependency>
+
+        <!-- 重复数计算 http://kickjava.com/src/JSci/maths/statistics/FDistribution.java.htm -->
+        <dependency>
+            <groupId>net.sf.jsci</groupId>
+            <artifactId>jsci</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>uk.co.nildram.jsc</groupId>
+            <artifactId>jsc</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jsc.jar</systemPath>
+        </dependency>
+        <!-- 重复数结束 -->
+
 
 
         <!-- redis -->
@@ -55,7 +71,7 @@
             <version>2.9.0</version>
         </dependency>
 
-        <!-- 线性规划 -->
+        <!-- 线性规划  废弃了改用了apache-->
         <dependency>
             <groupId>com.quantego</groupId>
             <artifactId>clp-java</artifactId>

@@ -1,10 +1,12 @@
 package com.kuo.artemis.server.util;
 
+import JSci.maths.statistics.FDistribution;
 import com.datumbox.common.dataobjects.AssociativeArray2D;
 import com.datumbox.common.dataobjects.FlatDataCollection;
 import com.datumbox.common.dataobjects.TransposeDataCollection;
 import com.datumbox.common.dataobjects.TransposeDataCollection2D;
 import com.datumbox.framework.statistics.anova.Anova;
+import jsc.distributions.NoncentralFishersF;
 import org.apache.commons.math3.stat.descriptive.moment.GeometricMean;
 import org.apache.commons.math3.stat.inference.TestUtils;
 
@@ -90,6 +92,44 @@ public class StatisticsUtil {
         return MathUtil.calculateStandardError(data);
     }
 
+
+    /**
+     * 计算重复数
+     * @param alpha
+     * @param treatmentNum
+     * @param sst
+     * @param mse
+     * @param power
+     * @return
+     */
+    public static Integer calculateReplicationNum(Double alpha, Integer treatmentNum, Double sst, Double mse, Double power) {
+
+        boolean flag = false;
+        Integer result = 0;
+        for (int n = 2; n < 51; n++) {
+            //double sstPE = sst / n;    //处理效应平方和
+            int df1 = treatmentNum - 1;    //处理自由度
+            int df2 = treatmentNum * n - treatmentNum;    //残差自由度
+
+            double lambda = sst / mse;
+            FDistribution fDistribution = new FDistribution(df1, df2);    //jsci库的F分布
+            double fcrit = fDistribution.inverse(1 - alpha);
+
+            NoncentralFishersF noncentralFishersF = new NoncentralFishersF(df1, df2, lambda);
+            double rtPower = 1 - noncentralFishersF.cdf(fcrit);
+            if (rtPower > power) {
+                flag = true;
+                result = n;
+                break;
+            }
+        }
+
+        if (flag) {
+            return result;
+        }
+
+        return 0;
+    }
 
     private static double[] listToArray(List<Double> doubleList) {
         int length = doubleList.size();

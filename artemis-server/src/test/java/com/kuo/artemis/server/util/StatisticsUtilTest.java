@@ -7,6 +7,12 @@ import java.util.*;
 
 public class StatisticsUtilTest {
     @Test
+    public void calculateReplicationNum() throws Exception {
+
+        System.out.println(StatisticsUtil.calculateReplicationNum(0.05, 3, 3640.0, 296.67, 0.8));
+    }
+
+    @Test
     public void twoWayAnalysisOfVariance() throws Exception {
 
         Map<String, Map<String, List<Object>>> dataMap = new HashMap<String, Map<String, List<Object>>>();
@@ -32,7 +38,7 @@ public class StatisticsUtilTest {
         sample1.add(8D);
         sample1.add(16D);
         sample1.add(12D);
-        sample1.add(17D);
+        //sample1.add(17D);
 
         List<Double> sample2 = new ArrayList<Double>();
         sample2.add(8D);
