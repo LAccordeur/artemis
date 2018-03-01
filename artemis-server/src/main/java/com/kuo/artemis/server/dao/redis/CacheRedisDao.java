@@ -2,9 +2,12 @@ package com.kuo.artemis.server.dao.redis;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kuo.artemis.server.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author : guoyang
@@ -34,6 +37,16 @@ public class CacheRedisDao {
             e.getMessage();
             return;
         }
+    }
+
+    /**
+     * 保存1分钟
+     * @param key
+     * @param string
+     */
+    public void saveStringToCache(String key, String string) {
+        ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+        operations.set(key, string, 60, TimeUnit.SECONDS);
     }
 
     public void removeFromCache(String key) {

@@ -24,6 +24,8 @@ public class User {
 
     private String university;
 
+    private String verificationCode;
+
     private Byte userIdentity;
 
     private Byte status;
@@ -48,6 +50,14 @@ public class User {
                 ", createTime=" + createTime +
                 ", modifiedTime=" + modifiedTime +
                 '}';
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
     public Byte getStatus() {

@@ -1,10 +1,12 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.command.ResetPasswordCommand;
 import com.kuo.artemis.server.core.dto.user.UserDTO;
 import com.kuo.artemis.server.core.dto.command.LoginCommend;
 import com.kuo.artemis.server.core.jwt.JwtHelper;
 import com.kuo.artemis.server.dao.UserMapper;
+import com.kuo.artemis.server.dao.redis.CacheRedisDao;
 import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.service.UserService;
 import com.kuo.artemis.server.util.ValidationUtil;
@@ -26,6 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Inject
     private UserMapper userMapper;
+
+    @Inject
+    private CacheRedisDao cacheRedisDao;
 
     /**
      * 登录
@@ -86,27 +91,76 @@ public class UserServiceImpl implements UserService {
      */
     public Response register(User user) {
 
-        //TODO 对手机号进行正则判断
-        Response response = new Response();
-
         ValidationUtil.getInstance().validateParams(user);
         if (!AccountValidatorUtil.isMobile(user.getUserPhone())) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "手机号格式非法");
         }
-        String encryptPassword = CodecUtil.encryptWithSHA256(user.getUserPassword() + user.getUserPhone());
-        user.setUserPassword(encryptPassword);
 
 
-        if (userMapper.insertSelective(user) > 0) {
-            response.setCode(HttpStatus.OK.value());
-            response.setMsg("注册成功");
-        } else {
-            response.setCode(HttpStatus.NOT_FOUND.value());
-            response.setMsg("注册失败");
+        String verificationCode = user.getVerificationCode();
+        //获取缓存中的验证码
+        String verificationCodeFromCache = cacheRedisDao.getFromCache(user.getUserPhone());
+        if (verificationCodeFromCache == null) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "验证码已过期");
+        } else if (!verificationCodeFromCache.equals(verificationCode)) {
+            return new Response(HttpStatus.CONFLICT.value(), "验证码错误");
+        } else if (verificationCodeFromCache.equals(verificationCode)) {
+            String encryptPassword = CodecUtil.encryptWithSHA256(user.getUserPassword() + user.getUserPhone());
+            user.setUserPassword(encryptPassword);
+
+            cacheRedisDao.removeFromCache(user.getUserPhone());
+            if (userMapper.insertSelective(user) > 0) {
+                return new Response(HttpStatus.OK.value(), "注册成功");
+            }
         }
 
-        return response;
+        return new Response(HttpStatus.BAD_REQUEST.value(), "注册失败");
     }
+
+
+    /**
+     * 重置密码
+     * @param command
+     * @return
+     */
+    public Response resetPassword(ResetPasswordCommand command) {
+
+        try {
+            ValidationUtil.getInstance().validateParams(command);
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        String phone = command.getPhone();
+        String verificationCode = command.getVerificationCode();
+        String newPassword = command.getNewPassword();
+
+        User userFromDB = userMapper.selectByPhone(phone);
+        if (userFromDB == null) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "用户未注册");
+        }
+        //获取缓存中的验证码
+        String verificationCodeFromCache = cacheRedisDao.getFromCache(phone);
+        if (verificationCodeFromCache == null) {
+            return new Response(HttpStatus.NO_CONTENT.value(), "验证码已过期");
+        } else if (!verificationCodeFromCache.equals(verificationCode)) {
+            return new Response(HttpStatus.CONFLICT.value(), "验证码错误");
+        } else if (verificationCodeFromCache.equals(verificationCode)) {
+            String encryptPassword = CodecUtil.encryptWithSHA256(newPassword + phone);
+            User user = new User();
+            user.setUserPassword(encryptPassword);
+            user.setId(userFromDB.getId());
+            Integer result = userMapper.updateByPrimaryKeySelective(user);
+
+            cacheRedisDao.removeFromCache(phone);
+            if (result > 0) {
+                return new Response(HttpStatus.OK.value(), "密码重置成功");
+            }
+        }
+
+        return new Response(HttpStatus.BAD_REQUEST.value(), "无效请求");
+    }
+
 
     /**
      * 通过手机号获取用户的详细信息

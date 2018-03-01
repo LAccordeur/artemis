@@ -35,6 +35,13 @@
 
     <dependencies>
 
+        <!-- 短信验证码 -->
+        <dependency>
+            <groupId>com.github.qcloudsms</groupId>
+            <artifactId>sms</artifactId>
+            <version>0.9.2</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.datumbox/datumbox-framework 双因素方差分析-->
         <dependency>
             <groupId>com.datumbox</groupId>
