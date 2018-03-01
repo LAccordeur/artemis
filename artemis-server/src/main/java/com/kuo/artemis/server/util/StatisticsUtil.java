@@ -102,7 +102,7 @@ public class StatisticsUtil {
      * @param power
      * @return
      */
-    public static Integer calculateReplicationNum(Double alpha, Integer treatmentNum, Double sst, Double mse, Double power) {
+    private static Integer calculateReplicationNum(Double alpha, Integer treatmentNum, Double sst, Double mse, Double power) {
 
         boolean flag = false;
         Integer result = 0;
@@ -129,6 +129,41 @@ public class StatisticsUtil {
         }
 
         return 0;
+    }
+
+    /**
+     * 计算重复数
+     * @param alpha
+     * @param power
+     * @param dataList
+     * @return
+     */
+    public static Integer calculateReplicationNum(Double alpha, Double power, List<List<Double>> dataList) {
+        int n = dataList.get(0).size();   //每个处理组内的个体数
+        //int df1 = treatmentNum - 1;    //样本间的自由度
+        Integer treatmentNum = dataList.size();
+        int df2 = treatmentNum * (n - 1);    //样本内的自由度
+
+        //计算每个处理组的平均数
+        List<Double> treatmentMeanList = new ArrayList<Double>();
+        for (int i = 0; i < dataList.size(); i++) {
+            Double treatmentMean = MathUtil.computeAverage(dataList.get(i));
+            treatmentMeanList.add(treatmentMean);
+        }
+
+        //计算处理间平方和
+        Double sst = n * MathUtil.computerSS(treatmentMeanList);
+
+        //计算处理内平方和
+        Double sse = 0D;
+        for (int i = 0; i < dataList.size(); i++) {
+            Double treatmentSse = MathUtil.computerSS(dataList.get(i));
+            sse = sse + treatmentSse;
+        }
+        //计算残差
+        Double mse = sse / df2;
+
+        return calculateReplicationNum(alpha, treatmentNum, sst, mse, power);
     }
 
     private static double[] listToArray(List<Double> doubleList) {

@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.animal.ReplicationCalculationParam;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.math.GroupDesignParam;
 import com.kuo.artemis.server.core.math.GroupDesignResult;
@@ -20,7 +21,7 @@ public interface AnimalService {
      * @param param
      * @return
      */
-    Response getReplicateNumber(Object param);
+    Response getReplicateNumber(ReplicationCalculationParam param);
 
     /**
      * 导入动物基础数据

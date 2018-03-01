@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.animal.ReplicationCalculationParam;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.math.GroupDesignParam;
 import com.kuo.artemis.server.core.math.GroupDesignResult;
@@ -8,6 +9,7 @@ import com.kuo.artemis.server.service.AnimalIndicatorRecordService;
 import com.kuo.artemis.server.service.AnimalService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 
@@ -23,6 +25,11 @@ public class AnimalController {
     @Inject
     private AnimalService animalService;
 
+    @ResponseBody
+    @RequestMapping(value = "/replication", method = RequestMethod.POST)
+    public Response calculateReplicationNum(@RequestParam("alpha") String alpha, @RequestParam("power") String power, @RequestParam("file") MultipartFile file) {
+        return animalService.getReplicateNumber(new ReplicationCalculationParam(alpha, power, file));
+    }
 
     @ResponseBody
     @RequestMapping(value = "/group", method = RequestMethod.POST)

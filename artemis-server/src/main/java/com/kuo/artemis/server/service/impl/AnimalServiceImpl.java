@@ -1,7 +1,10 @@
 package com.kuo.artemis.server.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.animal.ReplicationCalculationDTO;
+import com.kuo.artemis.server.core.dto.animal.ReplicationCalculationParam;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.core.helper.AnimalGroupHelper;
@@ -19,6 +22,7 @@ import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.entity.AnimalHouse;
 import com.kuo.artemis.server.entity.ProjectDetail;
 import com.kuo.artemis.server.service.AnimalService;
+import com.kuo.artemis.server.util.StatisticsUtil;
 import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
 import com.kuo.artemis.server.util.constant.GenderOptionConst;
@@ -28,8 +32,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -57,8 +63,72 @@ public class AnimalServiceImpl implements AnimalService {
     @Inject
     private CacheRedisDao cacheRedisDao;
 
-    public Response getReplicateNumber(Object param) {
-        return null;
+    public Response getReplicateNumber(ReplicationCalculationParam param) {
+
+        try {
+            ValidationUtil.getInstance().validateParams(param);
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        //获取请求参数
+        Double alpha = Double.valueOf(param.getAlpha());
+        Double power = Double.valueOf(param.getPower());
+        MultipartFile file = param.getFile();
+
+        //检测文件是否合法
+        String filename = file.getOriginalFilename();
+        if ((filename).endsWith(".xlsx") || (filename).endsWith(".xls")) {
+            //nothing to do
+        } else {
+            return new Response(HttpStatus.FORBIDDEN.value(), "文件类型错误");
+        }
+
+        //解析excel文件
+        List objectList;
+        try {
+            InputStream inputStream = file.getInputStream();
+            List<List<String>> dataList = ExcelHelper.parseExcelFile(inputStream, filename);
+            //FileImportCommand command = new FileImportCommand(file, null, null, null);
+            //DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+            DataImportDTO dataImportDTO = DataHelper.excelDataToBean(dataList, ReplicationCalculationDTO.class, 0, 1);
+            objectList = dataImportDTO.getCommonList();
+        } catch (Exception e) {
+            return new Response(e);
+        }
+
+        //结构化数据
+        Map<String, List<Double>> analysisDataMap = new HashMap<String, List<Double>>();
+        for (Object o : objectList) {
+            ReplicationCalculationDTO calculationDTO = (ReplicationCalculationDTO) o;
+            String treatment = calculationDTO.getTreatment();
+            String data = calculationDTO.getData();
+            if (treatment == null || data == null) {
+                return new Response(HttpStatus.BAD_REQUEST.value(), "数据错误");
+            }
+            Double dataValue = Double.valueOf(data);
+
+            if (analysisDataMap.containsKey(treatment)) {
+                List<Double> dataList = analysisDataMap.get(treatment);
+                dataList.add(dataValue);
+            } else {
+                List<Double> dataList = new ArrayList<Double>();
+                dataList.add(dataValue);
+                analysisDataMap.put(treatment, dataList);
+            }
+        }
+        List<List<Double>> dataList = new ArrayList<List<Double>>();
+        Set<String> keySet = analysisDataMap.keySet();
+        Iterator<String> keySetIterator = keySet.iterator();
+        while (keySetIterator.hasNext()) {
+            String key = keySetIterator.next();
+            dataList.add(analysisDataMap.get(key));
+        }
+
+        //运算
+        Integer n = StatisticsUtil.calculateReplicationNum(alpha, power, dataList);
+
+        return new Response(n, HttpStatus.OK.value(), "重复数");
     }
 
 

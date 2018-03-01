@@ -54,6 +54,26 @@ public class ExcelHelper {
     }
 
     /**
+     * 解析excel文件
+     * @param fileInputStream
+     * @param filename
+     * @return
+     * @throws Exception
+     */
+    public static List<List<String>> parseExcelFile(InputStream fileInputStream, String filename) throws Exception {
+        //解析开始
+        //1.创建workbook对象
+        Workbook workbook = ExcelUtil.createExcelObject(fileInputStream, filename);
+        if (workbook == null) {
+            throw new Exception("workbook is null!");
+        }
+        //2.解析
+        List<List<String>> dataList = ExcelUtil.parseExcelFile(workbook, 0, 0, 1, 0);
+
+        return dataList;
+    }
+
+    /**
      * 解析indicator excel文件
      * @param command
      * @return
