@@ -48,6 +48,24 @@ public class FileController {
     private MaterialService materialService;
 
 
+    @ResponseBody
+    @RequestMapping(value = "/common/list", method = RequestMethod.GET)
+    public Response listCommonFiles(@RequestParam("projectId") String projectId) {
+        return fileService.listCommonFiles(projectId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/common/upload", method = RequestMethod.POST)
+    public Response receiveCommonFile(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+        FileImportCommand command = new FileImportCommand(file, projectId, userId, null);
+        return fileService.uploadCommonFile(command);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/common", method = RequestMethod.DELETE)
+    public Response deleteCommonFile(@RequestParam("fileId") String fileId) {
+        return fileService.deleteCommonFile(fileId);
+    }
 
     @RequestMapping(value = "/excel/upload", method = RequestMethod.POST)
     @ResponseBody
@@ -87,6 +105,18 @@ public class FileController {
 
         return new Response(HttpStatus.BAD_REQUEST.value(), "文件错误，上传失败");
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //@RequestMapping(value = "/excel/template/export", method = RequestMethod.POST, produces = {"application/vnd.ms-excel;charset=UTF-8"})

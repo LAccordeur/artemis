@@ -2,6 +2,8 @@ package com.kuo.artemis.server.core.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @Author : guoyang
  * @Description :  文件导入命令
@@ -10,10 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileImportCommand {
 
+    @NotNull
     private MultipartFile file;    //需要导入的文件对象
 
+    @NotNull
     private String projectId;    //文件所在的课题
 
+    @NotNull
     private String userId;    //导入文件的用户
 
     private String dataType;    //导入文件的数据类型(指标or原料...)

@@ -13,6 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface FileService {
 
+    Response listCommonFiles(String projectId);
+
+    Response deleteCommonFile(String fileId);
+
+    Response uploadCommonFile(FileImportCommand command);
+
     Response parseAndSaveIndicatorExcel(ExcelImportCommand command) throws Exception;
 
     Response parseAndSaveMaterialExcel(ExcelImportCommand command) throws Exception;

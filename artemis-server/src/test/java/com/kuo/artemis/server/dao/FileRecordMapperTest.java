@@ -18,6 +18,18 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class FileRecordMapperTest {
     @Test
+    public void selectCommonFilesByProjectId() throws Exception {
+
+        System.out.println(fileRecordMapper.selectCommonFilesByProjectId(20));
+
+    }
+
+    @Test
+    public void deleteCommonFileById() throws Exception {
+        System.out.println(fileRecordMapper.deleteCommonFileById(128));
+    }
+
+    @Test
     public void selectIndicatorRecordFileVersions() throws Exception {
         List<FileRecord> fileRecords = fileRecordMapper.selectIndicatorRecordFileVersions(20, "a");
 

@@ -6,19 +6,24 @@ import com.kuo.artemis.server.core.dto.excel.*;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.factory.FactoryManager;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
+import com.kuo.artemis.server.core.helper.QCloudHelper;
 import com.kuo.artemis.server.core.thread.ImportExcelTask;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.FileService;
+import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.constant.DataTypeConst;
 import com.kuo.artemis.server.util.constant.FileTypeConst;
 import com.kuo.artemis.server.util.constant.OperationTypeConst;
+import org.json.HTTP;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,6 +66,101 @@ public class FileServiceImpl implements FileService {
     private NutritionStandardMapper nutritionStandardMapper;
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
+
+
+    /**
+     * 列出当前课题下的共享文件列表
+     * @param projectId
+     * @return
+     */
+    public Response listCommonFiles(String projectId) {
+        if (projectId == null || "".equals(projectId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+
+        List<FileRecord> fileRecordList = fileRecordMapper.selectCommonFilesByProjectId(Integer.valueOf(projectId));
+        return new Response(fileRecordList, HttpStatus.OK.value(), "文件列表");
+    }
+
+    /**
+     * 删除某个共享文件（伪删除）
+     * @param fileId
+     * @return
+     */
+    public Response deleteCommonFile(String fileId) {
+        if (fileId == null || "".equals(fileId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+        Integer status = fileRecordMapper.deleteCommonFileById(Integer.valueOf(fileId));
+        if (status > 0) {
+            return new Response(HttpStatus.OK.value(), "删除成功");
+        }
+
+        return new Response(HttpStatus.NO_CONTENT.value(), "删除对象不存在");
+    }
+
+    /**
+     * 上传某个共享文件
+     * @param command
+     * @return
+     */
+    public Response uploadCommonFile(FileImportCommand command) {
+
+        try {
+            ValidationUtil.getInstance().validateParams(command);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(e);
+        }
+
+        //1.获取参数
+        Integer userId = Integer.valueOf(command.getUserId());
+        Integer projectId = Integer.valueOf(command.getProjectId());
+        MultipartFile file = command.getFile();
+
+        //2.将文件基本信息保存到本地服务器
+        String filename = file.getOriginalFilename();
+        InputStream inputStream;
+        try {
+            inputStream = file.getInputStream();
+        } catch (Exception e) {
+            return new Response(e);
+        }
+        String key = "/" + projectId + "/" + filename;
+
+        FileRecord fileRecord = new FileRecord();
+        fileRecord.setOperationType(Byte.valueOf(OperationTypeConst.UPLOAD_COMMON));
+        fileRecord.setUserId(userId);
+        fileRecord.setProjectId(projectId);
+        fileRecord.setFilename(filename);
+        fileRecord.setFileIdentifier(key);
+        fileRecord.setFileType(Byte.valueOf(getFileTypeByFilename(filename)));
+        fileRecordMapper.insertSelective(fileRecord);
+
+
+        //3.将源文件上传到腾讯云
+        Boolean updateStatus = QCloudHelper.updateFile(inputStream, key);
+        if (updateStatus) {
+            return new Response(HttpStatus.OK.value(), "上传成功");
+        }
+        return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), "上传失败");
+    }
+
+    private String getFileTypeByFilename(String filename) {
+        if (filename == null || "".equals(filename)) {
+            return FileTypeConst.UNDEFINED;
+        }
+
+        if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+            return FileTypeConst.EXCEL;
+        } else if (filename.endsWith(".docx") || filename.endsWith(".doc")) {
+            return FileTypeConst.WORD;
+        } else if (filename.endsWith(".pdf")) {
+            return FileTypeConst.PDF;
+        } else {
+            return FileTypeConst.UNDEFINED;
+        }
+    }
 
     /**
      * 接收用户上传的Indicator excel文件并解析导入至数据库中   TODO ##BUG## 3.未进行计算指标的更新  1.未进行上传记录更新（已解决） 2.未考虑数据历史记录（已解决目前采用多次存储的简单粗暴的方法）
@@ -405,6 +505,7 @@ public class FileServiceImpl implements FileService {
     }
 
 
+    @Deprecated
     private void updateFileRecord(IndicatorExcelExportCommand command, List<AnimalIndicator> animalIndicators) {
         //更新文件记录
         FileRecord fileRecord = new FileRecord();

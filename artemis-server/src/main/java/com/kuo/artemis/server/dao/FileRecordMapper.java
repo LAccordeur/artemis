@@ -26,4 +26,8 @@ public interface FileRecordMapper {
     Integer selectLastestVersion(@Param("projectId") Integer projectId, @Param("fileIdentifier") String fileIdentifier);
 
     Integer selectIdByProjectIdAndFileIdentifierAndVersion(@Param("projectId") String projectId, @Param("fileIdentifier") String fileIdentifier, @Param("version") Integer version);
+
+    List<FileRecord> selectCommonFilesByProjectId(@Param("projectId") Integer projectId);
+
+    Integer deleteCommonFileById(@Param("id") Integer id);
 }

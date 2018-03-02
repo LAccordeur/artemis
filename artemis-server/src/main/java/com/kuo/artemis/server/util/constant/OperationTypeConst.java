@@ -6,4 +6,6 @@ public interface OperationTypeConst {
     String DOWNLOAD_TEMPLATE = "2";
 
     String DOWNLOAD_DATA = "3";
+
+    String UPLOAD_COMMON = "4";
 }
