@@ -40,13 +40,13 @@ public class CacheRedisDao {
     }
 
     /**
-     * 保存1分钟
+     * 保存2分钟
      * @param key
      * @param string
      */
     public void saveStringToCache(String key, String string) {
         ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
-        operations.set(key, string, 60, TimeUnit.SECONDS);
+        operations.set(key, string, 2*60, TimeUnit.SECONDS);
     }
 
     public void removeFromCache(String key) {

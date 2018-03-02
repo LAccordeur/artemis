@@ -34,7 +34,19 @@ public class VerificationCodeUtil {
      */
     public static String sendSmsCode(String phone) {
 
-        return "323232";
+        //生成验证码
+        String smsCode = VerificationCodeUtil.randomNumericalCode();
+
+        //发送
+        boolean sendStatus = QCloudSMSUtil.sendSMS(phone, smsCode, "2");
+        if (sendStatus) {
+            return smsCode;
+        } else {
+            return null;
+        }
+
     }
+
+
 
 }

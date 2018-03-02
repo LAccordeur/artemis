@@ -23,7 +23,7 @@ public final class PropsUtil {
     }
 
     public static void main(String[] args) {
-        Boolean flag = PropsUtil.getBoolean("IS_OPEN_AUTH_TOKEN");
+        String flag = PropsUtil.getString("Q_CLOUD_SDK_APPID");
         System.out.println(flag);
     }
 
@@ -120,5 +120,9 @@ public final class PropsUtil {
 
     public static boolean getBoolean(String key) {
         return getBoolean(properties, key, false);
+    }
+
+    public static String getString(String key) {
+        return getString(properties, key, "");
     }
 }

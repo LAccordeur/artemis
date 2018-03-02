@@ -3,6 +3,7 @@ package com.kuo.artemis.server.controller;
 import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.command.LoginCommend;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.dto.command.ResetPasswordCommand;
 import com.kuo.artemis.server.core.dto.user.UserDTO;
 import com.kuo.artemis.server.entity.User;
 import com.kuo.artemis.server.entity.UserProjectKey;
@@ -95,13 +96,13 @@ public class UserController {
     }
 
     /**
-     * 更改密码（未完成）
+     * 重置密码
      * @return
      */
-    @RequestMapping(value = "/{userId}/password", method = RequestMethod.PUT)
+    @RequestMapping(value = "/password", method = RequestMethod.PUT)
     @ResponseBody
-    public Response changePassword() {
-        return null;
+    public Response resetPassword(@RequestBody ResetPasswordCommand command) {
+        return userService.resetPassword(command);
     }
 
 
