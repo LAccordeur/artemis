@@ -18,6 +18,11 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class FileRecordMapperTest {
     @Test
+    public void selectCountByCommonFilename() throws Exception {
+        System.out.println(fileRecordMapper.selectCountByCommonFilename(20, "local_test.tx"));
+    }
+
+    @Test
     public void selectCommonFilesByProjectId() throws Exception {
 
         System.out.println(fileRecordMapper.selectCommonFilesByProjectId(20));

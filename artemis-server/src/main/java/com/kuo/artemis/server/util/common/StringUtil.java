@@ -94,4 +94,32 @@ public final class StringUtil {
     public static String[] splitString(String source, String reg) {
         return StringUtils.split(source, reg);
     }
+
+    /**
+     * 拆分xx.xx形式的文件名为[xx, xx]
+     * @param filename
+     * @return
+     */
+    public static String[] splitFilename(String filename) {
+        String[] items = StringUtils.split(filename, ".");
+        String suffixItem = "";  //文件名后缀
+        StringBuffer prefixItem = new StringBuffer();  //文件名前缀
+
+        if (items.length >= 2) {
+            suffixItem = items[items.length-1];
+
+            for (int i = 0; i < items.length-1; i++) {
+                prefixItem.append(items[i]);
+                if (i != items.length - 2) {
+                    prefixItem.append(".");
+                }
+            }
+
+        } else {
+            return null;
+        }
+
+        String[] fileItems = new String[]{prefixItem.toString(), suffixItem};
+        return fileItems;
+    }
 }

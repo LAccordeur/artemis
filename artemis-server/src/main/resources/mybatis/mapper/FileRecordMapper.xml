@@ -29,10 +29,15 @@
   </delete>
 
   <select id="selectCommonFilesByProjectId" parameterType="Integer" resultType="fileRecord">
-    select file_record.id, user.user_name, file_record.filename, file_record.file_type, file_record.file_identifier, file_record.create_time
+    select file_record.id, user.user_name, file_record.filename, file_record.file_type, file_record.file_identifier, file_record.version, file_record.create_time
     from file_record
     left join user on file_record.user_id = user.id
     where file_record.project_id = #{projectId} and operation_type = 4 and display = 1
+  </select>
+
+  <select id="selectCountByCommonFilename" resultType="Integer">
+    select count(*) from file_record
+    where project_id = #{projectId} and filename = #{filename} and operation_type = 4 and display = 1
   </select>
 
   <delete id="deleteCommonFileById" parameterType="Integer">

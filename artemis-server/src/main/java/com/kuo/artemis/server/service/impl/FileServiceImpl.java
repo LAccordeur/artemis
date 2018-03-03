@@ -2,6 +2,7 @@ package com.kuo.artemis.server.service.impl;
 
 import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.FileImportProduct;
+import com.kuo.artemis.server.core.dto.FileMetaData;
 import com.kuo.artemis.server.core.dto.excel.*;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.factory.FactoryManager;
@@ -13,6 +14,7 @@ import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.FileService;
 import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.common.BeanUtil;
+import com.kuo.artemis.server.util.common.StringUtil;
 import com.kuo.artemis.server.util.constant.DataTypeConst;
 import com.kuo.artemis.server.util.constant.FileTypeConst;
 import com.kuo.artemis.server.util.constant.OperationTypeConst;
@@ -104,6 +106,7 @@ public class FileServiceImpl implements FileService {
      * @param command
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     public Response uploadCommonFile(FileImportCommand command) {
 
         try {
@@ -119,27 +122,45 @@ public class FileServiceImpl implements FileService {
         MultipartFile file = command.getFile();
 
         //2.将文件基本信息保存到本地服务器
-        String filename = file.getOriginalFilename();
+        String originalFilename = file.getOriginalFilename();
         InputStream inputStream;
         try {
             inputStream = file.getInputStream();
         } catch (Exception e) {
             return new Response(e);
         }
-        String key = "/" + projectId + "/" + filename;
-
+        StringBuilder filename = new StringBuilder();
+        StringBuilder key = new StringBuilder();
+        //检测是否存在同名文件，有的话进行重命名
+        Integer status = fileRecordMapper.selectCountByCommonFilename(projectId, originalFilename);
+        if (status > 0) {
+            String[] filenameItems = StringUtil.splitFilename(originalFilename);
+            if (filenameItems != null) {
+                String prefix = filenameItems[0];
+                String suffix = filenameItems[1];
+                filename.append(prefix).append("_").append(status+1).append(".").append(suffix);
+                key.append("/").append(projectId).append("/").append(filename.toString());
+            } else {
+                return new Response(HttpStatus.BAD_REQUEST.value(), "文件名无效");
+            }
+        } else {
+            filename.append(originalFilename);
+            key.append("/").append(projectId).append("/").append(filename.toString());
+        }
+        //新增本地记录
         FileRecord fileRecord = new FileRecord();
         fileRecord.setOperationType(Byte.valueOf(OperationTypeConst.UPLOAD_COMMON));
         fileRecord.setUserId(userId);
         fileRecord.setProjectId(projectId);
-        fileRecord.setFilename(filename);
-        fileRecord.setFileIdentifier(key);
-        fileRecord.setFileType(Byte.valueOf(getFileTypeByFilename(filename)));
+        fileRecord.setFilename(originalFilename);
+        fileRecord.setFileIdentifier(key.toString());
+        fileRecord.setFileType(Byte.valueOf(getFileTypeByFilename(originalFilename)));
+        fileRecord.setVersion(status+1);
         fileRecordMapper.insertSelective(fileRecord);
 
-
         //3.将源文件上传到腾讯云
-        Boolean updateStatus = QCloudHelper.updateFile(inputStream, key);
+        FileMetaData fileMetaData = new FileMetaData(file.getSize(), file.getContentType());
+        Boolean updateStatus = QCloudHelper.updateFile(inputStream, key.toString(), fileMetaData);
         if (updateStatus) {
             return new Response(HttpStatus.OK.value(), "上传成功");
         }

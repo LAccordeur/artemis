@@ -30,4 +30,6 @@ public interface FileRecordMapper {
     List<FileRecord> selectCommonFilesByProjectId(@Param("projectId") Integer projectId);
 
     Integer deleteCommonFileById(@Param("id") Integer id);
+
+    Integer selectCountByCommonFilename(@Param("projectId") Integer projectId, @Param("filename") String filename);
 }

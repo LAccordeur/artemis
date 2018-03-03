@@ -1,5 +1,8 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
 public class FileRecord {

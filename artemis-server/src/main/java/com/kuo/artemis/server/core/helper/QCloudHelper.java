@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.helper;
 
+import com.kuo.artemis.server.core.dto.FileMetaData;
 import com.kuo.artemis.server.util.file.QCloudUtil;
 import com.qcloud.cos.COSClient;
 
@@ -24,10 +25,19 @@ public class QCloudHelper {
         return status;
     }
 
-    public static Boolean updateFile(InputStream inputStream, String key) {
-        
+    /**
+     * 以流的形式上传文件
+     * @param inputStream
+     * @param key
+     * @param fileMetaData
+     * @return
+     */
+    public static Boolean updateFile(InputStream inputStream, String key, FileMetaData fileMetaData) {
+
+        //初始化连接客户端
         COSClient cosClient = QCloudUtil.initCOSClientClient();
-        Boolean status = QCloudUtil.uploadFile(cosClient, BUCKET_NAME, inputStream, key);
+        //上传
+        Boolean status = QCloudUtil.uploadFileV2(cosClient, BUCKET_NAME, inputStream, key, fileMetaData);
 
         return status;
     }
