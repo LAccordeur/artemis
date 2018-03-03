@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.service.impl;
 
-import com.datumbox.common.dataobjects.AssociativeArray2D;
+//import com.datumbox.common.dataobjects.AssociativeArray2D;
+import com.datumbox.framework.common.dataobjects.AssociativeArray2D;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.statistics.StatisticsItem;
 import com.kuo.artemis.server.core.dto.statistics.StatisticsParam;

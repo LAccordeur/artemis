@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.util;
 
-import com.datumbox.common.dataobjects.AssociativeArray2D;
+//import com.datumbox.common.dataobjects.AssociativeArray2D;
+import com.datumbox.framework.common.dataobjects.AssociativeArray2D;
 import org.junit.Test;
 
 import java.util.*;

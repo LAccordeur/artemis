@@ -1,11 +1,16 @@
 package com.kuo.artemis.server.util;
 
 import JSci.maths.statistics.FDistribution;
-import com.datumbox.common.dataobjects.AssociativeArray2D;
+/*import com.datumbox.common.dataobjects.AssociativeArray2D;
 import com.datumbox.common.dataobjects.FlatDataCollection;
 import com.datumbox.common.dataobjects.TransposeDataCollection;
 import com.datumbox.common.dataobjects.TransposeDataCollection2D;
-import com.datumbox.framework.statistics.anova.Anova;
+import com.datumbox.framework.statistics.anova.Anova;*/
+import com.datumbox.framework.common.dataobjects.AssociativeArray2D;
+import com.datumbox.framework.common.dataobjects.FlatDataCollection;
+import com.datumbox.framework.common.dataobjects.TransposeDataCollection;
+import com.datumbox.framework.common.dataobjects.TransposeDataCollection2D;
+import com.datumbox.framework.core.statistics.anova.Anova;
 import jsc.distributions.NoncentralFishersF;
 import org.apache.commons.math3.stat.descriptive.moment.GeometricMean;
 import org.apache.commons.math3.stat.inference.TestUtils;

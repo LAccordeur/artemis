@@ -52,11 +52,11 @@
         <!-- https://mvnrepository.com/artifact/com.datumbox/datumbox-framework 双因素方差分析-->
         <dependency>
             <groupId>com.datumbox</groupId>
-            <artifactId>datumbox-framework</artifactId>
-            <version>0.5.1</version>
+            <artifactId>datumbox-framework-lib</artifactId>
+            <version>0.8.1</version>
         </dependency>
 
-        <!-- 重复数计算 http://kickjava.com/src/JSci/maths/statistics/FDistribution.java.htm -->
+        <!-- 重复数计算 非中心F分布 http://kickjava.com/src/JSci/maths/statistics/FDistribution.java.htm -->
         <dependency>
             <groupId>net.sf.jsci</groupId>
             <artifactId>jsci</artifactId>
@@ -91,6 +91,20 @@
             <artifactId>clp-java</artifactId>
             <version>LATEST</version>
         </dependency>
+        <!--<dependency>
+            <groupId>com.quantego</groupId>
+            <artifactId>clp-java</artifactId>
+            <version>1.16.10</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/clp-java-1.16.10.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.nativelibs4java</groupId>
+            <artifactId>bridj</artifactId>
+            <version>0.7.0</version>
+        </dependency>-->
+
+
 
         <!-- 日志 开始 -->
         <dependency>

@@ -7,6 +7,7 @@ import org.apache.commons.math3.optim.linear.*;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -78,7 +79,6 @@ public class NewLinearProgramming {
         //约束函数
 
         LinearConstraintSet linearConstraintSet = new LinearConstraintSet(linearConstraintList);
-
 
         //5.求解线性规划
         SimplexSolver simplexSolver = new SimplexSolver(0.01, 10, 0.0001);

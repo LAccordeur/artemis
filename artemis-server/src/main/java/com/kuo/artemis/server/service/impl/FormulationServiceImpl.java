@@ -7,6 +7,7 @@ import com.kuo.artemis.server.core.dto.formulation.FormulationResult;
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.kuo.artemis.server.core.math.LinearProgramming;
 import com.kuo.artemis.server.core.math.LinearProgrammingResult;
+import com.kuo.artemis.server.core.math.LinearProgrammingSolver;
 import com.kuo.artemis.server.core.math.NewLinearProgramming;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
@@ -228,7 +229,7 @@ public class FormulationServiceImpl implements FormulationService {
         getConstraintLists(materialList, fields, constraintLists);
 
         //4.执行规划
-        LinearProgrammingResult result = NewLinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
+        LinearProgrammingResult result = LinearProgrammingSolver.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
         if (result == null) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "线性规划参数不全");
         }
