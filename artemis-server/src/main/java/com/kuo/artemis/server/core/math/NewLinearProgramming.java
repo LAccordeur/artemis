@@ -3,6 +3,7 @@ package com.kuo.artemis.server.core.math;
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.quantego.clp.CLP;
 import org.apache.commons.math3.optim.PointValuePair;
+import org.apache.commons.math3.optim.SimpleBounds;
 import org.apache.commons.math3.optim.linear.*;
 
 import java.text.DecimalFormat;
@@ -46,10 +47,9 @@ public class NewLinearProgramming {
 
         //1.从参数中提取必要的信息
         int variableSize = objectFunctionCoefficientList.size();  //模型中的所有变量数
-
         List<LinearConstraint> linearConstraintList = new ArrayList<LinearConstraint>();
 
-        //2.设置每个变量的范围(单纯性法不支持SimpleBounds)
+        //2.设置每个变量的范围(单纯性法不支持SimpleBounds 似乎不支持待考证??)
         //SimpleBounds simpleBounds = new SimpleBounds(listToArray(variableLeftBoundList, 0.01), listToArray(variableRightBoundList, 0.01));
         for (int i = 0; i < variableSize; i++) {
             double[] coefficients = setOneAtIndex(i, variableSize);
@@ -61,6 +61,7 @@ public class NewLinearProgramming {
         double[] basicCoefficients = setOneList(variableSize, 1);
         LinearConstraint linearConstraint = new LinearConstraint(basicCoefficients, Relationship.EQ, 1);
         linearConstraintList.add(linearConstraint);
+
 
 
         //3.创建目标函数
@@ -80,12 +81,13 @@ public class NewLinearProgramming {
 
         LinearConstraintSet linearConstraintSet = new LinearConstraintSet(linearConstraintList);
 
+
         //5.求解线性规划
         SimplexSolver simplexSolver = new SimplexSolver(0.01, 10, 0.0001);
         PointValuePair pointValuePair = null;
         SolutionCallback solutionCallback = new SolutionCallback();
         try {
-            pointValuePair = simplexSolver.optimize(linearObjectiveFunction, linearConstraintSet, new NonNegativeConstraint(true), solutionCallback);
+            pointValuePair = simplexSolver.optimize(linearObjectiveFunction, linearConstraintSet, solutionCallback, new NonNegativeConstraint(true));
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -20,6 +20,10 @@ public class StatisticsDetailItem {
 
     private BigDecimal itemStderr;
 
+    private String factorA;
+
+    private String factorB;
+
     private Date modifiedTime;
 
     private Date createTime;
@@ -32,9 +36,27 @@ public class StatisticsDetailItem {
                 ", itemCode='" + itemCode + '\'' +
                 ", itemMean=" + itemMean +
                 ", itemStderr=" + itemStderr +
+                ", factorA='" + factorA + '\'' +
+                ", factorB='" + factorB + '\'' +
                 ", modifiedTime=" + modifiedTime +
                 ", createTime=" + createTime +
                 '}';
+    }
+
+    public String getFactorA() {
+        return factorA;
+    }
+
+    public void setFactorA(String factorA) {
+        this.factorA = factorA;
+    }
+
+    public String getFactorB() {
+        return factorB;
+    }
+
+    public void setFactorB(String factorB) {
+        this.factorB = factorB;
     }
 
     public Integer getId() {

@@ -65,7 +65,7 @@ public class StatisticsController {
             return statisticsService.twoWayAnalysisOfVariance(param);
         }
 
-        return new Response(HttpStatus.BAD_REQUEST.value(), "参数有误");
+        return new Response(HttpStatus.BAD_REQUEST.value(), "暂不支持此分析方法");
     }
 
 

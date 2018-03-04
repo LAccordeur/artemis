@@ -43,6 +43,8 @@
         <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
         <result column="item_mean" jdbcType="DECIMAL" property="itemMean" />
         <result column="item_stderr" jdbcType="DECIMAL" property="itemStderr" />
+        <result column="factor_a" jdbcType="VARCHAR" property="factorA" />
+        <result column="factor_b" jdbcType="VARCHAR" property="factorB" />
         <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
       </collection>
@@ -82,7 +84,9 @@
     statistics_detail_item.id as item_id,
     statistics_detail_item.item_code,
     statistics_detail_item.item_mean,
-    statistics_detail_item.item_stderr
+    statistics_detail_item.item_stderr,
+    statistics_detail_item.factor_a,
+    statistics_detail_item.factor_b
     from statistics_record
     left join statistics_detail_record on statistics_record.id = statistics_detail_record.statistics_record_id
     left join statistics_detail_item on statistics_detail_item.statistics_detail_record_id = statistics_detail_record.id

@@ -1,5 +1,6 @@
 package com.kuo.artemis.server.core.dto.statistics;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

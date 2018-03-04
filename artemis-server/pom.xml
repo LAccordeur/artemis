@@ -103,6 +103,20 @@
             <artifactId>bridj</artifactId>
             <version>0.7.0</version>
         </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.joptimizer/joptimizer -->
+        <!--<dependency>
+            <groupId>com.joptimizer</groupId>
+            <artifactId>joptimizer</artifactId>
+            <version>4.0.0</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.datumbox/lpsolve -->
+        <dependency>
+            <groupId>com.datumbox</groupId>
+            <artifactId>lpsolve</artifactId>
+            <version>5.5.2.0</version>
+        </dependency>
+
+
 
 
 

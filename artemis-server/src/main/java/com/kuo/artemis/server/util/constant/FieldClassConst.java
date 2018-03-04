@@ -8,6 +8,7 @@ import java.util.*;
 /**
  * 用于动物指标数据
  */
+@Deprecated
 public class FieldClassConst {
     public final static Map<String, Class> fieldClassMap = new HashMap<String, Class>();
 

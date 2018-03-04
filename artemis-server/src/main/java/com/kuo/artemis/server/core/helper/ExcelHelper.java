@@ -79,6 +79,7 @@ public class ExcelHelper {
      * @return
      * @throws Exception
      */
+    @Deprecated
     public static IndicatorExcelImportDTO parseIndicatorExcel(FileImportCommand command) throws Exception {
 
         MultipartFile file = command.getFile();
@@ -149,6 +150,7 @@ public class ExcelHelper {
      * @param command
      * @return
      */
+    @Deprecated
     public static ExcelImportDTO parseMaterialExcel(FileImportCommand command) throws Exception {
         ExcelImportDTO excelImportDTO = new ExcelImportDTO();
 
@@ -186,6 +188,7 @@ public class ExcelHelper {
      * @return
      * @throws Exception
      */
+    @Deprecated
     public static ExcelImportDTO parseNutritionExcelImportDTO(FileImportCommand command) throws Exception {
         ExcelImportDTO nutritionExcelImportDTO = new ExcelImportDTO();
 
@@ -217,6 +220,7 @@ public class ExcelHelper {
         return nutritionExcelImportDTO;
     }
 
+    @Deprecated
     private static void appointIds(List<Map<String, Object>> rowList, Map<Class, List<Map<String, Object>>> map, String projectId, String userId) {
         //为每个对象指定id
         List<String> UUIDs = UUIDUtil.list32UUIDLowerCase(rowList.size());
@@ -252,6 +256,7 @@ public class ExcelHelper {
      * @return
      * @throws Exception
      */
+    @Deprecated
     public static <T> T parseExcelRowToBean(Class<T> clazz, Map<String, Object> fieldValueMap) throws Exception {
         return BeanUtil.dataBind(clazz, fieldValueMap);
     }
@@ -259,6 +264,7 @@ public class ExcelHelper {
     /**
      * 导出excel模板文件
      */
+    @Deprecated
     public static Workbook exportExcelTemplate(IndicatorExcelExportCommand command) {
 
         List<String> englishFields = command.getGetIndicatorEnglishNames();
@@ -272,6 +278,7 @@ public class ExcelHelper {
      * @param command
      * @return
      */
+    @Deprecated
     public static Workbook exportExcelWithData(IndicatorExcelExportCommand command) {
 
         List<String> englishFields = command.getGetIndicatorEnglishNames();

@@ -215,7 +215,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     /**
-     * TODO 检测有没有处理组
+     * TODO 添加因素的水平
      * @param param
      * @return
      */
@@ -260,6 +260,10 @@ public class StatisticsServiceImpl implements StatisticsService {
             if (factorALevels == null || factorALevels.size() == 0 || factorALevels.get(0) == null) {
                 return new Response(HttpStatus.BAD_REQUEST.value(), "数据错误");
             }
+            List<String> factorBLevels = statisticsDetailItemMapper.selectFactorBLevels(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version));
+            if (factorBLevels == null || factorBLevels.size() == 0 || factorBLevels.get(0) == null) {
+                return new Response(HttpStatus.BAD_REQUEST.value(), "数据错误");
+            }
             for (int m = 0; m < factorALevels.size(); m++) {
                 String aLevel = factorALevels.get(m);
                 Map<String, List<Object>> map = new HashMap<String, List<Object>>();
@@ -286,8 +290,8 @@ public class StatisticsServiceImpl implements StatisticsService {
                 Animal animal = statisticsDetailItemMapper.selectFactorsByTreatmentCode(Integer.valueOf(projectId), fileIdentifier, Integer.valueOf(version), treatmentCode);
                 String factorA = animal.getFactorA();
                 String factorB = animal.getFactorB();
-                //item.setFactorA(factorA);
-                //item.setFactorB(factorB);
+                item.setFactorA(factorA);
+                item.setFactorB(factorB);
                 dataMap.get(factorA).put(factorB, treatmentData);
             }
 

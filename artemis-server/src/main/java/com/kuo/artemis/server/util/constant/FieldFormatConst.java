@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * @Author : guoyang
- * @Description : 用于对原始的excel二维数组结构中字段名转换成符合Java命名规范的名字
+ * @Description : 用于对原始的excel二维数组结构中字段名转换成符合Java命名规范驼峰形式的名字
  * @Date : Created on 2017/12/18
  */
 public class FieldFormatConst {

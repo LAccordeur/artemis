@@ -7,13 +7,16 @@
     <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
     <result column="item_mean" jdbcType="DECIMAL" property="itemMean" />
     <result column="item_stderr" jdbcType="DECIMAL" property="itemStderr" />
+    <result column="factor_a" jdbcType="VARCHAR" property="factorA" />
+    <result column="factor_b" jdbcType="VARCHAR" property="factorB" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, statistics_detail_record_id, item_code, item_mean, item_stderr, modified_time, 
-    create_time
+    id, statistics_detail_record_id, item_code, item_mean, item_stderr, factor_a, factor_b,
+    modified_time, create_time
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -26,12 +29,15 @@
   </delete>
   <insert id="insert" parameterType="com.kuo.artemis.server.entity.StatisticsDetailItem">
     insert into statistics_detail_item (id, statistics_detail_record_id, item_code, 
-      item_mean, item_stderr, modified_time, 
-      create_time)
-    values (#{id,jdbcType=INTEGER}, #{statisticsDetailRecordId,jdbcType=INTEGER}, #{itemCode,jdbcType=VARCHAR}, 
-      #{itemMean,jdbcType=DECIMAL}, #{itemStderr,jdbcType=DECIMAL}, #{modifiedTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      item_mean, item_stderr, factor_a,
+      factor_b, modified_time, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{statisticsDetailRecordId,jdbcType=INTEGER}, #{itemCode,jdbcType=VARCHAR},
+      #{itemMean,jdbcType=DECIMAL}, #{itemStderr,jdbcType=DECIMAL}, #{factorA,jdbcType=VARCHAR},
+      #{factorB,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
+
 
 
   <select id="selectTreatmentCodes" resultType="String">
@@ -65,6 +71,9 @@
     where project_id = #{projectId} and file_identifier = #{fileIdentifier} and version = #{version} and treatment = #{treatmentCode}
   </select>
 
+
+
+
   <insert id="insertBatch" parameterType="com.kuo.artemis.server.entity.StatisticsDetailItem">
     <foreach collection="list" index="index" item="item" separator=";">
     insert into statistics_detail_item
@@ -83,6 +92,12 @@
       </if>
       <if test="item.itemStderr != null">
         item_stderr,
+      </if>
+      <if test="item.factorA != null">
+        factor_a,
+      </if>
+      <if test="item.factorB != null">
+        factor_b,
       </if>
       <if test="item.modifiedTime != null">
         modified_time,
@@ -107,6 +122,12 @@
       <if test="item.itemStderr != null">
         #{item.itemStderr,jdbcType=DECIMAL},
       </if>
+      <if test="item.factorA != null">
+        #{item.factorA,jdbcType=VARCHAR},
+      </if>
+      <if test="item.factorB != null">
+        #{item.factorB,jdbcType=VARCHAR},
+      </if>
       <if test="item.modifiedTime != null">
         #{item.modifiedTime,jdbcType=TIMESTAMP},
       </if>
@@ -119,54 +140,66 @@
 
 
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.StatisticsDetailItem">
-  insert into statistics_detail_item
-  <trim prefix="(" suffix=")" suffixOverrides=",">
-    <if test="id != null">
-      id,
-    </if>
-    <if test="statisticsDetailRecordId != null">
-      statistics_detail_record_id,
-    </if>
-    <if test="itemCode != null">
-      item_code,
-    </if>
-    <if test="itemMean != null">
-      item_mean,
-    </if>
-    <if test="itemStderr != null">
-      item_stderr,
-    </if>
-    <if test="modifiedTime != null">
-      modified_time,
-    </if>
-    <if test="createTime != null">
-      create_time,
-    </if>
-  </trim>
-  <trim prefix="values (" suffix=")" suffixOverrides=",">
-    <if test="id != null">
-      #{id,jdbcType=INTEGER},
-    </if>
-    <if test="statisticsDetailRecordId != null">
-      #{statisticsDetailRecordId,jdbcType=INTEGER},
-    </if>
-    <if test="itemCode != null">
-      #{itemCode,jdbcType=VARCHAR},
-    </if>
-    <if test="itemMean != null">
-      #{itemMean,jdbcType=DECIMAL},
-    </if>
-    <if test="itemStderr != null">
-      #{itemStderr,jdbcType=DECIMAL},
-    </if>
-    <if test="modifiedTime != null">
-      #{modifiedTime,jdbcType=TIMESTAMP},
-    </if>
-    <if test="createTime != null">
-      #{createTime,jdbcType=TIMESTAMP},
-    </if>
-  </trim>
-</insert>
+    insert into statistics_detail_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="statisticsDetailRecordId != null">
+        statistics_detail_record_id,
+      </if>
+      <if test="itemCode != null">
+        item_code,
+      </if>
+      <if test="itemMean != null">
+        item_mean,
+      </if>
+      <if test="itemStderr != null">
+        item_stderr,
+      </if>
+      <if test="factorA != null">
+        factor_a,
+      </if>
+      <if test="factorB != null">
+        factor_b,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsDetailRecordId != null">
+        #{statisticsDetailRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="itemCode != null">
+        #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemMean != null">
+        #{itemMean,jdbcType=DECIMAL},
+      </if>
+      <if test="itemStderr != null">
+        #{itemStderr,jdbcType=DECIMAL},
+      </if>
+      <if test="factorA != null">
+        #{factorA,jdbcType=VARCHAR},
+      </if>
+      <if test="factorB != null">
+        #{factorB,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.kuo.artemis.server.entity.StatisticsDetailItem">
     update statistics_detail_item
     <set>
@@ -181,6 +214,12 @@
       </if>
       <if test="itemStderr != null">
         item_stderr = #{itemStderr,jdbcType=DECIMAL},
+      </if>
+      <if test="factorA != null">
+        factor_a = #{factorA,jdbcType=VARCHAR},
+      </if>
+      <if test="factorB != null">
+        factor_b = #{factorB,jdbcType=VARCHAR},
       </if>
       <if test="modifiedTime != null">
         modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
@@ -197,6 +236,8 @@
       item_code = #{itemCode,jdbcType=VARCHAR},
       item_mean = #{itemMean,jdbcType=DECIMAL},
       item_stderr = #{itemStderr,jdbcType=DECIMAL},
+      factor_a = #{factorA,jdbcType=VARCHAR},
+      factor_b = #{factorB,jdbcType=VARCHAR},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

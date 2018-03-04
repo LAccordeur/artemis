@@ -9,6 +9,7 @@ import com.kuo.artemis.server.util.constant.FieldFormatConst;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
+import org.springframework.data.domain.DomainEvents;
 
 
 import java.io.IOException;
@@ -92,7 +93,7 @@ public final class ExcelUtil {
     }
 
     /**
-     * 导入文件时对文件中的字段名转换为符合Java规范的
+     * 导入文件时对文件中的字段名转换为符合Java规范的驼峰形式
      * @param field
      * @return
      */
@@ -631,6 +632,7 @@ public final class ExcelUtil {
      * @param fieldName
      * @return
      */
+    @Deprecated
     public static Class getClassByField(String fieldName) {
 
         return FieldClassConst.fieldClassMap.get(fieldName);
