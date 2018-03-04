@@ -122,7 +122,7 @@ public class FieldFormatConst {
         map.put("pig-map", "pigMar");
         map.put("apo-i", "apoI");
         map.put("apo-a", "apoA");
-        map.put("il1β", "il1Beta");
+        //map.put("il1β", "il1Beta");
         map.put("tnfα", "tnfAlpha");
         map.put("infgama", "infGama");
         map.put("weaning-estrus interval", "weaningEstrusInterval");

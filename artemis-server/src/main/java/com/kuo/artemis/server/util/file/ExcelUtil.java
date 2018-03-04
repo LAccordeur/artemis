@@ -154,14 +154,24 @@ public final class ExcelUtil {
         if (columnIndex == null) {
 
             for (int i = 0; i < columnCount; i++) {
-                String field = row.getCell(i).getStringCellValue();
-                list.add(field);
+                Cell cell = row.getCell(i);
+                if (cell != null) {
+                    String field = cell.getStringCellValue();
+                    list.add(field);
+                } else {
+                    list.add("");
+                }
             }
         } else {
             //poi 中的列从0开始计数
             for (int i = columnIndex; i < columnCount; i++) {
-                String field = row.getCell(i).getStringCellValue();
-                list.add(field);
+                Cell cell = row.getCell(i);
+                if (cell != null) {
+                    String field = cell.getStringCellValue();
+                    list.add(field);
+                } else {
+                    list.add("");
+                }
             }
         }
 
@@ -241,12 +251,16 @@ public final class ExcelUtil {
         //依次解析正文
         for (int i = rowIndex; i <= rowCount; i++) {
             row = sheet.getRow(i);
-            List<String> rowItem = new ArrayList<String>();
-            for (int j = columnIndex; j < columnCount; j++) {
-                String item = (String) getCellFormatValue(row.getCell(j));
-                rowItem.add(item);
+            if (row != null) {
+                List<String> rowItem = new ArrayList<String>();
+                for (int j = columnIndex; j < columnCount; j++) {
+
+                    String item = (String) getCellFormatValue(row.getCell(j));
+                    rowItem.add(item);
+
+                }
+                rowList.add(rowItem);
             }
-            rowList.add(rowItem);
         }
 
         return rowList;

@@ -28,7 +28,7 @@ public class FieldUnderlineMapperConst {
         map.put("pig-map", "pig_mar");
         map.put("apo-i", "apo_i");
         map.put("apo-a", "apo_a");
-        map.put("iL1β", "il1_beta");
+        //map.put("iL1β", "il1_beta");
         map.put("tnfα", "tnf_alpha");
         map.put("infgama", "inf_gama");
         map.put("weaning-estrus interval", "weaning_estrus_interval");
