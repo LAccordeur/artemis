@@ -2,6 +2,7 @@ package com.kuo.artemis.server.entity;
 
 import java.math.BigDecimal;
 
+@Deprecated
 public class AnimalGutMicrobiotaRecord {
     private Integer id;
 

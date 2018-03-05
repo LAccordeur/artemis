@@ -3,6 +3,7 @@ package com.kuo.artemis.server.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Deprecated
 public class AnimalGrowthRecord {
     private Integer id;
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder
 public class AnimalRecord {
@@ -18,8 +19,6 @@ public class AnimalRecord {
 
     private Short animalSex;
 
-    private Integer parity;
-
     private String house;
 
     private String code;
@@ -30,7 +29,9 @@ public class AnimalRecord {
 
     private String replicate;
 
-    private BigDecimal animalInitWeight;
+    private String factorA;
+
+    private String factorB;
 
     private BigDecimal initialBw;
 
@@ -154,7 +155,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek1;
 
-    private BigDecimal deedLossWeek1;
+    private BigDecimal feedLossWeek1;
 
     private BigDecimal adfiWeek1;
 
@@ -162,7 +163,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek2;
 
-    private BigDecimal deedLossWeek2;
+    private BigDecimal feedLossWeek2;
 
     private BigDecimal adfiWeek2;
 
@@ -170,7 +171,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek3;
 
-    private BigDecimal deedLossWeek3;
+    private BigDecimal feedLossWeek3;
 
     private BigDecimal adfiWeek3;
 
@@ -178,7 +179,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek4;
 
-    private BigDecimal deedLossWeek4;
+    private BigDecimal feedLossWeek4;
 
     private BigDecimal adfiWeek4;
 
@@ -186,7 +187,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek5;
 
-    private BigDecimal deedLossWeek5;
+    private BigDecimal feedLossWeek5;
 
     private BigDecimal adfiWeek5;
 
@@ -194,7 +195,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek6;
 
-    private BigDecimal deedLossWeek6;
+    private BigDecimal feedLossWeek6;
 
     private BigDecimal adfiWeek6;
 
@@ -202,7 +203,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek7;
 
-    private BigDecimal deedLossWeek7;
+    private BigDecimal feedLossWeek7;
 
     private BigDecimal adfiWeek7;
 
@@ -210,7 +211,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek8;
 
-    private BigDecimal deedLossWeek8;
+    private BigDecimal feedLossWeek8;
 
     private BigDecimal adfiWeek8;
 
@@ -218,7 +219,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek9;
 
-    private BigDecimal deedLossWeek9;
+    private BigDecimal feedLossWeek9;
 
     private BigDecimal adfiWeek9;
 
@@ -226,7 +227,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek10;
 
-    private BigDecimal deedLossWeek10;
+    private BigDecimal feedLossWeek10;
 
     private BigDecimal adfiWeek10;
 
@@ -234,7 +235,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek11;
 
-    private BigDecimal deedLossWeek11;
+    private BigDecimal feedLossWeek11;
 
     private BigDecimal adfiWeek11;
 
@@ -242,7 +243,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek12;
 
-    private BigDecimal deedLossWeek12;
+    private BigDecimal feedLossWeek12;
 
     private BigDecimal adfiWeek12;
 
@@ -250,7 +251,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek13;
 
-    private BigDecimal deedLossWeek13;
+    private BigDecimal feedLossWeek13;
 
     private BigDecimal adfiWeek13;
 
@@ -258,7 +259,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek14;
 
-    private BigDecimal deedLossWeek14;
+    private BigDecimal feedLossWeek14;
 
     private BigDecimal adfiWeek14;
 
@@ -266,7 +267,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek15;
 
-    private BigDecimal deedLossWeek15;
+    private BigDecimal feedLossWeek15;
 
     private BigDecimal adfiWeek15;
 
@@ -274,7 +275,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek16;
 
-    private BigDecimal deedLossWeek16;
+    private BigDecimal feedLossWeek16;
 
     private BigDecimal adfiWeek16;
 
@@ -282,7 +283,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek17;
 
-    private BigDecimal deedLossWeek17;
+    private BigDecimal feedLossWeek17;
 
     private BigDecimal adfiWeek17;
 
@@ -290,7 +291,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek18;
 
-    private BigDecimal deedLossWeek18;
+    private BigDecimal feedLossWeek18;
 
     private BigDecimal adfiWeek18;
 
@@ -298,7 +299,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek19;
 
-    private BigDecimal deedLossWeek19;
+    private BigDecimal feedLossWeek19;
 
     private BigDecimal adfiWeek19;
 
@@ -306,7 +307,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek20;
 
-    private BigDecimal deedLossWeek20;
+    private BigDecimal feedLossWeek20;
 
     private BigDecimal adfiWeek20;
 
@@ -314,7 +315,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek21;
 
-    private BigDecimal deedLossWeek21;
+    private BigDecimal feedLossWeek21;
 
     private BigDecimal adfiWeek21;
 
@@ -322,7 +323,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek22;
 
-    private BigDecimal deedLossWeek22;
+    private BigDecimal feedLossWeek22;
 
     private BigDecimal adfiWeek22;
 
@@ -330,7 +331,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek23;
 
-    private BigDecimal deedLossWeek23;
+    private BigDecimal feedLossWeek23;
 
     private BigDecimal adfiWeek23;
 
@@ -338,7 +339,7 @@ public class AnimalRecord {
 
     private BigDecimal residualWeek24;
 
-    private BigDecimal deedLossWeek24;
+    private BigDecimal feedLossWeek24;
 
     private BigDecimal adfiWeek24;
 
@@ -624,6 +625,8 @@ public class AnimalRecord {
 
     private BigDecimal occludin;
 
+    private BigDecimal claudin1;
+
     private BigDecimal igf1;
 
     private BigDecimal igf1r;
@@ -824,6 +827,8 @@ public class AnimalRecord {
 
     private BigDecimal ph24h;
 
+    private Integer parity;
+
     private BigDecimal bodyScoreAtD1;
 
     private BigDecimal bodyScoreAtD30;
@@ -832,7 +837,7 @@ public class AnimalRecord {
 
     private BigDecimal bodyScoreAtD114;
 
-    private BigDecimal bodyScoreAtLactaion;
+    private BigDecimal bodyScoreAtLactation;
 
     private BigDecimal bwAtD1;
 
@@ -870,9 +875,9 @@ public class AnimalRecord {
 
     private BigDecimal cullRate;
 
-    private Date farrowingTimeStarted;
+    private String farrowingTimeStarted;
 
-    private Date farrowingTimeEnded;
+    private String farrowingTimeEnded;
 
     private BigDecimal farrowingDuration;
 
@@ -983,6 +988,8 @@ public class AnimalRecord {
     private BigDecimal stillbornWeight8;
 
     private BigDecimal stillbornWeight9;
+
+    private BigDecimal stillbornWeight10;
 
     private BigDecimal mommifiedWeight1;
 
@@ -1264,15 +1271,15 @@ public class AnimalRecord {
 
     private BigDecimal crushedPigletWeight5;
 
-    private BigDecimal crushedPigletWeight6;
+    private BigDecimal diseasedPigletWeight1;
 
-    private BigDecimal crushedPigletWeight7;
+    private BigDecimal diseasedPigletWeight2;
 
-    private BigDecimal crushedPigletWeight8;
+    private BigDecimal diseasedPigletWeight3;
 
-    private BigDecimal crushedPigletWeight9;
+    private BigDecimal diseasedPigletWeight4;
 
-    private BigDecimal crushedPigletWeight10;
+    private BigDecimal diseasedPigletWeight5;
 
     private BigDecimal starvedPigletWeight1;
 
@@ -1412,6 +1419,8 @@ public class AnimalRecord {
 
     private BigDecimal giltBfAtPhase3;
 
+    private BigDecimal estrusDay;
+
     private BigDecimal estrumBw;
 
     private BigDecimal uterineWeight;
@@ -1430,9 +1439,11 @@ public class AnimalRecord {
 
     private BigDecimal largeFollicleNumber;
 
-    private BigDecimal corpusLutenumNumber;
+    private BigDecimal corpusLuteumNumber;
 
     private BigDecimal follicleLiquidWeight;
+
+    private BigDecimal ovarianWeight;
 
     private BigDecimal testicularLength;
 
@@ -1464,6 +1475,8 @@ public class AnimalRecord {
 
     private BigDecimal medicineTimesForGilts;
 
+    private Integer sequence;
+
     private Integer version;
 
     private String fileIdentifier;
@@ -1471,6 +1484,30 @@ public class AnimalRecord {
     private Date createTime;
 
     private Date modifiedTime;
+
+    public BigDecimal getEstrusDay() {
+        return estrusDay;
+    }
+
+    public void setEstrusDay(BigDecimal estrusDay) {
+        this.estrusDay = estrusDay;
+    }
+
+    public BigDecimal getStillbornWeight10() {
+        return stillbornWeight10;
+    }
+
+    public void setStillbornWeight10(BigDecimal stillbornWeight10) {
+        this.stillbornWeight10 = stillbornWeight10;
+    }
+
+    public BigDecimal getClaudin1() {
+        return claudin1;
+    }
+
+    public void setClaudin1(BigDecimal claudin1) {
+        this.claudin1 = claudin1;
+    }
 
     public String getId() {
         return id;
@@ -1552,12 +1589,20 @@ public class AnimalRecord {
         this.replicate = replicate == null ? null : replicate.trim();
     }
 
-    public BigDecimal getAnimalInitWeight() {
-        return animalInitWeight;
+    public String getFactorA() {
+        return factorA;
     }
 
-    public void setAnimalInitWeight(BigDecimal animalInitWeight) {
-        this.animalInitWeight = animalInitWeight;
+    public void setFactorA(String factorA) {
+        this.factorA = factorA == null ? null : factorA.trim();
+    }
+
+    public String getFactorB() {
+        return factorB;
+    }
+
+    public void setFactorB(String factorB) {
+        this.factorB = factorB == null ? null : factorB.trim();
     }
 
     public BigDecimal getInitialBw() {
@@ -2048,12 +2093,12 @@ public class AnimalRecord {
         this.residualWeek1 = residualWeek1;
     }
 
-    public BigDecimal getDeedLossWeek1() {
-        return deedLossWeek1;
+    public BigDecimal getFeedLossWeek1() {
+        return feedLossWeek1;
     }
 
-    public void setDeedLossWeek1(BigDecimal deedLossWeek1) {
-        this.deedLossWeek1 = deedLossWeek1;
+    public void setFeedLossWeek1(BigDecimal feedLossWeek1) {
+        this.feedLossWeek1 = feedLossWeek1;
     }
 
     public BigDecimal getAdfiWeek1() {
@@ -2080,12 +2125,12 @@ public class AnimalRecord {
         this.residualWeek2 = residualWeek2;
     }
 
-    public BigDecimal getDeedLossWeek2() {
-        return deedLossWeek2;
+    public BigDecimal getFeedLossWeek2() {
+        return feedLossWeek2;
     }
 
-    public void setDeedLossWeek2(BigDecimal deedLossWeek2) {
-        this.deedLossWeek2 = deedLossWeek2;
+    public void setFeedLossWeek2(BigDecimal feedLossWeek2) {
+        this.feedLossWeek2 = feedLossWeek2;
     }
 
     public BigDecimal getAdfiWeek2() {
@@ -2112,12 +2157,12 @@ public class AnimalRecord {
         this.residualWeek3 = residualWeek3;
     }
 
-    public BigDecimal getDeedLossWeek3() {
-        return deedLossWeek3;
+    public BigDecimal getFeedLossWeek3() {
+        return feedLossWeek3;
     }
 
-    public void setDeedLossWeek3(BigDecimal deedLossWeek3) {
-        this.deedLossWeek3 = deedLossWeek3;
+    public void setFeedLossWeek3(BigDecimal feedLossWeek3) {
+        this.feedLossWeek3 = feedLossWeek3;
     }
 
     public BigDecimal getAdfiWeek3() {
@@ -2144,12 +2189,12 @@ public class AnimalRecord {
         this.residualWeek4 = residualWeek4;
     }
 
-    public BigDecimal getDeedLossWeek4() {
-        return deedLossWeek4;
+    public BigDecimal getFeedLossWeek4() {
+        return feedLossWeek4;
     }
 
-    public void setDeedLossWeek4(BigDecimal deedLossWeek4) {
-        this.deedLossWeek4 = deedLossWeek4;
+    public void setFeedLossWeek4(BigDecimal feedLossWeek4) {
+        this.feedLossWeek4 = feedLossWeek4;
     }
 
     public BigDecimal getAdfiWeek4() {
@@ -2176,12 +2221,12 @@ public class AnimalRecord {
         this.residualWeek5 = residualWeek5;
     }
 
-    public BigDecimal getDeedLossWeek5() {
-        return deedLossWeek5;
+    public BigDecimal getFeedLossWeek5() {
+        return feedLossWeek5;
     }
 
-    public void setDeedLossWeek5(BigDecimal deedLossWeek5) {
-        this.deedLossWeek5 = deedLossWeek5;
+    public void setFeedLossWeek5(BigDecimal feedLossWeek5) {
+        this.feedLossWeek5 = feedLossWeek5;
     }
 
     public BigDecimal getAdfiWeek5() {
@@ -2208,12 +2253,12 @@ public class AnimalRecord {
         this.residualWeek6 = residualWeek6;
     }
 
-    public BigDecimal getDeedLossWeek6() {
-        return deedLossWeek6;
+    public BigDecimal getFeedLossWeek6() {
+        return feedLossWeek6;
     }
 
-    public void setDeedLossWeek6(BigDecimal deedLossWeek6) {
-        this.deedLossWeek6 = deedLossWeek6;
+    public void setFeedLossWeek6(BigDecimal feedLossWeek6) {
+        this.feedLossWeek6 = feedLossWeek6;
     }
 
     public BigDecimal getAdfiWeek6() {
@@ -2240,12 +2285,12 @@ public class AnimalRecord {
         this.residualWeek7 = residualWeek7;
     }
 
-    public BigDecimal getDeedLossWeek7() {
-        return deedLossWeek7;
+    public BigDecimal getFeedLossWeek7() {
+        return feedLossWeek7;
     }
 
-    public void setDeedLossWeek7(BigDecimal deedLossWeek7) {
-        this.deedLossWeek7 = deedLossWeek7;
+    public void setFeedLossWeek7(BigDecimal feedLossWeek7) {
+        this.feedLossWeek7 = feedLossWeek7;
     }
 
     public BigDecimal getAdfiWeek7() {
@@ -2272,12 +2317,12 @@ public class AnimalRecord {
         this.residualWeek8 = residualWeek8;
     }
 
-    public BigDecimal getDeedLossWeek8() {
-        return deedLossWeek8;
+    public BigDecimal getFeedLossWeek8() {
+        return feedLossWeek8;
     }
 
-    public void setDeedLossWeek8(BigDecimal deedLossWeek8) {
-        this.deedLossWeek8 = deedLossWeek8;
+    public void setFeedLossWeek8(BigDecimal feedLossWeek8) {
+        this.feedLossWeek8 = feedLossWeek8;
     }
 
     public BigDecimal getAdfiWeek8() {
@@ -2304,12 +2349,12 @@ public class AnimalRecord {
         this.residualWeek9 = residualWeek9;
     }
 
-    public BigDecimal getDeedLossWeek9() {
-        return deedLossWeek9;
+    public BigDecimal getFeedLossWeek9() {
+        return feedLossWeek9;
     }
 
-    public void setDeedLossWeek9(BigDecimal deedLossWeek9) {
-        this.deedLossWeek9 = deedLossWeek9;
+    public void setFeedLossWeek9(BigDecimal feedLossWeek9) {
+        this.feedLossWeek9 = feedLossWeek9;
     }
 
     public BigDecimal getAdfiWeek9() {
@@ -2336,12 +2381,12 @@ public class AnimalRecord {
         this.residualWeek10 = residualWeek10;
     }
 
-    public BigDecimal getDeedLossWeek10() {
-        return deedLossWeek10;
+    public BigDecimal getFeedLossWeek10() {
+        return feedLossWeek10;
     }
 
-    public void setDeedLossWeek10(BigDecimal deedLossWeek10) {
-        this.deedLossWeek10 = deedLossWeek10;
+    public void setFeedLossWeek10(BigDecimal feedLossWeek10) {
+        this.feedLossWeek10 = feedLossWeek10;
     }
 
     public BigDecimal getAdfiWeek10() {
@@ -2368,12 +2413,12 @@ public class AnimalRecord {
         this.residualWeek11 = residualWeek11;
     }
 
-    public BigDecimal getDeedLossWeek11() {
-        return deedLossWeek11;
+    public BigDecimal getFeedLossWeek11() {
+        return feedLossWeek11;
     }
 
-    public void setDeedLossWeek11(BigDecimal deedLossWeek11) {
-        this.deedLossWeek11 = deedLossWeek11;
+    public void setFeedLossWeek11(BigDecimal feedLossWeek11) {
+        this.feedLossWeek11 = feedLossWeek11;
     }
 
     public BigDecimal getAdfiWeek11() {
@@ -2400,12 +2445,12 @@ public class AnimalRecord {
         this.residualWeek12 = residualWeek12;
     }
 
-    public BigDecimal getDeedLossWeek12() {
-        return deedLossWeek12;
+    public BigDecimal getFeedLossWeek12() {
+        return feedLossWeek12;
     }
 
-    public void setDeedLossWeek12(BigDecimal deedLossWeek12) {
-        this.deedLossWeek12 = deedLossWeek12;
+    public void setFeedLossWeek12(BigDecimal feedLossWeek12) {
+        this.feedLossWeek12 = feedLossWeek12;
     }
 
     public BigDecimal getAdfiWeek12() {
@@ -2432,12 +2477,12 @@ public class AnimalRecord {
         this.residualWeek13 = residualWeek13;
     }
 
-    public BigDecimal getDeedLossWeek13() {
-        return deedLossWeek13;
+    public BigDecimal getFeedLossWeek13() {
+        return feedLossWeek13;
     }
 
-    public void setDeedLossWeek13(BigDecimal deedLossWeek13) {
-        this.deedLossWeek13 = deedLossWeek13;
+    public void setFeedLossWeek13(BigDecimal feedLossWeek13) {
+        this.feedLossWeek13 = feedLossWeek13;
     }
 
     public BigDecimal getAdfiWeek13() {
@@ -2464,12 +2509,12 @@ public class AnimalRecord {
         this.residualWeek14 = residualWeek14;
     }
 
-    public BigDecimal getDeedLossWeek14() {
-        return deedLossWeek14;
+    public BigDecimal getFeedLossWeek14() {
+        return feedLossWeek14;
     }
 
-    public void setDeedLossWeek14(BigDecimal deedLossWeek14) {
-        this.deedLossWeek14 = deedLossWeek14;
+    public void setFeedLossWeek14(BigDecimal feedLossWeek14) {
+        this.feedLossWeek14 = feedLossWeek14;
     }
 
     public BigDecimal getAdfiWeek14() {
@@ -2496,12 +2541,12 @@ public class AnimalRecord {
         this.residualWeek15 = residualWeek15;
     }
 
-    public BigDecimal getDeedLossWeek15() {
-        return deedLossWeek15;
+    public BigDecimal getFeedLossWeek15() {
+        return feedLossWeek15;
     }
 
-    public void setDeedLossWeek15(BigDecimal deedLossWeek15) {
-        this.deedLossWeek15 = deedLossWeek15;
+    public void setFeedLossWeek15(BigDecimal feedLossWeek15) {
+        this.feedLossWeek15 = feedLossWeek15;
     }
 
     public BigDecimal getAdfiWeek15() {
@@ -2528,12 +2573,12 @@ public class AnimalRecord {
         this.residualWeek16 = residualWeek16;
     }
 
-    public BigDecimal getDeedLossWeek16() {
-        return deedLossWeek16;
+    public BigDecimal getFeedLossWeek16() {
+        return feedLossWeek16;
     }
 
-    public void setDeedLossWeek16(BigDecimal deedLossWeek16) {
-        this.deedLossWeek16 = deedLossWeek16;
+    public void setFeedLossWeek16(BigDecimal feedLossWeek16) {
+        this.feedLossWeek16 = feedLossWeek16;
     }
 
     public BigDecimal getAdfiWeek16() {
@@ -2560,12 +2605,12 @@ public class AnimalRecord {
         this.residualWeek17 = residualWeek17;
     }
 
-    public BigDecimal getDeedLossWeek17() {
-        return deedLossWeek17;
+    public BigDecimal getFeedLossWeek17() {
+        return feedLossWeek17;
     }
 
-    public void setDeedLossWeek17(BigDecimal deedLossWeek17) {
-        this.deedLossWeek17 = deedLossWeek17;
+    public void setFeedLossWeek17(BigDecimal feedLossWeek17) {
+        this.feedLossWeek17 = feedLossWeek17;
     }
 
     public BigDecimal getAdfiWeek17() {
@@ -2592,12 +2637,12 @@ public class AnimalRecord {
         this.residualWeek18 = residualWeek18;
     }
 
-    public BigDecimal getDeedLossWeek18() {
-        return deedLossWeek18;
+    public BigDecimal getFeedLossWeek18() {
+        return feedLossWeek18;
     }
 
-    public void setDeedLossWeek18(BigDecimal deedLossWeek18) {
-        this.deedLossWeek18 = deedLossWeek18;
+    public void setFeedLossWeek18(BigDecimal feedLossWeek18) {
+        this.feedLossWeek18 = feedLossWeek18;
     }
 
     public BigDecimal getAdfiWeek18() {
@@ -2624,12 +2669,12 @@ public class AnimalRecord {
         this.residualWeek19 = residualWeek19;
     }
 
-    public BigDecimal getDeedLossWeek19() {
-        return deedLossWeek19;
+    public BigDecimal getFeedLossWeek19() {
+        return feedLossWeek19;
     }
 
-    public void setDeedLossWeek19(BigDecimal deedLossWeek19) {
-        this.deedLossWeek19 = deedLossWeek19;
+    public void setFeedLossWeek19(BigDecimal feedLossWeek19) {
+        this.feedLossWeek19 = feedLossWeek19;
     }
 
     public BigDecimal getAdfiWeek19() {
@@ -2656,12 +2701,12 @@ public class AnimalRecord {
         this.residualWeek20 = residualWeek20;
     }
 
-    public BigDecimal getDeedLossWeek20() {
-        return deedLossWeek20;
+    public BigDecimal getFeedLossWeek20() {
+        return feedLossWeek20;
     }
 
-    public void setDeedLossWeek20(BigDecimal deedLossWeek20) {
-        this.deedLossWeek20 = deedLossWeek20;
+    public void setFeedLossWeek20(BigDecimal feedLossWeek20) {
+        this.feedLossWeek20 = feedLossWeek20;
     }
 
     public BigDecimal getAdfiWeek20() {
@@ -2688,12 +2733,12 @@ public class AnimalRecord {
         this.residualWeek21 = residualWeek21;
     }
 
-    public BigDecimal getDeedLossWeek21() {
-        return deedLossWeek21;
+    public BigDecimal getFeedLossWeek21() {
+        return feedLossWeek21;
     }
 
-    public void setDeedLossWeek21(BigDecimal deedLossWeek21) {
-        this.deedLossWeek21 = deedLossWeek21;
+    public void setFeedLossWeek21(BigDecimal feedLossWeek21) {
+        this.feedLossWeek21 = feedLossWeek21;
     }
 
     public BigDecimal getAdfiWeek21() {
@@ -2720,12 +2765,12 @@ public class AnimalRecord {
         this.residualWeek22 = residualWeek22;
     }
 
-    public BigDecimal getDeedLossWeek22() {
-        return deedLossWeek22;
+    public BigDecimal getFeedLossWeek22() {
+        return feedLossWeek22;
     }
 
-    public void setDeedLossWeek22(BigDecimal deedLossWeek22) {
-        this.deedLossWeek22 = deedLossWeek22;
+    public void setFeedLossWeek22(BigDecimal feedLossWeek22) {
+        this.feedLossWeek22 = feedLossWeek22;
     }
 
     public BigDecimal getAdfiWeek22() {
@@ -2752,12 +2797,12 @@ public class AnimalRecord {
         this.residualWeek23 = residualWeek23;
     }
 
-    public BigDecimal getDeedLossWeek23() {
-        return deedLossWeek23;
+    public BigDecimal getFeedLossWeek23() {
+        return feedLossWeek23;
     }
 
-    public void setDeedLossWeek23(BigDecimal deedLossWeek23) {
-        this.deedLossWeek23 = deedLossWeek23;
+    public void setFeedLossWeek23(BigDecimal feedLossWeek23) {
+        this.feedLossWeek23 = feedLossWeek23;
     }
 
     public BigDecimal getAdfiWeek23() {
@@ -2784,12 +2829,12 @@ public class AnimalRecord {
         this.residualWeek24 = residualWeek24;
     }
 
-    public BigDecimal getDeedLossWeek24() {
-        return deedLossWeek24;
+    public BigDecimal getFeedLossWeek24() {
+        return feedLossWeek24;
     }
 
-    public void setDeedLossWeek24(BigDecimal deedLossWeek24) {
-        this.deedLossWeek24 = deedLossWeek24;
+    public void setFeedLossWeek24(BigDecimal feedLossWeek24) {
+        this.feedLossWeek24 = feedLossWeek24;
     }
 
     public BigDecimal getAdfiWeek24() {
@@ -3590,14 +3635,6 @@ public class AnimalRecord {
 
     public void seteColi(BigDecimal eColi) {
         this.eColi = eColi;
-    }
-
-    public Integer getParity() {
-        return parity;
-    }
-
-    public void setParity(Integer parity) {
-        this.parity = parity;
     }
 
     public BigDecimal getBifidobacterium() {
@@ -4736,6 +4773,14 @@ public class AnimalRecord {
         this.ph24h = ph24h;
     }
 
+    public Integer getParity() {
+        return parity;
+    }
+
+    public void setParity(Integer parity) {
+        this.parity = parity;
+    }
+
     public BigDecimal getBodyScoreAtD1() {
         return bodyScoreAtD1;
     }
@@ -4768,12 +4813,12 @@ public class AnimalRecord {
         this.bodyScoreAtD114 = bodyScoreAtD114;
     }
 
-    public BigDecimal getBodyScoreAtLactaion() {
-        return bodyScoreAtLactaion;
+    public BigDecimal getBodyScoreAtLactation() {
+        return bodyScoreAtLactation;
     }
 
-    public void setBodyScoreAtLactaion(BigDecimal bodyScoreAtLactaion) {
-        this.bodyScoreAtLactaion = bodyScoreAtLactaion;
+    public void setBodyScoreAtLactation(BigDecimal bodyScoreAtLactation) {
+        this.bodyScoreAtLactation = bodyScoreAtLactation;
     }
 
     public BigDecimal getBwAtD1() {
@@ -4920,20 +4965,20 @@ public class AnimalRecord {
         this.cullRate = cullRate;
     }
 
-    public Date getFarrowingTimeStarted() {
+    public String getFarrowingTimeStarted() {
         return farrowingTimeStarted;
     }
 
-    public void setFarrowingTimeStarted(Date farrowingTimeStarted) {
-        this.farrowingTimeStarted = farrowingTimeStarted;
+    public void setFarrowingTimeStarted(String farrowingTimeStarted) {
+        this.farrowingTimeStarted = farrowingTimeStarted == null ? null : farrowingTimeStarted.trim();
     }
 
-    public Date getFarrowingTimeEnded() {
+    public String getFarrowingTimeEnded() {
         return farrowingTimeEnded;
     }
 
-    public void setFarrowingTimeEnded(Date farrowingTimeEnded) {
-        this.farrowingTimeEnded = farrowingTimeEnded;
+    public void setFarrowingTimeEnded(String farrowingTimeEnded) {
+        this.farrowingTimeEnded = farrowingTimeEnded == null ? null : farrowingTimeEnded.trim();
     }
 
     public BigDecimal getFarrowingDuration() {
@@ -6496,44 +6541,44 @@ public class AnimalRecord {
         this.crushedPigletWeight5 = crushedPigletWeight5;
     }
 
-    public BigDecimal getCrushedPigletWeight6() {
-        return crushedPigletWeight6;
+    public BigDecimal getDiseasedPigletWeight1() {
+        return diseasedPigletWeight1;
     }
 
-    public void setCrushedPigletWeight6(BigDecimal crushedPigletWeight6) {
-        this.crushedPigletWeight6 = crushedPigletWeight6;
+    public void setDiseasedPigletWeight1(BigDecimal diseasedPigletWeight1) {
+        this.diseasedPigletWeight1 = diseasedPigletWeight1;
     }
 
-    public BigDecimal getCrushedPigletWeight7() {
-        return crushedPigletWeight7;
+    public BigDecimal getDiseasedPigletWeight2() {
+        return diseasedPigletWeight2;
     }
 
-    public void setCrushedPigletWeight7(BigDecimal crushedPigletWeight7) {
-        this.crushedPigletWeight7 = crushedPigletWeight7;
+    public void setDiseasedPigletWeight2(BigDecimal diseasedPigletWeight2) {
+        this.diseasedPigletWeight2 = diseasedPigletWeight2;
     }
 
-    public BigDecimal getCrushedPigletWeight8() {
-        return crushedPigletWeight8;
+    public BigDecimal getDiseasedPigletWeight3() {
+        return diseasedPigletWeight3;
     }
 
-    public void setCrushedPigletWeight8(BigDecimal crushedPigletWeight8) {
-        this.crushedPigletWeight8 = crushedPigletWeight8;
+    public void setDiseasedPigletWeight3(BigDecimal diseasedPigletWeight3) {
+        this.diseasedPigletWeight3 = diseasedPigletWeight3;
     }
 
-    public BigDecimal getCrushedPigletWeight9() {
-        return crushedPigletWeight9;
+    public BigDecimal getDiseasedPigletWeight4() {
+        return diseasedPigletWeight4;
     }
 
-    public void setCrushedPigletWeight9(BigDecimal crushedPigletWeight9) {
-        this.crushedPigletWeight9 = crushedPigletWeight9;
+    public void setDiseasedPigletWeight4(BigDecimal diseasedPigletWeight4) {
+        this.diseasedPigletWeight4 = diseasedPigletWeight4;
     }
 
-    public BigDecimal getCrushedPigletWeight10() {
-        return crushedPigletWeight10;
+    public BigDecimal getDiseasedPigletWeight5() {
+        return diseasedPigletWeight5;
     }
 
-    public void setCrushedPigletWeight10(BigDecimal crushedPigletWeight10) {
-        this.crushedPigletWeight10 = crushedPigletWeight10;
+    public void setDiseasedPigletWeight5(BigDecimal diseasedPigletWeight5) {
+        this.diseasedPigletWeight5 = diseasedPigletWeight5;
     }
 
     public BigDecimal getStarvedPigletWeight1() {
@@ -7160,12 +7205,12 @@ public class AnimalRecord {
         this.largeFollicleNumber = largeFollicleNumber;
     }
 
-    public BigDecimal getCorpusLutenumNumber() {
-        return corpusLutenumNumber;
+    public BigDecimal getCorpusLuteumNumber() {
+        return corpusLuteumNumber;
     }
 
-    public void setCorpusLutenumNumber(BigDecimal corpusLutenumNumber) {
-        this.corpusLutenumNumber = corpusLutenumNumber;
+    public void setCorpusLuteumNumber(BigDecimal corpusLuteumNumber) {
+        this.corpusLuteumNumber = corpusLuteumNumber;
     }
 
     public BigDecimal getFollicleLiquidWeight() {
@@ -7294,6 +7339,14 @@ public class AnimalRecord {
 
     public void setMedicineTimesForGilts(BigDecimal medicineTimesForGilts) {
         this.medicineTimesForGilts = medicineTimesForGilts;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public Integer getVersion() {

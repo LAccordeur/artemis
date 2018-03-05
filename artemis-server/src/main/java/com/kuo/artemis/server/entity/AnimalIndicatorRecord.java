@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Deprecated
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AnimalIndicatorRecord {
     private String animalId;

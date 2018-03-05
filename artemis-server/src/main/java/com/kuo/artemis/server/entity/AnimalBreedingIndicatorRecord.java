@@ -22,7 +22,7 @@ public class AnimalBreedingIndicatorRecord {
 
     private BigDecimal bodyScoreAtD114;
 
-    private BigDecimal bodyScoreAtLactaion;
+    private BigDecimal bodyScoreAtLactation;
 
     private BigDecimal bwAtD1;
 
@@ -60,9 +60,9 @@ public class AnimalBreedingIndicatorRecord {
 
     private BigDecimal cullRate;
 
-    private Date farrowingTimeStarted;
+    private String farrowingTimeStarted;
 
-    private Date farrowingTimeEnded;
+    private String farrowingTimeEnded;
 
     private BigDecimal farrowingDuration;
 
@@ -173,6 +173,8 @@ public class AnimalBreedingIndicatorRecord {
     private BigDecimal stillbornWeight8;
 
     private BigDecimal stillbornWeight9;
+
+    private BigDecimal stillbornWeight10;
 
     private BigDecimal mommifiedWeight1;
 
@@ -454,15 +456,15 @@ public class AnimalBreedingIndicatorRecord {
 
     private BigDecimal crushedPigletWeight5;
 
-    private BigDecimal crushedPigletWeight6;
+    private BigDecimal diseasedPigletWeight1;
 
-    private BigDecimal crushedPigletWeight7;
+    private BigDecimal diseasedPigletWeight2;
 
-    private BigDecimal crushedPigletWeight8;
+    private BigDecimal diseasedPigletWeight3;
 
-    private BigDecimal crushedPigletWeight9;
+    private BigDecimal diseasedPigletWeight4;
 
-    private BigDecimal crushedPigletWeight10;
+    private BigDecimal diseasedPigletWeight5;
 
     private BigDecimal starvedPigletWeight1;
 
@@ -602,6 +604,8 @@ public class AnimalBreedingIndicatorRecord {
 
     private BigDecimal giltBfAtPhase3;
 
+    private BigDecimal estrusDay;
+
     private BigDecimal estrumBw;
 
     private BigDecimal uterineWeight;
@@ -620,9 +624,11 @@ public class AnimalBreedingIndicatorRecord {
 
     private BigDecimal largeFollicleNumber;
 
-    private BigDecimal corpusLutenumNumber;
+    private BigDecimal corpusLuteumNumber;
 
     private BigDecimal follicleLiquidWeight;
+
+    private BigDecimal ovarianWeight;
 
     private BigDecimal testicularLength;
 
@@ -661,6 +667,31 @@ public class AnimalBreedingIndicatorRecord {
     private Date createTime;
 
     private Date modifiedTime;
+
+
+    public BigDecimal getEstrusDay() {
+        return estrusDay;
+    }
+
+    public BigDecimal getOvarianWeight() {
+        return ovarianWeight;
+    }
+
+    public void setOvarianWeight(BigDecimal ovarianWeight) {
+        this.ovarianWeight = ovarianWeight;
+    }
+
+    public void setEstrusDay(BigDecimal estrusDay) {
+        this.estrusDay = estrusDay;
+    }
+
+    public BigDecimal getStillbornWeight10() {
+        return stillbornWeight10;
+    }
+
+    public void setStillbornWeight10(BigDecimal stillbornWeight10) {
+        this.stillbornWeight10 = stillbornWeight10;
+    }
 
     public Integer getId() {
         return id;
@@ -726,12 +757,12 @@ public class AnimalBreedingIndicatorRecord {
         this.bodyScoreAtD114 = bodyScoreAtD114;
     }
 
-    public BigDecimal getBodyScoreAtLactaion() {
-        return bodyScoreAtLactaion;
+    public BigDecimal getBodyScoreAtLactation() {
+        return bodyScoreAtLactation;
     }
 
-    public void setBodyScoreAtLactaion(BigDecimal bodyScoreAtLactaion) {
-        this.bodyScoreAtLactaion = bodyScoreAtLactaion;
+    public void setBodyScoreAtLactation(BigDecimal bodyScoreAtLactation) {
+        this.bodyScoreAtLactation = bodyScoreAtLactation;
     }
 
     public BigDecimal getBwAtD1() {
@@ -878,19 +909,19 @@ public class AnimalBreedingIndicatorRecord {
         this.cullRate = cullRate;
     }
 
-    public Date getFarrowingTimeStarted() {
+    public String getFarrowingTimeStarted() {
         return farrowingTimeStarted;
     }
 
-    public void setFarrowingTimeStarted(Date farrowingTimeStarted) {
+    public void setFarrowingTimeStarted(String farrowingTimeStarted) {
         this.farrowingTimeStarted = farrowingTimeStarted;
     }
 
-    public Date getFarrowingTimeEnded() {
+    public String getFarrowingTimeEnded() {
         return farrowingTimeEnded;
     }
 
-    public void setFarrowingTimeEnded(Date farrowingTimeEnded) {
+    public void setFarrowingTimeEnded(String farrowingTimeEnded) {
         this.farrowingTimeEnded = farrowingTimeEnded;
     }
 
@@ -2454,44 +2485,44 @@ public class AnimalBreedingIndicatorRecord {
         this.crushedPigletWeight5 = crushedPigletWeight5;
     }
 
-    public BigDecimal getCrushedPigletWeight6() {
-        return crushedPigletWeight6;
+    public BigDecimal getDiseasedPigletWeight1() {
+        return diseasedPigletWeight1;
     }
 
-    public void setCrushedPigletWeight6(BigDecimal crushedPigletWeight6) {
-        this.crushedPigletWeight6 = crushedPigletWeight6;
+    public void setDiseasedPigletWeight1(BigDecimal diseasedPigletWeight1) {
+        this.diseasedPigletWeight1 = diseasedPigletWeight1;
     }
 
-    public BigDecimal getCrushedPigletWeight7() {
-        return crushedPigletWeight7;
+    public BigDecimal getDiseasedPigletWeight2() {
+        return diseasedPigletWeight2;
     }
 
-    public void setCrushedPigletWeight7(BigDecimal crushedPigletWeight7) {
-        this.crushedPigletWeight7 = crushedPigletWeight7;
+    public void setDiseasedPigletWeight2(BigDecimal diseasedPigletWeight2) {
+        this.diseasedPigletWeight2 = diseasedPigletWeight2;
     }
 
-    public BigDecimal getCrushedPigletWeight8() {
-        return crushedPigletWeight8;
+    public BigDecimal getDiseasedPigletWeight3() {
+        return diseasedPigletWeight3;
     }
 
-    public void setCrushedPigletWeight8(BigDecimal crushedPigletWeight8) {
-        this.crushedPigletWeight8 = crushedPigletWeight8;
+    public void setDiseasedPigletWeight3(BigDecimal diseasedPigletWeight3) {
+        this.diseasedPigletWeight3 = diseasedPigletWeight3;
     }
 
-    public BigDecimal getCrushedPigletWeight9() {
-        return crushedPigletWeight9;
+    public BigDecimal getDiseasedPigletWeight4() {
+        return diseasedPigletWeight4;
     }
 
-    public void setCrushedPigletWeight9(BigDecimal crushedPigletWeight9) {
-        this.crushedPigletWeight9 = crushedPigletWeight9;
+    public void setDiseasedPigletWeight4(BigDecimal diseasedPigletWeight4) {
+        this.diseasedPigletWeight4 = diseasedPigletWeight4;
     }
 
-    public BigDecimal getCrushedPigletWeight10() {
-        return crushedPigletWeight10;
+    public BigDecimal getDiseasedPigletWeight5() {
+        return diseasedPigletWeight5;
     }
 
-    public void setCrushedPigletWeight10(BigDecimal crushedPigletWeight10) {
-        this.crushedPigletWeight10 = crushedPigletWeight10;
+    public void setDiseasedPigletWeight5(BigDecimal diseasedPigletWeight5) {
+        this.diseasedPigletWeight5 = diseasedPigletWeight5;
     }
 
     public BigDecimal getStarvedPigletWeight1() {
@@ -3126,12 +3157,12 @@ public class AnimalBreedingIndicatorRecord {
         this.largeFollicleNumber = largeFollicleNumber;
     }
 
-    public BigDecimal getCorpusLutenumNumber() {
-        return corpusLutenumNumber;
+    public BigDecimal getCorpusLuteumNumber() {
+        return corpusLuteumNumber;
     }
 
-    public void setCorpusLutenumNumber(BigDecimal corpusLutenumNumber) {
-        this.corpusLutenumNumber = corpusLutenumNumber;
+    public void setCorpusLuteumNumber(BigDecimal corpusLuteumNumber) {
+        this.corpusLuteumNumber = corpusLuteumNumber;
     }
 
     public BigDecimal getFollicleLiquidWeight() {

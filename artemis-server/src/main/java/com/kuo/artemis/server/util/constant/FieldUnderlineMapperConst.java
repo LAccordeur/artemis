@@ -25,7 +25,7 @@ public class FieldUnderlineMapperConst {
         map.put("cd3+cd4+", "cd3pluscd4plus");
         map.put("cd3+cd8+", "cd3pluscd8plus");
         map.put("cd4+/cd8+", "cd4plus_cd8plus");
-        map.put("pig-map", "pig_mar");
+        map.put("pig-map", "pig_map");
         map.put("apo-i", "apo_i");
         map.put("apo-a", "apo_a");
         //map.put("iL1β", "il1_beta");

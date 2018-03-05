@@ -12,7 +12,8 @@
     <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
     <result column="treatment" jdbcType="VARCHAR" property="treatment" />
     <result column="replicate" jdbcType="VARCHAR" property="replicate" />
-    <result column="animal_init_weight" jdbcType="DECIMAL" property="animalInitWeight" />
+    <result column="factor_a" jdbcType="VARCHAR" property="factorA" />
+    <result column="factor_b" jdbcType="VARCHAR" property="factorB" />
     <result column="initial_bw" jdbcType="DECIMAL" property="initialBw" />
     <result column="bw_week1" jdbcType="DECIMAL" property="bwWeek1" />
     <result column="bw_week2" jdbcType="DECIMAL" property="bwWeek2" />
@@ -74,99 +75,99 @@
     <result column="phase5_adg" jdbcType="DECIMAL" property="phase5Adg" />
     <result column="feed_supplied_week1" jdbcType="DECIMAL" property="feedSuppliedWeek1" />
     <result column="residual_week1" jdbcType="DECIMAL" property="residualWeek1" />
-    <result column="deed_loss_week1" jdbcType="DECIMAL" property="deedLossWeek1" />
+    <result column="feed_loss_week1" jdbcType="DECIMAL" property="feedLossWeek1" />
     <result column="adfi_week1" jdbcType="DECIMAL" property="adfiWeek1" />
     <result column="feed_supplied_week2" jdbcType="DECIMAL" property="feedSuppliedWeek2" />
     <result column="residual_week2" jdbcType="DECIMAL" property="residualWeek2" />
-    <result column="deed_loss_week2" jdbcType="DECIMAL" property="deedLossWeek2" />
+    <result column="feed_loss_week2" jdbcType="DECIMAL" property="feedLossWeek2" />
     <result column="adfi_week2" jdbcType="DECIMAL" property="adfiWeek2" />
     <result column="feed_supplied_week3" jdbcType="DECIMAL" property="feedSuppliedWeek3" />
     <result column="residual_week3" jdbcType="DECIMAL" property="residualWeek3" />
-    <result column="deed_loss_week3" jdbcType="DECIMAL" property="deedLossWeek3" />
+    <result column="feed_loss_week3" jdbcType="DECIMAL" property="feedLossWeek3" />
     <result column="adfi_week3" jdbcType="DECIMAL" property="adfiWeek3" />
     <result column="feed_supplied_week4" jdbcType="DECIMAL" property="feedSuppliedWeek4" />
     <result column="residual_week4" jdbcType="DECIMAL" property="residualWeek4" />
-    <result column="deed_loss_week4" jdbcType="DECIMAL" property="deedLossWeek4" />
+    <result column="feed_loss_week4" jdbcType="DECIMAL" property="feedLossWeek4" />
     <result column="adfi_week4" jdbcType="DECIMAL" property="adfiWeek4" />
     <result column="feed_supplied_week5" jdbcType="DECIMAL" property="feedSuppliedWeek5" />
     <result column="residual_week5" jdbcType="DECIMAL" property="residualWeek5" />
-    <result column="deed_loss_week5" jdbcType="DECIMAL" property="deedLossWeek5" />
+    <result column="feed_loss_week5" jdbcType="DECIMAL" property="feedLossWeek5" />
     <result column="adfi_week5" jdbcType="DECIMAL" property="adfiWeek5" />
     <result column="feed_supplied_week6" jdbcType="DECIMAL" property="feedSuppliedWeek6" />
     <result column="residual_week6" jdbcType="DECIMAL" property="residualWeek6" />
-    <result column="deed_loss_week6" jdbcType="DECIMAL" property="deedLossWeek6" />
+    <result column="feed_loss_week6" jdbcType="DECIMAL" property="feedLossWeek6" />
     <result column="adfi_week6" jdbcType="DECIMAL" property="adfiWeek6" />
     <result column="feed_supplied_week7" jdbcType="DECIMAL" property="feedSuppliedWeek7" />
     <result column="residual_week7" jdbcType="DECIMAL" property="residualWeek7" />
-    <result column="deed_loss_week7" jdbcType="DECIMAL" property="deedLossWeek7" />
+    <result column="feed_loss_week7" jdbcType="DECIMAL" property="feedLossWeek7" />
     <result column="adfi_week7" jdbcType="DECIMAL" property="adfiWeek7" />
     <result column="feed_supplied_week8" jdbcType="DECIMAL" property="feedSuppliedWeek8" />
     <result column="residual_week8" jdbcType="DECIMAL" property="residualWeek8" />
-    <result column="deed_loss_week8" jdbcType="DECIMAL" property="deedLossWeek8" />
+    <result column="feed_loss_week8" jdbcType="DECIMAL" property="feedLossWeek8" />
     <result column="adfi_week8" jdbcType="DECIMAL" property="adfiWeek8" />
     <result column="feed_supplied_week9" jdbcType="DECIMAL" property="feedSuppliedWeek9" />
     <result column="residual_week9" jdbcType="DECIMAL" property="residualWeek9" />
-    <result column="deed_loss_week9" jdbcType="DECIMAL" property="deedLossWeek9" />
+    <result column="feed_loss_week9" jdbcType="DECIMAL" property="feedLossWeek9" />
     <result column="adfi_week9" jdbcType="DECIMAL" property="adfiWeek9" />
     <result column="feed_supplied_week10" jdbcType="DECIMAL" property="feedSuppliedWeek10" />
     <result column="residual_week10" jdbcType="DECIMAL" property="residualWeek10" />
-    <result column="deed_loss_week10" jdbcType="DECIMAL" property="deedLossWeek10" />
+    <result column="feed_loss_week10" jdbcType="DECIMAL" property="feedLossWeek10" />
     <result column="adfi_week10" jdbcType="DECIMAL" property="adfiWeek10" />
     <result column="feed_supplied_week11" jdbcType="DECIMAL" property="feedSuppliedWeek11" />
     <result column="residual_week11" jdbcType="DECIMAL" property="residualWeek11" />
-    <result column="deed_loss_week11" jdbcType="DECIMAL" property="deedLossWeek11" />
+    <result column="feed_loss_week11" jdbcType="DECIMAL" property="feedLossWeek11" />
     <result column="adfi_week11" jdbcType="DECIMAL" property="adfiWeek11" />
     <result column="feed_supplied_week12" jdbcType="DECIMAL" property="feedSuppliedWeek12" />
     <result column="residual_week12" jdbcType="DECIMAL" property="residualWeek12" />
-    <result column="deed_loss_week12" jdbcType="DECIMAL" property="deedLossWeek12" />
+    <result column="feed_loss_week12" jdbcType="DECIMAL" property="feedLossWeek12" />
     <result column="adfi_week12" jdbcType="DECIMAL" property="adfiWeek12" />
     <result column="feed_supplied_week13" jdbcType="DECIMAL" property="feedSuppliedWeek13" />
     <result column="residual_week13" jdbcType="DECIMAL" property="residualWeek13" />
-    <result column="deed_loss_week13" jdbcType="DECIMAL" property="deedLossWeek13" />
+    <result column="feed_loss_week13" jdbcType="DECIMAL" property="feedLossWeek13" />
     <result column="adfi_week13" jdbcType="DECIMAL" property="adfiWeek13" />
     <result column="feed_supplied_week14" jdbcType="DECIMAL" property="feedSuppliedWeek14" />
     <result column="residual_week14" jdbcType="DECIMAL" property="residualWeek14" />
-    <result column="deed_loss_week14" jdbcType="DECIMAL" property="deedLossWeek14" />
+    <result column="feed_loss_week14" jdbcType="DECIMAL" property="feedLossWeek14" />
     <result column="adfi_week14" jdbcType="DECIMAL" property="adfiWeek14" />
     <result column="feed_supplied_week15" jdbcType="DECIMAL" property="feedSuppliedWeek15" />
     <result column="residual_week15" jdbcType="DECIMAL" property="residualWeek15" />
-    <result column="deed_loss_week15" jdbcType="DECIMAL" property="deedLossWeek15" />
+    <result column="feed_loss_week15" jdbcType="DECIMAL" property="feedLossWeek15" />
     <result column="adfi_week15" jdbcType="DECIMAL" property="adfiWeek15" />
     <result column="feed_supplied_week16" jdbcType="DECIMAL" property="feedSuppliedWeek16" />
     <result column="residual_week16" jdbcType="DECIMAL" property="residualWeek16" />
-    <result column="deed_loss_week16" jdbcType="DECIMAL" property="deedLossWeek16" />
+    <result column="feed_loss_week16" jdbcType="DECIMAL" property="feedLossWeek16" />
     <result column="adfi_week16" jdbcType="DECIMAL" property="adfiWeek16" />
     <result column="feed_supplied_week17" jdbcType="DECIMAL" property="feedSuppliedWeek17" />
     <result column="residual_week17" jdbcType="DECIMAL" property="residualWeek17" />
-    <result column="deed_loss_week17" jdbcType="DECIMAL" property="deedLossWeek17" />
+    <result column="feed_loss_week17" jdbcType="DECIMAL" property="feedLossWeek17" />
     <result column="adfi_week17" jdbcType="DECIMAL" property="adfiWeek17" />
     <result column="feed_supplied_week18" jdbcType="DECIMAL" property="feedSuppliedWeek18" />
     <result column="residual_week18" jdbcType="DECIMAL" property="residualWeek18" />
-    <result column="deed_loss_week18" jdbcType="DECIMAL" property="deedLossWeek18" />
+    <result column="feed_loss_week18" jdbcType="DECIMAL" property="feedLossWeek18" />
     <result column="adfi_week18" jdbcType="DECIMAL" property="adfiWeek18" />
     <result column="feed_supplied_week19" jdbcType="DECIMAL" property="feedSuppliedWeek19" />
     <result column="residual_week19" jdbcType="DECIMAL" property="residualWeek19" />
-    <result column="deed_loss_week19" jdbcType="DECIMAL" property="deedLossWeek19" />
+    <result column="feed_loss_week19" jdbcType="DECIMAL" property="feedLossWeek19" />
     <result column="adfi_week19" jdbcType="DECIMAL" property="adfiWeek19" />
     <result column="feed_supplied_week20" jdbcType="DECIMAL" property="feedSuppliedWeek20" />
     <result column="residual_week20" jdbcType="DECIMAL" property="residualWeek20" />
-    <result column="deed_loss_week20" jdbcType="DECIMAL" property="deedLossWeek20" />
+    <result column="feed_loss_week20" jdbcType="DECIMAL" property="feedLossWeek20" />
     <result column="adfi_week20" jdbcType="DECIMAL" property="adfiWeek20" />
     <result column="feed_supplied_week21" jdbcType="DECIMAL" property="feedSuppliedWeek21" />
     <result column="residual_week21" jdbcType="DECIMAL" property="residualWeek21" />
-    <result column="deed_loss_week21" jdbcType="DECIMAL" property="deedLossWeek21" />
+    <result column="feed_loss_week21" jdbcType="DECIMAL" property="feedLossWeek21" />
     <result column="adfi_week21" jdbcType="DECIMAL" property="adfiWeek21" />
     <result column="feed_supplied_week22" jdbcType="DECIMAL" property="feedSuppliedWeek22" />
     <result column="residual_week22" jdbcType="DECIMAL" property="residualWeek22" />
-    <result column="deed_loss_week22" jdbcType="DECIMAL" property="deedLossWeek22" />
+    <result column="feed_loss_week22" jdbcType="DECIMAL" property="feedLossWeek22" />
     <result column="adfi_week22" jdbcType="DECIMAL" property="adfiWeek22" />
     <result column="feed_supplied_week23" jdbcType="DECIMAL" property="feedSuppliedWeek23" />
     <result column="residual_week23" jdbcType="DECIMAL" property="residualWeek23" />
-    <result column="deed_loss_week23" jdbcType="DECIMAL" property="deedLossWeek23" />
+    <result column="feed_loss_week23" jdbcType="DECIMAL" property="feedLossWeek23" />
     <result column="adfi_week23" jdbcType="DECIMAL" property="adfiWeek23" />
     <result column="feed_supplied_week24" jdbcType="DECIMAL" property="feedSuppliedWeek24" />
     <result column="residual_week24" jdbcType="DECIMAL" property="residualWeek24" />
-    <result column="deed_loss_week24" jdbcType="DECIMAL" property="deedLossWeek24" />
+    <result column="feed_loss_week24" jdbcType="DECIMAL" property="feedLossWeek24" />
     <result column="adfi_week24" jdbcType="DECIMAL" property="adfiWeek24" />
     <result column="phase1_feed_supplied" jdbcType="DECIMAL" property="phase1FeedSupplied" />
     <result column="phase1_residual" jdbcType="DECIMAL" property="phase1Residual" />
@@ -309,6 +310,7 @@
     <result column="gene20_expression" jdbcType="DECIMAL" property="gene20Expression" />
     <result column="zo1" jdbcType="DECIMAL" property="zo1" />
     <result column="occludin" jdbcType="DECIMAL" property="occludin" />
+    <result column="claudin1" jdbcType="DECIMAL" property="claudin1" />
     <result column="igf1" jdbcType="DECIMAL" property="igf1" />
     <result column="igf1r" jdbcType="DECIMAL" property="igf1r" />
     <result column="ghr" jdbcType="DECIMAL" property="ghr" />
@@ -409,11 +411,12 @@
     <result column="l24h" jdbcType="DECIMAL" property="l24h" />
     <result column="ph45min" jdbcType="DECIMAL" property="ph45min" />
     <result column="ph24h" jdbcType="DECIMAL" property="ph24h" />
+    <result column="parity" jdbcType="INTEGER" property="parity" />
     <result column="body_score_at_d1" jdbcType="DECIMAL" property="bodyScoreAtD1" />
     <result column="body_score_at_d30" jdbcType="DECIMAL" property="bodyScoreAtD30" />
     <result column="body_score_at_d90" jdbcType="DECIMAL" property="bodyScoreAtD90" />
     <result column="body_score_at_d114" jdbcType="DECIMAL" property="bodyScoreAtD114" />
-    <result column="body_score_at_lactaion" jdbcType="DECIMAL" property="bodyScoreAtLactaion" />
+    <result column="body_score_at_lactation" jdbcType="DECIMAL" property="bodyScoreAtLactation" />
     <result column="bw_at_d1" jdbcType="DECIMAL" property="bwAtD1" />
     <result column="bw_at_d30" jdbcType="DECIMAL" property="bwAtD30" />
     <result column="bw_at_d90" jdbcType="DECIMAL" property="bwAtD90" />
@@ -432,8 +435,8 @@
     <result column="estrus_rate" jdbcType="DECIMAL" property="estrusRate" />
     <result column="weaning_estrus_interval" jdbcType="DECIMAL" property="weaningEstrusInterval" />
     <result column="cull_rate" jdbcType="DECIMAL" property="cullRate" />
-    <result column="farrowing_time_started" jdbcType="TIMESTAMP" property="farrowingTimeStarted" />
-    <result column="farrowing_time_ended" jdbcType="TIMESTAMP" property="farrowingTimeEnded" />
+    <result column="farrowing_time_started" jdbcType="VARCHAR" property="farrowingTimeStarted" />
+    <result column="farrowing_time_ended" jdbcType="VARCHAR" property="farrowingTimeEnded" />
     <result column="farrowing_duration" jdbcType="DECIMAL" property="farrowingDuration" />
     <result column="placental_weight" jdbcType="DECIMAL" property="placentalWeight" />
     <result column="placental_area" jdbcType="DECIMAL" property="placentalArea" />
@@ -489,6 +492,7 @@
     <result column="stillborn_weight7" jdbcType="DECIMAL" property="stillbornWeight7" />
     <result column="stillborn_weight8" jdbcType="DECIMAL" property="stillbornWeight8" />
     <result column="stillborn_weight9" jdbcType="DECIMAL" property="stillbornWeight9" />
+    <result column="stillborn_weight10" jdbcType="DECIMAL" property="stillbornWeight10" />
     <result column="mommified_weight1" jdbcType="DECIMAL" property="mommifiedWeight1" />
     <result column="mommified_weight2" jdbcType="DECIMAL" property="mommifiedWeight2" />
     <result column="mommified_weight3" jdbcType="DECIMAL" property="mommifiedWeight3" />
@@ -629,11 +633,11 @@
     <result column="crushed_piglet_weight3" jdbcType="DECIMAL" property="crushedPigletWeight3" />
     <result column="crushed_piglet_weight4" jdbcType="DECIMAL" property="crushedPigletWeight4" />
     <result column="crushed_piglet_weight5" jdbcType="DECIMAL" property="crushedPigletWeight5" />
-    <result column="crushed_piglet_weight6" jdbcType="DECIMAL" property="crushedPigletWeight6" />
-    <result column="crushed_piglet_weight7" jdbcType="DECIMAL" property="crushedPigletWeight7" />
-    <result column="crushed_piglet_weight8" jdbcType="DECIMAL" property="crushedPigletWeight8" />
-    <result column="crushed_piglet_weight9" jdbcType="DECIMAL" property="crushedPigletWeight9" />
-    <result column="crushed_piglet_weight10" jdbcType="DECIMAL" property="crushedPigletWeight10" />
+    <result column="diseased_piglet_weight1" jdbcType="DECIMAL" property="diseasedPigletWeight1" />
+    <result column="diseased_piglet_weight2" jdbcType="DECIMAL" property="diseasedPigletWeight2" />
+    <result column="diseased_piglet_weight3" jdbcType="DECIMAL" property="diseasedPigletWeight3" />
+    <result column="diseased_piglet_weight4" jdbcType="DECIMAL" property="diseasedPigletWeight4" />
+    <result column="diseased_piglet_weight5" jdbcType="DECIMAL" property="diseasedPigletWeight5" />
     <result column="starved_piglet_weight1" jdbcType="DECIMAL" property="starvedPigletWeight1" />
     <result column="starved_piglet_weight2" jdbcType="DECIMAL" property="starvedPigletWeight2" />
     <result column="starved_piglet_weight3" jdbcType="DECIMAL" property="starvedPigletWeight3" />
@@ -703,6 +707,7 @@
     <result column="gilt_bf_at_phase1" jdbcType="DECIMAL" property="giltBfAtPhase1" />
     <result column="gilt_bf_at_phase2" jdbcType="DECIMAL" property="giltBfAtPhase2" />
     <result column="gilt_bf_at_phase3" jdbcType="DECIMAL" property="giltBfAtPhase3" />
+    <result column="estrus_day" jdbcType="DECIMAL" property="estrusDay" />
     <result column="estrum_bw" jdbcType="DECIMAL" property="estrumBw" />
     <result column="uterine_weight" jdbcType="DECIMAL" property="uterineWeight" />
     <result column="uterine_length" jdbcType="DECIMAL" property="uterineLength" />
@@ -712,8 +717,9 @@
     <result column="right_oviduct_length" jdbcType="DECIMAL" property="rightOviductLength" />
     <result column="oviduct_weight" jdbcType="DECIMAL" property="oviductWeight" />
     <result column="large_follicle_number" jdbcType="DECIMAL" property="largeFollicleNumber" />
-    <result column="corpus_lutenum_number" jdbcType="DECIMAL" property="corpusLutenumNumber" />
+    <result column="corpus_luteum_number" jdbcType="DECIMAL" property="corpusLuteumNumber" />
     <result column="follicle_liquid_weight" jdbcType="DECIMAL" property="follicleLiquidWeight" />
+    <result column="ovarian_weight" jdbcType="DECIMAL" property="ovarianWeight" />
     <result column="testicular_length" jdbcType="DECIMAL" property="testicularLength" />
     <result column="testicular_width" jdbcType="DECIMAL" property="testicularWidth" />
     <result column="testicular_volume" jdbcType="DECIMAL" property="testicularVolume" />
@@ -729,12 +735,11 @@
     <result column="medicine_times_for_boars" jdbcType="DECIMAL" property="medicineTimesForBoars" />
     <result column="medicine_times_for_sows" jdbcType="DECIMAL" property="medicineTimesForSows" />
     <result column="medicine_times_for_gilts" jdbcType="DECIMAL" property="medicineTimesForGilts" />
+    <result column="sequence" jdbcType="INTEGER" property="sequence" />
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="file_identifier" jdbcType="VARCHAR" property="fileIdentifier" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
-    <result column="factor_a" jdbcType="VARCHAR" property="factorA" />
-    <result column="factor_b" jdbcType="VARCHAR" property="factorB" />
   </resultMap>
 
   <select id="selectSelective" resultType="AnimalRecord">
@@ -753,107 +758,108 @@
     insert into animal_record_view (id, project_id, user_id, 
       house_id, animal_sex, house, 
       code, id_number, treatment, 
-      replicate, animal_init_weight, initial_bw, 
-      bw_week1, bw_week2, bw_week3, 
-      bw_week4, bw_week5, bw_week6, 
-      bw_week7, bw_week8, bw_week9, 
-      bw_week10, bw_week11, bw_week12, 
-      bw_week13, bw_week14, bw_week15, 
-      bw_week16, bw_week17, bw_week18, 
-      bw_week19, bw_week20, bw_week21, 
-      bw_week22, bw_week23, adg_week1, 
-      phase1_bw, phase2_bw, phase3_bw, 
-      phase4_bw, phase5_bw, bw_week24, 
-      adg_week2, adg_week3, adg_week4, 
-      adg_week5, adg_week6, adg_week7, 
-      adg_week8, adg_week9, adg_week10, 
-      adg_week11, adg_week12, adg_week13, 
-      adg_week14, adg_week15, adg_week16, 
-      adg_week17, adg_week18, adg_week19, 
-      adg_week20, adg_week21, adg_week22, 
-      adg_week23, adg_week24, phase1_adg, 
-      phase2_adg, phase3_adg, phase4_adg, 
-      phase5_adg, feed_supplied_week1, residual_week1, 
-      deed_loss_week1, adfi_week1, feed_supplied_week2, 
-      residual_week2, deed_loss_week2, adfi_week2, 
-      feed_supplied_week3, residual_week3, deed_loss_week3, 
-      adfi_week3, feed_supplied_week4, residual_week4, 
-      deed_loss_week4, adfi_week4, feed_supplied_week5, 
-      residual_week5, deed_loss_week5, adfi_week5, 
-      feed_supplied_week6, residual_week6, deed_loss_week6, 
-      adfi_week6, feed_supplied_week7, residual_week7, 
-      deed_loss_week7, adfi_week7, feed_supplied_week8, 
-      residual_week8, deed_loss_week8, adfi_week8, 
-      feed_supplied_week9, residual_week9, deed_loss_week9, 
-      adfi_week9, feed_supplied_week10, residual_week10, 
-      deed_loss_week10, adfi_week10, feed_supplied_week11, 
-      residual_week11, deed_loss_week11, adfi_week11, 
-      feed_supplied_week12, residual_week12, deed_loss_week12, 
-      adfi_week12, feed_supplied_week13, residual_week13, 
-      deed_loss_week13, adfi_week13, feed_supplied_week14, 
-      residual_week14, deed_loss_week14, adfi_week14, 
-      feed_supplied_week15, residual_week15, deed_loss_week15, 
-      adfi_week15, feed_supplied_week16, residual_week16, 
-      deed_loss_week16, adfi_week16, feed_supplied_week17, 
-      residual_week17, deed_loss_week17, adfi_week17, 
-      feed_supplied_week18, residual_week18, deed_loss_week18, 
-      adfi_week18, feed_supplied_week19, residual_week19, 
-      deed_loss_week19, adfi_week19, feed_supplied_week20, 
-      residual_week20, deed_loss_week20, adfi_week20, 
-      feed_supplied_week21, residual_week21, deed_loss_week21, 
-      adfi_week21, feed_supplied_week22, residual_week22, 
-      deed_loss_week22, adfi_week22, feed_supplied_week23, 
-      residual_week23, deed_loss_week23, adfi_week23, 
-      feed_supplied_week24, residual_week24, deed_loss_week24, 
-      adfi_week24, phase1_feed_supplied, phase1_residual, 
-      phase1_feed_loss, phase1_adfi, phase2_feed_supplied, 
-      phase2_residual, phase2_feed_loss, phase2_adfi, 
-      phase3_feed_supplied, phase3_residual, phase3_feed_loss, 
-      phase3_adfi, phase4_feed_supplied, phase4_residual, 
-      phase4_feed_loss, phase4_adfi, phase5_feed_supplied, 
-      phase5_residual, phase5_feed_loss, phase5_adfi, 
-      fcr_week1, fcr_week2, fcr_week3, 
-      fcr_week4, fcr_week5, fcr_week6, 
-      fcr_week7, fcr_week8, fcr_week9, 
-      fcr_week10, fcr_week11, fcr_week12, 
-      fcr_week13, fcr_week14, fcr_week15, 
-      fcr_week16, fcr_week17, fcr_week18, 
-      fcr_week19, fcr_week20, fcr_week21, 
-      fcr_week22, fcr_week23, fcr_week24, 
-      phase1_fcr, phase2_fcr, phase3_fcr, 
-      phase4_fcr, phase5_fcr, diarrhea_index, 
-      diarrhea_incidence, dm_digestibility, cp_digestibility, 
-      ee_digestibility, cf_digestibility, energy_digestibility, 
-      asp_digestibility, thr_digestibility, ser_digestibility, 
-      glu_digestibility, gly_digestibility, ala_digestibility, 
-      cys_digestibility, val_digestibility, met_digestibility, 
-      ile_digestibility, leu_digestibility, tyr_digestibility, 
-      phe_digestibility, lys_digestibility, his_digestibility, 
-      arg_digestibility, pro_digestibility, trp_digestibility, 
-      undefined1_digestibility, undefined2_digestibility, 
-      undefined3_digestibility, undefined4_digestibility, 
-      undefined5_digestibility, indicator_in_feed, 
-      indicator_in_feces, villous_height, crypt_depth, 
-      villi_crypt_ratio, intestinal_length, intestinal_weight, 
-      endotoxin, diamine_oxidase, d_lactate, 
-      lactulose, mannitol, i_fabp, 
-      sucrase, maltase, lactase, 
-      apn, apa, dppiv, e_coli, 
-      bifidobacterium, lactic_acid_bacteria, total_bacteria, 
-      live_yeast, tlr2, tlr4, 
-      tlr9, myd88, traf6, 
-      nf_kappa_b1, nf_kappa_b2, sigirr, 
-      tollip, il1_beta, il6, 
-      nod2, beta_actin, sixteen_srna, 
-      gapdh, tubulin, gene1_expression, 
-      gene2_expression, gene3_expression, gene4_expression, 
-      gene5_expression, gene6_expression, gene7_expression, 
-      gene8_expression, gene9_expression, gene10_expression, 
-      gene11_expression, gene12_expression, gene13_expression, 
-      gene14_expression, gene15_expression, gene16_expression, 
-      gene17_expression, gene18_expression, gene19_expression, 
-      gene20_expression, zo1, occludin, 
-      igf1, igf1r, ghr, protein1_expression, 
+      replicate, factor_a, factor_b, 
+      initial_bw, bw_week1, bw_week2, 
+      bw_week3, bw_week4, bw_week5, 
+      bw_week6, bw_week7, bw_week8, 
+      bw_week9, bw_week10, bw_week11, 
+      bw_week12, bw_week13, bw_week14, 
+      bw_week15, bw_week16, bw_week17, 
+      bw_week18, bw_week19, bw_week20, 
+      bw_week21, bw_week22, bw_week23, 
+      adg_week1, phase1_bw, phase2_bw, 
+      phase3_bw, phase4_bw, phase5_bw, 
+      bw_week24, adg_week2, adg_week3, 
+      adg_week4, adg_week5, adg_week6, 
+      adg_week7, adg_week8, adg_week9, 
+      adg_week10, adg_week11, adg_week12, 
+      adg_week13, adg_week14, adg_week15, 
+      adg_week16, adg_week17, adg_week18, 
+      adg_week19, adg_week20, adg_week21, 
+      adg_week22, adg_week23, adg_week24, 
+      phase1_adg, phase2_adg, phase3_adg, 
+      phase4_adg, phase5_adg, feed_supplied_week1, 
+      residual_week1, feed_loss_week1, adfi_week1, 
+      feed_supplied_week2, residual_week2, feed_loss_week2, 
+      adfi_week2, feed_supplied_week3, residual_week3, 
+      feed_loss_week3, adfi_week3, feed_supplied_week4, 
+      residual_week4, feed_loss_week4, adfi_week4, 
+      feed_supplied_week5, residual_week5, feed_loss_week5, 
+      adfi_week5, feed_supplied_week6, residual_week6, 
+      feed_loss_week6, adfi_week6, feed_supplied_week7, 
+      residual_week7, feed_loss_week7, adfi_week7, 
+      feed_supplied_week8, residual_week8, feed_loss_week8, 
+      adfi_week8, feed_supplied_week9, residual_week9, 
+      feed_loss_week9, adfi_week9, feed_supplied_week10, 
+      residual_week10, feed_loss_week10, adfi_week10, 
+      feed_supplied_week11, residual_week11, feed_loss_week11, 
+      adfi_week11, feed_supplied_week12, residual_week12, 
+      feed_loss_week12, adfi_week12, feed_supplied_week13, 
+      residual_week13, feed_loss_week13, adfi_week13, 
+      feed_supplied_week14, residual_week14, feed_loss_week14, 
+      adfi_week14, feed_supplied_week15, residual_week15, 
+      feed_loss_week15, adfi_week15, feed_supplied_week16, 
+      residual_week16, feed_loss_week16, adfi_week16, 
+      feed_supplied_week17, residual_week17, feed_loss_week17, 
+      adfi_week17, feed_supplied_week18, residual_week18, 
+      feed_loss_week18, adfi_week18, feed_supplied_week19, 
+      residual_week19, feed_loss_week19, adfi_week19, 
+      feed_supplied_week20, residual_week20, feed_loss_week20, 
+      adfi_week20, feed_supplied_week21, residual_week21, 
+      feed_loss_week21, adfi_week21, feed_supplied_week22, 
+      residual_week22, feed_loss_week22, adfi_week22, 
+      feed_supplied_week23, residual_week23, feed_loss_week23, 
+      adfi_week23, feed_supplied_week24, residual_week24, 
+      feed_loss_week24, adfi_week24, phase1_feed_supplied, 
+      phase1_residual, phase1_feed_loss, phase1_adfi, 
+      phase2_feed_supplied, phase2_residual, phase2_feed_loss, 
+      phase2_adfi, phase3_feed_supplied, phase3_residual, 
+      phase3_feed_loss, phase3_adfi, phase4_feed_supplied, 
+      phase4_residual, phase4_feed_loss, phase4_adfi, 
+      phase5_feed_supplied, phase5_residual, phase5_feed_loss, 
+      phase5_adfi, fcr_week1, fcr_week2, 
+      fcr_week3, fcr_week4, fcr_week5, 
+      fcr_week6, fcr_week7, fcr_week8, 
+      fcr_week9, fcr_week10, fcr_week11, 
+      fcr_week12, fcr_week13, fcr_week14, 
+      fcr_week15, fcr_week16, fcr_week17, 
+      fcr_week18, fcr_week19, fcr_week20, 
+      fcr_week21, fcr_week22, fcr_week23, 
+      fcr_week24, phase1_fcr, phase2_fcr, 
+      phase3_fcr, phase4_fcr, phase5_fcr, 
+      diarrhea_index, diarrhea_incidence, dm_digestibility, 
+      cp_digestibility, ee_digestibility, cf_digestibility, 
+      energy_digestibility, asp_digestibility, 
+      thr_digestibility, ser_digestibility, glu_digestibility, 
+      gly_digestibility, ala_digestibility, cys_digestibility, 
+      val_digestibility, met_digestibility, ile_digestibility, 
+      leu_digestibility, tyr_digestibility, phe_digestibility, 
+      lys_digestibility, his_digestibility, arg_digestibility, 
+      pro_digestibility, trp_digestibility, undefined1_digestibility, 
+      undefined2_digestibility, undefined3_digestibility, 
+      undefined4_digestibility, undefined5_digestibility, 
+      indicator_in_feed, indicator_in_feces, villous_height, 
+      crypt_depth, villi_crypt_ratio, intestinal_length, 
+      intestinal_weight, endotoxin, diamine_oxidase, 
+      d_lactate, lactulose, mannitol, 
+      i_fabp, sucrase, maltase, 
+      lactase, apn, apa, 
+      dppiv, e_coli, bifidobacterium, 
+      lactic_acid_bacteria, total_bacteria, live_yeast, 
+      tlr2, tlr4, tlr9, myd88, 
+      traf6, nf_kappa_b1, nf_kappa_b2, 
+      sigirr, tollip, il1_beta, 
+      il6, nod2, beta_actin, 
+      sixteen_srna, gapdh, tubulin, 
+      gene1_expression, gene2_expression, gene3_expression, 
+      gene4_expression, gene5_expression, gene6_expression, 
+      gene7_expression, gene8_expression, gene9_expression, 
+      gene10_expression, gene11_expression, gene12_expression, 
+      gene13_expression, gene14_expression, gene15_expression, 
+      gene16_expression, gene17_expression, gene18_expression, 
+      gene19_expression, gene20_expression, zo1, 
+      occludin, claudin1, igf1, 
+      igf1r, ghr, protein1_expression, 
       protein2_expression, protein3_expression, 
       protein4_expression, protein5_expression, 
       protein6_expression, protein7_expression, 
@@ -888,19 +894,19 @@
       shear_force, marbing_score, intramuscular_fat, 
       a45min, b45min, l45min, 
       a24h, b24h, l24h, ph45min, 
-      ph24h, body_score_at_d1, body_score_at_d30, 
-      body_score_at_d90, body_score_at_d114, body_score_at_lactaion, 
-      bw_at_d1, bw_at_d30, bw_at_d90, 
-      bw_at_d114, bw_at_lactation, backfat_thickness_at_d1, 
-      backfat_thickness_at_d30, backfat_thickness_at_d90, 
-      backfat_thickness_at_d114, backfat_thickness_at_lactation, 
-      body_score1_of_boar, body_score2_of_boar, body_score3_of_boar, 
-      constipation_incidence, farrowing_rate, estrus_rate, 
-      weaning_estrus_interval, cull_rate, farrowing_time_started, 
-      farrowing_time_ended, farrowing_duration, 
-      placental_weight, placental_area, total_litter_size, 
-      litter_size_alive, iugr_pigs, stillborn, 
-      mommified_pigs, litter_size_after_equalization, 
+      ph24h, parity, body_score_at_d1, 
+      body_score_at_d30, body_score_at_d90, body_score_at_d114, 
+      body_score_at_lactation, bw_at_d1, bw_at_d30, 
+      bw_at_d90, bw_at_d114, bw_at_lactation, 
+      backfat_thickness_at_d1, backfat_thickness_at_d30, 
+      backfat_thickness_at_d90, backfat_thickness_at_d114, 
+      backfat_thickness_at_lactation, body_score1_of_boar, 
+      body_score2_of_boar, body_score3_of_boar, constipation_incidence, 
+      farrowing_rate, estrus_rate, weaning_estrus_interval, 
+      cull_rate, farrowing_time_started, farrowing_time_ended, 
+      farrowing_duration, placental_weight, placental_area, 
+      total_litter_size, litter_size_alive, iugr_pigs, 
+      stillborn, mommified_pigs, litter_size_after_equalization, 
       pigs_weaned, total_litter_weight, live_litter_weight, 
       piglet_birth_weight, litter_weight_after_equalization, 
       piglet_weight_after_equalization, litter_weight_at_week1, 
@@ -917,218 +923,220 @@
       birth_weight24, birth_weight25, stillborn_weight1, 
       stillborn_weight2, stillborn_weight3, stillborn_weight4, 
       stillborn_weight5, stillborn_weight6, stillborn_weight7, 
-      stillborn_weight8, stillborn_weight9, mommified_weight1, 
-      mommified_weight2, mommified_weight3, mommified_weight4, 
-      mommified_weight5, mommified_weight6, mommified_weight7, 
-      mommified_weight8, mommified_weight9, mommified_weight10, 
-      piglet_weight1_after_equalization, piglet_weight2_after_equalization, 
-      piglet_weight3_after_equalization, piglet_weight4_after_equalization, 
-      piglet_weight5_after_equalization, piglet_weight6_after_equalization, 
-      piglet_weight7_after_equalization, piglet_weight8_after_equalization, 
-      piglet_weight9_after_equalization, piglet_weight10_after_equalization, 
-      piglet_weight11_after_equalization, piglet_weight12_after_equalization, 
-      piglet_weight13_after_equalization, piglet_weight14_after_equalization, 
-      piglet_weight15_after_equalization, piglet_weight16_after_equalization, 
-      piglet_weight17_after_equalization, piglet_weight18_after_equalization, 
-      piglet_weight19_after_equalization, piglet_weight20_after_equalization, 
-      piglet_weight21_after_equalization, piglet_weight22_after_equalization, 
-      piglet_weight23_after_equalization, piglet_weight24_after_equalization, 
-      piglet_weight25_after_equalization, week1_piglet_weight1, 
-      week1_piglet_weight2, week1_piglet_weight3, 
-      week1_piglet_weight4, week1_piglet_weight5, 
-      week1_piglet_weight6, week1_piglet_weight7, 
-      week1_piglet_weight8, week1_piglet_weight9, 
-      week1_piglet_weight10, week1_piglet_weight11, 
-      week1_piglet_weight12, week1_piglet_weight13, 
-      week1_piglet_weight14, week1_piglet_weight15, 
-      week1_piglet_weight16, week1_piglet_weight17, 
-      week1_piglet_weight18, week1_piglet_weight19, 
-      week1_piglet_weight20, week1_piglet_weight21, 
-      week1_piglet_weight22, week1_piglet_weight23, 
-      week1_piglet_weight24, week1_piglet_weight25, 
-      week2_piglet_weight1, week2_piglet_weight2, 
-      week2_piglet_weight3, week2_piglet_weight4, 
-      week2_piglet_weight5, week2_piglet_weight6, 
-      week2_piglet_weight7, week2_piglet_weight8, 
-      week2_piglet_weight9, week2_piglet_weight10, 
-      week2_piglet_weight11, week2_piglet_weight12, 
-      week2_piglet_weight13, week2_piglet_weight14, 
-      week2_piglet_weight15, week2_piglet_weight16, 
-      week2_piglet_weight17, week2_piglet_weight18, 
-      week2_piglet_weight19, week2_piglet_weight20, 
-      week2_piglet_weight21, week2_piglet_weight22, 
-      week2_piglet_weight23, week2_piglet_weight24, 
-      week2_piglet_weight25, week3_piglet_weight1, 
-      week3_piglet_weight2, week3_piglet_weight3, 
-      week3_piglet_weight4, week3_piglet_weight5, 
-      week3_piglet_weight6, week3_piglet_weight7, 
-      week3_piglet_weight8, week3_piglet_weight9, 
-      week3_piglet_weight10, week3_piglet_weight11, 
-      week3_piglet_weight12, week3_piglet_weight13, 
-      week3_piglet_weight14, week3_piglet_weight15, 
-      week3_piglet_weight16, week3_piglet_weight17, 
-      week3_piglet_weight18, week3_piglet_weight19, 
-      week3_piglet_weight20, week3_piglet_weight21, 
-      week3_piglet_weight22, week3_piglet_weight23, 
-      week3_piglet_weight24, week3_piglet_weight25, 
-      week4_piglet_weight1, week4_piglet_weight2, 
-      week4_piglet_weight3, week4_piglet_weight4, 
-      week4_piglet_weight5, week4_piglet_weight6, 
-      week4_piglet_weight7, week4_piglet_weight8, 
-      week4_piglet_weight9, week4_piglet_weight10, 
-      week4_piglet_weight11, week4_piglet_weight12, 
-      week4_piglet_weight13, week4_piglet_weight14, 
-      week4_piglet_weight15, week4_piglet_weight16, 
-      week4_piglet_weight17, week4_piglet_weight18, 
-      week4_piglet_weight19, week4_piglet_weight20, 
-      week4_piglet_weight21, week4_piglet_weight22, 
-      week4_piglet_weight23, week4_piglet_weight24, 
-      week4_piglet_weight25, crushed_piglet_weight1, 
-      crushed_piglet_weight2, crushed_piglet_weight3, 
-      crushed_piglet_weight4, crushed_piglet_weight5, 
-      crushed_piglet_weight6, crushed_piglet_weight7, 
-      crushed_piglet_weight8, crushed_piglet_weight9, 
-      crushed_piglet_weight10, starved_piglet_weight1, 
-      starved_piglet_weight2, starved_piglet_weight3, 
-      starved_piglet_weight4, starved_piglet_weight5, 
-      total_pigs_died, total_weight_of_dead_pigs, adfi_at_week1, 
-      adfi_at_week2, adfi_at_week3, adfi_at_week4, 
-      adfi_at_week5, t24_bw1, t24_bw2, 
-      t24_bw3, t24_bw4, t24_bw5, 
-      t24_bw6, t24_bw7, t24_bw8, 
-      t24_bw9, t24_bw10, t24_bw11, 
-      t24_bw12, t24_bw13, t24_bw14, 
-      t24_bw15, t24_bw16, t24_bw17, 
-      t24_bw18, t24_bw19, t24_bw20, 
-      t24_bw21, t24_bw22, t24_bw23, 
-      t24_bw24, t24_bw25, cip_of_pig1, 
-      cip_of_pig2, cip_of_pig3, cip_of_pig4, 
-      cip_of_pig5, cip_of_pig6, cip_of_pig7, 
-      cip_of_pig8, cip_of_pig9, cip_of_pig10, 
-      cip_of_pig11, cip_of_pig12, cip_of_pig13, 
-      cip_of_pig14, cip_of_pig15, cip_of_pig16, 
-      cip_of_pig17, cip_of_pig18, cip_of_pig19, 
-      cip_of_pig20, cip_of_pig21, cip_of_pig22, 
-      cip_of_pig23, cip_of_pig24, cip_of_pig25, 
-      average_colostrum_intake, gilt_bw1, gilt_bw2, 
-      gilt_bw3, gilt_bf_at_phase1, gilt_bf_at_phase2, 
-      gilt_bf_at_phase3, estrum_bw, uterine_weight, 
-      uterine_length, left_uterine_length, right_uterine_length, 
+      stillborn_weight8, stillborn_weight9, stillborn_weight10, 
+      mommified_weight1, mommified_weight2, mommified_weight3, 
+      mommified_weight4, mommified_weight5, mommified_weight6, 
+      mommified_weight7, mommified_weight8, mommified_weight9, 
+      mommified_weight10, piglet_weight1_after_equalization, 
+      piglet_weight2_after_equalization, piglet_weight3_after_equalization, 
+      piglet_weight4_after_equalization, piglet_weight5_after_equalization, 
+      piglet_weight6_after_equalization, piglet_weight7_after_equalization, 
+      piglet_weight8_after_equalization, piglet_weight9_after_equalization, 
+      piglet_weight10_after_equalization, piglet_weight11_after_equalization, 
+      piglet_weight12_after_equalization, piglet_weight13_after_equalization, 
+      piglet_weight14_after_equalization, piglet_weight15_after_equalization, 
+      piglet_weight16_after_equalization, piglet_weight17_after_equalization, 
+      piglet_weight18_after_equalization, piglet_weight19_after_equalization, 
+      piglet_weight20_after_equalization, piglet_weight21_after_equalization, 
+      piglet_weight22_after_equalization, piglet_weight23_after_equalization, 
+      piglet_weight24_after_equalization, piglet_weight25_after_equalization, 
+      week1_piglet_weight1, week1_piglet_weight2, 
+      week1_piglet_weight3, week1_piglet_weight4, 
+      week1_piglet_weight5, week1_piglet_weight6, 
+      week1_piglet_weight7, week1_piglet_weight8, 
+      week1_piglet_weight9, week1_piglet_weight10, 
+      week1_piglet_weight11, week1_piglet_weight12, 
+      week1_piglet_weight13, week1_piglet_weight14, 
+      week1_piglet_weight15, week1_piglet_weight16, 
+      week1_piglet_weight17, week1_piglet_weight18, 
+      week1_piglet_weight19, week1_piglet_weight20, 
+      week1_piglet_weight21, week1_piglet_weight22, 
+      week1_piglet_weight23, week1_piglet_weight24, 
+      week1_piglet_weight25, week2_piglet_weight1, 
+      week2_piglet_weight2, week2_piglet_weight3, 
+      week2_piglet_weight4, week2_piglet_weight5, 
+      week2_piglet_weight6, week2_piglet_weight7, 
+      week2_piglet_weight8, week2_piglet_weight9, 
+      week2_piglet_weight10, week2_piglet_weight11, 
+      week2_piglet_weight12, week2_piglet_weight13, 
+      week2_piglet_weight14, week2_piglet_weight15, 
+      week2_piglet_weight16, week2_piglet_weight17, 
+      week2_piglet_weight18, week2_piglet_weight19, 
+      week2_piglet_weight20, week2_piglet_weight21, 
+      week2_piglet_weight22, week2_piglet_weight23, 
+      week2_piglet_weight24, week2_piglet_weight25, 
+      week3_piglet_weight1, week3_piglet_weight2, 
+      week3_piglet_weight3, week3_piglet_weight4, 
+      week3_piglet_weight5, week3_piglet_weight6, 
+      week3_piglet_weight7, week3_piglet_weight8, 
+      week3_piglet_weight9, week3_piglet_weight10, 
+      week3_piglet_weight11, week3_piglet_weight12, 
+      week3_piglet_weight13, week3_piglet_weight14, 
+      week3_piglet_weight15, week3_piglet_weight16, 
+      week3_piglet_weight17, week3_piglet_weight18, 
+      week3_piglet_weight19, week3_piglet_weight20, 
+      week3_piglet_weight21, week3_piglet_weight22, 
+      week3_piglet_weight23, week3_piglet_weight24, 
+      week3_piglet_weight25, week4_piglet_weight1, 
+      week4_piglet_weight2, week4_piglet_weight3, 
+      week4_piglet_weight4, week4_piglet_weight5, 
+      week4_piglet_weight6, week4_piglet_weight7, 
+      week4_piglet_weight8, week4_piglet_weight9, 
+      week4_piglet_weight10, week4_piglet_weight11, 
+      week4_piglet_weight12, week4_piglet_weight13, 
+      week4_piglet_weight14, week4_piglet_weight15, 
+      week4_piglet_weight16, week4_piglet_weight17, 
+      week4_piglet_weight18, week4_piglet_weight19, 
+      week4_piglet_weight20, week4_piglet_weight21, 
+      week4_piglet_weight22, week4_piglet_weight23, 
+      week4_piglet_weight24, week4_piglet_weight25, 
+      crushed_piglet_weight1, crushed_piglet_weight2, 
+      crushed_piglet_weight3, crushed_piglet_weight4, 
+      crushed_piglet_weight5, diseased_piglet_weight1, 
+      diseased_piglet_weight2, diseased_piglet_weight3, 
+      diseased_piglet_weight4, diseased_piglet_weight5, 
+      starved_piglet_weight1, starved_piglet_weight2, 
+      starved_piglet_weight3, starved_piglet_weight4, 
+      starved_piglet_weight5, total_pigs_died, total_weight_of_dead_pigs, 
+      adfi_at_week1, adfi_at_week2, adfi_at_week3, 
+      adfi_at_week4, adfi_at_week5, t24_bw1, 
+      t24_bw2, t24_bw3, t24_bw4, 
+      t24_bw5, t24_bw6, t24_bw7, 
+      t24_bw8, t24_bw9, t24_bw10, 
+      t24_bw11, t24_bw12, t24_bw13, 
+      t24_bw14, t24_bw15, t24_bw16, 
+      t24_bw17, t24_bw18, t24_bw19, 
+      t24_bw20, t24_bw21, t24_bw22, 
+      t24_bw23, t24_bw24, t24_bw25, 
+      cip_of_pig1, cip_of_pig2, cip_of_pig3, 
+      cip_of_pig4, cip_of_pig5, cip_of_pig6, 
+      cip_of_pig7, cip_of_pig8, cip_of_pig9, 
+      cip_of_pig10, cip_of_pig11, cip_of_pig12, 
+      cip_of_pig13, cip_of_pig14, cip_of_pig15, 
+      cip_of_pig16, cip_of_pig17, cip_of_pig18, 
+      cip_of_pig19, cip_of_pig20, cip_of_pig21, 
+      cip_of_pig22, cip_of_pig23, cip_of_pig24, 
+      cip_of_pig25, average_colostrum_intake, gilt_bw1, 
+      gilt_bw2, gilt_bw3, gilt_bf_at_phase1, 
+      gilt_bf_at_phase2, gilt_bf_at_phase3, estrus_day, 
+      estrum_bw, uterine_weight, uterine_length, 
+      left_uterine_length, right_uterine_length, 
       left_oviduct_length, right_oviduct_length, 
-      oviduct_weight, large_follicle_number, corpus_lutenum_number, 
-      follicle_liquid_weight, testicular_length, 
+      oviduct_weight, large_follicle_number, corpus_luteum_number, 
+      follicle_liquid_weight, ovarian_weight, testicular_length, 
       testicular_width, testicular_volume, sexual_function, 
       sperm_volume, sperm_density, sperm_motility_rate, 
       sperm_viability, sperm_motility_characteristics, 
       rate_of_teratosperm, acrosome_integrity_rate, 
       membrane_integrity, medicine_times_for_boars, 
       medicine_times_for_sows, medicine_times_for_gilts, 
-      version, file_identifier, create_time, 
-      modified_time)
+      sequence, version, file_identifier, 
+      create_time, modified_time)
     values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{houseId,jdbcType=INTEGER}, #{animalSex,jdbcType=SMALLINT}, #{house,jdbcType=VARCHAR}, 
       #{code,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, #{treatment,jdbcType=VARCHAR}, 
-      #{replicate,jdbcType=VARCHAR}, #{animalInitWeight,jdbcType=DECIMAL}, #{initialBw,jdbcType=DECIMAL}, 
-      #{bwWeek1,jdbcType=DECIMAL}, #{bwWeek2,jdbcType=DECIMAL}, #{bwWeek3,jdbcType=DECIMAL}, 
-      #{bwWeek4,jdbcType=DECIMAL}, #{bwWeek5,jdbcType=DECIMAL}, #{bwWeek6,jdbcType=DECIMAL}, 
-      #{bwWeek7,jdbcType=DECIMAL}, #{bwWeek8,jdbcType=DECIMAL}, #{bwWeek9,jdbcType=DECIMAL}, 
-      #{bwWeek10,jdbcType=DECIMAL}, #{bwWeek11,jdbcType=DECIMAL}, #{bwWeek12,jdbcType=DECIMAL}, 
-      #{bwWeek13,jdbcType=DECIMAL}, #{bwWeek14,jdbcType=DECIMAL}, #{bwWeek15,jdbcType=DECIMAL}, 
-      #{bwWeek16,jdbcType=DECIMAL}, #{bwWeek17,jdbcType=DECIMAL}, #{bwWeek18,jdbcType=DECIMAL}, 
-      #{bwWeek19,jdbcType=DECIMAL}, #{bwWeek20,jdbcType=DECIMAL}, #{bwWeek21,jdbcType=DECIMAL}, 
-      #{bwWeek22,jdbcType=DECIMAL}, #{bwWeek23,jdbcType=DECIMAL}, #{adgWeek1,jdbcType=DECIMAL}, 
-      #{phase1Bw,jdbcType=DECIMAL}, #{phase2Bw,jdbcType=DECIMAL}, #{phase3Bw,jdbcType=DECIMAL}, 
-      #{phase4Bw,jdbcType=DECIMAL}, #{phase5Bw,jdbcType=DECIMAL}, #{bwWeek24,jdbcType=DECIMAL}, 
-      #{adgWeek2,jdbcType=DECIMAL}, #{adgWeek3,jdbcType=DECIMAL}, #{adgWeek4,jdbcType=DECIMAL}, 
-      #{adgWeek5,jdbcType=DECIMAL}, #{adgWeek6,jdbcType=DECIMAL}, #{adgWeek7,jdbcType=DECIMAL}, 
-      #{adgWeek8,jdbcType=DECIMAL}, #{adgWeek9,jdbcType=DECIMAL}, #{adgWeek10,jdbcType=DECIMAL}, 
-      #{adgWeek11,jdbcType=DECIMAL}, #{adgWeek12,jdbcType=DECIMAL}, #{adgWeek13,jdbcType=DECIMAL}, 
-      #{adgWeek14,jdbcType=DECIMAL}, #{adgWeek15,jdbcType=DECIMAL}, #{adgWeek16,jdbcType=DECIMAL}, 
-      #{adgWeek17,jdbcType=DECIMAL}, #{adgWeek18,jdbcType=DECIMAL}, #{adgWeek19,jdbcType=DECIMAL}, 
-      #{adgWeek20,jdbcType=DECIMAL}, #{adgWeek21,jdbcType=DECIMAL}, #{adgWeek22,jdbcType=DECIMAL}, 
-      #{adgWeek23,jdbcType=DECIMAL}, #{adgWeek24,jdbcType=DECIMAL}, #{phase1Adg,jdbcType=DECIMAL}, 
-      #{phase2Adg,jdbcType=DECIMAL}, #{phase3Adg,jdbcType=DECIMAL}, #{phase4Adg,jdbcType=DECIMAL}, 
-      #{phase5Adg,jdbcType=DECIMAL}, #{feedSuppliedWeek1,jdbcType=DECIMAL}, #{residualWeek1,jdbcType=DECIMAL}, 
-      #{deedLossWeek1,jdbcType=DECIMAL}, #{adfiWeek1,jdbcType=DECIMAL}, #{feedSuppliedWeek2,jdbcType=DECIMAL}, 
-      #{residualWeek2,jdbcType=DECIMAL}, #{deedLossWeek2,jdbcType=DECIMAL}, #{adfiWeek2,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek3,jdbcType=DECIMAL}, #{residualWeek3,jdbcType=DECIMAL}, #{deedLossWeek3,jdbcType=DECIMAL}, 
-      #{adfiWeek3,jdbcType=DECIMAL}, #{feedSuppliedWeek4,jdbcType=DECIMAL}, #{residualWeek4,jdbcType=DECIMAL}, 
-      #{deedLossWeek4,jdbcType=DECIMAL}, #{adfiWeek4,jdbcType=DECIMAL}, #{feedSuppliedWeek5,jdbcType=DECIMAL}, 
-      #{residualWeek5,jdbcType=DECIMAL}, #{deedLossWeek5,jdbcType=DECIMAL}, #{adfiWeek5,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek6,jdbcType=DECIMAL}, #{residualWeek6,jdbcType=DECIMAL}, #{deedLossWeek6,jdbcType=DECIMAL}, 
-      #{adfiWeek6,jdbcType=DECIMAL}, #{feedSuppliedWeek7,jdbcType=DECIMAL}, #{residualWeek7,jdbcType=DECIMAL}, 
-      #{deedLossWeek7,jdbcType=DECIMAL}, #{adfiWeek7,jdbcType=DECIMAL}, #{feedSuppliedWeek8,jdbcType=DECIMAL}, 
-      #{residualWeek8,jdbcType=DECIMAL}, #{deedLossWeek8,jdbcType=DECIMAL}, #{adfiWeek8,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek9,jdbcType=DECIMAL}, #{residualWeek9,jdbcType=DECIMAL}, #{deedLossWeek9,jdbcType=DECIMAL}, 
-      #{adfiWeek9,jdbcType=DECIMAL}, #{feedSuppliedWeek10,jdbcType=DECIMAL}, #{residualWeek10,jdbcType=DECIMAL}, 
-      #{deedLossWeek10,jdbcType=DECIMAL}, #{adfiWeek10,jdbcType=DECIMAL}, #{feedSuppliedWeek11,jdbcType=DECIMAL}, 
-      #{residualWeek11,jdbcType=DECIMAL}, #{deedLossWeek11,jdbcType=DECIMAL}, #{adfiWeek11,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek12,jdbcType=DECIMAL}, #{residualWeek12,jdbcType=DECIMAL}, #{deedLossWeek12,jdbcType=DECIMAL}, 
-      #{adfiWeek12,jdbcType=DECIMAL}, #{feedSuppliedWeek13,jdbcType=DECIMAL}, #{residualWeek13,jdbcType=DECIMAL}, 
-      #{deedLossWeek13,jdbcType=DECIMAL}, #{adfiWeek13,jdbcType=DECIMAL}, #{feedSuppliedWeek14,jdbcType=DECIMAL}, 
-      #{residualWeek14,jdbcType=DECIMAL}, #{deedLossWeek14,jdbcType=DECIMAL}, #{adfiWeek14,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek15,jdbcType=DECIMAL}, #{residualWeek15,jdbcType=DECIMAL}, #{deedLossWeek15,jdbcType=DECIMAL}, 
-      #{adfiWeek15,jdbcType=DECIMAL}, #{feedSuppliedWeek16,jdbcType=DECIMAL}, #{residualWeek16,jdbcType=DECIMAL}, 
-      #{deedLossWeek16,jdbcType=DECIMAL}, #{adfiWeek16,jdbcType=DECIMAL}, #{feedSuppliedWeek17,jdbcType=DECIMAL}, 
-      #{residualWeek17,jdbcType=DECIMAL}, #{deedLossWeek17,jdbcType=DECIMAL}, #{adfiWeek17,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek18,jdbcType=DECIMAL}, #{residualWeek18,jdbcType=DECIMAL}, #{deedLossWeek18,jdbcType=DECIMAL}, 
-      #{adfiWeek18,jdbcType=DECIMAL}, #{feedSuppliedWeek19,jdbcType=DECIMAL}, #{residualWeek19,jdbcType=DECIMAL}, 
-      #{deedLossWeek19,jdbcType=DECIMAL}, #{adfiWeek19,jdbcType=DECIMAL}, #{feedSuppliedWeek20,jdbcType=DECIMAL}, 
-      #{residualWeek20,jdbcType=DECIMAL}, #{deedLossWeek20,jdbcType=DECIMAL}, #{adfiWeek20,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek21,jdbcType=DECIMAL}, #{residualWeek21,jdbcType=DECIMAL}, #{deedLossWeek21,jdbcType=DECIMAL}, 
-      #{adfiWeek21,jdbcType=DECIMAL}, #{feedSuppliedWeek22,jdbcType=DECIMAL}, #{residualWeek22,jdbcType=DECIMAL}, 
-      #{deedLossWeek22,jdbcType=DECIMAL}, #{adfiWeek22,jdbcType=DECIMAL}, #{feedSuppliedWeek23,jdbcType=DECIMAL}, 
-      #{residualWeek23,jdbcType=DECIMAL}, #{deedLossWeek23,jdbcType=DECIMAL}, #{adfiWeek23,jdbcType=DECIMAL}, 
-      #{feedSuppliedWeek24,jdbcType=DECIMAL}, #{residualWeek24,jdbcType=DECIMAL}, #{deedLossWeek24,jdbcType=DECIMAL}, 
-      #{adfiWeek24,jdbcType=DECIMAL}, #{phase1FeedSupplied,jdbcType=DECIMAL}, #{phase1Residual,jdbcType=DECIMAL}, 
-      #{phase1FeedLoss,jdbcType=DECIMAL}, #{phase1Adfi,jdbcType=DECIMAL}, #{phase2FeedSupplied,jdbcType=DECIMAL}, 
-      #{phase2Residual,jdbcType=DECIMAL}, #{phase2FeedLoss,jdbcType=DECIMAL}, #{phase2Adfi,jdbcType=DECIMAL}, 
-      #{phase3FeedSupplied,jdbcType=DECIMAL}, #{phase3Residual,jdbcType=DECIMAL}, #{phase3FeedLoss,jdbcType=DECIMAL}, 
-      #{phase3Adfi,jdbcType=DECIMAL}, #{phase4FeedSupplied,jdbcType=DECIMAL}, #{phase4Residual,jdbcType=DECIMAL}, 
-      #{phase4FeedLoss,jdbcType=DECIMAL}, #{phase4Adfi,jdbcType=DECIMAL}, #{phase5FeedSupplied,jdbcType=DECIMAL}, 
-      #{phase5Residual,jdbcType=DECIMAL}, #{phase5FeedLoss,jdbcType=DECIMAL}, #{phase5Adfi,jdbcType=DECIMAL}, 
-      #{fcrWeek1,jdbcType=DECIMAL}, #{fcrWeek2,jdbcType=DECIMAL}, #{fcrWeek3,jdbcType=DECIMAL}, 
-      #{fcrWeek4,jdbcType=DECIMAL}, #{fcrWeek5,jdbcType=DECIMAL}, #{fcrWeek6,jdbcType=DECIMAL}, 
-      #{fcrWeek7,jdbcType=DECIMAL}, #{fcrWeek8,jdbcType=DECIMAL}, #{fcrWeek9,jdbcType=DECIMAL}, 
-      #{fcrWeek10,jdbcType=DECIMAL}, #{fcrWeek11,jdbcType=DECIMAL}, #{fcrWeek12,jdbcType=DECIMAL}, 
-      #{fcrWeek13,jdbcType=DECIMAL}, #{fcrWeek14,jdbcType=DECIMAL}, #{fcrWeek15,jdbcType=DECIMAL}, 
-      #{fcrWeek16,jdbcType=DECIMAL}, #{fcrWeek17,jdbcType=DECIMAL}, #{fcrWeek18,jdbcType=DECIMAL}, 
-      #{fcrWeek19,jdbcType=DECIMAL}, #{fcrWeek20,jdbcType=DECIMAL}, #{fcrWeek21,jdbcType=DECIMAL}, 
-      #{fcrWeek22,jdbcType=DECIMAL}, #{fcrWeek23,jdbcType=DECIMAL}, #{fcrWeek24,jdbcType=DECIMAL}, 
-      #{phase1Fcr,jdbcType=DECIMAL}, #{phase2Fcr,jdbcType=DECIMAL}, #{phase3Fcr,jdbcType=DECIMAL}, 
-      #{phase4Fcr,jdbcType=DECIMAL}, #{phase5Fcr,jdbcType=DECIMAL}, #{diarrheaIndex,jdbcType=DECIMAL}, 
-      #{diarrheaIncidence,jdbcType=DECIMAL}, #{dmDigestibility,jdbcType=DECIMAL}, #{cpDigestibility,jdbcType=DECIMAL}, 
-      #{eeDigestibility,jdbcType=DECIMAL}, #{cfDigestibility,jdbcType=DECIMAL}, #{energyDigestibility,jdbcType=DECIMAL}, 
-      #{aspDigestibility,jdbcType=DECIMAL}, #{thrDigestibility,jdbcType=DECIMAL}, #{serDigestibility,jdbcType=DECIMAL}, 
-      #{gluDigestibility,jdbcType=DECIMAL}, #{glyDigestibility,jdbcType=DECIMAL}, #{alaDigestibility,jdbcType=DECIMAL}, 
-      #{cysDigestibility,jdbcType=DECIMAL}, #{valDigestibility,jdbcType=DECIMAL}, #{metDigestibility,jdbcType=DECIMAL}, 
-      #{ileDigestibility,jdbcType=DECIMAL}, #{leuDigestibility,jdbcType=DECIMAL}, #{tyrDigestibility,jdbcType=DECIMAL}, 
-      #{pheDigestibility,jdbcType=DECIMAL}, #{lysDigestibility,jdbcType=DECIMAL}, #{hisDigestibility,jdbcType=DECIMAL}, 
-      #{argDigestibility,jdbcType=DECIMAL}, #{proDigestibility,jdbcType=DECIMAL}, #{trpDigestibility,jdbcType=DECIMAL}, 
-      #{undefined1Digestibility,jdbcType=DECIMAL}, #{undefined2Digestibility,jdbcType=DECIMAL}, 
-      #{undefined3Digestibility,jdbcType=DECIMAL}, #{undefined4Digestibility,jdbcType=DECIMAL}, 
-      #{undefined5Digestibility,jdbcType=DECIMAL}, #{indicatorInFeed,jdbcType=DECIMAL}, 
-      #{indicatorInFeces,jdbcType=DECIMAL}, #{villousHeight,jdbcType=DECIMAL}, #{cryptDepth,jdbcType=DECIMAL}, 
-      #{villiCryptRatio,jdbcType=DECIMAL}, #{intestinalLength,jdbcType=DECIMAL}, #{intestinalWeight,jdbcType=DECIMAL}, 
-      #{endotoxin,jdbcType=DECIMAL}, #{diamineOxidase,jdbcType=DECIMAL}, #{dLactate,jdbcType=DECIMAL}, 
-      #{lactulose,jdbcType=DECIMAL}, #{mannitol,jdbcType=DECIMAL}, #{iFabp,jdbcType=DECIMAL}, 
-      #{sucrase,jdbcType=DECIMAL}, #{maltase,jdbcType=DECIMAL}, #{lactase,jdbcType=DECIMAL}, 
-      #{apn,jdbcType=DECIMAL}, #{apa,jdbcType=DECIMAL}, #{dppiv,jdbcType=DECIMAL}, #{eColi,jdbcType=DECIMAL}, 
-      #{bifidobacterium,jdbcType=DECIMAL}, #{lacticAcidBacteria,jdbcType=DECIMAL}, #{totalBacteria,jdbcType=DECIMAL}, 
-      #{liveYeast,jdbcType=DECIMAL}, #{tlr2,jdbcType=DECIMAL}, #{tlr4,jdbcType=DECIMAL}, 
-      #{tlr9,jdbcType=DECIMAL}, #{myd88,jdbcType=DECIMAL}, #{traf6,jdbcType=DECIMAL}, 
-      #{nfKappaB1,jdbcType=DECIMAL}, #{nfKappaB2,jdbcType=DECIMAL}, #{sigirr,jdbcType=DECIMAL}, 
-      #{tollip,jdbcType=DECIMAL}, #{il1Beta,jdbcType=DECIMAL}, #{il6,jdbcType=DECIMAL}, 
-      #{nod2,jdbcType=DECIMAL}, #{betaActin,jdbcType=DECIMAL}, #{sixteenSrna,jdbcType=DECIMAL}, 
-      #{gapdh,jdbcType=DECIMAL}, #{tubulin,jdbcType=DECIMAL}, #{gene1Expression,jdbcType=DECIMAL}, 
-      #{gene2Expression,jdbcType=DECIMAL}, #{gene3Expression,jdbcType=DECIMAL}, #{gene4Expression,jdbcType=DECIMAL}, 
-      #{gene5Expression,jdbcType=DECIMAL}, #{gene6Expression,jdbcType=DECIMAL}, #{gene7Expression,jdbcType=DECIMAL}, 
-      #{gene8Expression,jdbcType=DECIMAL}, #{gene9Expression,jdbcType=DECIMAL}, #{gene10Expression,jdbcType=DECIMAL}, 
-      #{gene11Expression,jdbcType=DECIMAL}, #{gene12Expression,jdbcType=DECIMAL}, #{gene13Expression,jdbcType=DECIMAL}, 
-      #{gene14Expression,jdbcType=DECIMAL}, #{gene15Expression,jdbcType=DECIMAL}, #{gene16Expression,jdbcType=DECIMAL}, 
-      #{gene17Expression,jdbcType=DECIMAL}, #{gene18Expression,jdbcType=DECIMAL}, #{gene19Expression,jdbcType=DECIMAL}, 
-      #{gene20Expression,jdbcType=DECIMAL}, #{zo1,jdbcType=DECIMAL}, #{occludin,jdbcType=DECIMAL}, 
-      #{igf1,jdbcType=DECIMAL}, #{igf1r,jdbcType=DECIMAL}, #{ghr,jdbcType=DECIMAL}, #{protein1Expression,jdbcType=DECIMAL}, 
+      #{replicate,jdbcType=VARCHAR}, #{factorA,jdbcType=VARCHAR}, #{factorB,jdbcType=VARCHAR}, 
+      #{initialBw,jdbcType=DECIMAL}, #{bwWeek1,jdbcType=DECIMAL}, #{bwWeek2,jdbcType=DECIMAL}, 
+      #{bwWeek3,jdbcType=DECIMAL}, #{bwWeek4,jdbcType=DECIMAL}, #{bwWeek5,jdbcType=DECIMAL}, 
+      #{bwWeek6,jdbcType=DECIMAL}, #{bwWeek7,jdbcType=DECIMAL}, #{bwWeek8,jdbcType=DECIMAL}, 
+      #{bwWeek9,jdbcType=DECIMAL}, #{bwWeek10,jdbcType=DECIMAL}, #{bwWeek11,jdbcType=DECIMAL}, 
+      #{bwWeek12,jdbcType=DECIMAL}, #{bwWeek13,jdbcType=DECIMAL}, #{bwWeek14,jdbcType=DECIMAL}, 
+      #{bwWeek15,jdbcType=DECIMAL}, #{bwWeek16,jdbcType=DECIMAL}, #{bwWeek17,jdbcType=DECIMAL}, 
+      #{bwWeek18,jdbcType=DECIMAL}, #{bwWeek19,jdbcType=DECIMAL}, #{bwWeek20,jdbcType=DECIMAL}, 
+      #{bwWeek21,jdbcType=DECIMAL}, #{bwWeek22,jdbcType=DECIMAL}, #{bwWeek23,jdbcType=DECIMAL}, 
+      #{adgWeek1,jdbcType=DECIMAL}, #{phase1Bw,jdbcType=DECIMAL}, #{phase2Bw,jdbcType=DECIMAL}, 
+      #{phase3Bw,jdbcType=DECIMAL}, #{phase4Bw,jdbcType=DECIMAL}, #{phase5Bw,jdbcType=DECIMAL}, 
+      #{bwWeek24,jdbcType=DECIMAL}, #{adgWeek2,jdbcType=DECIMAL}, #{adgWeek3,jdbcType=DECIMAL}, 
+      #{adgWeek4,jdbcType=DECIMAL}, #{adgWeek5,jdbcType=DECIMAL}, #{adgWeek6,jdbcType=DECIMAL}, 
+      #{adgWeek7,jdbcType=DECIMAL}, #{adgWeek8,jdbcType=DECIMAL}, #{adgWeek9,jdbcType=DECIMAL}, 
+      #{adgWeek10,jdbcType=DECIMAL}, #{adgWeek11,jdbcType=DECIMAL}, #{adgWeek12,jdbcType=DECIMAL}, 
+      #{adgWeek13,jdbcType=DECIMAL}, #{adgWeek14,jdbcType=DECIMAL}, #{adgWeek15,jdbcType=DECIMAL}, 
+      #{adgWeek16,jdbcType=DECIMAL}, #{adgWeek17,jdbcType=DECIMAL}, #{adgWeek18,jdbcType=DECIMAL}, 
+      #{adgWeek19,jdbcType=DECIMAL}, #{adgWeek20,jdbcType=DECIMAL}, #{adgWeek21,jdbcType=DECIMAL}, 
+      #{adgWeek22,jdbcType=DECIMAL}, #{adgWeek23,jdbcType=DECIMAL}, #{adgWeek24,jdbcType=DECIMAL}, 
+      #{phase1Adg,jdbcType=DECIMAL}, #{phase2Adg,jdbcType=DECIMAL}, #{phase3Adg,jdbcType=DECIMAL}, 
+      #{phase4Adg,jdbcType=DECIMAL}, #{phase5Adg,jdbcType=DECIMAL}, #{feedSuppliedWeek1,jdbcType=DECIMAL}, 
+      #{residualWeek1,jdbcType=DECIMAL}, #{feedLossWeek1,jdbcType=DECIMAL}, #{adfiWeek1,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek2,jdbcType=DECIMAL}, #{residualWeek2,jdbcType=DECIMAL}, #{feedLossWeek2,jdbcType=DECIMAL}, 
+      #{adfiWeek2,jdbcType=DECIMAL}, #{feedSuppliedWeek3,jdbcType=DECIMAL}, #{residualWeek3,jdbcType=DECIMAL}, 
+      #{feedLossWeek3,jdbcType=DECIMAL}, #{adfiWeek3,jdbcType=DECIMAL}, #{feedSuppliedWeek4,jdbcType=DECIMAL}, 
+      #{residualWeek4,jdbcType=DECIMAL}, #{feedLossWeek4,jdbcType=DECIMAL}, #{adfiWeek4,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek5,jdbcType=DECIMAL}, #{residualWeek5,jdbcType=DECIMAL}, #{feedLossWeek5,jdbcType=DECIMAL}, 
+      #{adfiWeek5,jdbcType=DECIMAL}, #{feedSuppliedWeek6,jdbcType=DECIMAL}, #{residualWeek6,jdbcType=DECIMAL}, 
+      #{feedLossWeek6,jdbcType=DECIMAL}, #{adfiWeek6,jdbcType=DECIMAL}, #{feedSuppliedWeek7,jdbcType=DECIMAL}, 
+      #{residualWeek7,jdbcType=DECIMAL}, #{feedLossWeek7,jdbcType=DECIMAL}, #{adfiWeek7,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek8,jdbcType=DECIMAL}, #{residualWeek8,jdbcType=DECIMAL}, #{feedLossWeek8,jdbcType=DECIMAL}, 
+      #{adfiWeek8,jdbcType=DECIMAL}, #{feedSuppliedWeek9,jdbcType=DECIMAL}, #{residualWeek9,jdbcType=DECIMAL}, 
+      #{feedLossWeek9,jdbcType=DECIMAL}, #{adfiWeek9,jdbcType=DECIMAL}, #{feedSuppliedWeek10,jdbcType=DECIMAL}, 
+      #{residualWeek10,jdbcType=DECIMAL}, #{feedLossWeek10,jdbcType=DECIMAL}, #{adfiWeek10,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek11,jdbcType=DECIMAL}, #{residualWeek11,jdbcType=DECIMAL}, #{feedLossWeek11,jdbcType=DECIMAL}, 
+      #{adfiWeek11,jdbcType=DECIMAL}, #{feedSuppliedWeek12,jdbcType=DECIMAL}, #{residualWeek12,jdbcType=DECIMAL}, 
+      #{feedLossWeek12,jdbcType=DECIMAL}, #{adfiWeek12,jdbcType=DECIMAL}, #{feedSuppliedWeek13,jdbcType=DECIMAL}, 
+      #{residualWeek13,jdbcType=DECIMAL}, #{feedLossWeek13,jdbcType=DECIMAL}, #{adfiWeek13,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek14,jdbcType=DECIMAL}, #{residualWeek14,jdbcType=DECIMAL}, #{feedLossWeek14,jdbcType=DECIMAL}, 
+      #{adfiWeek14,jdbcType=DECIMAL}, #{feedSuppliedWeek15,jdbcType=DECIMAL}, #{residualWeek15,jdbcType=DECIMAL}, 
+      #{feedLossWeek15,jdbcType=DECIMAL}, #{adfiWeek15,jdbcType=DECIMAL}, #{feedSuppliedWeek16,jdbcType=DECIMAL}, 
+      #{residualWeek16,jdbcType=DECIMAL}, #{feedLossWeek16,jdbcType=DECIMAL}, #{adfiWeek16,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek17,jdbcType=DECIMAL}, #{residualWeek17,jdbcType=DECIMAL}, #{feedLossWeek17,jdbcType=DECIMAL}, 
+      #{adfiWeek17,jdbcType=DECIMAL}, #{feedSuppliedWeek18,jdbcType=DECIMAL}, #{residualWeek18,jdbcType=DECIMAL}, 
+      #{feedLossWeek18,jdbcType=DECIMAL}, #{adfiWeek18,jdbcType=DECIMAL}, #{feedSuppliedWeek19,jdbcType=DECIMAL}, 
+      #{residualWeek19,jdbcType=DECIMAL}, #{feedLossWeek19,jdbcType=DECIMAL}, #{adfiWeek19,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek20,jdbcType=DECIMAL}, #{residualWeek20,jdbcType=DECIMAL}, #{feedLossWeek20,jdbcType=DECIMAL}, 
+      #{adfiWeek20,jdbcType=DECIMAL}, #{feedSuppliedWeek21,jdbcType=DECIMAL}, #{residualWeek21,jdbcType=DECIMAL}, 
+      #{feedLossWeek21,jdbcType=DECIMAL}, #{adfiWeek21,jdbcType=DECIMAL}, #{feedSuppliedWeek22,jdbcType=DECIMAL}, 
+      #{residualWeek22,jdbcType=DECIMAL}, #{feedLossWeek22,jdbcType=DECIMAL}, #{adfiWeek22,jdbcType=DECIMAL}, 
+      #{feedSuppliedWeek23,jdbcType=DECIMAL}, #{residualWeek23,jdbcType=DECIMAL}, #{feedLossWeek23,jdbcType=DECIMAL}, 
+      #{adfiWeek23,jdbcType=DECIMAL}, #{feedSuppliedWeek24,jdbcType=DECIMAL}, #{residualWeek24,jdbcType=DECIMAL}, 
+      #{feedLossWeek24,jdbcType=DECIMAL}, #{adfiWeek24,jdbcType=DECIMAL}, #{phase1FeedSupplied,jdbcType=DECIMAL}, 
+      #{phase1Residual,jdbcType=DECIMAL}, #{phase1FeedLoss,jdbcType=DECIMAL}, #{phase1Adfi,jdbcType=DECIMAL}, 
+      #{phase2FeedSupplied,jdbcType=DECIMAL}, #{phase2Residual,jdbcType=DECIMAL}, #{phase2FeedLoss,jdbcType=DECIMAL}, 
+      #{phase2Adfi,jdbcType=DECIMAL}, #{phase3FeedSupplied,jdbcType=DECIMAL}, #{phase3Residual,jdbcType=DECIMAL}, 
+      #{phase3FeedLoss,jdbcType=DECIMAL}, #{phase3Adfi,jdbcType=DECIMAL}, #{phase4FeedSupplied,jdbcType=DECIMAL}, 
+      #{phase4Residual,jdbcType=DECIMAL}, #{phase4FeedLoss,jdbcType=DECIMAL}, #{phase4Adfi,jdbcType=DECIMAL}, 
+      #{phase5FeedSupplied,jdbcType=DECIMAL}, #{phase5Residual,jdbcType=DECIMAL}, #{phase5FeedLoss,jdbcType=DECIMAL}, 
+      #{phase5Adfi,jdbcType=DECIMAL}, #{fcrWeek1,jdbcType=DECIMAL}, #{fcrWeek2,jdbcType=DECIMAL}, 
+      #{fcrWeek3,jdbcType=DECIMAL}, #{fcrWeek4,jdbcType=DECIMAL}, #{fcrWeek5,jdbcType=DECIMAL}, 
+      #{fcrWeek6,jdbcType=DECIMAL}, #{fcrWeek7,jdbcType=DECIMAL}, #{fcrWeek8,jdbcType=DECIMAL}, 
+      #{fcrWeek9,jdbcType=DECIMAL}, #{fcrWeek10,jdbcType=DECIMAL}, #{fcrWeek11,jdbcType=DECIMAL}, 
+      #{fcrWeek12,jdbcType=DECIMAL}, #{fcrWeek13,jdbcType=DECIMAL}, #{fcrWeek14,jdbcType=DECIMAL}, 
+      #{fcrWeek15,jdbcType=DECIMAL}, #{fcrWeek16,jdbcType=DECIMAL}, #{fcrWeek17,jdbcType=DECIMAL}, 
+      #{fcrWeek18,jdbcType=DECIMAL}, #{fcrWeek19,jdbcType=DECIMAL}, #{fcrWeek20,jdbcType=DECIMAL}, 
+      #{fcrWeek21,jdbcType=DECIMAL}, #{fcrWeek22,jdbcType=DECIMAL}, #{fcrWeek23,jdbcType=DECIMAL}, 
+      #{fcrWeek24,jdbcType=DECIMAL}, #{phase1Fcr,jdbcType=DECIMAL}, #{phase2Fcr,jdbcType=DECIMAL}, 
+      #{phase3Fcr,jdbcType=DECIMAL}, #{phase4Fcr,jdbcType=DECIMAL}, #{phase5Fcr,jdbcType=DECIMAL}, 
+      #{diarrheaIndex,jdbcType=DECIMAL}, #{diarrheaIncidence,jdbcType=DECIMAL}, #{dmDigestibility,jdbcType=DECIMAL}, 
+      #{cpDigestibility,jdbcType=DECIMAL}, #{eeDigestibility,jdbcType=DECIMAL}, #{cfDigestibility,jdbcType=DECIMAL}, 
+      #{energyDigestibility,jdbcType=DECIMAL}, #{aspDigestibility,jdbcType=DECIMAL}, 
+      #{thrDigestibility,jdbcType=DECIMAL}, #{serDigestibility,jdbcType=DECIMAL}, #{gluDigestibility,jdbcType=DECIMAL}, 
+      #{glyDigestibility,jdbcType=DECIMAL}, #{alaDigestibility,jdbcType=DECIMAL}, #{cysDigestibility,jdbcType=DECIMAL}, 
+      #{valDigestibility,jdbcType=DECIMAL}, #{metDigestibility,jdbcType=DECIMAL}, #{ileDigestibility,jdbcType=DECIMAL}, 
+      #{leuDigestibility,jdbcType=DECIMAL}, #{tyrDigestibility,jdbcType=DECIMAL}, #{pheDigestibility,jdbcType=DECIMAL}, 
+      #{lysDigestibility,jdbcType=DECIMAL}, #{hisDigestibility,jdbcType=DECIMAL}, #{argDigestibility,jdbcType=DECIMAL}, 
+      #{proDigestibility,jdbcType=DECIMAL}, #{trpDigestibility,jdbcType=DECIMAL}, #{undefined1Digestibility,jdbcType=DECIMAL}, 
+      #{undefined2Digestibility,jdbcType=DECIMAL}, #{undefined3Digestibility,jdbcType=DECIMAL}, 
+      #{undefined4Digestibility,jdbcType=DECIMAL}, #{undefined5Digestibility,jdbcType=DECIMAL}, 
+      #{indicatorInFeed,jdbcType=DECIMAL}, #{indicatorInFeces,jdbcType=DECIMAL}, #{villousHeight,jdbcType=DECIMAL}, 
+      #{cryptDepth,jdbcType=DECIMAL}, #{villiCryptRatio,jdbcType=DECIMAL}, #{intestinalLength,jdbcType=DECIMAL}, 
+      #{intestinalWeight,jdbcType=DECIMAL}, #{endotoxin,jdbcType=DECIMAL}, #{diamineOxidase,jdbcType=DECIMAL}, 
+      #{dLactate,jdbcType=DECIMAL}, #{lactulose,jdbcType=DECIMAL}, #{mannitol,jdbcType=DECIMAL}, 
+      #{iFabp,jdbcType=DECIMAL}, #{sucrase,jdbcType=DECIMAL}, #{maltase,jdbcType=DECIMAL}, 
+      #{lactase,jdbcType=DECIMAL}, #{apn,jdbcType=DECIMAL}, #{apa,jdbcType=DECIMAL}, 
+      #{dppiv,jdbcType=DECIMAL}, #{eColi,jdbcType=DECIMAL}, #{bifidobacterium,jdbcType=DECIMAL}, 
+      #{lacticAcidBacteria,jdbcType=DECIMAL}, #{totalBacteria,jdbcType=DECIMAL}, #{liveYeast,jdbcType=DECIMAL}, 
+      #{tlr2,jdbcType=DECIMAL}, #{tlr4,jdbcType=DECIMAL}, #{tlr9,jdbcType=DECIMAL}, #{myd88,jdbcType=DECIMAL}, 
+      #{traf6,jdbcType=DECIMAL}, #{nfKappaB1,jdbcType=DECIMAL}, #{nfKappaB2,jdbcType=DECIMAL}, 
+      #{sigirr,jdbcType=DECIMAL}, #{tollip,jdbcType=DECIMAL}, #{il1Beta,jdbcType=DECIMAL}, 
+      #{il6,jdbcType=DECIMAL}, #{nod2,jdbcType=DECIMAL}, #{betaActin,jdbcType=DECIMAL}, 
+      #{sixteenSrna,jdbcType=DECIMAL}, #{gapdh,jdbcType=DECIMAL}, #{tubulin,jdbcType=DECIMAL}, 
+      #{gene1Expression,jdbcType=DECIMAL}, #{gene2Expression,jdbcType=DECIMAL}, #{gene3Expression,jdbcType=DECIMAL}, 
+      #{gene4Expression,jdbcType=DECIMAL}, #{gene5Expression,jdbcType=DECIMAL}, #{gene6Expression,jdbcType=DECIMAL}, 
+      #{gene7Expression,jdbcType=DECIMAL}, #{gene8Expression,jdbcType=DECIMAL}, #{gene9Expression,jdbcType=DECIMAL}, 
+      #{gene10Expression,jdbcType=DECIMAL}, #{gene11Expression,jdbcType=DECIMAL}, #{gene12Expression,jdbcType=DECIMAL}, 
+      #{gene13Expression,jdbcType=DECIMAL}, #{gene14Expression,jdbcType=DECIMAL}, #{gene15Expression,jdbcType=DECIMAL}, 
+      #{gene16Expression,jdbcType=DECIMAL}, #{gene17Expression,jdbcType=DECIMAL}, #{gene18Expression,jdbcType=DECIMAL}, 
+      #{gene19Expression,jdbcType=DECIMAL}, #{gene20Expression,jdbcType=DECIMAL}, #{zo1,jdbcType=DECIMAL}, 
+      #{occludin,jdbcType=DECIMAL}, #{claudin1,jdbcType=DECIMAL}, #{igf1,jdbcType=DECIMAL}, 
+      #{igf1r,jdbcType=DECIMAL}, #{ghr,jdbcType=DECIMAL}, #{protein1Expression,jdbcType=DECIMAL}, 
       #{protein2Expression,jdbcType=DECIMAL}, #{protein3Expression,jdbcType=DECIMAL}, 
       #{protein4Expression,jdbcType=DECIMAL}, #{protein5Expression,jdbcType=DECIMAL}, 
       #{protein6Expression,jdbcType=DECIMAL}, #{protein7Expression,jdbcType=DECIMAL}, 
@@ -1163,19 +1171,19 @@
       #{shearForce,jdbcType=DECIMAL}, #{marbingScore,jdbcType=DECIMAL}, #{intramuscularFat,jdbcType=DECIMAL}, 
       #{a45min,jdbcType=DECIMAL}, #{b45min,jdbcType=DECIMAL}, #{l45min,jdbcType=DECIMAL}, 
       #{a24h,jdbcType=DECIMAL}, #{b24h,jdbcType=DECIMAL}, #{l24h,jdbcType=DECIMAL}, #{ph45min,jdbcType=DECIMAL}, 
-      #{ph24h,jdbcType=DECIMAL}, #{bodyScoreAtD1,jdbcType=DECIMAL}, #{bodyScoreAtD30,jdbcType=DECIMAL}, 
-      #{bodyScoreAtD90,jdbcType=DECIMAL}, #{bodyScoreAtD114,jdbcType=DECIMAL}, #{bodyScoreAtLactaion,jdbcType=DECIMAL}, 
-      #{bwAtD1,jdbcType=DECIMAL}, #{bwAtD30,jdbcType=DECIMAL}, #{bwAtD90,jdbcType=DECIMAL}, 
-      #{bwAtD114,jdbcType=DECIMAL}, #{bwAtLactation,jdbcType=DECIMAL}, #{backfatThicknessAtD1,jdbcType=DECIMAL}, 
-      #{backfatThicknessAtD30,jdbcType=DECIMAL}, #{backfatThicknessAtD90,jdbcType=DECIMAL}, 
-      #{backfatThicknessAtD114,jdbcType=DECIMAL}, #{backfatThicknessAtLactation,jdbcType=DECIMAL}, 
-      #{bodyScore1OfBoar,jdbcType=DECIMAL}, #{bodyScore2OfBoar,jdbcType=DECIMAL}, #{bodyScore3OfBoar,jdbcType=DECIMAL}, 
-      #{constipationIncidence,jdbcType=DECIMAL}, #{farrowingRate,jdbcType=DECIMAL}, #{estrusRate,jdbcType=DECIMAL}, 
-      #{weaningEstrusInterval,jdbcType=DECIMAL}, #{cullRate,jdbcType=DECIMAL}, #{farrowingTimeStarted,jdbcType=TIMESTAMP}, 
-      #{farrowingTimeEnded,jdbcType=TIMESTAMP}, #{farrowingDuration,jdbcType=DECIMAL}, 
-      #{placentalWeight,jdbcType=DECIMAL}, #{placentalArea,jdbcType=DECIMAL}, #{totalLitterSize,jdbcType=DECIMAL}, 
-      #{litterSizeAlive,jdbcType=DECIMAL}, #{iugrPigs,jdbcType=DECIMAL}, #{stillborn,jdbcType=DECIMAL}, 
-      #{mommifiedPigs,jdbcType=DECIMAL}, #{litterSizeAfterEqualization,jdbcType=DECIMAL}, 
+      #{ph24h,jdbcType=DECIMAL}, #{parity,jdbcType=INTEGER}, #{bodyScoreAtD1,jdbcType=DECIMAL}, 
+      #{bodyScoreAtD30,jdbcType=DECIMAL}, #{bodyScoreAtD90,jdbcType=DECIMAL}, #{bodyScoreAtD114,jdbcType=DECIMAL}, 
+      #{bodyScoreAtLactation,jdbcType=DECIMAL}, #{bwAtD1,jdbcType=DECIMAL}, #{bwAtD30,jdbcType=DECIMAL}, 
+      #{bwAtD90,jdbcType=DECIMAL}, #{bwAtD114,jdbcType=DECIMAL}, #{bwAtLactation,jdbcType=DECIMAL}, 
+      #{backfatThicknessAtD1,jdbcType=DECIMAL}, #{backfatThicknessAtD30,jdbcType=DECIMAL}, 
+      #{backfatThicknessAtD90,jdbcType=DECIMAL}, #{backfatThicknessAtD114,jdbcType=DECIMAL}, 
+      #{backfatThicknessAtLactation,jdbcType=DECIMAL}, #{bodyScore1OfBoar,jdbcType=DECIMAL}, 
+      #{bodyScore2OfBoar,jdbcType=DECIMAL}, #{bodyScore3OfBoar,jdbcType=DECIMAL}, #{constipationIncidence,jdbcType=DECIMAL}, 
+      #{farrowingRate,jdbcType=DECIMAL}, #{estrusRate,jdbcType=DECIMAL}, #{weaningEstrusInterval,jdbcType=DECIMAL}, 
+      #{cullRate,jdbcType=DECIMAL}, #{farrowingTimeStarted,jdbcType=VARCHAR}, #{farrowingTimeEnded,jdbcType=VARCHAR}, 
+      #{farrowingDuration,jdbcType=DECIMAL}, #{placentalWeight,jdbcType=DECIMAL}, #{placentalArea,jdbcType=DECIMAL}, 
+      #{totalLitterSize,jdbcType=DECIMAL}, #{litterSizeAlive,jdbcType=DECIMAL}, #{iugrPigs,jdbcType=DECIMAL}, 
+      #{stillborn,jdbcType=DECIMAL}, #{mommifiedPigs,jdbcType=DECIMAL}, #{litterSizeAfterEqualization,jdbcType=DECIMAL}, 
       #{pigsWeaned,jdbcType=DECIMAL}, #{totalLitterWeight,jdbcType=DECIMAL}, #{liveLitterWeight,jdbcType=DECIMAL}, 
       #{pigletBirthWeight,jdbcType=DECIMAL}, #{litterWeightAfterEqualization,jdbcType=DECIMAL}, 
       #{pigletWeightAfterEqualization,jdbcType=DECIMAL}, #{litterWeightAtWeek1,jdbcType=DECIMAL}, 
@@ -1192,114 +1200,115 @@
       #{birthWeight24,jdbcType=DECIMAL}, #{birthWeight25,jdbcType=DECIMAL}, #{stillbornWeight1,jdbcType=DECIMAL}, 
       #{stillbornWeight2,jdbcType=DECIMAL}, #{stillbornWeight3,jdbcType=DECIMAL}, #{stillbornWeight4,jdbcType=DECIMAL}, 
       #{stillbornWeight5,jdbcType=DECIMAL}, #{stillbornWeight6,jdbcType=DECIMAL}, #{stillbornWeight7,jdbcType=DECIMAL}, 
-      #{stillbornWeight8,jdbcType=DECIMAL}, #{stillbornWeight9,jdbcType=DECIMAL}, #{mommifiedWeight1,jdbcType=DECIMAL}, 
-      #{mommifiedWeight2,jdbcType=DECIMAL}, #{mommifiedWeight3,jdbcType=DECIMAL}, #{mommifiedWeight4,jdbcType=DECIMAL}, 
-      #{mommifiedWeight5,jdbcType=DECIMAL}, #{mommifiedWeight6,jdbcType=DECIMAL}, #{mommifiedWeight7,jdbcType=DECIMAL}, 
-      #{mommifiedWeight8,jdbcType=DECIMAL}, #{mommifiedWeight9,jdbcType=DECIMAL}, #{mommifiedWeight10,jdbcType=DECIMAL}, 
-      #{pigletWeight1AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight2AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight3AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight4AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight5AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight6AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight7AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight8AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight9AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight10AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight11AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight12AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight13AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight14AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight15AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight16AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight17AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight18AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight19AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight20AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight21AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight22AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight23AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight24AfterEqualization,jdbcType=DECIMAL}, 
-      #{pigletWeight25AfterEqualization,jdbcType=DECIMAL}, #{week1PigletWeight1,jdbcType=DECIMAL}, 
-      #{week1PigletWeight2,jdbcType=DECIMAL}, #{week1PigletWeight3,jdbcType=DECIMAL}, 
-      #{week1PigletWeight4,jdbcType=DECIMAL}, #{week1PigletWeight5,jdbcType=DECIMAL}, 
-      #{week1PigletWeight6,jdbcType=DECIMAL}, #{week1PigletWeight7,jdbcType=DECIMAL}, 
-      #{week1PigletWeight8,jdbcType=DECIMAL}, #{week1PigletWeight9,jdbcType=DECIMAL}, 
-      #{week1PigletWeight10,jdbcType=DECIMAL}, #{week1PigletWeight11,jdbcType=DECIMAL}, 
-      #{week1PigletWeight12,jdbcType=DECIMAL}, #{week1PigletWeight13,jdbcType=DECIMAL}, 
-      #{week1PigletWeight14,jdbcType=DECIMAL}, #{week1PigletWeight15,jdbcType=DECIMAL}, 
-      #{week1PigletWeight16,jdbcType=DECIMAL}, #{week1PigletWeight17,jdbcType=DECIMAL}, 
-      #{week1PigletWeight18,jdbcType=DECIMAL}, #{week1PigletWeight19,jdbcType=DECIMAL}, 
-      #{week1PigletWeight20,jdbcType=DECIMAL}, #{week1PigletWeight21,jdbcType=DECIMAL}, 
-      #{week1PigletWeight22,jdbcType=DECIMAL}, #{week1PigletWeight23,jdbcType=DECIMAL}, 
-      #{week1PigletWeight24,jdbcType=DECIMAL}, #{week1PigletWeight25,jdbcType=DECIMAL}, 
-      #{week2PigletWeight1,jdbcType=DECIMAL}, #{week2PigletWeight2,jdbcType=DECIMAL}, 
-      #{week2PigletWeight3,jdbcType=DECIMAL}, #{week2PigletWeight4,jdbcType=DECIMAL}, 
-      #{week2PigletWeight5,jdbcType=DECIMAL}, #{week2PigletWeight6,jdbcType=DECIMAL}, 
-      #{week2PigletWeight7,jdbcType=DECIMAL}, #{week2PigletWeight8,jdbcType=DECIMAL}, 
-      #{week2PigletWeight9,jdbcType=DECIMAL}, #{week2PigletWeight10,jdbcType=DECIMAL}, 
-      #{week2PigletWeight11,jdbcType=DECIMAL}, #{week2PigletWeight12,jdbcType=DECIMAL}, 
-      #{week2PigletWeight13,jdbcType=DECIMAL}, #{week2PigletWeight14,jdbcType=DECIMAL}, 
-      #{week2PigletWeight15,jdbcType=DECIMAL}, #{week2PigletWeight16,jdbcType=DECIMAL}, 
-      #{week2PigletWeight17,jdbcType=DECIMAL}, #{week2PigletWeight18,jdbcType=DECIMAL}, 
-      #{week2PigletWeight19,jdbcType=DECIMAL}, #{week2PigletWeight20,jdbcType=DECIMAL}, 
-      #{week2PigletWeight21,jdbcType=DECIMAL}, #{week2PigletWeight22,jdbcType=DECIMAL}, 
-      #{week2PigletWeight23,jdbcType=DECIMAL}, #{week2PigletWeight24,jdbcType=DECIMAL}, 
-      #{week2PigletWeight25,jdbcType=DECIMAL}, #{week3PigletWeight1,jdbcType=DECIMAL}, 
-      #{week3PigletWeight2,jdbcType=DECIMAL}, #{week3PigletWeight3,jdbcType=DECIMAL}, 
-      #{week3PigletWeight4,jdbcType=DECIMAL}, #{week3PigletWeight5,jdbcType=DECIMAL}, 
-      #{week3PigletWeight6,jdbcType=DECIMAL}, #{week3PigletWeight7,jdbcType=DECIMAL}, 
-      #{week3PigletWeight8,jdbcType=DECIMAL}, #{week3PigletWeight9,jdbcType=DECIMAL}, 
-      #{week3PigletWeight10,jdbcType=DECIMAL}, #{week3PigletWeight11,jdbcType=DECIMAL}, 
-      #{week3PigletWeight12,jdbcType=DECIMAL}, #{week3PigletWeight13,jdbcType=DECIMAL}, 
-      #{week3PigletWeight14,jdbcType=DECIMAL}, #{week3PigletWeight15,jdbcType=DECIMAL}, 
-      #{week3PigletWeight16,jdbcType=DECIMAL}, #{week3PigletWeight17,jdbcType=DECIMAL}, 
-      #{week3PigletWeight18,jdbcType=DECIMAL}, #{week3PigletWeight19,jdbcType=DECIMAL}, 
-      #{week3PigletWeight20,jdbcType=DECIMAL}, #{week3PigletWeight21,jdbcType=DECIMAL}, 
-      #{week3PigletWeight22,jdbcType=DECIMAL}, #{week3PigletWeight23,jdbcType=DECIMAL}, 
-      #{week3PigletWeight24,jdbcType=DECIMAL}, #{week3PigletWeight25,jdbcType=DECIMAL}, 
-      #{week4PigletWeight1,jdbcType=DECIMAL}, #{week4PigletWeight2,jdbcType=DECIMAL}, 
-      #{week4PigletWeight3,jdbcType=DECIMAL}, #{week4PigletWeight4,jdbcType=DECIMAL}, 
-      #{week4PigletWeight5,jdbcType=DECIMAL}, #{week4PigletWeight6,jdbcType=DECIMAL}, 
-      #{week4PigletWeight7,jdbcType=DECIMAL}, #{week4PigletWeight8,jdbcType=DECIMAL}, 
-      #{week4PigletWeight9,jdbcType=DECIMAL}, #{week4PigletWeight10,jdbcType=DECIMAL}, 
-      #{week4PigletWeight11,jdbcType=DECIMAL}, #{week4PigletWeight12,jdbcType=DECIMAL}, 
-      #{week4PigletWeight13,jdbcType=DECIMAL}, #{week4PigletWeight14,jdbcType=DECIMAL}, 
-      #{week4PigletWeight15,jdbcType=DECIMAL}, #{week4PigletWeight16,jdbcType=DECIMAL}, 
-      #{week4PigletWeight17,jdbcType=DECIMAL}, #{week4PigletWeight18,jdbcType=DECIMAL}, 
-      #{week4PigletWeight19,jdbcType=DECIMAL}, #{week4PigletWeight20,jdbcType=DECIMAL}, 
-      #{week4PigletWeight21,jdbcType=DECIMAL}, #{week4PigletWeight22,jdbcType=DECIMAL}, 
-      #{week4PigletWeight23,jdbcType=DECIMAL}, #{week4PigletWeight24,jdbcType=DECIMAL}, 
-      #{week4PigletWeight25,jdbcType=DECIMAL}, #{crushedPigletWeight1,jdbcType=DECIMAL}, 
-      #{crushedPigletWeight2,jdbcType=DECIMAL}, #{crushedPigletWeight3,jdbcType=DECIMAL}, 
-      #{crushedPigletWeight4,jdbcType=DECIMAL}, #{crushedPigletWeight5,jdbcType=DECIMAL}, 
-      #{crushedPigletWeight6,jdbcType=DECIMAL}, #{crushedPigletWeight7,jdbcType=DECIMAL}, 
-      #{crushedPigletWeight8,jdbcType=DECIMAL}, #{crushedPigletWeight9,jdbcType=DECIMAL}, 
-      #{crushedPigletWeight10,jdbcType=DECIMAL}, #{starvedPigletWeight1,jdbcType=DECIMAL}, 
-      #{starvedPigletWeight2,jdbcType=DECIMAL}, #{starvedPigletWeight3,jdbcType=DECIMAL}, 
-      #{starvedPigletWeight4,jdbcType=DECIMAL}, #{starvedPigletWeight5,jdbcType=DECIMAL}, 
-      #{totalPigsDied,jdbcType=DECIMAL}, #{totalWeightOfDeadPigs,jdbcType=DECIMAL}, #{adfiAtWeek1,jdbcType=DECIMAL}, 
-      #{adfiAtWeek2,jdbcType=DECIMAL}, #{adfiAtWeek3,jdbcType=DECIMAL}, #{adfiAtWeek4,jdbcType=DECIMAL}, 
-      #{adfiAtWeek5,jdbcType=DECIMAL}, #{t24Bw1,jdbcType=DECIMAL}, #{t24Bw2,jdbcType=DECIMAL}, 
-      #{t24Bw3,jdbcType=DECIMAL}, #{t24Bw4,jdbcType=DECIMAL}, #{t24Bw5,jdbcType=DECIMAL}, 
-      #{t24Bw6,jdbcType=DECIMAL}, #{t24Bw7,jdbcType=DECIMAL}, #{t24Bw8,jdbcType=DECIMAL}, 
-      #{t24Bw9,jdbcType=DECIMAL}, #{t24Bw10,jdbcType=DECIMAL}, #{t24Bw11,jdbcType=DECIMAL}, 
-      #{t24Bw12,jdbcType=DECIMAL}, #{t24Bw13,jdbcType=DECIMAL}, #{t24Bw14,jdbcType=DECIMAL}, 
-      #{t24Bw15,jdbcType=DECIMAL}, #{t24Bw16,jdbcType=DECIMAL}, #{t24Bw17,jdbcType=DECIMAL}, 
-      #{t24Bw18,jdbcType=DECIMAL}, #{t24Bw19,jdbcType=DECIMAL}, #{t24Bw20,jdbcType=DECIMAL}, 
-      #{t24Bw21,jdbcType=DECIMAL}, #{t24Bw22,jdbcType=DECIMAL}, #{t24Bw23,jdbcType=DECIMAL}, 
-      #{t24Bw24,jdbcType=DECIMAL}, #{t24Bw25,jdbcType=DECIMAL}, #{cipOfPig1,jdbcType=DECIMAL}, 
-      #{cipOfPig2,jdbcType=DECIMAL}, #{cipOfPig3,jdbcType=DECIMAL}, #{cipOfPig4,jdbcType=DECIMAL}, 
-      #{cipOfPig5,jdbcType=DECIMAL}, #{cipOfPig6,jdbcType=DECIMAL}, #{cipOfPig7,jdbcType=DECIMAL}, 
-      #{cipOfPig8,jdbcType=DECIMAL}, #{cipOfPig9,jdbcType=DECIMAL}, #{cipOfPig10,jdbcType=DECIMAL}, 
-      #{cipOfPig11,jdbcType=DECIMAL}, #{cipOfPig12,jdbcType=DECIMAL}, #{cipOfPig13,jdbcType=DECIMAL}, 
-      #{cipOfPig14,jdbcType=DECIMAL}, #{cipOfPig15,jdbcType=DECIMAL}, #{cipOfPig16,jdbcType=DECIMAL}, 
-      #{cipOfPig17,jdbcType=DECIMAL}, #{cipOfPig18,jdbcType=DECIMAL}, #{cipOfPig19,jdbcType=DECIMAL}, 
-      #{cipOfPig20,jdbcType=DECIMAL}, #{cipOfPig21,jdbcType=DECIMAL}, #{cipOfPig22,jdbcType=DECIMAL}, 
-      #{cipOfPig23,jdbcType=DECIMAL}, #{cipOfPig24,jdbcType=DECIMAL}, #{cipOfPig25,jdbcType=DECIMAL}, 
-      #{averageColostrumIntake,jdbcType=DECIMAL}, #{giltBw1,jdbcType=DECIMAL}, #{giltBw2,jdbcType=DECIMAL}, 
-      #{giltBw3,jdbcType=DECIMAL}, #{giltBfAtPhase1,jdbcType=DECIMAL}, #{giltBfAtPhase2,jdbcType=DECIMAL}, 
-      #{giltBfAtPhase3,jdbcType=DECIMAL}, #{estrumBw,jdbcType=DECIMAL}, #{uterineWeight,jdbcType=DECIMAL}, 
-      #{uterineLength,jdbcType=DECIMAL}, #{leftUterineLength,jdbcType=DECIMAL}, #{rightUterineLength,jdbcType=DECIMAL}, 
+      #{stillbornWeight8,jdbcType=DECIMAL}, #{stillbornWeight9,jdbcType=DECIMAL}, #{stillbornWeight10,jdbcType=DECIMAL}, 
+      #{mommifiedWeight1,jdbcType=DECIMAL}, #{mommifiedWeight2,jdbcType=DECIMAL}, #{mommifiedWeight3,jdbcType=DECIMAL}, 
+      #{mommifiedWeight4,jdbcType=DECIMAL}, #{mommifiedWeight5,jdbcType=DECIMAL}, #{mommifiedWeight6,jdbcType=DECIMAL}, 
+      #{mommifiedWeight7,jdbcType=DECIMAL}, #{mommifiedWeight8,jdbcType=DECIMAL}, #{mommifiedWeight9,jdbcType=DECIMAL}, 
+      #{mommifiedWeight10,jdbcType=DECIMAL}, #{pigletWeight1AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight2AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight3AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight4AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight5AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight6AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight7AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight8AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight9AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight10AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight11AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight12AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight13AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight14AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight15AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight16AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight17AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight18AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight19AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight20AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight21AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight22AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight23AfterEqualization,jdbcType=DECIMAL}, 
+      #{pigletWeight24AfterEqualization,jdbcType=DECIMAL}, #{pigletWeight25AfterEqualization,jdbcType=DECIMAL}, 
+      #{week1PigletWeight1,jdbcType=DECIMAL}, #{week1PigletWeight2,jdbcType=DECIMAL}, 
+      #{week1PigletWeight3,jdbcType=DECIMAL}, #{week1PigletWeight4,jdbcType=DECIMAL}, 
+      #{week1PigletWeight5,jdbcType=DECIMAL}, #{week1PigletWeight6,jdbcType=DECIMAL}, 
+      #{week1PigletWeight7,jdbcType=DECIMAL}, #{week1PigletWeight8,jdbcType=DECIMAL}, 
+      #{week1PigletWeight9,jdbcType=DECIMAL}, #{week1PigletWeight10,jdbcType=DECIMAL}, 
+      #{week1PigletWeight11,jdbcType=DECIMAL}, #{week1PigletWeight12,jdbcType=DECIMAL}, 
+      #{week1PigletWeight13,jdbcType=DECIMAL}, #{week1PigletWeight14,jdbcType=DECIMAL}, 
+      #{week1PigletWeight15,jdbcType=DECIMAL}, #{week1PigletWeight16,jdbcType=DECIMAL}, 
+      #{week1PigletWeight17,jdbcType=DECIMAL}, #{week1PigletWeight18,jdbcType=DECIMAL}, 
+      #{week1PigletWeight19,jdbcType=DECIMAL}, #{week1PigletWeight20,jdbcType=DECIMAL}, 
+      #{week1PigletWeight21,jdbcType=DECIMAL}, #{week1PigletWeight22,jdbcType=DECIMAL}, 
+      #{week1PigletWeight23,jdbcType=DECIMAL}, #{week1PigletWeight24,jdbcType=DECIMAL}, 
+      #{week1PigletWeight25,jdbcType=DECIMAL}, #{week2PigletWeight1,jdbcType=DECIMAL}, 
+      #{week2PigletWeight2,jdbcType=DECIMAL}, #{week2PigletWeight3,jdbcType=DECIMAL}, 
+      #{week2PigletWeight4,jdbcType=DECIMAL}, #{week2PigletWeight5,jdbcType=DECIMAL}, 
+      #{week2PigletWeight6,jdbcType=DECIMAL}, #{week2PigletWeight7,jdbcType=DECIMAL}, 
+      #{week2PigletWeight8,jdbcType=DECIMAL}, #{week2PigletWeight9,jdbcType=DECIMAL}, 
+      #{week2PigletWeight10,jdbcType=DECIMAL}, #{week2PigletWeight11,jdbcType=DECIMAL}, 
+      #{week2PigletWeight12,jdbcType=DECIMAL}, #{week2PigletWeight13,jdbcType=DECIMAL}, 
+      #{week2PigletWeight14,jdbcType=DECIMAL}, #{week2PigletWeight15,jdbcType=DECIMAL}, 
+      #{week2PigletWeight16,jdbcType=DECIMAL}, #{week2PigletWeight17,jdbcType=DECIMAL}, 
+      #{week2PigletWeight18,jdbcType=DECIMAL}, #{week2PigletWeight19,jdbcType=DECIMAL}, 
+      #{week2PigletWeight20,jdbcType=DECIMAL}, #{week2PigletWeight21,jdbcType=DECIMAL}, 
+      #{week2PigletWeight22,jdbcType=DECIMAL}, #{week2PigletWeight23,jdbcType=DECIMAL}, 
+      #{week2PigletWeight24,jdbcType=DECIMAL}, #{week2PigletWeight25,jdbcType=DECIMAL}, 
+      #{week3PigletWeight1,jdbcType=DECIMAL}, #{week3PigletWeight2,jdbcType=DECIMAL}, 
+      #{week3PigletWeight3,jdbcType=DECIMAL}, #{week3PigletWeight4,jdbcType=DECIMAL}, 
+      #{week3PigletWeight5,jdbcType=DECIMAL}, #{week3PigletWeight6,jdbcType=DECIMAL}, 
+      #{week3PigletWeight7,jdbcType=DECIMAL}, #{week3PigletWeight8,jdbcType=DECIMAL}, 
+      #{week3PigletWeight9,jdbcType=DECIMAL}, #{week3PigletWeight10,jdbcType=DECIMAL}, 
+      #{week3PigletWeight11,jdbcType=DECIMAL}, #{week3PigletWeight12,jdbcType=DECIMAL}, 
+      #{week3PigletWeight13,jdbcType=DECIMAL}, #{week3PigletWeight14,jdbcType=DECIMAL}, 
+      #{week3PigletWeight15,jdbcType=DECIMAL}, #{week3PigletWeight16,jdbcType=DECIMAL}, 
+      #{week3PigletWeight17,jdbcType=DECIMAL}, #{week3PigletWeight18,jdbcType=DECIMAL}, 
+      #{week3PigletWeight19,jdbcType=DECIMAL}, #{week3PigletWeight20,jdbcType=DECIMAL}, 
+      #{week3PigletWeight21,jdbcType=DECIMAL}, #{week3PigletWeight22,jdbcType=DECIMAL}, 
+      #{week3PigletWeight23,jdbcType=DECIMAL}, #{week3PigletWeight24,jdbcType=DECIMAL}, 
+      #{week3PigletWeight25,jdbcType=DECIMAL}, #{week4PigletWeight1,jdbcType=DECIMAL}, 
+      #{week4PigletWeight2,jdbcType=DECIMAL}, #{week4PigletWeight3,jdbcType=DECIMAL}, 
+      #{week4PigletWeight4,jdbcType=DECIMAL}, #{week4PigletWeight5,jdbcType=DECIMAL}, 
+      #{week4PigletWeight6,jdbcType=DECIMAL}, #{week4PigletWeight7,jdbcType=DECIMAL}, 
+      #{week4PigletWeight8,jdbcType=DECIMAL}, #{week4PigletWeight9,jdbcType=DECIMAL}, 
+      #{week4PigletWeight10,jdbcType=DECIMAL}, #{week4PigletWeight11,jdbcType=DECIMAL}, 
+      #{week4PigletWeight12,jdbcType=DECIMAL}, #{week4PigletWeight13,jdbcType=DECIMAL}, 
+      #{week4PigletWeight14,jdbcType=DECIMAL}, #{week4PigletWeight15,jdbcType=DECIMAL}, 
+      #{week4PigletWeight16,jdbcType=DECIMAL}, #{week4PigletWeight17,jdbcType=DECIMAL}, 
+      #{week4PigletWeight18,jdbcType=DECIMAL}, #{week4PigletWeight19,jdbcType=DECIMAL}, 
+      #{week4PigletWeight20,jdbcType=DECIMAL}, #{week4PigletWeight21,jdbcType=DECIMAL}, 
+      #{week4PigletWeight22,jdbcType=DECIMAL}, #{week4PigletWeight23,jdbcType=DECIMAL}, 
+      #{week4PigletWeight24,jdbcType=DECIMAL}, #{week4PigletWeight25,jdbcType=DECIMAL}, 
+      #{crushedPigletWeight1,jdbcType=DECIMAL}, #{crushedPigletWeight2,jdbcType=DECIMAL}, 
+      #{crushedPigletWeight3,jdbcType=DECIMAL}, #{crushedPigletWeight4,jdbcType=DECIMAL}, 
+      #{crushedPigletWeight5,jdbcType=DECIMAL}, #{diseasedPigletWeight1,jdbcType=DECIMAL}, 
+      #{diseasedPigletWeight2,jdbcType=DECIMAL}, #{diseasedPigletWeight3,jdbcType=DECIMAL}, 
+      #{diseasedPigletWeight4,jdbcType=DECIMAL}, #{diseasedPigletWeight5,jdbcType=DECIMAL}, 
+      #{starvedPigletWeight1,jdbcType=DECIMAL}, #{starvedPigletWeight2,jdbcType=DECIMAL}, 
+      #{starvedPigletWeight3,jdbcType=DECIMAL}, #{starvedPigletWeight4,jdbcType=DECIMAL}, 
+      #{starvedPigletWeight5,jdbcType=DECIMAL}, #{totalPigsDied,jdbcType=DECIMAL}, #{totalWeightOfDeadPigs,jdbcType=DECIMAL}, 
+      #{adfiAtWeek1,jdbcType=DECIMAL}, #{adfiAtWeek2,jdbcType=DECIMAL}, #{adfiAtWeek3,jdbcType=DECIMAL}, 
+      #{adfiAtWeek4,jdbcType=DECIMAL}, #{adfiAtWeek5,jdbcType=DECIMAL}, #{t24Bw1,jdbcType=DECIMAL}, 
+      #{t24Bw2,jdbcType=DECIMAL}, #{t24Bw3,jdbcType=DECIMAL}, #{t24Bw4,jdbcType=DECIMAL}, 
+      #{t24Bw5,jdbcType=DECIMAL}, #{t24Bw6,jdbcType=DECIMAL}, #{t24Bw7,jdbcType=DECIMAL}, 
+      #{t24Bw8,jdbcType=DECIMAL}, #{t24Bw9,jdbcType=DECIMAL}, #{t24Bw10,jdbcType=DECIMAL}, 
+      #{t24Bw11,jdbcType=DECIMAL}, #{t24Bw12,jdbcType=DECIMAL}, #{t24Bw13,jdbcType=DECIMAL}, 
+      #{t24Bw14,jdbcType=DECIMAL}, #{t24Bw15,jdbcType=DECIMAL}, #{t24Bw16,jdbcType=DECIMAL}, 
+      #{t24Bw17,jdbcType=DECIMAL}, #{t24Bw18,jdbcType=DECIMAL}, #{t24Bw19,jdbcType=DECIMAL}, 
+      #{t24Bw20,jdbcType=DECIMAL}, #{t24Bw21,jdbcType=DECIMAL}, #{t24Bw22,jdbcType=DECIMAL}, 
+      #{t24Bw23,jdbcType=DECIMAL}, #{t24Bw24,jdbcType=DECIMAL}, #{t24Bw25,jdbcType=DECIMAL}, 
+      #{cipOfPig1,jdbcType=DECIMAL}, #{cipOfPig2,jdbcType=DECIMAL}, #{cipOfPig3,jdbcType=DECIMAL}, 
+      #{cipOfPig4,jdbcType=DECIMAL}, #{cipOfPig5,jdbcType=DECIMAL}, #{cipOfPig6,jdbcType=DECIMAL}, 
+      #{cipOfPig7,jdbcType=DECIMAL}, #{cipOfPig8,jdbcType=DECIMAL}, #{cipOfPig9,jdbcType=DECIMAL}, 
+      #{cipOfPig10,jdbcType=DECIMAL}, #{cipOfPig11,jdbcType=DECIMAL}, #{cipOfPig12,jdbcType=DECIMAL}, 
+      #{cipOfPig13,jdbcType=DECIMAL}, #{cipOfPig14,jdbcType=DECIMAL}, #{cipOfPig15,jdbcType=DECIMAL}, 
+      #{cipOfPig16,jdbcType=DECIMAL}, #{cipOfPig17,jdbcType=DECIMAL}, #{cipOfPig18,jdbcType=DECIMAL}, 
+      #{cipOfPig19,jdbcType=DECIMAL}, #{cipOfPig20,jdbcType=DECIMAL}, #{cipOfPig21,jdbcType=DECIMAL}, 
+      #{cipOfPig22,jdbcType=DECIMAL}, #{cipOfPig23,jdbcType=DECIMAL}, #{cipOfPig24,jdbcType=DECIMAL}, 
+      #{cipOfPig25,jdbcType=DECIMAL}, #{averageColostrumIntake,jdbcType=DECIMAL}, #{giltBw1,jdbcType=DECIMAL}, 
+      #{giltBw2,jdbcType=DECIMAL}, #{giltBw3,jdbcType=DECIMAL}, #{giltBfAtPhase1,jdbcType=DECIMAL}, 
+      #{giltBfAtPhase2,jdbcType=DECIMAL}, #{giltBfAtPhase3,jdbcType=DECIMAL}, #{estrusDay,jdbcType=DECIMAL}, 
+      #{estrumBw,jdbcType=DECIMAL}, #{uterineWeight,jdbcType=DECIMAL}, #{uterineLength,jdbcType=DECIMAL}, 
+      #{leftUterineLength,jdbcType=DECIMAL}, #{rightUterineLength,jdbcType=DECIMAL}, 
       #{leftOviductLength,jdbcType=DECIMAL}, #{rightOviductLength,jdbcType=DECIMAL}, 
-      #{oviductWeight,jdbcType=DECIMAL}, #{largeFollicleNumber,jdbcType=DECIMAL}, #{corpusLutenumNumber,jdbcType=DECIMAL}, 
-      #{follicleLiquidWeight,jdbcType=DECIMAL}, #{testicularLength,jdbcType=DECIMAL}, 
+      #{oviductWeight,jdbcType=DECIMAL}, #{largeFollicleNumber,jdbcType=DECIMAL}, #{corpusLuteumNumber,jdbcType=DECIMAL}, 
+      #{follicleLiquidWeight,jdbcType=DECIMAL}, #{ovarianWeight,jdbcType=DECIMAL}, #{testicularLength,jdbcType=DECIMAL}, 
       #{testicularWidth,jdbcType=DECIMAL}, #{testicularVolume,jdbcType=DECIMAL}, #{sexualFunction,jdbcType=DECIMAL}, 
       #{spermVolume,jdbcType=DECIMAL}, #{spermDensity,jdbcType=DECIMAL}, #{spermMotilityRate,jdbcType=DECIMAL}, 
       #{spermViability,jdbcType=DECIMAL}, #{spermMotilityCharacteristics,jdbcType=DECIMAL}, 
       #{rateOfTeratosperm,jdbcType=DECIMAL}, #{acrosomeIntegrityRate,jdbcType=DECIMAL}, 
       #{membraneIntegrity,jdbcType=DECIMAL}, #{medicineTimesForBoars,jdbcType=DECIMAL}, 
       #{medicineTimesForSows,jdbcType=DECIMAL}, #{medicineTimesForGilts,jdbcType=DECIMAL}, 
-      #{version,jdbcType=INTEGER}, #{fileIdentifier,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifiedTime,jdbcType=TIMESTAMP})
+      #{sequence,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, #{fileIdentifier,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.kuo.artemis.server.entity.AnimalRecord">
     insert into animal_record_view
@@ -1334,8 +1343,11 @@
       <if test="replicate != null">
         replicate,
       </if>
-      <if test="animalInitWeight != null">
-        animal_init_weight,
+      <if test="factorA != null">
+        factor_a,
+      </if>
+      <if test="factorB != null">
+        factor_b,
       </if>
       <if test="initialBw != null">
         initial_bw,
@@ -1520,8 +1532,8 @@
       <if test="residualWeek1 != null">
         residual_week1,
       </if>
-      <if test="deedLossWeek1 != null">
-        deed_loss_week1,
+      <if test="feedLossWeek1 != null">
+        feed_loss_week1,
       </if>
       <if test="adfiWeek1 != null">
         adfi_week1,
@@ -1532,8 +1544,8 @@
       <if test="residualWeek2 != null">
         residual_week2,
       </if>
-      <if test="deedLossWeek2 != null">
-        deed_loss_week2,
+      <if test="feedLossWeek2 != null">
+        feed_loss_week2,
       </if>
       <if test="adfiWeek2 != null">
         adfi_week2,
@@ -1544,8 +1556,8 @@
       <if test="residualWeek3 != null">
         residual_week3,
       </if>
-      <if test="deedLossWeek3 != null">
-        deed_loss_week3,
+      <if test="feedLossWeek3 != null">
+        feed_loss_week3,
       </if>
       <if test="adfiWeek3 != null">
         adfi_week3,
@@ -1556,8 +1568,8 @@
       <if test="residualWeek4 != null">
         residual_week4,
       </if>
-      <if test="deedLossWeek4 != null">
-        deed_loss_week4,
+      <if test="feedLossWeek4 != null">
+        feed_loss_week4,
       </if>
       <if test="adfiWeek4 != null">
         adfi_week4,
@@ -1568,8 +1580,8 @@
       <if test="residualWeek5 != null">
         residual_week5,
       </if>
-      <if test="deedLossWeek5 != null">
-        deed_loss_week5,
+      <if test="feedLossWeek5 != null">
+        feed_loss_week5,
       </if>
       <if test="adfiWeek5 != null">
         adfi_week5,
@@ -1580,8 +1592,8 @@
       <if test="residualWeek6 != null">
         residual_week6,
       </if>
-      <if test="deedLossWeek6 != null">
-        deed_loss_week6,
+      <if test="feedLossWeek6 != null">
+        feed_loss_week6,
       </if>
       <if test="adfiWeek6 != null">
         adfi_week6,
@@ -1592,8 +1604,8 @@
       <if test="residualWeek7 != null">
         residual_week7,
       </if>
-      <if test="deedLossWeek7 != null">
-        deed_loss_week7,
+      <if test="feedLossWeek7 != null">
+        feed_loss_week7,
       </if>
       <if test="adfiWeek7 != null">
         adfi_week7,
@@ -1604,8 +1616,8 @@
       <if test="residualWeek8 != null">
         residual_week8,
       </if>
-      <if test="deedLossWeek8 != null">
-        deed_loss_week8,
+      <if test="feedLossWeek8 != null">
+        feed_loss_week8,
       </if>
       <if test="adfiWeek8 != null">
         adfi_week8,
@@ -1616,8 +1628,8 @@
       <if test="residualWeek9 != null">
         residual_week9,
       </if>
-      <if test="deedLossWeek9 != null">
-        deed_loss_week9,
+      <if test="feedLossWeek9 != null">
+        feed_loss_week9,
       </if>
       <if test="adfiWeek9 != null">
         adfi_week9,
@@ -1628,8 +1640,8 @@
       <if test="residualWeek10 != null">
         residual_week10,
       </if>
-      <if test="deedLossWeek10 != null">
-        deed_loss_week10,
+      <if test="feedLossWeek10 != null">
+        feed_loss_week10,
       </if>
       <if test="adfiWeek10 != null">
         adfi_week10,
@@ -1640,8 +1652,8 @@
       <if test="residualWeek11 != null">
         residual_week11,
       </if>
-      <if test="deedLossWeek11 != null">
-        deed_loss_week11,
+      <if test="feedLossWeek11 != null">
+        feed_loss_week11,
       </if>
       <if test="adfiWeek11 != null">
         adfi_week11,
@@ -1652,8 +1664,8 @@
       <if test="residualWeek12 != null">
         residual_week12,
       </if>
-      <if test="deedLossWeek12 != null">
-        deed_loss_week12,
+      <if test="feedLossWeek12 != null">
+        feed_loss_week12,
       </if>
       <if test="adfiWeek12 != null">
         adfi_week12,
@@ -1664,8 +1676,8 @@
       <if test="residualWeek13 != null">
         residual_week13,
       </if>
-      <if test="deedLossWeek13 != null">
-        deed_loss_week13,
+      <if test="feedLossWeek13 != null">
+        feed_loss_week13,
       </if>
       <if test="adfiWeek13 != null">
         adfi_week13,
@@ -1676,8 +1688,8 @@
       <if test="residualWeek14 != null">
         residual_week14,
       </if>
-      <if test="deedLossWeek14 != null">
-        deed_loss_week14,
+      <if test="feedLossWeek14 != null">
+        feed_loss_week14,
       </if>
       <if test="adfiWeek14 != null">
         adfi_week14,
@@ -1688,8 +1700,8 @@
       <if test="residualWeek15 != null">
         residual_week15,
       </if>
-      <if test="deedLossWeek15 != null">
-        deed_loss_week15,
+      <if test="feedLossWeek15 != null">
+        feed_loss_week15,
       </if>
       <if test="adfiWeek15 != null">
         adfi_week15,
@@ -1700,8 +1712,8 @@
       <if test="residualWeek16 != null">
         residual_week16,
       </if>
-      <if test="deedLossWeek16 != null">
-        deed_loss_week16,
+      <if test="feedLossWeek16 != null">
+        feed_loss_week16,
       </if>
       <if test="adfiWeek16 != null">
         adfi_week16,
@@ -1712,8 +1724,8 @@
       <if test="residualWeek17 != null">
         residual_week17,
       </if>
-      <if test="deedLossWeek17 != null">
-        deed_loss_week17,
+      <if test="feedLossWeek17 != null">
+        feed_loss_week17,
       </if>
       <if test="adfiWeek17 != null">
         adfi_week17,
@@ -1724,8 +1736,8 @@
       <if test="residualWeek18 != null">
         residual_week18,
       </if>
-      <if test="deedLossWeek18 != null">
-        deed_loss_week18,
+      <if test="feedLossWeek18 != null">
+        feed_loss_week18,
       </if>
       <if test="adfiWeek18 != null">
         adfi_week18,
@@ -1736,8 +1748,8 @@
       <if test="residualWeek19 != null">
         residual_week19,
       </if>
-      <if test="deedLossWeek19 != null">
-        deed_loss_week19,
+      <if test="feedLossWeek19 != null">
+        feed_loss_week19,
       </if>
       <if test="adfiWeek19 != null">
         adfi_week19,
@@ -1748,8 +1760,8 @@
       <if test="residualWeek20 != null">
         residual_week20,
       </if>
-      <if test="deedLossWeek20 != null">
-        deed_loss_week20,
+      <if test="feedLossWeek20 != null">
+        feed_loss_week20,
       </if>
       <if test="adfiWeek20 != null">
         adfi_week20,
@@ -1760,8 +1772,8 @@
       <if test="residualWeek21 != null">
         residual_week21,
       </if>
-      <if test="deedLossWeek21 != null">
-        deed_loss_week21,
+      <if test="feedLossWeek21 != null">
+        feed_loss_week21,
       </if>
       <if test="adfiWeek21 != null">
         adfi_week21,
@@ -1772,8 +1784,8 @@
       <if test="residualWeek22 != null">
         residual_week22,
       </if>
-      <if test="deedLossWeek22 != null">
-        deed_loss_week22,
+      <if test="feedLossWeek22 != null">
+        feed_loss_week22,
       </if>
       <if test="adfiWeek22 != null">
         adfi_week22,
@@ -1784,8 +1796,8 @@
       <if test="residualWeek23 != null">
         residual_week23,
       </if>
-      <if test="deedLossWeek23 != null">
-        deed_loss_week23,
+      <if test="feedLossWeek23 != null">
+        feed_loss_week23,
       </if>
       <if test="adfiWeek23 != null">
         adfi_week23,
@@ -1796,8 +1808,8 @@
       <if test="residualWeek24 != null">
         residual_week24,
       </if>
-      <if test="deedLossWeek24 != null">
-        deed_loss_week24,
+      <if test="feedLossWeek24 != null">
+        feed_loss_week24,
       </if>
       <if test="adfiWeek24 != null">
         adfi_week24,
@@ -2225,6 +2237,9 @@
       <if test="occludin != null">
         occludin,
       </if>
+      <if test="claudin1 != null">
+        claudin1,
+      </if>
       <if test="igf1 != null">
         igf1,
       </if>
@@ -2525,6 +2540,9 @@
       <if test="ph24h != null">
         ph24h,
       </if>
+      <if test="parity != null">
+        parity,
+      </if>
       <if test="bodyScoreAtD1 != null">
         body_score_at_d1,
       </if>
@@ -2537,8 +2555,8 @@
       <if test="bodyScoreAtD114 != null">
         body_score_at_d114,
       </if>
-      <if test="bodyScoreAtLactaion != null">
-        body_score_at_lactaion,
+      <if test="bodyScoreAtLactation != null">
+        body_score_at_lactation,
       </if>
       <if test="bwAtD1 != null">
         bw_at_d1,
@@ -2764,6 +2782,9 @@
       </if>
       <if test="stillbornWeight9 != null">
         stillborn_weight9,
+      </if>
+      <if test="stillbornWeight10 != null">
+        stillborn_weight10,
       </if>
       <if test="mommifiedWeight1 != null">
         mommified_weight1,
@@ -3185,20 +3206,20 @@
       <if test="crushedPigletWeight5 != null">
         crushed_piglet_weight5,
       </if>
-      <if test="crushedPigletWeight6 != null">
-        crushed_piglet_weight6,
+      <if test="diseasedPigletWeight1 != null">
+        diseased_piglet_weight1,
       </if>
-      <if test="crushedPigletWeight7 != null">
-        crushed_piglet_weight7,
+      <if test="diseasedPigletWeight2 != null">
+        diseased_piglet_weight2,
       </if>
-      <if test="crushedPigletWeight8 != null">
-        crushed_piglet_weight8,
+      <if test="diseasedPigletWeight3 != null">
+        diseased_piglet_weight3,
       </if>
-      <if test="crushedPigletWeight9 != null">
-        crushed_piglet_weight9,
+      <if test="diseasedPigletWeight4 != null">
+        diseased_piglet_weight4,
       </if>
-      <if test="crushedPigletWeight10 != null">
-        crushed_piglet_weight10,
+      <if test="diseasedPigletWeight5 != null">
+        diseased_piglet_weight5,
       </if>
       <if test="starvedPigletWeight1 != null">
         starved_piglet_weight1,
@@ -3407,6 +3428,9 @@
       <if test="giltBfAtPhase3 != null">
         gilt_bf_at_phase3,
       </if>
+      <if test="estrusDay != null">
+        estrus_day,
+      </if>
       <if test="estrumBw != null">
         estrum_bw,
       </if>
@@ -3434,11 +3458,14 @@
       <if test="largeFollicleNumber != null">
         large_follicle_number,
       </if>
-      <if test="corpusLutenumNumber != null">
-        corpus_lutenum_number,
+      <if test="corpusLuteumNumber != null">
+        corpus_luteum_number,
       </if>
       <if test="follicleLiquidWeight != null">
         follicle_liquid_weight,
+      </if>
+      <if test="ovarianWeight != null">
+        ovarian_weight,
       </if>
       <if test="testicularLength != null">
         testicular_length,
@@ -3485,6 +3512,9 @@
       <if test="medicineTimesForGilts != null">
         medicine_times_for_gilts,
       </if>
+      <if test="sequence != null">
+        sequence,
+      </if>
       <if test="version != null">
         version,
       </if>
@@ -3529,8 +3559,11 @@
       <if test="replicate != null">
         #{replicate,jdbcType=VARCHAR},
       </if>
-      <if test="animalInitWeight != null">
-        #{animalInitWeight,jdbcType=DECIMAL},
+      <if test="factorA != null">
+        #{factorA,jdbcType=VARCHAR},
+      </if>
+      <if test="factorB != null">
+        #{factorB,jdbcType=VARCHAR},
       </if>
       <if test="initialBw != null">
         #{initialBw,jdbcType=DECIMAL},
@@ -3715,8 +3748,8 @@
       <if test="residualWeek1 != null">
         #{residualWeek1,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek1 != null">
-        #{deedLossWeek1,jdbcType=DECIMAL},
+      <if test="feedLossWeek1 != null">
+        #{feedLossWeek1,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek1 != null">
         #{adfiWeek1,jdbcType=DECIMAL},
@@ -3727,8 +3760,8 @@
       <if test="residualWeek2 != null">
         #{residualWeek2,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek2 != null">
-        #{deedLossWeek2,jdbcType=DECIMAL},
+      <if test="feedLossWeek2 != null">
+        #{feedLossWeek2,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek2 != null">
         #{adfiWeek2,jdbcType=DECIMAL},
@@ -3739,8 +3772,8 @@
       <if test="residualWeek3 != null">
         #{residualWeek3,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek3 != null">
-        #{deedLossWeek3,jdbcType=DECIMAL},
+      <if test="feedLossWeek3 != null">
+        #{feedLossWeek3,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek3 != null">
         #{adfiWeek3,jdbcType=DECIMAL},
@@ -3751,8 +3784,8 @@
       <if test="residualWeek4 != null">
         #{residualWeek4,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek4 != null">
-        #{deedLossWeek4,jdbcType=DECIMAL},
+      <if test="feedLossWeek4 != null">
+        #{feedLossWeek4,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek4 != null">
         #{adfiWeek4,jdbcType=DECIMAL},
@@ -3763,8 +3796,8 @@
       <if test="residualWeek5 != null">
         #{residualWeek5,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek5 != null">
-        #{deedLossWeek5,jdbcType=DECIMAL},
+      <if test="feedLossWeek5 != null">
+        #{feedLossWeek5,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek5 != null">
         #{adfiWeek5,jdbcType=DECIMAL},
@@ -3775,8 +3808,8 @@
       <if test="residualWeek6 != null">
         #{residualWeek6,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek6 != null">
-        #{deedLossWeek6,jdbcType=DECIMAL},
+      <if test="feedLossWeek6 != null">
+        #{feedLossWeek6,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek6 != null">
         #{adfiWeek6,jdbcType=DECIMAL},
@@ -3787,8 +3820,8 @@
       <if test="residualWeek7 != null">
         #{residualWeek7,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek7 != null">
-        #{deedLossWeek7,jdbcType=DECIMAL},
+      <if test="feedLossWeek7 != null">
+        #{feedLossWeek7,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek7 != null">
         #{adfiWeek7,jdbcType=DECIMAL},
@@ -3799,8 +3832,8 @@
       <if test="residualWeek8 != null">
         #{residualWeek8,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek8 != null">
-        #{deedLossWeek8,jdbcType=DECIMAL},
+      <if test="feedLossWeek8 != null">
+        #{feedLossWeek8,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek8 != null">
         #{adfiWeek8,jdbcType=DECIMAL},
@@ -3811,8 +3844,8 @@
       <if test="residualWeek9 != null">
         #{residualWeek9,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek9 != null">
-        #{deedLossWeek9,jdbcType=DECIMAL},
+      <if test="feedLossWeek9 != null">
+        #{feedLossWeek9,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek9 != null">
         #{adfiWeek9,jdbcType=DECIMAL},
@@ -3823,8 +3856,8 @@
       <if test="residualWeek10 != null">
         #{residualWeek10,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek10 != null">
-        #{deedLossWeek10,jdbcType=DECIMAL},
+      <if test="feedLossWeek10 != null">
+        #{feedLossWeek10,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek10 != null">
         #{adfiWeek10,jdbcType=DECIMAL},
@@ -3835,8 +3868,8 @@
       <if test="residualWeek11 != null">
         #{residualWeek11,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek11 != null">
-        #{deedLossWeek11,jdbcType=DECIMAL},
+      <if test="feedLossWeek11 != null">
+        #{feedLossWeek11,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek11 != null">
         #{adfiWeek11,jdbcType=DECIMAL},
@@ -3847,8 +3880,8 @@
       <if test="residualWeek12 != null">
         #{residualWeek12,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek12 != null">
-        #{deedLossWeek12,jdbcType=DECIMAL},
+      <if test="feedLossWeek12 != null">
+        #{feedLossWeek12,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek12 != null">
         #{adfiWeek12,jdbcType=DECIMAL},
@@ -3859,8 +3892,8 @@
       <if test="residualWeek13 != null">
         #{residualWeek13,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek13 != null">
-        #{deedLossWeek13,jdbcType=DECIMAL},
+      <if test="feedLossWeek13 != null">
+        #{feedLossWeek13,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek13 != null">
         #{adfiWeek13,jdbcType=DECIMAL},
@@ -3871,8 +3904,8 @@
       <if test="residualWeek14 != null">
         #{residualWeek14,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek14 != null">
-        #{deedLossWeek14,jdbcType=DECIMAL},
+      <if test="feedLossWeek14 != null">
+        #{feedLossWeek14,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek14 != null">
         #{adfiWeek14,jdbcType=DECIMAL},
@@ -3883,8 +3916,8 @@
       <if test="residualWeek15 != null">
         #{residualWeek15,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek15 != null">
-        #{deedLossWeek15,jdbcType=DECIMAL},
+      <if test="feedLossWeek15 != null">
+        #{feedLossWeek15,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek15 != null">
         #{adfiWeek15,jdbcType=DECIMAL},
@@ -3895,8 +3928,8 @@
       <if test="residualWeek16 != null">
         #{residualWeek16,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek16 != null">
-        #{deedLossWeek16,jdbcType=DECIMAL},
+      <if test="feedLossWeek16 != null">
+        #{feedLossWeek16,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek16 != null">
         #{adfiWeek16,jdbcType=DECIMAL},
@@ -3907,8 +3940,8 @@
       <if test="residualWeek17 != null">
         #{residualWeek17,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek17 != null">
-        #{deedLossWeek17,jdbcType=DECIMAL},
+      <if test="feedLossWeek17 != null">
+        #{feedLossWeek17,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek17 != null">
         #{adfiWeek17,jdbcType=DECIMAL},
@@ -3919,8 +3952,8 @@
       <if test="residualWeek18 != null">
         #{residualWeek18,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek18 != null">
-        #{deedLossWeek18,jdbcType=DECIMAL},
+      <if test="feedLossWeek18 != null">
+        #{feedLossWeek18,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek18 != null">
         #{adfiWeek18,jdbcType=DECIMAL},
@@ -3931,8 +3964,8 @@
       <if test="residualWeek19 != null">
         #{residualWeek19,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek19 != null">
-        #{deedLossWeek19,jdbcType=DECIMAL},
+      <if test="feedLossWeek19 != null">
+        #{feedLossWeek19,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek19 != null">
         #{adfiWeek19,jdbcType=DECIMAL},
@@ -3943,8 +3976,8 @@
       <if test="residualWeek20 != null">
         #{residualWeek20,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek20 != null">
-        #{deedLossWeek20,jdbcType=DECIMAL},
+      <if test="feedLossWeek20 != null">
+        #{feedLossWeek20,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek20 != null">
         #{adfiWeek20,jdbcType=DECIMAL},
@@ -3955,8 +3988,8 @@
       <if test="residualWeek21 != null">
         #{residualWeek21,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek21 != null">
-        #{deedLossWeek21,jdbcType=DECIMAL},
+      <if test="feedLossWeek21 != null">
+        #{feedLossWeek21,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek21 != null">
         #{adfiWeek21,jdbcType=DECIMAL},
@@ -3967,8 +4000,8 @@
       <if test="residualWeek22 != null">
         #{residualWeek22,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek22 != null">
-        #{deedLossWeek22,jdbcType=DECIMAL},
+      <if test="feedLossWeek22 != null">
+        #{feedLossWeek22,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek22 != null">
         #{adfiWeek22,jdbcType=DECIMAL},
@@ -3979,8 +4012,8 @@
       <if test="residualWeek23 != null">
         #{residualWeek23,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek23 != null">
-        #{deedLossWeek23,jdbcType=DECIMAL},
+      <if test="feedLossWeek23 != null">
+        #{feedLossWeek23,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek23 != null">
         #{adfiWeek23,jdbcType=DECIMAL},
@@ -3991,8 +4024,8 @@
       <if test="residualWeek24 != null">
         #{residualWeek24,jdbcType=DECIMAL},
       </if>
-      <if test="deedLossWeek24 != null">
-        #{deedLossWeek24,jdbcType=DECIMAL},
+      <if test="feedLossWeek24 != null">
+        #{feedLossWeek24,jdbcType=DECIMAL},
       </if>
       <if test="adfiWeek24 != null">
         #{adfiWeek24,jdbcType=DECIMAL},
@@ -4420,6 +4453,9 @@
       <if test="occludin != null">
         #{occludin,jdbcType=DECIMAL},
       </if>
+      <if test="claudin1 != null">
+        #{claudin1,jdbcType=DECIMAL},
+      </if>
       <if test="igf1 != null">
         #{igf1,jdbcType=DECIMAL},
       </if>
@@ -4720,6 +4756,9 @@
       <if test="ph24h != null">
         #{ph24h,jdbcType=DECIMAL},
       </if>
+      <if test="parity != null">
+        #{parity,jdbcType=INTEGER},
+      </if>
       <if test="bodyScoreAtD1 != null">
         #{bodyScoreAtD1,jdbcType=DECIMAL},
       </if>
@@ -4732,8 +4771,8 @@
       <if test="bodyScoreAtD114 != null">
         #{bodyScoreAtD114,jdbcType=DECIMAL},
       </if>
-      <if test="bodyScoreAtLactaion != null">
-        #{bodyScoreAtLactaion,jdbcType=DECIMAL},
+      <if test="bodyScoreAtLactation != null">
+        #{bodyScoreAtLactation,jdbcType=DECIMAL},
       </if>
       <if test="bwAtD1 != null">
         #{bwAtD1,jdbcType=DECIMAL},
@@ -4790,10 +4829,10 @@
         #{cullRate,jdbcType=DECIMAL},
       </if>
       <if test="farrowingTimeStarted != null">
-        #{farrowingTimeStarted,jdbcType=TIMESTAMP},
+        #{farrowingTimeStarted,jdbcType=VARCHAR},
       </if>
       <if test="farrowingTimeEnded != null">
-        #{farrowingTimeEnded,jdbcType=TIMESTAMP},
+        #{farrowingTimeEnded,jdbcType=VARCHAR},
       </if>
       <if test="farrowingDuration != null">
         #{farrowingDuration,jdbcType=DECIMAL},
@@ -4959,6 +4998,9 @@
       </if>
       <if test="stillbornWeight9 != null">
         #{stillbornWeight9,jdbcType=DECIMAL},
+      </if>
+      <if test="stillbornWeight10 != null">
+        #{stillbornWeight10,jdbcType=DECIMAL},
       </if>
       <if test="mommifiedWeight1 != null">
         #{mommifiedWeight1,jdbcType=DECIMAL},
@@ -5380,20 +5422,20 @@
       <if test="crushedPigletWeight5 != null">
         #{crushedPigletWeight5,jdbcType=DECIMAL},
       </if>
-      <if test="crushedPigletWeight6 != null">
-        #{crushedPigletWeight6,jdbcType=DECIMAL},
+      <if test="diseasedPigletWeight1 != null">
+        #{diseasedPigletWeight1,jdbcType=DECIMAL},
       </if>
-      <if test="crushedPigletWeight7 != null">
-        #{crushedPigletWeight7,jdbcType=DECIMAL},
+      <if test="diseasedPigletWeight2 != null">
+        #{diseasedPigletWeight2,jdbcType=DECIMAL},
       </if>
-      <if test="crushedPigletWeight8 != null">
-        #{crushedPigletWeight8,jdbcType=DECIMAL},
+      <if test="diseasedPigletWeight3 != null">
+        #{diseasedPigletWeight3,jdbcType=DECIMAL},
       </if>
-      <if test="crushedPigletWeight9 != null">
-        #{crushedPigletWeight9,jdbcType=DECIMAL},
+      <if test="diseasedPigletWeight4 != null">
+        #{diseasedPigletWeight4,jdbcType=DECIMAL},
       </if>
-      <if test="crushedPigletWeight10 != null">
-        #{crushedPigletWeight10,jdbcType=DECIMAL},
+      <if test="diseasedPigletWeight5 != null">
+        #{diseasedPigletWeight5,jdbcType=DECIMAL},
       </if>
       <if test="starvedPigletWeight1 != null">
         #{starvedPigletWeight1,jdbcType=DECIMAL},
@@ -5602,6 +5644,9 @@
       <if test="giltBfAtPhase3 != null">
         #{giltBfAtPhase3,jdbcType=DECIMAL},
       </if>
+      <if test="estrusDay != null">
+        #{estrusDay,jdbcType=DECIMAL},
+      </if>
       <if test="estrumBw != null">
         #{estrumBw,jdbcType=DECIMAL},
       </if>
@@ -5629,11 +5674,14 @@
       <if test="largeFollicleNumber != null">
         #{largeFollicleNumber,jdbcType=DECIMAL},
       </if>
-      <if test="corpusLutenumNumber != null">
-        #{corpusLutenumNumber,jdbcType=DECIMAL},
+      <if test="corpusLuteumNumber != null">
+        #{corpusLuteumNumber,jdbcType=DECIMAL},
       </if>
       <if test="follicleLiquidWeight != null">
         #{follicleLiquidWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="ovarianWeight != null">
+        #{ovarianWeight,jdbcType=DECIMAL},
       </if>
       <if test="testicularLength != null">
         #{testicularLength,jdbcType=DECIMAL},
@@ -5679,6 +5727,9 @@
       </if>
       <if test="medicineTimesForGilts != null">
         #{medicineTimesForGilts,jdbcType=DECIMAL},
+      </if>
+      <if test="sequence != null">
+        #{sequence,jdbcType=INTEGER},
       </if>
       <if test="version != null">
         #{version,jdbcType=INTEGER},

@@ -119,7 +119,7 @@ public class FieldFormatConst {
         map.put("cd3+cd4+", "cd3pluscd4plus");
         map.put("cd3+cd8+", "cd3pluscd8plus");
         map.put("cd4+/cd8+", "cd4plusCd8plus");
-        map.put("pig-map", "pigMar");
+        map.put("pig-map", "pigMap");
         map.put("apo-i", "apoI");
         map.put("apo-a", "apoA");
         //map.put("il1β", "il1Beta");
