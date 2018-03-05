@@ -8,6 +8,7 @@ import com.kuo.artemis.server.core.dto.excel.DataExportDTO;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.core.dto.excel.DataSaveCommand;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
@@ -178,7 +179,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
-    public Response createRecordVersion(DataImportCommand command) throws Exception {
+    public Response createRecordVersion(DataImportCommand command) throws DataException {
         try {
             ValidationUtil.getInstance().validateParams(command);
         } catch (Exception e) {
@@ -299,7 +300,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public Response saveCurrentRecord(DataSaveCommand command) throws Exception {
+    public Response saveCurrentRecord(DataSaveCommand command) throws DataException {
 
         try {
             ValidationUtil.getInstance().validateParams(command);

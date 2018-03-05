@@ -3,6 +3,7 @@ package com.kuo.artemis.server.service;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataSaveCommand;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.entity.Animal;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public interface AnimalIndicatorRecordService {
      * @return
      * @throws Exception
      */
-    Response createRecordVersion(DataImportCommand command) throws Exception;
+    Response createRecordVersion(DataImportCommand command) throws DataException;
 
     /**
      * v2
@@ -65,7 +66,7 @@ public interface AnimalIndicatorRecordService {
      * @return
      * @throws Exception
      */
-    Response saveCurrentRecord(DataSaveCommand command) throws Exception;
+    Response saveCurrentRecord(DataSaveCommand command) throws DataException;
 
 
     /**

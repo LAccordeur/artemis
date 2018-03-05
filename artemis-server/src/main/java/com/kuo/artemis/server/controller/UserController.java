@@ -165,7 +165,7 @@ public class UserController {
 
 
 
-    @Authority(value = PermissionConst.ADD_DATA)
+    //@Authority(value = PermissionConst.ADD_DATA)
     @RequestMapping(value = "/test", method = RequestMethod.PUT)
     @ResponseBody()
     public Response test(User user) {

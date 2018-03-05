@@ -5,6 +5,7 @@ import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelImportDTO;
 import com.kuo.artemis.server.core.dto.excel.ExcelImportDTO;
+import com.kuo.artemis.server.core.exception.FileParseException;
 import com.kuo.artemis.server.entity.Animal;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
@@ -28,28 +29,32 @@ public class ExcelHelper {
      * @return
      * @throws Exception
      */
-    public static DataImportCommand parseExcelFile(FileImportCommand command) throws Exception {
+    public static DataImportCommand parseExcelFile(FileImportCommand command) throws FileParseException {
         MultipartFile file = command.getFile();
         String projectId = command.getProjectId();
         String userId = command.getUserId();
 
         DataImportCommand dataImportCommand = new DataImportCommand();
         String filename = file.getOriginalFilename();
-        InputStream inputStream = file.getInputStream();
-        dataImportCommand.setFilename(filename);
-        dataImportCommand.setUserId(userId);
-        dataImportCommand.setProjectId(projectId);
+        try {
+            InputStream inputStream = file.getInputStream();
+            dataImportCommand.setFilename(filename);
+            dataImportCommand.setUserId(userId);
+            dataImportCommand.setProjectId(projectId);
 
-        //解析开始
-        //1.创建workbook对象
-        Workbook workbook = ExcelUtil.createExcelObject(inputStream, filename);
-        if (workbook == null) {
-            throw new Exception("workbook is null!");
+            //解析开始
+            //1.创建workbook对象
+            Workbook workbook = ExcelUtil.createExcelObject(inputStream, filename);
+            if (workbook == null) {
+                throw new Exception("workbook is null!");
+            }
+            //2.解析
+            List<List<String>> dataList = ExcelUtil.parseExcelFile(workbook, 0, 0, 1, 0);
+            dataImportCommand.setDataList(dataList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FileParseException(e);
         }
-        //2.解析
-        List<List<String>> dataList = ExcelUtil.parseExcelFile(workbook, 0, 0, 1, 0);
-        dataImportCommand.setDataList(dataList);
-
         return dataImportCommand;
     }
 

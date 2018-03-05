@@ -47,7 +47,7 @@ public class ProjectController {
      * @param project
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_UPDATE_PROJECT)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_UPDATE_PROJECT)
     @RequestMapping(value = "/project", method = RequestMethod.PUT)
     @ResponseBody
     public Response updateProjectInfo(@RequestBody Project project) {
@@ -72,7 +72,7 @@ public class ProjectController {
      * @param projectId
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project/{projectId}/member", method = RequestMethod.GET)
     @ResponseBody
     public Response listProjectMember(@PathVariable String projectId) {
@@ -84,7 +84,7 @@ public class ProjectController {
      * @param projectId
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
     @RequestMapping(value = "/project/{projectId}/application", method = RequestMethod.GET)
     @ResponseBody
     public Response listProjectApplication(@PathVariable String projectId) {

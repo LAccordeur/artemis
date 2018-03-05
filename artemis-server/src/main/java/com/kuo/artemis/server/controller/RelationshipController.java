@@ -86,7 +86,7 @@ public class RelationshipController {
      * @param userProjectKey
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
     @RequestMapping(value = "/application/reject", method = RequestMethod.PUT)
     @ResponseBody
     public Response refuseApplication(@RequestBody UserProjectKey userProjectKey) {
@@ -98,7 +98,7 @@ public class RelationshipController {
      * @param userProjectKey
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_HANDLE_APPLICATION)
     @RequestMapping(value = "/application/acceptance", method = RequestMethod.PUT)
     @ResponseBody
     public Response acceptApplication(@RequestBody UserProjectKey userProjectKey) {
@@ -110,7 +110,7 @@ public class RelationshipController {
      * @param userProjectKey
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project/member", method = RequestMethod.PUT)    //TODO  之后改为delete
     @ResponseBody
     public Response adminDeleteProjectMember(@RequestBody UserProjectKey userProjectKey) {

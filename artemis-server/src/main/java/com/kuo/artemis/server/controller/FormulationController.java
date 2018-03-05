@@ -24,12 +24,13 @@ public class FormulationController {
     @Inject
     private FormulationService formulationService;
 
-    @Authority(value = PermissionConst.VIEW_DATA_FORMULA)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Response listFormulations(String projectId, String userId) {
         return formulationService.listFormulations(projectId);
     }
+
 
     @ResponseBody
     @RequestMapping(value = "/list/brief", method = RequestMethod.GET)
@@ -49,49 +50,52 @@ public class FormulationController {
         return formulationService.listFormulationNames(projectId);
     }
 
-    @Authority(value = PermissionConst.VIEW_DATA_FORMULA)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{formulationId}/detail", method = RequestMethod.GET)
-    public Response getFormulationDetail(@PathVariable String formulationId) {
+    public Response getFormulationDetail(@PathVariable String formulationId, @RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
         return formulationService.getFormulationDetail(formulationId);
     }
 
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{formulationId}/material", method = RequestMethod.GET)
-    public Response getFormulationMaterialDetail(@PathVariable String formulationId) {
+    public Response getFormulationMaterialDetail(@PathVariable String formulationId, @RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
         return formulationService.getFormulationMaterialDetail(formulationId);
     }
 
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{formulationId}/nutrition", method = RequestMethod.GET)
-    public Response getFormulationNutritionDetail(@PathVariable String formulationId) {
+    public Response getFormulationNutritionDetail(@PathVariable String formulationId, @RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
         return formulationService.getFormulationNutritionDetail(formulationId);
     }
 
-    @Authority(value = PermissionConst.DELETE_DATA_FORMULA)
+    @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{formulationId}", method = RequestMethod.DELETE)
-    public Response deleteFormulation(@PathVariable String formulationId) {
+    public Response deleteFormulation(@PathVariable String formulationId, @RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
         return formulationService.deleteFormulation(formulationId);
     }
 
-    @Authority(value = PermissionConst.ADD_DATA_GROUP)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/programming", method = RequestMethod.POST)
-    public Response programNewFormulation(@RequestBody FormulationParams params) {
+    public Response programNewFormulation(@RequestBody FormulationParams params, @RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
         return formulationService.programNewFormulation(params);
     }
 
-    @Authority(value = PermissionConst.ADD_DATA_FORMULA)
+    @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/result", method = RequestMethod.POST)
-    public Response createNewFormulation(@RequestBody FormulationResult result) {
+    public Response createNewFormulation(@RequestBody FormulationResult result, @RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
         return formulationService.createNewFormulation(result);
     }
 
+    @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/intro", method = RequestMethod.POST)
-    public Response createFormulationBrief(@RequestBody Formulation formulation) {
+    public Response createFormulationBrief(@RequestBody Formulation formulation, @RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
         return formulationService.createFormulationBrief(formulation);
     }
 

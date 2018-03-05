@@ -3,6 +3,7 @@ package com.kuo.artemis.server.core.helper;
 import com.kuo.artemis.server.core.common.MaterialIndicator;
 import com.kuo.artemis.server.core.common.NutritionIndicator;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.file.ExcelUtil;
 
@@ -65,20 +66,25 @@ public class DataHelper {
      * @return
      * @throws Exception
      */
-    public static DataImportDTO excelDataToBean(List<List<String>> dataList, Class clazz, Integer fieldIndex, Integer contextStartIndex) throws Exception {
+    public static DataImportDTO excelDataToBean(List<List<String>> dataList, Class clazz, Integer fieldIndex, Integer contextStartIndex) throws DataException {
         DataImportDTO dataImportDTO = new DataImportDTO();
 
-        //获取表头和表正文
-        List<String> field = dataList.get(fieldIndex);
-        List<List<String>> contents = dataList.subList(contextStartIndex, dataList.size());
+        try {
+            //获取表头和表正文
+            List<String> field = dataList.get(fieldIndex);
+            List<List<String>> contents = dataList.subList(contextStartIndex, dataList.size());
 
-        //获取map化后的list
-        List<Map<String, Object>> mapList = ExcelUtil.listWithListToListWithMap(field, contents);
+            //获取map化后的list
+            List<Map<String, Object>> mapList = ExcelUtil.listWithListToListWithMap(field, contents);
 
-        //转换为对象
-        List resultList = mapListToBeanList(clazz, mapList);
-        dataImportDTO.setCommonList(resultList);
-        return dataImportDTO;
+            //转换为对象
+            List resultList = mapListToBeanList(clazz, mapList);
+            dataImportDTO.setCommonList(resultList);
+            return dataImportDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataException(e);
+        }
 
     }
 

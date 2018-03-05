@@ -1,6 +1,8 @@
 package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.exception.DataException;
+import com.kuo.artemis.server.core.exception.FileParseException;
 import com.kuo.artemis.server.core.exception.MathException;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.slf4j.Logger;
@@ -30,14 +32,39 @@ public class GlobalExceptionHandler {
 
 
     @ResponseBody
+    @ExceptionHandler(MathException.class)
+    public Response mathExceptionHandler(MathException e) {
+        logger.error(e.toString());
+        return new Response(HttpStatus.BAD_REQUEST.value(), "数据运算错误，请检查数据");
+    }
+
+    @ResponseBody
+    @ExceptionHandler(FileParseException.class)
+    public Response fileParseException(FileParseException e) {
+        logger.error(e.toString());
+        return new Response(HttpStatus.BAD_REQUEST.value(), "文件解析错误");
+    }
+
+    @ResponseBody
+    @ExceptionHandler(DataException.class)
+    public Response dataException(DataException e) {
+        logger.error(e.toString());
+        return new Response(HttpStatus.BAD_REQUEST.value(), "数据格式非法");
+    }
+
+    @ResponseBody
     @ExceptionHandler(RuntimeException.class)
     public Response runtimeExceptionHandler(RuntimeException e) {
         logger.error(e.toString());
         return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器开小差了 :(");
     }
 
-    public Response mathExceptionHandler(MathException e) {
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    public Response exceptionHandler(Exception e) {
         logger.error(e.toString());
-        return new Response(HttpStatus.BAD_REQUEST.value(), "数据运算错误，请检查数据");
+        return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), "What's the face!");
     }
+
+
 }

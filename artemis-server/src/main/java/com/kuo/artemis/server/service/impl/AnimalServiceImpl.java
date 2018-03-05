@@ -7,6 +7,7 @@ import com.kuo.artemis.server.core.dto.animal.ReplicationCalculationDTO;
 import com.kuo.artemis.server.core.dto.animal.ReplicationCalculationParam;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.core.helper.AnimalGroupHelper;
 import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
@@ -138,7 +139,7 @@ public class AnimalServiceImpl implements AnimalService {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public Response importAnimalBasicList(DataImportCommand command) {
+    public Response importAnimalBasicList(DataImportCommand command) throws DataException {
         try {
             ValidationUtil.getInstance().validateParams(command);
         } catch (Exception e) {
@@ -147,12 +148,8 @@ public class AnimalServiceImpl implements AnimalService {
 
         String projectId = command.getProjectId();
         List<List<String>> recordList = command.getDataList();
-        DataImportDTO animalDTO;
-        try {
-            animalDTO = DataHelper.excelDataToBean(recordList, Animal.class, 0, 1);
-        } catch (Exception e) {
-            return new Response(HttpStatus.BAD_REQUEST.value(), "数据解析错误");
-        }
+        DataImportDTO animalDTO = DataHelper.excelDataToBean(recordList, Animal.class, 0, 1);
+
 
         List animalList = animalDTO.getCommonList();
 

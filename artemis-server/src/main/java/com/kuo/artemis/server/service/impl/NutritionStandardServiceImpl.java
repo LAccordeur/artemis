@@ -3,6 +3,7 @@ package com.kuo.artemis.server.service.impl;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.NutritionStandardMapper;
 import com.kuo.artemis.server.entity.NutritionStandard;
@@ -113,7 +114,7 @@ public class NutritionStandardServiceImpl implements NutritionStandardService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Response createNutritionStandardsBatch(DataImportCommand command) throws Exception {
+    public Response createNutritionStandardsBatch(DataImportCommand command) throws DataException {
 
         String userId = command.getUserId();
         List<List<String>> dataList = command.getDataList();

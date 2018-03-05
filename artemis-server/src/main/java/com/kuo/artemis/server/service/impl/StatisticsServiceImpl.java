@@ -5,6 +5,7 @@ import com.datumbox.framework.common.dataobjects.AssociativeArray2D;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.statistics.StatisticsItem;
 import com.kuo.artemis.server.core.dto.statistics.StatisticsParam;
+import com.kuo.artemis.server.core.exception.MathException;
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
@@ -52,7 +53,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     private DecimalFormat decimalFormat = DecimalFormatFactory.getDecimalFormatInstance();
 
     @Transactional(rollbackFor = Exception.class)
-    public Response independentSampleTTest(StatisticsParam param) {
+    public Response independentSampleTTest(StatisticsParam param) throws MathException {
         String projectId = param.getProjectId();
         String fileIdentifier = param.getFileIdentifier();
         String version = param.getVersion();
@@ -147,7 +148,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public Response oneWayAnalysisOfVariance(StatisticsParam param) {
+    public Response oneWayAnalysisOfVariance(StatisticsParam param) throws MathException {
 
         String projectId = param.getProjectId();
         String fileIdentifier = param.getFileIdentifier();
@@ -215,12 +216,12 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     /**
-     * TODO 添加因素的水平
+     *
      * @param param
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public Response twoWayAnalysisOfVariance(StatisticsParam param) {
+    public Response twoWayAnalysisOfVariance(StatisticsParam param) throws MathException {
 
         String projectId = param.getProjectId();
         String fileIdentifier = param.getFileIdentifier();

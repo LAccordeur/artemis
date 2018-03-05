@@ -22,31 +22,32 @@ public class NutritionStandardController {
     @Inject
     private NutritionStandardService nutritionStandardService;
 
-    @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Response listNutritionStandards(String userId) {
+    public Response listNutritionStandards(String userId, String projectId) {
         return nutritionStandardService.listNutritionStandards(userId);
     }
 
+    @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Response addNutritionStandards(@RequestBody DataImportCommand command) throws Exception {
+    public Response addNutritionStandards(@RequestBody DataImportCommand command, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) throws Exception {
         return nutritionStandardService.createNutritionStandardsBatch(command);
     }
 
-    @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list/brief", method = RequestMethod.GET)
-    public Response listNutritionStandardsBrief(String userId) {
+    public Response listNutritionStandardsBrief(String userId, String projectId) {
         return nutritionStandardService.listNutritionStandardsBrief(userId);
     }
 
 
-    @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{nutritionStandardId}/detail", method = RequestMethod.GET)
-    public Response getNutritionStandard(@PathVariable("nutritionStandardId") String nutritionId) {
+    public Response getNutritionStandard(@PathVariable("nutritionStandardId") String nutritionId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
         return nutritionStandardService.getNutritionStandardDetail(nutritionId);
     }
 

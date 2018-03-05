@@ -23,37 +23,38 @@ public class MaterialController {
     @Inject
     private MaterialService materialService;
 
-    @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Response listMaterials(String userId) {
+    public Response listMaterials(String userId, String projectId) {
         return materialService.listMaterials(userId);
     }
 
-    @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list/brief", method = RequestMethod.GET)
-    public Response listMaterialsBrief(String userId) {
+    public Response listMaterialsBrief(String userId, String projectId) {
         return materialService.listMaterialsBrief(userId);
     }
 
+    @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Response addMaterials(@RequestBody DataImportCommand command) throws Exception {
+    public Response addMaterials(@RequestBody DataImportCommand command, @RequestParam String userId, @RequestParam String projectId) throws Exception {
         return materialService.createNewMaterialBatch(command);
     }
 
-    @Authority(value = PermissionConst.VIEW_DATA_MATERIAL)
+    @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{materialId}/detail", method = RequestMethod.GET)
-    public Response getMaterialDetail(@PathVariable("materialId") String materialId) {
+    public Response getMaterialDetail(@PathVariable("materialId") String materialId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
         return materialService.getMaterialDetail(materialId);
     }
 
-    @Authority(value = PermissionConst.DATA_MANAGEMENT_MATERIAL)
+    @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{materialId}/detail", method = RequestMethod.PUT)
-    public Response updateMaterialDetail(@RequestBody Material material, @RequestParam("userId") String userId) {
+    public Response updateMaterialDetail(@RequestBody Material material, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
         return materialService.updateMaterialDetail(material, userId);
     }
 

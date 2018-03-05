@@ -33,11 +33,11 @@
 
   <select id="selectPermissionIdList" resultType="Integer">
     select id from permission
-    where status = 1
+    where status != 0
   </select>
 
   <select id="selectViewPermissionIdList" resultType="Integer">
-    select id from permission where permission_description like '%数据查看%'
+    select id from permission where permission_description where permission.permission_type = 1 and status = 1
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

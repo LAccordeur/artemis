@@ -10,7 +10,7 @@ public @interface Authority {
     //默认验证
     AuthorityType option() default AuthorityType.Authority;
 
-    String value() default "0";
+    String[] value() default {}; //权限id集，只要该角色拥有该集合中的任何一个id即有权限
 
 
 }

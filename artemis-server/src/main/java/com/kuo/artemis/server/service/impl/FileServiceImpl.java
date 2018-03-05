@@ -5,6 +5,7 @@ import com.kuo.artemis.server.core.dto.FileImportProduct;
 import com.kuo.artemis.server.core.dto.FileMetaData;
 import com.kuo.artemis.server.core.dto.excel.*;
 import com.kuo.artemis.server.core.dto.Response;
+import com.kuo.artemis.server.core.exception.FileParseException;
 import com.kuo.artemis.server.core.factory.FactoryManager;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
 import com.kuo.artemis.server.core.helper.QCloudHelper;
@@ -107,7 +108,7 @@ public class FileServiceImpl implements FileService {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public Response uploadCommonFile(FileImportCommand command) {
+    public Response uploadCommonFile(FileImportCommand command) throws FileParseException {
 
         try {
             ValidationUtil.getInstance().validateParams(command);
@@ -158,11 +159,16 @@ public class FileServiceImpl implements FileService {
         fileRecord.setVersion(status+1);
         fileRecordMapper.insertSelective(fileRecord);
 
-        //3.将源文件上传到腾讯云
-        FileMetaData fileMetaData = new FileMetaData(file.getSize(), file.getContentType());
-        Boolean updateStatus = QCloudHelper.updateFile(inputStream, key.toString(), fileMetaData);
-        if (updateStatus) {
-            return new Response(HttpStatus.OK.value(), "上传成功");
+        try {
+            //3.将源文件上传到腾讯云
+            FileMetaData fileMetaData = new FileMetaData(file.getSize(), file.getContentType());
+            Boolean updateStatus = QCloudHelper.updateFile(inputStream, key.toString(), fileMetaData);
+            if (updateStatus) {
+                return new Response(HttpStatus.OK.value(), "上传成功");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FileParseException(e);
         }
         return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), "上传失败");
     }

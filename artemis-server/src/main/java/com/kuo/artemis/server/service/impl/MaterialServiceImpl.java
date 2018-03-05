@@ -3,6 +3,7 @@ package com.kuo.artemis.server.service.impl;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.core.helper.DataHelper;
 import com.kuo.artemis.server.dao.MaterialMapper;
 import com.kuo.artemis.server.entity.Material;
@@ -108,7 +109,7 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Response createNewMaterialBatch(DataImportCommand dataImportCommand) throws Exception {
+    public Response createNewMaterialBatch(DataImportCommand dataImportCommand) throws DataException {
 
         List<List<String>> materialList = dataImportCommand.getDataList();
         String userId = dataImportCommand.getUserId();

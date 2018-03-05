@@ -2,7 +2,7 @@ package com.kuo.artemis.server.util.constant;
 
 public interface PermissionConst {
 
-    String ADD_DATA = "6";
+    /*String ADD_DATA = "6";
 
     String ADD_DATA_ANIMAL = "7";
 
@@ -16,7 +16,7 @@ public interface PermissionConst {
 
     String VIEW_DATA_ANIMAL = "13";
 
-    String VIEW_DATA_FORMULA = "14";
+    String VIEW_DATA_FORMULATION = "14";
 
     String VIEW_DATA_MATERIAL = "15";
 
@@ -64,6 +64,32 @@ public interface PermissionConst {
 
     String PROJECT_MANAGEMENT = "40";
 
-    String PROJECT_MANAGEMENT_UPDATE_PROJECT = "41";
+    String PROJECT_MANAGEMENT_UPDATE_PROJECT = "41";*/
+
+    String DATA_VIEW_HOUSE = "2"; //对应圈舍查看这个权限的id
+
+    String DATA_VIEW_FORMULATION = "3";
+
+    String DATA_VIEW_GROUP = "4";
+
+    String DATA_VIEW_RECORD = "5";
+
+    String DATA_VIEW_STATISTICS = "6";
+
+    String DATA_MANAGEMENT_HOUSE = "10";
+
+    String DATA_MANAGEMENT_FORMULATION = "11";
+
+    String DATA_MANAGEMENT_GROUP = "12";
+
+    String DATA_MANAGEMENT_RECORD = "13";
+
+    String DATA_MANAGEMENT_STATISTICS = "14";
+
+    String COMMON_FILE_UPLOAD = "18";
+
+    String COMMON_FILE_DELETE = "19";
+
+    String PERMISSION_MANAGEMENT = "20";
 
 }

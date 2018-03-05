@@ -71,13 +71,15 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
                     }
 
                     //2.从注解中获取需要验证的权限名id
-                    String permissionId = annotation.value();
+                    String[] permissionIds = annotation.value();
 
                     //3.验证
-                    if (userId != null && projectId != null && permissionId != null) {
-                        //有权限
-                        if (userPermissionMapper.selectByUserIdAndProjectIdAndPermissionId(Integer.valueOf(userId), Integer.valueOf(projectId), Integer.valueOf(permissionId)) != null) {
-                            return true;
+                    if (userId != null && projectId != null && permissionIds != null && permissionIds.length > 0) {
+                        for (int i = 0; i < permissionIds.length; i++) {
+                            //有权限
+                            if (userPermissionMapper.selectByUserIdAndProjectIdAndPermissionId(Integer.valueOf(userId), Integer.valueOf(projectId), Integer.valueOf(permissionIds[i])) != null) {
+                                return true;
+                            }
                         }
 
                         //没有权限

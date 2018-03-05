@@ -3,6 +3,7 @@ package com.kuo.artemis.server.service;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.animal.ReplicationCalculationParam;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.core.math.GroupDesignParam;
 import com.kuo.artemis.server.core.math.GroupDesignResult;
 import com.kuo.artemis.server.entity.Animal;
@@ -28,7 +29,7 @@ public interface AnimalService {
      * @param command
      * @return
      */
-    Response importAnimalBasicList(DataImportCommand command);
+    Response importAnimalBasicList(DataImportCommand command) throws DataException;
 
     /**
      * 进行动物分组

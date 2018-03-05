@@ -4,6 +4,7 @@ import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.ExcelImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
+import com.kuo.artemis.server.core.exception.FileParseException;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -17,7 +18,7 @@ public interface FileService {
 
     Response deleteCommonFile(String fileId);
 
-    Response uploadCommonFile(FileImportCommand command);
+    Response uploadCommonFile(FileImportCommand command) throws FileParseException;
 
     Response parseAndSaveIndicatorExcel(ExcelImportCommand command) throws Exception;
 

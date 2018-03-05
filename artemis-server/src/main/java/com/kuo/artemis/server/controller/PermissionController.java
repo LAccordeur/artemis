@@ -7,10 +7,7 @@ import com.kuo.artemis.server.entity.RolePermissionKey;
 import com.kuo.artemis.server.service.UserPermissionService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -74,7 +71,7 @@ public class PermissionController {
      * @param projectId
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionListByProjectId(String projectId) {
@@ -86,7 +83,7 @@ public class PermissionController {
      * @param projectId
      * @return
      */
-    @Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
+    //@Authority(value = PermissionConst.PROJECT_MANAGEMENT_MEMBER_MANAGEMENT)
     @RequestMapping(value = "/project/boolean", method = RequestMethod.GET)
     @ResponseBody
     public Response getPermissionListByProjectIdWithBoolean(String projectId) {
@@ -101,7 +98,7 @@ public class PermissionController {
     @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/grant", method = RequestMethod.POST)
     @ResponseBody
-    public Response grantPermission(@RequestBody RolePermissionKey rolePermissionKey) {
+    public Response grantPermission(@RequestBody RolePermissionKey rolePermissionKey, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
         return userPermissionService.addPermission(rolePermissionKey);
     }
 
@@ -113,7 +110,7 @@ public class PermissionController {
     @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/removal", method = RequestMethod.DELETE)
     @ResponseBody
-    public Response removePermission(@RequestBody RolePermissionKey rolePermissionKey) {
+    public Response removePermission(@RequestBody RolePermissionKey rolePermissionKey, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
         return userPermissionService.removePermission(rolePermissionKey);
     }
 
@@ -126,7 +123,7 @@ public class PermissionController {
     @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/batch", method = RequestMethod.POST)
     @ResponseBody
-    public Response updatePermissionBatch(@RequestBody UpdatePermissionCommend updatePermissionCommend) {
+    public Response updatePermissionBatch(@RequestBody UpdatePermissionCommend updatePermissionCommend, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
         return userPermissionService.updatePermissionBatch(updatePermissionCommend);
     }
 }

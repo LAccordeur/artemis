@@ -1,29 +1,21 @@
 package com.kuo.artemis.server.controller;
 
-import com.kuo.artemis.server.core.dto.ArrayTest;
+import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.FileImportCommand;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
-import com.kuo.artemis.server.core.dto.excel.ExcelImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
 import com.kuo.artemis.server.service.*;
 import com.kuo.artemis.server.util.constant.DataTypeConst;
-import com.kuo.artemis.server.util.file.ExcelUtil;
-import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.kuo.artemis.server.util.constant.PermissionConst;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Author : guoyang
@@ -50,12 +42,14 @@ public class FileController {
     private MaterialService materialService;
 
 
+
     @ResponseBody
     @RequestMapping(value = "/common/list", method = RequestMethod.GET)
     public Response listCommonFiles(@RequestParam("projectId") String projectId) {
         return fileService.listCommonFiles(projectId);
     }
 
+    @Authority(value = PermissionConst.COMMON_FILE_UPLOAD)
     @ResponseBody
     @RequestMapping(value = "/common/upload", method = RequestMethod.POST)
     public Response receiveCommonFile(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
@@ -63,16 +57,17 @@ public class FileController {
         return fileService.uploadCommonFile(command);
     }
 
+    @Authority(value = PermissionConst.COMMON_FILE_DELETE)
     @ResponseBody
     @RequestMapping(value = "/common", method = RequestMethod.DELETE)
-    public Response deleteCommonFile(@RequestParam("fileId") String fileId) {
+    public Response deleteCommonFile(@RequestParam("fileId") String fileId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
         return fileService.deleteCommonFile(fileId);
     }
 
+    @Authority(value = {PermissionConst.DATA_MANAGEMENT_RECORD, PermissionConst.DATA_MANAGEMENT_FORMULATION, PermissionConst.DATA_MANAGEMENT_HOUSE, PermissionConst.DATA_MANAGEMENT_GROUP})
     @RequestMapping(value = "/excel/upload", method = RequestMethod.POST)
     @ResponseBody
-    public Response receiveExcelFile(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId, @RequestParam("type") String type) {
-
+    public Response receiveExcelFile(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId, @RequestParam("type") String type) throws Exception {
 
 
         if (!file.isEmpty()) {
@@ -82,27 +77,25 @@ public class FileController {
             } else {
                 return new Response(HttpStatus.FORBIDDEN.value(), "文件类型错误");
             }
-            try {
-                if ((DataTypeConst.INDICATOR).equals(type)) {
-                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
-                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
-                    return animalIndicatorRecordService.createRecordVersion(dataImportCommand);
-                } else if ((DataTypeConst.MATERIAL).equals(type)) {
-                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.MATERIAL);
-                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
-                    return materialService.createNewMaterialBatch(dataImportCommand);
-                } else if ((DataTypeConst.NUTRITION).equals(type)) {
-                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.NUTRITION);
-                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
-                    return nutritionStandardService.createNutritionStandardsBatch(dataImportCommand);
-                } else if ((DataTypeConst.ANIMAL).equals(type)) {
-                    FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.ANIMAL);
-                    DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
-                    return animalService.importAnimalBasicList(dataImportCommand);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            if ((DataTypeConst.INDICATOR).equals(type)) {
+                FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.INDICATOR);
+                DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                return animalIndicatorRecordService.createRecordVersion(dataImportCommand);
+            } else if ((DataTypeConst.MATERIAL).equals(type)) {
+                FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.MATERIAL);
+                DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                return materialService.createNewMaterialBatch(dataImportCommand);
+            } else if ((DataTypeConst.NUTRITION).equals(type)) {
+                FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.NUTRITION);
+                DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                return nutritionStandardService.createNutritionStandardsBatch(dataImportCommand);
+            } else if ((DataTypeConst.ANIMAL).equals(type)) {
+                FileImportCommand command = new FileImportCommand(file, projectId, userId, DataTypeConst.ANIMAL);
+                DataImportCommand dataImportCommand = ExcelHelper.parseExcelFile(command);
+                return animalService.importAnimalBasicList(dataImportCommand);
             }
+
         }
 
         return new Response(HttpStatus.BAD_REQUEST.value(), "文件错误，上传失败");

@@ -3,6 +3,7 @@ package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
+import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.entity.NutritionStandard;
 
 import java.util.List;
@@ -59,5 +60,5 @@ public interface NutritionStandardService {
      * @param command
      * @return
      */
-    Response createNutritionStandardsBatch(DataImportCommand command) throws Exception;
+    Response createNutritionStandardsBatch(DataImportCommand command) throws DataException;
 }

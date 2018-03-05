@@ -2,6 +2,7 @@ package com.kuo.artemis.server.service;
 
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.statistics.StatisticsParam;
+import com.kuo.artemis.server.core.exception.MathException;
 
 public interface StatisticsService {
 
@@ -10,21 +11,21 @@ public interface StatisticsService {
      * @param param
      * @return
      */
-    Response independentSampleTTest(StatisticsParam param);
+    Response independentSampleTTest(StatisticsParam param) throws MathException;
 
     /**
      * 单因素方差分析
      * @param param
      * @return
      */
-    Response oneWayAnalysisOfVariance(StatisticsParam param);
+    Response oneWayAnalysisOfVariance(StatisticsParam param) throws MathException;
 
     /**
      * 两因素方差分析
      * @param param
      * @return
      */
-    Response twoWayAnalysisOfVariance(StatisticsParam param);
+    Response twoWayAnalysisOfVariance(StatisticsParam param) throws MathException;
 
     /**
      * 当前课题下的分析记录列表
