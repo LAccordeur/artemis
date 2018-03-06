@@ -32,7 +32,7 @@ public class NutritionStandardController {
     @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Response addNutritionStandards(@RequestBody DataImportCommand command, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) throws Exception {
+    public Response addNutritionStandards(@RequestBody DataImportCommand command, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) throws Exception {
         return nutritionStandardService.createNutritionStandardsBatch(command);
     }
 
@@ -47,7 +47,7 @@ public class NutritionStandardController {
     @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{nutritionStandardId}/detail", method = RequestMethod.GET)
-    public Response getNutritionStandard(@PathVariable("nutritionStandardId") String nutritionId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response getNutritionStandard(@PathVariable("nutritionStandardId") String nutritionId, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return nutritionStandardService.getNutritionStandardDetail(nutritionId);
     }
 

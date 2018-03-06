@@ -29,35 +29,35 @@ public class StatisticsController {
     @Authority(value = PermissionConst.DATA_VIEW_STATISTICS)
     @ResponseBody
     @RequestMapping(value = "/records", method = RequestMethod.GET)
-    public Response listStatisticsRecords(@RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
+    public Response listStatisticsRecords(@RequestParam("projectId") String projectId, @RequestParam(value = "userId", required = false) String userId) {
         return statisticsService.listStatisticsRecords(projectId);
     }
 
     @Authority(value = PermissionConst.DATA_VIEW_STATISTICS)
     @ResponseBody
     @RequestMapping(value = "/records/{recordId}", method = RequestMethod.GET)
-    public Response getStatisticsRecordDetail(@PathVariable("recordId") String recordId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response getStatisticsRecordDetail(@PathVariable("recordId") String recordId, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return statisticsService.getStatisticsRecordDetail(recordId);
     }
 
     @Authority(value = PermissionConst.DATA_MANAGEMENT_STATISTICS)
     @ResponseBody
     @RequestMapping(value = "/records/{recordId}", method = RequestMethod.DELETE)
-    public Response deleteStatisticsRecord(@PathVariable("recordId") String recordId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response deleteStatisticsRecord(@PathVariable("recordId") String recordId, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return statisticsService.deleteStatisticsRecord(recordId);
     }
 
     @Authority(value = PermissionConst.DATA_VIEW_STATISTICS)
     @ResponseBody
     @RequestMapping(value = "/indicators", method = RequestMethod.GET)
-    public Response getIndicatorSet(@RequestParam String projectId, @RequestParam String fileIdentifier, @RequestParam String version, @RequestParam String userId) {
+    public Response getIndicatorSet(@RequestParam String projectId, @RequestParam String fileIdentifier, @RequestParam String version, @RequestParam(required = false) String userId) {
         return statisticsService.selectIndicatorSet(projectId, fileIdentifier, version);
     }
 
     @Authority(value = PermissionConst.DATA_MANAGEMENT_STATISTICS)
     @ResponseBody
     @RequestMapping(value = "/analysis", method = RequestMethod.POST)
-    public Response statisticsAnalyse(@RequestBody StatisticsParam param, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response statisticsAnalyse(@RequestBody StatisticsParam param, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         try {
             ValidationUtil.getInstance().validateParams(param);
         } catch (Exception e) {

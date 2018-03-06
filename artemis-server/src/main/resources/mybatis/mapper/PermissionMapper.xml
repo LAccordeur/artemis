@@ -37,7 +37,7 @@
   </select>
 
   <select id="selectViewPermissionIdList" resultType="Integer">
-    select id from permission where permission_description where permission.permission_type = 1 and status = 1
+    select id from permission where permission.permission_type = 1 and status = 1
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

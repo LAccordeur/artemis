@@ -31,35 +31,35 @@ public class AnimalController {
     @Authority(value = PermissionConst.DATA_VIEW_GROUP)
     @ResponseBody
     @RequestMapping(value = "/replication", method = RequestMethod.POST)
-    public Response calculateReplicationNum(@RequestParam("alpha") String alpha, @RequestParam("power") String power, @RequestParam("file") MultipartFile file, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response calculateReplicationNum(@RequestParam("alpha") String alpha, @RequestParam("power") String power, @RequestParam("file") MultipartFile file, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return animalService.getReplicateNumber(new ReplicationCalculationParam(alpha, power, file));
     }
 
     @Authority(value = PermissionConst.DATA_VIEW_GROUP)
     @ResponseBody
     @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public Response groupAnimal(@RequestBody GroupDesignParam param, @RequestParam("projectId")  String projectId, @RequestParam("userId") String userId) throws Exception {
+    public Response groupAnimal(@RequestBody GroupDesignParam param, @RequestParam(value = "projectId", required = false)  String projectId, @RequestParam(value = "userId", required = false) String userId) throws Exception {
         return animalService.groupAnimal(param);
     }
 
     @Authority(value = PermissionConst.DATA_VIEW_GROUP)
     @ResponseBody
     @RequestMapping(value = "/group/result", method = RequestMethod.GET)
-    public Response getAnimalGroupResult(@RequestParam("projectId") String projectId, @RequestParam("userId") String userId) throws Exception {
+    public Response getAnimalGroupResult(@RequestParam("projectId") String projectId, @RequestParam(value = "userId", required = false) String userId) throws Exception {
         return animalService.getAnimalGroupResult(projectId);
     }
 
     @Authority(value = PermissionConst.DATA_MANAGEMENT_GROUP)
     @ResponseBody
     @RequestMapping(value = "/group/result", method = RequestMethod.POST)
-    public Response commitAnimalGroupResult(@RequestBody GroupDesignResult result, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) throws Exception {
+    public Response commitAnimalGroupResult(@RequestBody GroupDesignResult result, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) throws Exception {
         return animalService.commitAnimalGroupResult(result);
     }
 
     @Authority(value = PermissionConst.DATA_MANAGEMENT_GROUP)
     @ResponseBody
     @RequestMapping(value = "/group/result", method = RequestMethod.DELETE)
-    public Response deleteAnimalGroupResult(@RequestParam("projectId") String projectId, @RequestParam("userId") String userId) {
+    public Response deleteAnimalGroupResult(@RequestParam("projectId") String projectId, @RequestParam(value = "userId", required = false) String userId) {
         return animalService.deleteAnimalGroupResult(projectId);
     }
 

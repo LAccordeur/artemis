@@ -8,6 +8,7 @@ import org.apache.commons.fileupload.FileUploadBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,6 +51,13 @@ public class GlobalExceptionHandler {
     public Response dataException(DataException e) {
         logger.error(e.toString());
         return new Response(HttpStatus.BAD_REQUEST.value(), "数据格式非法");
+    }
+
+    @ResponseBody
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public Response paramException(MissingServletRequestParameterException e) {
+        logger.error(e.toString());
+        return new Response(HttpStatus.BAD_REQUEST.value(), "缺少参数");
     }
 
     @ResponseBody

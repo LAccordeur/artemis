@@ -98,7 +98,7 @@ public class PermissionController {
     @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/grant", method = RequestMethod.POST)
     @ResponseBody
-    public Response grantPermission(@RequestBody RolePermissionKey rolePermissionKey, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response grantPermission(@RequestBody RolePermissionKey rolePermissionKey, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return userPermissionService.addPermission(rolePermissionKey);
     }
 
@@ -110,7 +110,7 @@ public class PermissionController {
     @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/removal", method = RequestMethod.DELETE)
     @ResponseBody
-    public Response removePermission(@RequestBody RolePermissionKey rolePermissionKey, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response removePermission(@RequestBody RolePermissionKey rolePermissionKey, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return userPermissionService.removePermission(rolePermissionKey);
     }
 
@@ -123,7 +123,7 @@ public class PermissionController {
     @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
     @RequestMapping(value = "/batch", method = RequestMethod.POST)
     @ResponseBody
-    public Response updatePermissionBatch(@RequestBody UpdatePermissionCommend updatePermissionCommend, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response updatePermissionBatch(@RequestBody UpdatePermissionCommend updatePermissionCommend, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return userPermissionService.updatePermissionBatch(updatePermissionCommend);
     }
 }

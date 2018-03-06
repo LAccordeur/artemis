@@ -7,10 +7,12 @@ import com.kuo.artemis.server.core.dto.excel.DataSaveCommand;
 import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.service.AnimalIndicatorRecordService;
 import com.kuo.artemis.server.util.constant.PermissionConst;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author : guoyang
@@ -24,10 +26,13 @@ public class RecordDataController {
     @Inject
     private AnimalIndicatorRecordService animalIndicatorRecordService;
 
+    @Inject
+    private ApplicationContext applicationContext;
+
     @Authority(value = PermissionConst.DATA_MANAGEMENT_RECORD)
     @ResponseBody
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public Response importAnimalRecordData(@RequestBody DataImportCommand command, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) throws Exception {
+    public Response importAnimalRecordData(@RequestBody DataImportCommand command, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) throws Exception {
         //return animalIndicatorRecordService.createNewRecordVersion(command);
         return animalIndicatorRecordService.createRecordVersion(command);
     }
@@ -35,7 +40,7 @@ public class RecordDataController {
     @Authority(value = PermissionConst.DATA_MANAGEMENT_RECORD)
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Response updateAnimalRecordData(@RequestBody DataSaveCommand command, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) throws DataException {
+    public Response updateAnimalRecordData(@RequestBody DataSaveCommand command, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) throws DataException {
         return animalIndicatorRecordService.saveCurrentRecord(command);
     }
 
@@ -63,8 +68,8 @@ public class RecordDataController {
     @Authority(value = PermissionConst.DATA_VIEW_RECORD)
     @ResponseBody
     @RequestMapping(value = "/file/detail", method = RequestMethod.GET)
-    public Response getDataFileDetail(String projectId, String fileIdentifier, String version, String userId) {
+    public Response getDataFileDetail(String projectId, String fileIdentifier, String version, String userId, HttpServletRequest request) {
         //return animalIndicatorRecordService.getIndicatorRecordDetail(projectId, fileIdentifier, version);
-        return animalIndicatorRecordService.listAnimalRecords(projectId, fileIdentifier, version);
+        return animalIndicatorRecordService.listAnimalRecords(projectId, fileIdentifier, version, request, applicationContext);
     }
 }

@@ -60,7 +60,7 @@ public class FileController {
     @Authority(value = PermissionConst.COMMON_FILE_DELETE)
     @ResponseBody
     @RequestMapping(value = "/common", method = RequestMethod.DELETE)
-    public Response deleteCommonFile(@RequestParam("fileId") String fileId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response deleteCommonFile(@RequestParam("fileId") String fileId, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return fileService.deleteCommonFile(fileId);
     }
 

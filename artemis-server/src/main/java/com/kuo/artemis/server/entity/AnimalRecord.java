@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * 只用于展示数据
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder
 public class AnimalRecord {

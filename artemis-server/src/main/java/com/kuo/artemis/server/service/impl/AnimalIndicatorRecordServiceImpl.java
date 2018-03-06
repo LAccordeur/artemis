@@ -2,6 +2,8 @@ package com.kuo.artemis.server.service.impl;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.kuo.artemis.server.core.dto.Response;
 
 import com.kuo.artemis.server.core.dto.excel.DataExportDTO;
@@ -10,6 +12,9 @@ import com.kuo.artemis.server.core.dto.excel.DataImportDTO;
 import com.kuo.artemis.server.core.dto.excel.DataSaveCommand;
 import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.core.helper.DataHelper;
+import com.kuo.artemis.server.core.json.CustomJsonDefaultParam;
+import com.kuo.artemis.server.core.json.CustomModule;
+import com.kuo.artemis.server.core.json.PropertyNameMapper;
 import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.AnimalIndicatorRecordService;
@@ -22,11 +27,18 @@ import com.kuo.artemis.server.util.constant.OperationTypeConst;
 import javafx.scene.chart.PieChart;
 import net.minidev.json.JSONUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
@@ -69,6 +81,8 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
 
     @Inject
     private AnimalRecordMapper animalRecordMapper;
+
+    private CustomModule customModule = new CustomModule();
 
     @Transactional(rollbackFor = Exception.class)
     @Deprecated
@@ -384,7 +398,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
      * @param version
      * @return
      */
-    public Response listAnimalRecords(String projectId, String fileIdentifier, String version) {
+    public Response listAnimalRecords(String projectId, String fileIdentifier, String version, HttpServletRequest request, ApplicationContext context) {
         if (projectId == null || "".equals(projectId) || fileIdentifier == null || "".equals(fileIdentifier) || version == null || "".equals(version)) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
         }
@@ -392,6 +406,17 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
         Integer fileRecordId = fileRecordMapper.selectIdByProjectIdAndFileIdentifierAndVersion(projectId, fileIdentifier, Integer.valueOf(version));
         if (fileRecordId == null) {
             return new Response(HttpStatus.NO_CONTENT.value(), "无该文件信息");
+        }
+
+
+        //将返回结果的json key由驼峰转换成xx yy形式
+        //设置json key转换的mapper
+        request.setAttribute("nameMappings", CustomJsonDefaultParam.defaultPropertyMapperList);
+        //设置jackson的objectMapper
+        //ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext(), "org.springframework.web.servlet.FrameworkServlet.CONTEXT.vdc_ui");
+        if (context != null) {
+            MappingJackson2HttpMessageConverter converter = (MappingJackson2HttpMessageConverter) context.getBean("mappingJackson2HttpMessageConverter");
+            converter.getObjectMapper().registerModule(customModule);
         }
 
         //1.获取该版本所选取的指标项
@@ -418,6 +443,7 @@ public class AnimalIndicatorRecordServiceImpl implements AnimalIndicatorRecordSe
             dataExportDTO.setVersion(version);
             dataExportDTO.setDataList(animalIndicatorRecordList);
             dataExportDTO.setFilename(fileRecord.getFilename());
+
 
             return new Response(dataExportDTO, HttpStatus.OK.value(), "获取数据成功");
         }

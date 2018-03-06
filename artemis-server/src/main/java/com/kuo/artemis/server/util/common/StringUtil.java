@@ -11,6 +11,8 @@ public final class StringUtil {
 
     public static final char UNDERLINE='_';
 
+    public static final char SPACE = ' ';
+
     /**
      * 判断字符串是否为空
      * @param string
@@ -42,8 +44,35 @@ public final class StringUtil {
         return sb.toString();
     }
 
+    public static String camelToUnderline(String param) {
+        if (param == null || "".equals(param.trim())) {
+            return "";
+        }
+        int len = param.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = param.charAt(i);
+            if (Character.isUpperCase(c)) {
+                sb.append(UNDERLINE);
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+
+    public static String camelToSpace(String param) {
+        if (param == null || "".equals(param.trim())) {
+            return "";
+        }
+        String value = camelToUnderline(param);
+        return value.replace(UNDERLINE, SPACE);
+    }
+
     public static void main(String[] args) {
-        System.out.println(underlineToCamel("fdas_33"));
+        System.out.println(camelToSpace("gfsdg3Ggg"));
     }
 
     public static String fieldFormat(String field) {

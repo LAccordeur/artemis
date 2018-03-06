@@ -33,10 +33,10 @@ public class CommonServiceImpl implements CommonService {
         }
 
         //发送验证码
-        String smsCodeFromCache = cacheRedisDao.getFromCache(phone);
+        /*String smsCodeFromCache = cacheRedisDao.getFromCache(phone);
         if (smsCodeFromCache != null) {
             return new Response(HttpStatus.FORBIDDEN.value(), "请稍后再发");
-        }
+        }*/
         String smsCode = VerificationCodeUtil.sendSmsCode(phone);
         if (smsCode != null) {
             //将验证码放入缓存

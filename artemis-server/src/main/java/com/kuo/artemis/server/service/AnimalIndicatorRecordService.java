@@ -5,7 +5,9 @@ import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.DataSaveCommand;
 import com.kuo.artemis.server.core.exception.DataException;
 import com.kuo.artemis.server.entity.Animal;
+import org.springframework.context.ApplicationContext;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -49,7 +51,7 @@ public interface AnimalIndicatorRecordService {
      * @param version
      * @return
      */
-    Response listAnimalRecords(String projectId, String fileIdentifier, String version);
+    Response listAnimalRecords(String projectId, String fileIdentifier, String version, HttpServletRequest request, ApplicationContext context);
 
     /**
      * v2

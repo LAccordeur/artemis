@@ -40,21 +40,21 @@ public class MaterialController {
     @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Response addMaterials(@RequestBody DataImportCommand command, @RequestParam String userId, @RequestParam String projectId) throws Exception {
+    public Response addMaterials(@RequestBody DataImportCommand command, @RequestParam(required = false) String userId, @RequestParam(required = false) String projectId) throws Exception {
         return materialService.createNewMaterialBatch(command);
     }
 
     @Authority(value = PermissionConst.DATA_VIEW_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{materialId}/detail", method = RequestMethod.GET)
-    public Response getMaterialDetail(@PathVariable("materialId") String materialId, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response getMaterialDetail(@PathVariable("materialId") String materialId, @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return materialService.getMaterialDetail(materialId);
     }
 
     @Authority(value = PermissionConst.DATA_MANAGEMENT_FORMULATION)
     @ResponseBody
     @RequestMapping(value = "/{materialId}/detail", method = RequestMethod.PUT)
-    public Response updateMaterialDetail(@RequestBody Material material, @RequestParam("userId") String userId, @RequestParam("projectId") String projectId) {
+    public Response updateMaterialDetail(@RequestBody Material material, @RequestParam("userId") String userId, @RequestParam(value = "projectId", required = false) String projectId) {
         return materialService.updateMaterialDetail(material, userId);
     }
 

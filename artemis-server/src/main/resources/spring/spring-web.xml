@@ -56,21 +56,24 @@
         <property name="maxInMemorySize" value="409600"/>
     </bean>
 
+
     <!--  配置时间格式 -->
-    <mvc:annotation-driven>
-        <!-- 处理responseBody 里面日期类型 -->
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper">
-                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-                        <property name="dateFormat">
-                            <bean class="java.text.SimpleDateFormat">
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd" />
-                            </bean>
-                        </property>
+    <bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper">
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                <property name="dateFormat">
+                    <bean class="java.text.SimpleDateFormat">
+                        <constructor-arg type="java.lang.String" value="yyyy-MM-dd" />
                     </bean>
                 </property>
             </bean>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven>
+        <!-- 处理responseBody 里面日期类型 -->
+        <mvc:message-converters>
+            <ref bean="mappingJackson2HttpMessageConverter" />
         </mvc:message-converters>
     </mvc:annotation-driven>
 

@@ -1,6 +1,7 @@
 package com.kuo.artemis.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonSerializable;
 
 import java.util.Date;
 @Deprecated
@@ -9,9 +10,12 @@ public class ExcelTest {
 
     private long score;
 
-    private int age;
+    private Integer age;
 
     private Date birthday;
+
+    @JsonProperty(value = "my name")
+    private String myName;
 
     @JsonProperty(value = "create time")
     private Date createTime;
@@ -23,9 +27,10 @@ public class ExcelTest {
                 ", score=" + score +
                 ", age=" + age +
                 ", birthday=" + birthday +
+                ", myName='" + myName + '\'' +
                 ", createTime=" + createTime +
                 '}';
-    }
+}
 
     public String getName() {
         return name;
@@ -43,7 +48,7 @@ public class ExcelTest {
         this.score = score;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -57,6 +62,14 @@ public class ExcelTest {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getMyName() {
+        return myName;
+    }
+
+    public void setMyName(String myName) {
+        this.myName = myName;
     }
 
     public Date getCreateTime() {

@@ -26,28 +26,28 @@ public class AnimalHouseController {
     @Authority(value = PermissionConst.DATA_VIEW_HOUSE)
     @RequestMapping(value = "/programming", method = RequestMethod.POST)
     @ResponseBody
-    public Response doAnimalHouseProgramming(@RequestBody RandomDistributionParam param, @RequestParam String projectId,@RequestParam String userId) {
+    public Response doAnimalHouseProgramming(@RequestBody RandomDistributionParam param, @RequestParam(value = "projectId", required = false) String projectId, @RequestParam(value = "userId", required = false) String userId) {
         return animalHouseService.doHouseProgramming(param);
     }
 
     @Authority(value = PermissionConst.DATA_VIEW_HOUSE)
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     @ResponseBody
-    public Response getAnimalHouseProgrammingResult(@RequestParam String projectId, @RequestParam String userId) {
+    public Response getAnimalHouseProgrammingResult(@RequestParam("projectId") String projectId, @RequestParam(value = "userId", required = false) String userId) {
         return animalHouseService.getHouseProgrammingResult(projectId);
     }
 
     @Authority(value = PermissionConst.DATA_MANAGEMENT_HOUSE)
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     @ResponseBody
-    public Response commitAnimalHouseProgrammingResult(@RequestBody RandomDistributionResult result, @RequestParam String projectId, @RequestParam String userId) {
+    public Response commitAnimalHouseProgrammingResult(@RequestBody RandomDistributionResult result, @RequestParam(required = false) String projectId, @RequestParam(required = false) String userId) {
         return animalHouseService.commitHouseProgrammingResult(result);
     }
 
     @Authority(value = PermissionConst.DATA_MANAGEMENT_HOUSE)
     @RequestMapping(value = "/result", method = RequestMethod.DELETE)
     @ResponseBody
-    public Response deleteHouseProgrammingResult(@RequestParam String projectId, @RequestParam String userId) {
+    public Response deleteHouseProgrammingResult(@RequestParam String projectId, @RequestParam(required = false) String userId) {
         return animalHouseService.deleteHouseProgrammingResult(projectId);
     }
 }

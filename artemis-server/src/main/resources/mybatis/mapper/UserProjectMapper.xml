@@ -25,6 +25,7 @@
     select project_name, project_id, project_admin_id, project_admin_name, project_intro, create_time
     from user_project_view
     where user_id = #{userId}
+    order by project_id desc
   </select>
 
   <select id="selectStatusByPrimaryKey" resultType="Integer">
@@ -61,6 +62,7 @@
     select project_name, project_id, project_admin_id, project_admin_name, create_time
     from user_project_view
     where user_id = #{userId} and project_admin_id = #{userId}
+    order by project_id desc
   </select>
 
 
