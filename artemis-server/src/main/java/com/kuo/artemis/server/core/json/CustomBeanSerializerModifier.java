@@ -47,9 +47,11 @@ public class CustomBeanSerializerModifier extends BeanSerializerModifier {
     private List<PropertyNameMapper> getNameMappingsFromRequest() {
         RequestAttributes requestAttribs = RequestContextHolder
                 .getRequestAttributes();
-        List<PropertyNameMapper> nameMappings = (List<PropertyNameMapper>) requestAttribs
-                .getAttribute("nameMappings",
-                        RequestAttributes.SCOPE_REQUEST);
+        Object nameMappingsObject = requestAttribs.getAttribute("nameMappings", RequestAttributes.SCOPE_REQUEST);
+        List<PropertyNameMapper> nameMappings = null;
+        if (nameMappingsObject != null) {
+            nameMappings = (List<PropertyNameMapper>) requestAttribs.getAttribute("nameMappings", RequestAttributes.SCOPE_REQUEST);
+        }
         return nameMappings;
     }
 

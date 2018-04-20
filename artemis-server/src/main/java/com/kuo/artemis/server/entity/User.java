@@ -1,12 +1,14 @@
 package com.kuo.artemis.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = {"modifiedTime"})
 public class User {
     private Integer id;
 

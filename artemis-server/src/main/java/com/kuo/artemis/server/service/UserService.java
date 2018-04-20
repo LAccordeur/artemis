@@ -23,4 +23,10 @@ public interface UserService {
     Response getUserById(String id);
 
     Response updateUserInfo(UserDTO user);
+
+    Response getAllUser();
+
+    Response acceptUser(String userId);
+
+    Response rejectUser(String userId);
 }

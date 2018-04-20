@@ -342,20 +342,22 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         //1.删除当前的角色权限关系
         if (roleId != null) {
             intRoleId = Integer.valueOf(roleId);
-            rolePermissionMapper.deleteByRoleId(intRoleId);
+            result = rolePermissionMapper.deleteByRoleId(intRoleId);
         } else {
             return new Response(null, HttpStatus.FORBIDDEN.value(), "缺少参数");
         }
 
         //2.插入新的权限关系
-        List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
-        for (Integer id : permissionIds) {
-            RolePermissionKey rolePermissionKey = new RolePermissionKey();
-            rolePermissionList.add(rolePermissionKey);
-            rolePermissionKey.setRoleId(intRoleId);
-            rolePermissionKey.setPermissionId(id);
+        if (permissionIds != null && permissionIds.size() > 0) {
+            List<RolePermissionKey> rolePermissionList = new ArrayList<RolePermissionKey>();
+            for (Integer id : permissionIds) {
+                RolePermissionKey rolePermissionKey = new RolePermissionKey();
+                rolePermissionList.add(rolePermissionKey);
+                rolePermissionKey.setRoleId(intRoleId);
+                rolePermissionKey.setPermissionId(id);
+            }
+            result = rolePermissionMapper.insertBatch(rolePermissionList);
         }
-        result = rolePermissionMapper.insertBatch(rolePermissionList);
 
         if (result > 0) {
             response.setData(null);

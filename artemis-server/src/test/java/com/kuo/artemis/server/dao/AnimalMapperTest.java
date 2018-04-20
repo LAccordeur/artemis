@@ -26,10 +26,15 @@ public class AnimalMapperTest {
         System.out.println(result);
     }
 
+    public static void main(String[] args) throws Exception {
+        AnimalMapperTest animalMapperTest = new AnimalMapperTest();
+        animalMapperTest.selectIdMap();
+    }
+
     @Resource
     private AnimalMapper animalMapper;
 
-    @Test
+    /*@Test
     public void insertBatch() throws Exception {
 
         List<Animal> animals = new ArrayList<Animal>();
@@ -39,6 +44,7 @@ public class AnimalMapperTest {
         animals.add(animal);
 
         animalMapper.insertBatch(animals);
-    }
+    }*/
 
 }
+

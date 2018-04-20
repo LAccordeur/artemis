@@ -2,6 +2,7 @@ package com.kuo.artemis.server.core.json;
 
 import com.kuo.artemis.server.entity.AnimalRecord;
 import com.kuo.artemis.server.util.common.StringUtil;
+import com.kuo.artemis.server.util.constant.FieldReverseFormatConst;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -23,8 +24,13 @@ public class CustomJsonDefaultParam {
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
             String fieldName = field.getName();
-            String jsonKey = StringUtil.camelToSpace(fieldName);
-            defaultNameMappings.put(fieldName, jsonKey);
+            if (FieldReverseFormatConst.map.containsKey(fieldName)) {
+                String jsonKey = FieldReverseFormatConst.map.get(fieldName);
+                defaultNameMappings.put(fieldName, jsonKey);
+            } else {
+                String jsonKey = StringUtil.camelToSpace(fieldName);
+                defaultNameMappings.put(fieldName, jsonKey);
+            }
         }
         PropertyNameMapper propertyNameMapper = new PropertyNameMapper(defaultClassToFilter, defaultNameMappings);
         defaultPropertyMapperList.add(propertyNameMapper);

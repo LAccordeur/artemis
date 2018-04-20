@@ -2,10 +2,13 @@ package com.kuo.artemis.server.controller;
 
 import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.dto.FileImportCommand;
+import com.kuo.artemis.server.core.dto.FileMetaData;
 import com.kuo.artemis.server.core.dto.Response;
 import com.kuo.artemis.server.core.dto.excel.DataImportCommand;
 import com.kuo.artemis.server.core.dto.excel.IndicatorExcelExportCommand;
+import com.kuo.artemis.server.core.exception.FileParseException;
 import com.kuo.artemis.server.core.helper.ExcelHelper;
+import com.kuo.artemis.server.core.helper.QCloudHelper;
 import com.kuo.artemis.server.service.*;
 import com.kuo.artemis.server.util.constant.DataTypeConst;
 import com.kuo.artemis.server.util.constant.PermissionConst;
@@ -76,6 +79,17 @@ public class FileController {
                 //nothing to do
             } else {
                 return new Response(HttpStatus.FORBIDDEN.value(), "文件类型错误");
+            }
+
+            try {
+                //将源文件上传到腾讯云备份
+                FileMetaData fileMetaData = new FileMetaData(file.getSize(), file.getContentType());
+                StringBuilder key = new StringBuilder();
+                key.append("/").append(projectId).append("/").append("records").append("/").append(filename.toString());
+                Boolean updateStatus = QCloudHelper.updateFile(file.getInputStream(), key.toString(), fileMetaData);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new FileParseException(e);
             }
 
             if ((DataTypeConst.INDICATOR).equals(type)) {

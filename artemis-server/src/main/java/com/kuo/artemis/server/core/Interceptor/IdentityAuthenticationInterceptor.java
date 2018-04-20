@@ -1,8 +1,7 @@
-package com.kuo.artemis.server.core.Interceptor;
+package com.kuo.artemis.server.core.interceptor;
 
 import com.kuo.artemis.server.dao.UserMapper;
 import com.kuo.artemis.server.entity.User;
-import com.kuo.artemis.server.util.common.PropertiesHandler;
 import com.kuo.artemis.server.util.common.PropsUtil;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
@@ -37,6 +36,7 @@ public class IdentityAuthenticationInterceptor extends HandlerInterceptorAdapter
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        logger.info("----------------------identity--------------------------");
 
         if (IS_OPEN_IDENTITY_AUTH_TOKEN) {
             User user = null;
@@ -50,7 +50,7 @@ public class IdentityAuthenticationInterceptor extends HandlerInterceptorAdapter
                 } else {
                     logger.info("------------未认证--------------");
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("code", HttpStatus.NOT_FOUND.value());
+                    jsonObject.put("code", HttpStatus.FORBIDDEN.value());
                     jsonObject.put("msg", "未认证");
                     output(jsonObject.toJSONString(), response);
                     return false;
@@ -66,6 +66,7 @@ public class IdentityAuthenticationInterceptor extends HandlerInterceptorAdapter
 
         }
 
+        logger.info("------------------------------------identity--------------------");
         return true;
     }
 

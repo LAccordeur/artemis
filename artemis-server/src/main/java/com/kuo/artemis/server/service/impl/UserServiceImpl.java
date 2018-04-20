@@ -63,6 +63,11 @@ public class UserServiceImpl implements UserService {
                 response.setData(null);
             } else {
                 //账号密码正确
+
+                //判断是否已认证
+                if (userResult.getStatus() != 1) {
+                    return new Response(HttpStatus.FORBIDDEN.value(), "账号未认证授权");
+                }
                 response.setCode(HttpStatus.OK.value());
                 response.setMsg("登录成功");
 
@@ -285,12 +290,15 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userMapper.selectByKeyword(keyword);
 
         if (StringUtils.isNumeric(keyword)) {
-            User user = userMapper.selectById(Integer.valueOf(keyword));
-            if (userList != null) {
-                userList.add(user);
-            } else {
-                userList = new ArrayList<User>();
-                userList.add(user);
+            User user;
+            if (keyword.length() < 9) { //id最大为10位
+                user = userMapper.selectById(Integer.valueOf(keyword));
+                if (userList != null) {
+                    userList.add(user);
+                } else {
+                    userList = new ArrayList<User>();
+                    userList.add(user);
+                }
             }
 
             user = userMapper.selectByPhone(keyword);
@@ -302,11 +310,54 @@ public class UserServiceImpl implements UserService {
             }
 
         }
-        userList.remove(null);
-        userList.remove(null);
-        userList.remove(null);
+        List nullList = new ArrayList();
+        nullList.add(null);
+        userList.removeAll(nullList);
+
 
         return new Response(userList, HttpStatus.OK.value(), "用户搜索列表");
+    }
+
+    public Response getAllUser() {
+        List<User> userList = userMapper.selectAllUsers();
+
+        return new Response(userList, HttpStatus.OK.value(), "user list");
+    }
+
+    public Response acceptUser(String userId) {
+        if (userId == null || "".equals(userId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+
+        User user = new User();
+        user.setStatus(Byte.valueOf("1"));
+        user.setId(Integer.valueOf(userId));
+
+        Integer result = userMapper.updateByPrimaryKeySelective(user);
+
+        if (result > 0) {
+            return new Response(HttpStatus.OK.value(), "更新成功");
+        } else {
+            return new Response(HttpStatus.NO_CONTENT.value(), "无此更新项");
+        }
+    }
+
+    public Response rejectUser(String userId) {
+        if (userId == null || "".equals(userId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+
+        User user = new User();
+        user.setStatus(Byte.valueOf("0"));
+        user.setId(Integer.valueOf(userId));
+
+        Integer result = userMapper.updateByPrimaryKeySelective(user);
+
+        if (result > 0) {
+            return new Response(HttpStatus.OK.value(), "更新成功");
+        } else {
+            return new Response(HttpStatus.NO_CONTENT.value(), "无此更新项");
+        }
     }
 
     private String getToken(User user) {

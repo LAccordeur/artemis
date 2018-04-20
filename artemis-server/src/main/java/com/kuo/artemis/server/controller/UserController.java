@@ -177,4 +177,22 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody()
+    public Response listAllUsers() {
+        return userService.getAllUser();
+    }
+
+    @RequestMapping(value = "/accept", method = RequestMethod.GET)
+    @ResponseBody()
+    public Response acceptUser(String userId) {
+        return userService.acceptUser(userId);
+    }
+
+    @RequestMapping(value = "/reject", method = RequestMethod.GET)
+    @ResponseBody()
+    public Response rejectUser(String userId) {
+        return userService.acceptUser(userId);
+    }
+
 }

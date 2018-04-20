@@ -1,17 +1,14 @@
-package com.kuo.artemis.server.core.Interceptor;
+package com.kuo.artemis.server.core.interceptor;
 
 import com.kuo.artemis.server.core.common.Authority;
 import com.kuo.artemis.server.core.common.AuthorityType;
 import com.kuo.artemis.server.core.jwt.JwtHelper;
 import com.kuo.artemis.server.dao.UserPermissionMapper;
-import com.kuo.artemis.server.entity.UserPermission;
-import com.kuo.artemis.server.util.common.PropertiesHandler;
 import com.kuo.artemis.server.util.common.PropsUtil;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -21,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,14 +57,14 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
                     String userId = request.getParameter(AUTH_PARAM_USER_ID);
                     String projectId = request.getParameter(AUTH_PARAM_PROJECT_ID);
 
-                    String token = request.getHeader("Authorization");
+                    /*String token = request.getHeader("Authorization");
                     Map<String, Object> map = JwtHelper.validToken(token);
                     String realUid = (String) map.get("uid");
                     if (realUid != null && realUid == userId) {
                         //do nothing
                     } else {
                         return false;
-                    }
+                    }*/
 
                     //2.从注解中获取需要验证的权限名id
                     String[] permissionIds = annotation.value();
@@ -85,7 +81,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
                         //没有权限
                         logger.info("------------权限不足--------------");
                         JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("code", HttpStatus.UNAUTHORIZED.value());
+                        jsonObject.put("code", HttpStatus.FORBIDDEN.value());
                         jsonObject.put("msg", "权限不足");
                         output(jsonObject.toJSONString(), response);
                         return false;

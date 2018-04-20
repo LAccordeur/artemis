@@ -6,6 +6,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface UserMapper {
+
+    List<User> selectAllUsers();
+
+    //int updateUserStatus(@Param("userId")Integer userId, @Param("status")Integer status);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);

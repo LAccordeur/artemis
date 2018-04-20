@@ -3411,7 +3411,7 @@
           modified_time = #{item.modifiedTime,jdbcType=TIMESTAMP},
         </if>
       </set>
-      where id = #{item.id,jdbcType=INTEGER}
+      where animal_id = #{item.animalId,jdbcType=VARCHAR}
     </foreach>
   </update>
 

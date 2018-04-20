@@ -17,6 +17,19 @@
   <sql id="Base_Column_List">
     id, user_name, user_gender, user_phone, user_email, university, user_identity, status
   </sql>
+
+  <select id="selectAllUsers" resultType="User">
+    select
+    <include refid="Base_Column_List" />
+    from user
+  </select>
+
+  <select id="updateUserStatus">
+    update user
+    set status = #{status}
+    where id = #{userId}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -163,6 +176,9 @@
       </if>
       <if test="userIdentity != null">
         user_identity = #{userIdentity,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},

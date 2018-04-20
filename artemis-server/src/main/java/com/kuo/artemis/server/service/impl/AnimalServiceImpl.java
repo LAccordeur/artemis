@@ -199,6 +199,7 @@ public class AnimalServiceImpl implements AnimalService {
             //完全随机化设计
             GroupDesignResult result = AnimalGroupHelper.groupByCRD(animalList, param, animalHouseList);
             if (result == null) {
+                animalMapper.deleteAnimalGroupDetailByProjectId(Integer.valueOf(projectId));
                 return new Response(HttpStatus.BAD_REQUEST.value(), "分组数据不足");
             }
             result.setParam(param);
@@ -212,6 +213,7 @@ public class AnimalServiceImpl implements AnimalService {
                 if (GenderOptionConst.GENDER_AS_A_BLOCKING_FACTOR.equals(genderOption)) {
                     GroupDesignResult result = AnimalGroupHelper.groupByRCBWithGenderAsBlockingFactor(animalList, param, animalHouseList);
                     if (result == null) {
+                        animalMapper.deleteAnimalGroupDetailByProjectId(Integer.valueOf(projectId));
                         return new Response(HttpStatus.BAD_REQUEST.value(), "分组数据不足");
                     }
                     result.setParam(param);
@@ -220,6 +222,7 @@ public class AnimalServiceImpl implements AnimalService {
                 } else if (GenderOptionConst.GENDER_BALANCED_PENS.equals(genderOption)) {
                     GroupDesignResult result = AnimalGroupHelper.groupByRCBWithGenderBalance(animalList, param, animalHouseList);
                     if (result == null) {
+                        animalMapper.deleteAnimalGroupDetailByProjectId(Integer.valueOf(projectId));
                         return new Response(HttpStatus.BAD_REQUEST.value(), "分组数据不足");
                     }
                     result.setParam(param);
@@ -228,6 +231,7 @@ public class AnimalServiceImpl implements AnimalService {
                 } else if (GenderOptionConst.DIFFERENT_GENDER_BALANCE_ACROSS_THE_REPLICATIONS.equals(genderOption)) {
                     GroupDesignResult result = AnimalGroupHelper.groupByRCBWithDifferentGenderBalances(animalList, param, animalHouseList);
                     if (result == null) {
+                        animalMapper.deleteAnimalGroupDetailByProjectId(Integer.valueOf(projectId));
                         return new Response(HttpStatus.BAD_REQUEST.value(), "分组数据不足");
                     }
                     result.setParam(param);
@@ -237,6 +241,7 @@ public class AnimalServiceImpl implements AnimalService {
             } else {
                 GroupDesignResult result = AnimalGroupHelper.groupByRCBWithoutGender(animalList, param, animalHouseList);
                 if (result == null) {
+                    animalMapper.deleteAnimalGroupDetailByProjectId(Integer.valueOf(projectId));
                     return new Response(HttpStatus.BAD_REQUEST.value(), "分组数据不足");
                 }
                 result.setParam(param);

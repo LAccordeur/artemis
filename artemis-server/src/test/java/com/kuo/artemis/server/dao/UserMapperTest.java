@@ -17,6 +17,22 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class UserMapperTest {
     @Test
+    public void selectAllUsers() throws Exception {
+        System.out.println(userMapper.selectAllUsers());
+    }
+
+    @Test
+    public void updateUserStatus() throws Exception {
+        User user = new User();
+        user.setId(9);
+        user.setStatus(Byte.valueOf("1"));
+        System.out.println(userMapper.updateByPrimaryKeySelective(user));
+        //System.out.println(userMapper.updateUserStatus(9,1));
+
+
+    }
+
+    @Test
     public void updateByPrimaryKeySelective() throws Exception {
         User user = new User();
         user.setId(1);
