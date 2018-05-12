@@ -24,7 +24,7 @@
   <select id="selectProjectsByUserId" resultType="UserProject">
     select project_name, project_id, project_admin_id, project_admin_name, project_intro, create_time
     from user_project_view
-    where user_id = #{userId}
+    where user_id = #{userId} and p_status = 1
     order by project_id desc
   </select>
 
@@ -61,7 +61,7 @@
   <select id="selectAdminProject" resultType="UserProject" >
     select project_name, project_id, project_admin_id, project_admin_name, create_time
     from user_project_view
-    where user_id = #{userId} and project_admin_id = #{userId}
+    where user_id = #{userId} and project_admin_id = #{userId} and p_status = 1
     order by project_id desc
   </select>
 

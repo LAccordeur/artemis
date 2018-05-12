@@ -13,4 +13,6 @@ public interface ProjectService {
 
     Response searchProject(String keyword);
 
+    Response deleteProject(String projectId);
+
 }

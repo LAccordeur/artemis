@@ -23,7 +23,7 @@ public class AnimalHouseController {
     @Inject
     private AnimalHouseService animalHouseService;
 
-    @Authority(value = PermissionConst.DATA_VIEW_HOUSE)
+    @Authority(value = PermissionConst.DATA_MANAGEMENT_HOUSE)
     @RequestMapping(value = "/programming", method = RequestMethod.POST)
     @ResponseBody
     public Response doAnimalHouseProgramming(@RequestBody RandomDistributionParam param, @RequestParam(value = "projectId", required = false) String projectId, @RequestParam(value = "userId", required = false) String userId) {

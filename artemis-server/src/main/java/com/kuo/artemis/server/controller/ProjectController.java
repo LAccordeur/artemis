@@ -103,7 +103,12 @@ public class ProjectController {
         return projectService.searchProject(keyword);
     }
 
-
+    @Authority(value = PermissionConst.PERMISSION_MANAGEMENT)
+    @RequestMapping(value = "/project/{projectId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Response deleteProject(@PathVariable String projectId) {
+        return projectService.deleteProject(projectId);
+    }
 
 
 

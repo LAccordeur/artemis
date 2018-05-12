@@ -5,6 +5,7 @@ import com.kuo.artemis.server.dao.*;
 import com.kuo.artemis.server.entity.*;
 import com.kuo.artemis.server.service.ProjectService;
 import org.apache.commons.lang3.StringUtils;
+import org.json.HTTP;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -145,6 +146,9 @@ public class ProjectServiceImpl implements ProjectService {
 
         Response response = new Response();
 
+        if (projectId == null || "".equals(projectId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
 
         Project data = projectMapper.selectByPrimaryKey(Integer.parseInt(projectId));
 
@@ -206,5 +210,20 @@ public class ProjectServiceImpl implements ProjectService {
         }
         projectList.remove(null);
         return new Response(projectList, HttpStatus.OK.value(), "课题搜索列表");
+    }
+
+
+    public Response deleteProject(String projectId) {
+        if (projectId == null || "".equals(projectId)) {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "参数不能为空");
+        }
+
+        int result = projectMapper.deleteByPrimaryKey(Integer.valueOf(projectId));
+
+        if (result > 0) {
+            return new Response(HttpStatus.OK.value(), "删除成功");
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST.value(), "删除失败");
+        }
     }
 }
