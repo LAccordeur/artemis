@@ -65,9 +65,9 @@ public class UserServiceImpl implements UserService {
                 //账号密码正确
 
                 //判断是否已认证
-                if (userResult.getStatus() != 1) {
+                /*if (userResult.getStatus() != 1) {
                     return new Response(HttpStatus.FORBIDDEN.value(), "账号未认证授权");
-                }
+                }*/
                 response.setCode(HttpStatus.OK.value());
                 response.setMsg("登录成功");
 

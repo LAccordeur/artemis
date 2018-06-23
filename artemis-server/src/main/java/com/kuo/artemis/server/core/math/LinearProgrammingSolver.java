@@ -7,9 +7,12 @@ import com.datumbox.framework.core.mathematics.linearprogramming.LPSolver;
 import com.kuo.artemis.server.core.factory.DecimalFormatFactory;
 import com.quantego.clp.CLP;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,6 +21,93 @@ import java.util.List;
  * @Date : Created on 2018/3/3
  */
 public class LinearProgrammingSolver {
+
+
+    private static Logger logger = LoggerFactory.getLogger(LinearProgrammingSolver.class);
+
+    public static void main(String[] args) {
+        List<Double> objectFunctionCoefficientList = new ArrayList<Double>(Arrays.asList(1800.0, 1900.0, 1900.0, 1820.0, 1900.0, 1300.0, 1500.0, 1000.0, 1700.0, 1800.0, 2100.0, 2200.0, 1700.0));
+
+        List<List<Double>> constraintFunctionCoefficientsList = new ArrayList<List<Double>>();
+        List<Double> constraintFunctionCoefficient1 = new ArrayList<Double>(Arrays.asList(14.0, 14.0, 14.0, 14.0, 14.0, 12.0, 13.0, 13.0, 12.0, 14.0, 13.0, 12.0, 13.5));
+        List<Double> constraintFunctionCoefficient2 = new ArrayList<Double>(Arrays.asList(12.0, 14.0, 14.0, 13.5, 15.0, 13.0, 14.0, 14.0, 13.0, 15.0, 13.0, 14.0, 14.5));
+        List<Double> constraintFunctionCoefficient3 = new ArrayList<Double>(Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+        List<Double> constraintFunctionCoefficient4 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient5 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient6 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient7 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient8 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient9 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient10 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient11 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient12 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient13 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient14 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient15 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient16 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient17 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient18 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient19 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient20 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient21 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient22 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient23 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient24 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient25 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient26 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient27 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient28 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient29 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient30 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient31 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient32 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient33 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient34 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient35 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient36 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient37 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient38 = new ArrayList<Double>();
+        List<Double> constraintFunctionCoefficient39 = new ArrayList<Double>();
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient1);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient2);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient3);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient4);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient5);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient6);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient7);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient8);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient9);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient10);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient11);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient12);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient13);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient14);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient15);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient16);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient17);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient18);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient19);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient20);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient21);
+        constraintFunctionCoefficientsList.add(constraintFunctionCoefficient22);
+
+        List<Double> constraintFunctionLeftValueBoundList = new ArrayList<Double>();
+        List<Double> constraintFunctionRightValueBoundList = new ArrayList<Double>();
+
+        List<Double> variableLeftBoundList = new ArrayList<Double>();
+        List<Double> variableRightBoundList = new ArrayList<Double>();
+
+    }
+
+    private static String doubleArrayToString(double[] doubles) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for (int i = 0; i < doubles.length; i++) {
+            stringBuilder.append(doubles[i] + ", ");
+        }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
 
     /**
      *
@@ -30,6 +120,20 @@ public class LinearProgrammingSolver {
      * @return
      */
     public static LinearProgrammingResult getMinimize(List<Double> objectFunctionCoefficientList, List<List<Double>> constraintFunctionCoefficientList, List<Double> constraintFunctionLeftValueBoundList, List<Double> constraintFunctionRightValueBoundList, List<Double> variableLeftBoundList, List<Double> variableRightBoundList) {
+
+
+        logger.debug("---------------------------------linear programming----------------------------------");
+        logger.info("object function coefficient: " + objectFunctionCoefficientList.toString() + " | size"  + objectFunctionCoefficientList.size());
+        logger.info("constrain function constraint function coefficients' size : " + constraintFunctionCoefficientList.size());
+        for (List list : constraintFunctionCoefficientList) {
+            logger.info("constrain function constraint function coefficient : " + list.toString()  + " | size"  + list.size());
+        }
+        logger.info("constraint function left value bound : " + constraintFunctionLeftValueBoundList.toString() + " | size"  + constraintFunctionLeftValueBoundList.size() );
+        logger.info("constraint function right value bound : " + constraintFunctionRightValueBoundList.toString() + " | size"  + constraintFunctionRightValueBoundList.size() );
+        logger.info("variable left bound : " + variableLeftBoundList.toString() + " | size"  + variableLeftBoundList.size());
+        logger.info("variable right bound : " + variableRightBoundList.toString() + " | size"  + variableRightBoundList.size());
+        logger.debug("-------------------------------------------------------------------------");
+
 
         //先对传入参数进行判断是否合法
         if (objectFunctionCoefficientList.size() == variableLeftBoundList.size() && objectFunctionCoefficientList.size() == variableRightBoundList.size()) {
@@ -52,6 +156,7 @@ public class LinearProgrammingSolver {
 
         //2.设置目标函数的系数
         double[] linearObjectiveFunction = listToArray(objectFunctionCoefficientList, null);
+
 
         //3.设置每个变量的范围
         for (int i = 0; i < variableSize; i++) {
@@ -76,6 +181,12 @@ public class LinearProgrammingSolver {
             linearConstraintsList.add(lpConstraintRight);
         }
 
+        //print log
+        logger.info("---------------------------------------------constraint--------------------------------------------------");
+        for (LPSolver.LPConstraint constraint : linearConstraintsList) {
+            logger.info("constraint: " + doubleArrayToString(constraint.getContraintBody()) + " | size: " + constraint.getContraintBody().length + " | value: " + constraint.getValue() + " | sign:" + constraint.getSign());
+        }
+        logger.info("---------------------------------------------------------------------------------------------------------");
 
         //5.求解
         LPSolver.LPResult lpResult = null;

@@ -15,6 +15,8 @@ import com.kuo.artemis.server.service.FormulationService;
 import com.kuo.artemis.server.util.ValidationUtil;
 import com.kuo.artemis.server.util.common.BeanUtil;
 import com.kuo.artemis.server.util.common.UUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,8 @@ import java.util.Map;
  */
 @Service
 public class FormulationServiceImpl implements FormulationService {
+
+    private static Logger logger = LoggerFactory.getLogger(FormulationServiceImpl.class);
 
     @Inject
     private FormulationMapper formulationMapper;
@@ -224,12 +228,17 @@ public class FormulationServiceImpl implements FormulationService {
         } else {
             fields = NutritionStandard.class.getDeclaredFields();
         }
+
+        logger.info("---------------------------------------fields------------------------------------------");
+        logger.debug("nutririon standard seq: " + fieldArrayToString(fields));
+        logger.info("----------------------------------------------------------------------------------------");
+
         //约束函数的系数
         List<List<Double>> constraintLists = new ArrayList<List<Double>>();
         getConstraintLists(materialList, fields, constraintLists);
 
         //4.执行规划
-        LinearProgrammingResult result = LinearProgrammingSolver.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
+        LinearProgrammingResult result = NewLinearProgramming.getMinimize(objectFunctionCoefficient, constraintLists, nutritionStandardLeftBoundList, nutritionStandardRightBoundList, materialLeftBoundList, materialRightBoundList);
         if (result == null) {
             return new Response(HttpStatus.BAD_REQUEST.value(), "线性规划参数不全");
         }
@@ -254,6 +263,21 @@ public class FormulationServiceImpl implements FormulationService {
         return new Response(formulationResult, HttpStatus.OK.value(), "配方规划结果");
     }
 
+    private static String fieldArrayToString(Field[] fields) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for (int i = 0; i < fields.length; i++) {
+            stringBuilder.append(fields[i].getName() + ", ");
+        }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+   /* public static void main(String[] args) {
+        Field[] fields = NutritionStandard.class.getDeclaredFields();
+        System.out.println(fieldArrayToString(fields));
+    }
+*/
     private void getConstraintLists(List<Material> materialList, Field[] fields, List<List<Double>> constraintLists) {
         for (int i = 0; i < fields.length; i++) {
 

@@ -5,6 +5,7 @@ import com.quantego.clp.CLP;
 import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.SimpleBounds;
 import org.apache.commons.math3.optim.linear.*;
+import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -83,11 +84,11 @@ public class NewLinearProgramming {
 
 
         //5.求解线性规划
-        SimplexSolver simplexSolver = new SimplexSolver(0.01, 10, 0.0001);
+        SimplexSolver simplexSolver = new SimplexSolver(0.00001);
         PointValuePair pointValuePair = null;
         SolutionCallback solutionCallback = new SolutionCallback();
         try {
-            pointValuePair = simplexSolver.optimize(linearObjectiveFunction, linearConstraintSet, solutionCallback, new NonNegativeConstraint(true));
+            pointValuePair = simplexSolver.optimize(linearObjectiveFunction, linearConstraintSet, GoalType.MINIMIZE, solutionCallback, new NonNegativeConstraint(true));
 
         } catch (Exception e) {
             e.printStackTrace();
